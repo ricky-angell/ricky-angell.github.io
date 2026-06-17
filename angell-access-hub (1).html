@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Access Code | ANGELL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0a1f29;
+    --panel:#112935;
+    --halo:#c4974a;
+    --halo-dim:#8a6c35;
+    --starlight:#faf7f2;
+    --text-dim:#9fb0bb;
+    --line:rgba(196,151,74,0.25);
+    --good:#4fae82;
+    --serif:'Oswald','Arial Narrow',sans-serif;
+    --sans:'Inter','Segoe UI',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:var(--sans);background:var(--void);color:var(--starlight);
+    min-height:100vh;display:flex;align-items:center;justify-content:center;
+    padding:30px 18px;line-height:1.6;
+  }
+  .card{
+    max-width:440px;width:100%;background:var(--panel);border:1px solid var(--line);
+    border-radius:16px;padding:42px 32px 36px;text-align:center;
+  }
+  h1{
+    font-family:var(--serif);text-transform:uppercase;font-size:1.7rem;font-weight:700;
+    color:var(--starlight);margin:18px 0 10px;letter-spacing:0.01em;
+  }
+  p.lede{color:var(--text-dim);font-size:0.95rem;margin-bottom:26px;}
+  .code-box{border:1.5px solid var(--halo);border-radius:10px;padding:18px 14px;margin-bottom:24px;background:var(--void);}
+  .code-box .label{font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px;}
+  .code-box .code{font-family:'JetBrains Mono','Courier New',monospace;font-size:1.4rem;font-weight:700;color:var(--halo);letter-spacing:0.05em;}
+  .btn{display:inline-block;width:100%;padding:16px 18px;border-radius:9px;background:var(--halo);color:var(--void);font-family:var(--serif);font-weight:700;font-size:0.95rem;letter-spacing:0.04em;text-transform:uppercase;text-decoration:none;}
+  .hint{font-size:0.8rem;color:var(--text-dim);margin-top:14px;}
+  .recap{text-align:left;margin-top:28px;border-top:1px solid var(--line);padding-top:22px;}
+  .recap .label{font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--halo);margin-bottom:12px;text-align:center;}
+  .recap ul{list-style:none;}
+  .recap li{font-size:0.88rem;color:#e3e0d8;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+  .recap li:last-child{border-bottom:none;}
+  .recap li::before{content:'✓ ';color:var(--good);font-weight:700;}
+  .support{margin-top:22px;font-size:0.8rem;color:var(--text-dim);}
+  .support a{color:var(--halo);text-decoration:underline;}
+  .logo{margin:0 auto 4px;}
+  .error{display:none;}
+</style>
+</head>
+<body>
+<div class="card" id="card">
+  <svg class="logo" width="56" height="56" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="92" stroke="#c4974a" stroke-width="6"/>
+    <circle cx="100" cy="100" r="71" stroke="#c4974a" stroke-width="2" opacity="0.4"/>
+    <polygon points="100,8 113,84 192,100 113,116 100,192 87,116 8,100 87,84" fill="#faf7f2"/>
+    <polygon points="100,84 116,100 100,116 84,100" fill="#c4974a"/>
+  </svg>
+
+  <div id="found">
+    <h1 id="out-title">You're In</h1>
+    <p class="lede" id="out-lede">Thanks for your purchase. Here's your access code — enter it at the lock screen to unlock everything.</p>
+    <div class="code-box">
+      <div class="label">Your Access Code</div>
+      <div class="code" id="out-code">—</div>
+    </div>
+    <a class="btn" id="out-link" href="#" target="_blank">Start The Course</a>
+    <p class="hint">Bookmark this page — you can come back anytime to grab your code again.</p>
+    <div class="recap">
+      <div class="label">What's Inside</div>
+      <ul id="out-bullets"></ul>
+    </div>
+  </div>
+
+  <div id="missing" style="display:none;">
+    <h1>We Couldn't Find That</h1>
+    <p class="lede">This link looks like it's missing its product reference. Reach out through the store and we'll get your access sorted manually.</p>
+    <a class="btn" href="https://beacons.ai/earningera1.0" target="_blank">Go To Store</a>
+  </div>
+
+  <p class="support">Code not working or lost this page? Message us through your <a href="https://beacons.ai/earningera1.0" target="_blank">Beacons store page</a>.</p>
+</div>
+
+<script>
+  // ===== ANGELL PRODUCT DELIVERY TABLE =====
+  // Add one entry here per course/product. Then link to this page as:
+  //   https://ricky-angell.github.io/access.html?course=SLUG
+  // No new page needed — ever. Just add a row below.
+  const PRODUCTS = {
+    fixflip: {
+      title: "Fix &amp; Flip Mastery",
+      code: "ANGELL-FLIP-2026",
+      url: "https://ricky-angell.github.io/fixflip",
+      bullets: [
+        "9 modules, 27 lessons — start to finish",
+        "The full Flip Formula &amp; margin-of-safety calculators",
+        "2 real case studies with full numbers",
+        "Lifetime access — revisit any lesson, any time"
+      ]
+    },
+    airbnb: {
+      title: "Airbnb Arbitrage Blueprint",
+      code: "ANGELL-BNB-2026",
+      url: "https://ricky-angell.github.io/airbnb",
+      bullets: [
+        "Full interactive course, start to finish",
+        "Lifetime access — revisit any lesson, any time"
+      ]
+    },
+    medicalcourier: {
+      title: "Medical Courier",
+      code: "ANGELL-COURIER-2026",
+      url: "https://ricky-angell.github.io/medicalcourier",
+      bullets: [
+        "Full interactive course, start to finish",
+        "Lifetime access — revisit any lesson, any time"
+      ]
+    },
+    wholesale: {
+      title: "Wholesale Real Estate: The No-License Blueprint",
+      code: "ANGELL-WHOLESALE-2026",
+      url: "https://ricky-angell.github.io/Wholesaling",
+      bullets: [
+        "9 modules, 27 lessons — start to finish",
+        "8 scripts, contracts &amp; templates included",
+        "Lifetime access — revisit any lesson, any time"
+      ]
+    }
+    // Next course? Add it here, e.g.:
+    // newcourse: { title: "...", code: "ANGELL-XXXX-2026", url: "https://ricky-angell.github.io/...", bullets: ["…"] }
+  };
+
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get('course');
+  const product = slug ? PRODUCTS[slug] : null;
+
+  if(product){
+    document.getElementById('out-title').textContent = "You're In";
+    document.getElementById('out-lede').innerHTML = `Thanks for grabbing <strong>${product.title}</strong>. Here's your access code — enter it at the lock screen to unlock every module.`;
+    document.getElementById('out-code').textContent = product.code;
+    document.getElementById('out-link').href = product.url;
+    document.getElementById('out-bullets').innerHTML = product.bullets.map(b => `<li>${b}</li>`).join('');
+  } else {
+    document.getElementById('found').style.display = 'none';
+    document.getElementById('missing').style.display = 'block';
+  }
+</script>
+</body>
+</html>
