@@ -11,133 +11,196 @@
 <style>
   :root{
     --cream:#FAF7F2; --paper:#FFFFFF; --ink:#192A2D; --ink-soft:#4A5F62;
-    --teal:#1A5C6B; --teal-deep:#0F3A44; --gold:#C4974A; --gold-soft:#E8D2A4;
-    --line:rgba(26,92,107,.14); --shadow:0 2px 4px rgba(15,58,68,.08), 0 18px 50px rgba(15,58,68,.13);
+    --teal:#1A5C6B; --teal-deep:#0F3A44; --teal-night:#081E26; --gold:#C4974A; --gold-soft:#E8D2A4;
+    --line:rgba(26,92,107,.14); --line-dark:rgba(232,210,164,.16);
+    --shadow:0 2px 4px rgba(15,58,68,.08), 0 18px 50px rgba(15,58,68,.13);
+    --shadow-lg:0 20px 60px rgba(8,30,38,.45);
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;}
-  body{font-family:'Inter',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;}
-  .wrap{max-width:920px;margin:0 auto;padding:0 22px;}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  .wrap{max-width:1020px;margin:0 auto;padding:0 24px;}
   a{color:var(--teal);}
   h1,h2,h3{font-family:'Bricolage Grotesque',sans-serif;letter-spacing:-0.01em;color:var(--ink);}
-  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:600;}
-  .mono{font-family:'JetBrains Mono',monospace;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:600;}
+  em{font-style:italic;color:var(--gold);font-family:'Bricolage Grotesque',sans-serif;}
 
-  nav{display:flex;align-items:center;gap:10px;padding:22px 0;}
-  nav .brand{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;letter-spacing:.06em;font-size:1.1rem;color:var(--teal-deep);}
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none!important;transition:none!important;}
+  }
 
-  .hero{padding:30px 0 46px;text-align:center;}
-  .hero .eyebrow{display:block;margin-bottom:14px;}
-  .hero h1{font-size:2.5rem;font-weight:800;line-height:1.08;margin-bottom:16px;}
-  .hero h1 span{color:var(--teal);}
-  .hero .sub{max-width:560px;margin:0 auto 30px;color:var(--ink-soft);font-size:1.05rem;}
-  .price-block{display:inline-flex;flex-direction:column;align-items:center;gap:16px;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:26px 34px;box-shadow:var(--shadow);}
-  .price-row{display:flex;align-items:baseline;gap:12px;}
-  .price-old{font-family:'JetBrains Mono',monospace;font-size:1.1rem;color:var(--ink-soft);text-decoration:line-through;}
-  .price-new{font-family:'Bricolage Grotesque',sans-serif;font-size:2.6rem;font-weight:800;color:var(--teal-deep);}
-  .price-note{font-size:.82rem;color:var(--ink-soft);}
-  .btn{display:inline-block;padding:16px 30px;border-radius:10px;background:var(--gold);color:var(--teal-deep);font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1rem;text-decoration:none;letter-spacing:.01em;transition:transform .15s ease;}
-  .btn:hover{transform:translateY(-1px);}
-  .hint-small{font-size:.78rem;color:var(--ink-soft);margin-top:4px;}
+  /* scroll reveal */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1);}
+  .reveal.in{opacity:1;transform:translateY(0);}
 
-  section{padding:54px 0;}
-  section.alt{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
-  .section-head{text-align:center;max-width:600px;margin:0 auto 36px;}
-  .section-head h2{font-size:1.7rem;font-weight:700;margin-bottom:10px;}
+  /* NAV */
+  nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0;position:relative;z-index:5;}
+  nav .brand{display:flex;align-items:center;gap:10px;}
+  nav .brand span{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;letter-spacing:.06em;font-size:1.1rem;color:var(--cream);}
+  nav .navcta{font-family:'JetBrains Mono',monospace;font-size:.74rem;color:var(--gold-soft);border:1px solid var(--line-dark);padding:7px 14px;border-radius:30px;text-decoration:none;letter-spacing:.04em;}
+
+  /* HERO */
+  .hero{position:relative;background:radial-gradient(120% 140% at 15% -10%, #143F4B 0%, var(--teal-deep) 45%, var(--teal-night) 100%);color:var(--cream);padding-bottom:80px;overflow:hidden;}
+  .hero-compass{position:absolute;top:-220px;right:-260px;width:760px;height:760px;opacity:.10;animation:spin 140s linear infinite;pointer-events:none;}
+  @keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding-top:34px;position:relative;z-index:2;}
+  @media (max-width:860px){.hero-grid{grid-template-columns:1fr;}}
+  .hero h1{font-size:clamp(2.5rem,5.6vw,4rem);font-weight:800;line-height:1.02;color:var(--cream);margin-bottom:18px;}
+  .hero .sub{max-width:480px;color:#C9DBD8;font-size:1.05rem;margin-bottom:30px;}
+  .price-row{display:flex;align-items:baseline;gap:14px;margin-bottom:6px;}
+  .price-old{font-family:'JetBrains Mono',monospace;font-size:1.15rem;color:#7E9CA0;text-decoration:line-through;}
+  .price-new{font-family:'Bricolage Grotesque',sans-serif;font-size:3.1rem;font-weight:800;color:var(--gold-soft);}
+  .price-note{font-size:.84rem;color:#9FBAB8;margin-bottom:22px;}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:17px 32px;border-radius:10px;background:var(--gold);color:var(--teal-night);font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.02rem;text-decoration:none;letter-spacing:.01em;box-shadow:0 14px 30px rgba(196,151,74,.28);transition:transform .18s ease, box-shadow .18s ease;}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 18px 38px rgba(196,151,74,.38);}
+  .hint-small{font-size:.78rem;color:#8FACA9;margin-top:10px;}
+
+  .poster-wrap{position:relative;display:flex;justify-content:center;}
+  .poster{width:100%;max-width:420px;border-radius:14px;transform:rotate(2.5deg);box-shadow:var(--shadow-lg);border:6px solid var(--paper);}
+  .poster-badge{position:absolute;bottom:-16px;left:-10px;background:var(--gold);color:var(--teal-night);font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:.82rem;padding:10px 16px;border-radius:50px;transform:rotate(-6deg);box-shadow:0 10px 22px rgba(0,0,0,.25);}
+  @media (max-width:860px){.poster{max-width:320px;}}
+
+  /* SECTION generic */
+  section{padding:70px 0;position:relative;}
+  .section-head{max-width:600px;margin:0 0 38px;}
+  .section-head.center{margin:0 auto 38px;text-align:center;}
+  .section-head h2{font-size:clamp(1.7rem,3vw,2.1rem);font-weight:700;margin:8px 0 10px;}
   .section-head p{color:var(--ink-soft);}
+  .on-dark h2{color:var(--cream);}
+  .on-dark p{color:#B9D0CD;}
+  .on-dark .eyebrow{color:var(--gold-soft);}
 
-  .courses{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  /* COURSE CARDS */
+  .courses{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
   @media (max-width:760px){.courses{grid-template-columns:1fr;}}
-  .course-card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:12px;}
-  .course-card .num{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--gold);letter-spacing:.1em;}
-  .course-card h3{font-size:1.18rem;font-weight:700;line-height:1.25;}
-  .course-card .meta{font-size:.78rem;color:var(--teal);font-weight:600;}
+  .course-card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:26px;display:flex;flex-direction:column;gap:13px;transition:transform .25s ease, box-shadow .25s ease;}
+  .course-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
+  .course-icon{width:42px;height:42px;border-radius:10px;background:var(--teal-deep);display:flex;align-items:center;justify-content:center;}
+  .course-card h3{font-size:1.16rem;font-weight:700;line-height:1.25;}
+  .course-card .meta{font-size:.78rem;color:var(--teal);font-weight:600;font-family:'JetBrains Mono',monospace;}
   .course-card p{font-size:.88rem;color:var(--ink-soft);}
-  .course-card ul{list-style:none;font-size:.86rem;color:var(--ink);margin-top:4px;}
-  .course-card ul li{padding:5px 0;border-top:1px solid var(--line);}
+  .course-card ul{list-style:none;font-size:.86rem;color:var(--ink);margin-top:2px;}
+  .course-card ul li{padding:6px 0;border-top:1px solid var(--line);}
   .course-card ul li:first-child{border-top:none;}
   .course-card ul li::before{content:'✦ ';color:var(--gold);}
 
-  .paths{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  /* WHO STARTS WHERE — stepped diagonal banner */
+  .paths{display:grid;grid-template-columns:repeat(3,1fr);}
   @media (max-width:760px){.paths{grid-template-columns:1fr;}}
-  .path{background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:20px;}
-  .path .tag{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;display:block;}
-  .path h4{font-size:1rem;margin-bottom:6px;}
-  .path p{font-size:.86rem;color:var(--ink-soft);}
+  .path{padding:30px 26px;position:relative;}
+  .path:nth-child(1){background:var(--cream);}
+  .path:nth-child(2){background:#F0EAE0;}
+  .path:nth-child(3){background:var(--gold-soft);}
+  .path .tag{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-deep);margin-bottom:10px;display:block;opacity:.7;}
+  .path h4{font-size:1.12rem;margin-bottom:8px;}
+  .path p{font-size:.88rem;color:var(--ink-soft);}
 
-  .bonuses{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
-  @media (max-width:760px){.bonuses{grid-template-columns:1fr;}}
-  .bonus-card{background:var(--teal-deep);border-radius:14px;padding:24px;color:var(--cream);}
-  .bonus-card .badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;background:rgba(232,210,164,.15);color:var(--gold-soft);padding:4px 10px;border-radius:20px;margin-bottom:12px;}
-  .bonus-card h3{color:var(--cream);font-size:1.05rem;margin-bottom:8px;}
-  .bonus-card p{font-size:.86rem;color:#cfded9;}
+  /* BONUSES (dark, interactive) */
+  .bonuses-section{background:var(--teal-night);}
+  .calc-frame{background:#0D2730;border-radius:16px;border:1px solid var(--line-dark);box-shadow:var(--shadow-lg);overflow:hidden;margin-bottom:26px;}
+  .calc-chrome{display:flex;align-items:center;gap:8px;padding:13px 16px;background:#0A1F27;border-bottom:1px solid var(--line-dark);}
+  .calc-chrome .dot{width:9px;height:9px;border-radius:50%;}
+  .calc-chrome .label{margin-left:8px;font-family:'JetBrains Mono',monospace;font-size:.74rem;color:#7FA09D;}
+  .calc-frame iframe{display:block;width:100%;height:620px;border:none;background:#FAF7F2;transition:height .25s ease;}
+  .try-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;background:rgba(232,210,164,.14);color:var(--gold-soft);padding:5px 12px;border-radius:20px;margin-bottom:14px;}
 
-  .stack{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:8px 28px;box-shadow:var(--shadow);}
-  .stack-row{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line);}
+  .bonus-row-2{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+  @media (max-width:760px){.bonus-row-2{grid-template-columns:1fr;}}
+  .bonus-card{background:#0D2730;border:1px solid var(--line-dark);border-radius:14px;padding:24px;display:flex;gap:18px;align-items:flex-start;}
+  .bonus-card h3{color:var(--cream);font-size:1.02rem;margin-bottom:6px;}
+  .bonus-card p{font-size:.85rem;color:#A9C5C1;margin-bottom:10px;}
+  .bonus-card a{font-size:.84rem;color:var(--gold-soft);font-weight:600;text-decoration:none;}
+  .worksheet-thumb{width:96px;flex:0 0 auto;border-radius:6px;overflow:hidden;border:1px solid var(--line-dark);transform:rotate(-2deg);box-shadow:0 10px 20px rgba(0,0,0,.3);}
+  .worksheet-thumb img{display:block;width:100%;}
+  .vault-icon{width:96px;height:96px;flex:0 0 auto;border-radius:10px;background:var(--teal-deep);display:flex;align-items:center;justify-content:center;}
+
+  /* VALUE STACK */
+  .stack{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:10px 30px;box-shadow:var(--shadow);position:relative;}
+  .stack-ribbon{position:absolute;top:-14px;right:26px;background:var(--gold);color:var(--teal-night);font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:.76rem;padding:8px 16px;border-radius:30px;letter-spacing:.03em;box-shadow:0 8px 18px rgba(196,151,74,.3);}
+  .stack-row{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--line);}
   .stack-row:last-child{border-bottom:none;}
-  .stack-row .item{font-size:.95rem;}
+  .stack-row .item{font-size:.96rem;}
   .stack-row .item .small{display:block;font-size:.76rem;color:var(--ink-soft);margin-top:2px;}
   .stack-row .price{font-family:'JetBrains Mono',monospace;font-weight:600;}
   .stack-row .price.strike{color:var(--ink-soft);text-decoration:line-through;font-weight:500;}
   .stack-total{display:flex;justify-content:space-between;align-items:center;padding:20px 0 6px;}
   .stack-total .label{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.1rem;}
-  .stack-total .price{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.8rem;color:var(--teal-deep);}
-  .savings-banner{margin-top:18px;text-align:center;background:var(--gold-soft);color:var(--teal-deep);font-weight:700;font-family:'Bricolage Grotesque',sans-serif;border-radius:10px;padding:12px;font-size:.95rem;}
+  .stack-total .price{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.9rem;color:var(--teal-deep);}
+  .savings-banner{margin-top:20px;text-align:center;background:var(--teal-deep);color:var(--gold-soft);font-weight:700;font-family:'Bricolage Grotesque',sans-serif;border-radius:10px;padding:14px;font-size:.95rem;}
 
-  .faq-item{border-bottom:1px solid var(--line);padding:18px 0;}
+  /* FAQ */
+  .faq-item{border-bottom:1px solid var(--line);padding:19px 0;}
   .faq-item h4{font-size:.98rem;margin-bottom:6px;}
   .faq-item p{font-size:.88rem;color:var(--ink-soft);}
 
-  .final-cta{text-align:center;padding:60px 0 70px;}
-  .final-cta h2{font-size:1.9rem;margin-bottom:14px;}
-  .final-cta p{color:var(--ink-soft);margin-bottom:26px;}
+  /* FINAL CTA */
+  .final-cta{background:radial-gradient(120% 160% at 85% 110%, #143F4B 0%, var(--teal-night) 60%);text-align:center;padding:80px 0;color:var(--cream);}
+  .final-cta h2{color:var(--cream);font-size:clamp(1.8rem,4vw,2.4rem);margin-bottom:14px;}
+  .final-cta p{color:#B9D0CD;margin-bottom:28px;}
 
-  footer{text-align:center;padding:30px 0 50px;font-size:.78rem;color:var(--ink-soft);}
-  footer a{color:var(--gold);text-decoration:none;}
+  footer{background:var(--teal-night);text-align:center;padding:34px 0 46px;font-size:.78rem;color:#7FA09D;}
+  footer a{color:var(--gold-soft);text-decoration:none;}
 </style>
 </head>
 <body>
 
-<div class="wrap">
-  <nav>
-    <svg width="30" height="30" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="100" cy="100" r="92" stroke="#c4974a" stroke-width="6"/>
-      <circle cx="100" cy="100" r="71" stroke="#c4974a" stroke-width="2" opacity="0.4"/>
-      <polygon points="100,8 113,84 192,100 113,116 100,192 87,116 8,100 87,84" fill="#0F3A44"/>
-      <polygon points="100,84 116,100 100,116 84,100" fill="#c4974a"/>
-    </svg>
-    <span class="brand">ANGELL</span>
-  </nav>
-</div>
+<div class="hero">
+  <svg class="hero-compass" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="92" stroke="#E8D2A4" stroke-width="1.4" fill="none"/>
+    <circle cx="100" cy="100" r="71" stroke="#E8D2A4" stroke-width="0.8" fill="none"/>
+    <polygon points="100,8 113,84 192,100 113,116 100,192 87,116 8,100 87,84" fill="none" stroke="#E8D2A4" stroke-width="1.2"/>
+  </svg>
 
-<div class="wrap hero">
-  <span class="eyebrow">Angell Real Estate Academy · Complete Investor Bundle</span>
-  <h1>Three Ways In.<br><span>One Price.</span></h1>
-  <p class="sub">Wholesale a house with no license, flip your first property, or run an Airbnb without owning real estate — three complete courses, two bonus tools, and one all-in price.</p>
+  <div class="wrap">
+    <nav>
+      <div class="brand">
+        <svg width="30" height="30" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="100" r="92" stroke="#c4974a" stroke-width="6"/>
+          <circle cx="100" cy="100" r="71" stroke="#c4974a" stroke-width="2" opacity="0.4"/>
+          <polygon points="100,8 113,84 192,100 113,116 100,192 87,116 8,100 87,84" fill="#FAF7F2"/>
+          <polygon points="100,84 116,100 100,116 84,100" fill="#c4974a"/>
+        </svg>
+        <span>ANGELL</span>
+      </div>
+      <a class="navcta" href="https://beacons.ai/earningera1.0" target="_blank">Get The Bundle →</a>
+    </nav>
 
-  <div class="price-block">
-    <div class="price-row">
-      <span class="price-old">$291</span>
-      <span class="price-new">$57</span>
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">Angell Real Estate Academy · Complete Investor Bundle</span>
+        <h1>Three ways in.<br><em>One</em> price.</h1>
+        <p class="sub">Wholesale a house with no license, flip your first property, or run an Airbnb without owning real estate — three complete courses, two bonus tools you can try right now, and one all-in price.</p>
+        <div class="price-row">
+          <span class="price-old">$291</span>
+          <span class="price-new">$57</span>
+        </div>
+        <div class="price-note">One-time payment · lifetime access to all 3 courses + bonuses</div>
+        <a class="btn" href="https://beacons.ai/earningera1.0" target="_blank">Get The Bundle — $57</a>
+        <div class="hint-small">Checkout via Beacons · access codes delivered instantly</div>
+      </div>
+      <div class="poster-wrap">
+        <img class="poster" src="bonuses/promo-poster.jpg" alt="The Complete Real Estate Freedom Bundle">
+        <span class="poster-badge">3-IN-1 · NO LICENSE NEEDED</span>
+      </div>
     </div>
-    <div class="price-note">One-time payment · lifetime access to all 3 courses + bonuses</div>
-    <a class="btn" href="https://beacons.ai/earningera1.0" target="_blank">Get The Bundle — $57</a>
-    <div class="hint-small">Checkout via Beacons · access codes delivered instantly</div>
   </div>
 </div>
 
-<section class="alt">
+<section>
   <div class="wrap">
-    <div class="section-head">
-      <h2>What's Inside</h2>
-      <p>Three full interactive courses. No license, no landlord experience, and no large bankroll required to start any of them.</p>
+    <div class="section-head center reveal">
+      <span class="eyebrow">What's Inside</span>
+      <h2>Three full interactive courses.</h2>
+      <p>No license, no landlord experience, and no large bankroll required to start any of them.</p>
     </div>
     <div class="courses">
 
-      <div class="course-card">
-        <span class="num">COURSE 01</span>
+      <div class="course-card reveal">
+        <div class="course-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M14 7a4 4 0 1 0-3.46 5.97L4 19.43V21h1.57l6.46-6.54A4 4 0 0 0 14 7Z" stroke="#E8D2A4" stroke-width="1.6" stroke-linejoin="round"/><circle cx="10" cy="7" r="1.4" fill="#E8D2A4"/></svg>
+        </div>
         <h3>Wholesale Real Estate: The No-License Blueprint</h3>
-        <span class="meta">9 modules · 27 lessons</span>
+        <span class="meta">9 MODULES · 27 LESSONS</span>
         <p>Find discounted properties, get them under contract, and assign that contract for a fee — without ever owning the property or holding a real estate license.</p>
         <ul>
           <li>Maximum Allowable Offer formula</li>
@@ -146,10 +209,12 @@
         </ul>
       </div>
 
-      <div class="course-card">
-        <span class="num">COURSE 02</span>
+      <div class="course-card reveal">
+        <div class="course-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 21h18M5 21V10l7-6 7 6v11M9 21v-6h6v6" stroke="#E8D2A4" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </div>
         <h3>Fix &amp; Flip Mastery</h3>
-        <span class="meta">9 modules · 27 lessons</span>
+        <span class="meta">9 MODULES · 27 LESSONS</span>
         <p>Buy below market, renovate with a plan, and resell near ARV. The full Flip Formula with margin-of-safety built into every offer.</p>
         <ul>
           <li>ARV &amp; repair-cost estimating</li>
@@ -158,10 +223,12 @@
         </ul>
       </div>
 
-      <div class="course-card">
-        <span class="num">COURSE 03</span>
+      <div class="course-card reveal">
+        <div class="course-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 10v9h16v-9M2 10l10-7 10 7M9 19v-5h6v5" stroke="#E8D2A4" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </div>
         <h3>The Rental Arbitrage Business System</h3>
-        <span class="meta">10 modules · zero to your first unit</span>
+        <span class="meta">10 MODULES · ZERO TO YOUR FIRST UNIT</span>
         <p>Lease a property, furnish it, and sublet it short-term on Airbnb — cash flow from real estate without buying any.</p>
         <ul>
           <li>Landlord pitch &amp; lease negotiation</li>
@@ -174,53 +241,70 @@
   </div>
 </section>
 
-<section>
-  <div class="wrap">
-    <div class="section-head">
-      <h2>Which One Do You Start With?</h2>
-      <p>You don't have to pick just one — that's the point of the bundle. But if you want a starting lane:</p>
+<section style="padding:0;">
+  <div class="section-head center reveal" style="padding-top:50px;">
+    <span class="eyebrow">Which One Do You Start With?</span>
+    <h2>You don't have to pick just one.</h2>
+    <p>That's the point of the bundle. But if you want a starting lane:</p>
+  </div>
+  <div class="paths reveal">
+    <div class="path">
+      <span class="tag">Little to no cash</span>
+      <h4>Start with Wholesale</h4>
+      <p>No license, no purchase, no renovation budget. You're getting paid to find deals and connect them to buyers.</p>
     </div>
-    <div class="paths">
-      <div class="path">
-        <span class="tag">Little to no cash</span>
-        <h4>Start with Wholesale</h4>
-        <p>No license, no purchase, no renovation budget. You're getting paid to find deals and connect them to buyers.</p>
-      </div>
-      <div class="path">
-        <span class="tag">Some capital, hands-on</span>
-        <h4>Start with Fix &amp; Flip</h4>
-        <p>You can fund or finance a purchase and want a bigger single payday in exchange for managing a renovation.</p>
-      </div>
-      <div class="path">
-        <span class="tag">Want monthly income</span>
-        <h4>Start with Airbnb Arbitrage</h4>
-        <p>You'd rather build recurring cash flow than chase one-time paydays — and you don't want to own property to do it.</p>
-      </div>
+    <div class="path">
+      <span class="tag">Some capital, hands-on</span>
+      <h4>Start with Fix &amp; Flip</h4>
+      <p>You can fund or finance a purchase and want a bigger single payday in exchange for managing a renovation.</p>
+    </div>
+    <div class="path">
+      <span class="tag">Want monthly income</span>
+      <h4>Start with Airbnb Arbitrage</h4>
+      <p>You'd rather build recurring cash flow than chase one-time paydays — and you don't want to own property to do it.</p>
     </div>
   </div>
 </section>
 
-<section class="alt">
+<section class="bonuses-section on-dark">
   <div class="wrap">
-    <div class="section-head">
-      <h2>Bundle-Only Bonuses</h2>
+    <div class="section-head reveal">
+      <span class="eyebrow">Bundle-Only Bonuses</span>
+      <h2>Try them before you buy.</h2>
       <p>Built specifically to work across all three courses — not sold separately.</p>
     </div>
-    <div class="bonuses">
+
+    <div class="reveal">
+      <span class="try-tag">Live tool · no purchase needed</span>
+      <div class="calc-frame">
+        <div class="calc-chrome">
+          <span class="dot" style="background:#E8755A;"></span>
+          <span class="dot" style="background:#E0B33D;"></span>
+          <span class="dot" style="background:#5FAE7E;"></span>
+          <span class="label">bonuses/calculator.html — Combined Deal Calculator</span>
+        </div>
+        <iframe src="bonuses/calculator.html" loading="lazy" title="Combined Deal Calculator"></iframe>
+      </div>
+    </div>
+
+    <div class="bonus-row-2 reveal">
       <div class="bonus-card">
-        <span class="badge">Interactive Tool</span>
-        <h3>Combined Deal Calculator</h3>
-        <p>Run a wholesale MAO, a flip's full profit math, or an Airbnb arbitrage unit's cash flow — one tool, three tabs, instant numbers.</p>
+        <div class="worksheet-thumb"><img src="bonuses/arv-preview.png" alt="ARV Comparable Analysis Worksheet preview"></div>
+        <div>
+          <h3>ARV Comparable Analysis Worksheet</h3>
+          <p>The exact comp-grid from Fix &amp; Flip Module 3, built as a fillable PDF — pull comps, average price/sqft, and land on your ARV.</p>
+          <a href="bonuses/ARV-Comparable-Analysis.pdf" target="_blank">Open the worksheet ↗</a>
+        </div>
       </div>
       <div class="bonus-card">
-        <span class="badge">Fillable PDF</span>
-        <h3>ARV Comparable Analysis Worksheet</h3>
-        <p>The exact comp-grid from Fix &amp; Flip Module 3, built as a fillable form — pull comps, average price/sqft, and land on your ARV.</p>
-      </div>
-      <div class="bonus-card">
-        <span class="badge">Templates Vault</span>
-        <h3>Scripts &amp; Contracts Vault</h3>
-        <p>All 8 wholesale scripts and contract templates, packaged together with the calculator and worksheet in one bundle download.</p>
+        <div class="vault-icon">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="5" rx="1" stroke="#E8D2A4" stroke-width="1.5"/><rect x="4" y="10.5" width="16" height="5" rx="1" stroke="#E8D2A4" stroke-width="1.5"/><rect x="4" y="17" width="16" height="3" rx="1" stroke="#E8D2A4" stroke-width="1.5"/></svg>
+        </div>
+        <div>
+          <h3>Scripts &amp; Contracts Vault</h3>
+          <p>All 8 wholesale scripts and contract templates — cold-call scripts, assignment contracts, buyer's list trackers — included with your course access.</p>
+          <a href="https://ricky-angell.github.io/Wholesaling" target="_blank">Included in Wholesale ↗</a>
+        </div>
       </div>
     </div>
   </div>
@@ -228,10 +312,12 @@
 
 <section>
   <div class="wrap">
-    <div class="section-head">
-      <h2>The Math</h2>
+    <div class="section-head center reveal">
+      <span class="eyebrow">The Math</span>
+      <h2>Cheaper than buying two.</h2>
     </div>
-    <div class="stack">
+    <div class="stack reveal">
+      <span class="stack-ribbon">BEST VALUE</span>
       <div class="stack-row">
         <div class="item">Wholesale Real Estate: The No-License Blueprint<span class="small">9 modules · 27 lessons</span></div>
         <div class="price strike">$97</div>
@@ -261,42 +347,47 @@
         <div class="price">$57</div>
       </div>
     </div>
-    <div class="savings-banner">You save $234 off full price — or $24 even compared to grabbing all three at today's $27 sale price separately.</div>
+    <div class="savings-banner reveal">You save $234 off full price — or $24 even compared to grabbing all three at today's $27 sale price separately.</div>
   </div>
 </section>
 
-<section class="alt">
+<section style="background:var(--paper);">
   <div class="wrap" style="max-width:700px;">
-    <div class="section-head">
-      <h2>Questions</h2>
+    <div class="section-head center reveal">
+      <span class="eyebrow">Questions</span>
+      <h2>Before you buy</h2>
     </div>
-    <div class="faq-item">
-      <h4>Do I need a real estate license for any of these?</h4>
-      <p>No. None of the three strategies in this bundle require a license — wholesaling, flipping, and rental arbitrage are all structured to be done without one.</p>
-    </div>
-    <div class="faq-item">
-      <h4>How much money do I need to start?</h4>
-      <p>It depends which strategy you start with. Wholesale is built for the lowest capital requirement of the three — that's why it's a natural starting point if cash is tight.</p>
-    </div>
-    <div class="faq-item">
-      <h4>How long do I have access?</h4>
-      <p>Lifetime. This is a one-time payment with no subscription and no recurring fees.</p>
-    </div>
-    <div class="faq-item">
-      <h4>What if I only want one course, not all three?</h4>
-      <p>Each course is also sold individually on the store. The bundle exists for the price savings if you want more than one — at $57 for all three it's already cheaper than buying any two separately at full price.</p>
-    </div>
-    <div class="faq-item">
-      <h4>How do I get my access after I buy?</h4>
-      <p>Your confirmation page after checkout hands you all three course access codes plus download links for both bonuses, instantly — nothing to wait on.</p>
+    <div class="reveal">
+      <div class="faq-item">
+        <h4>Do I need a real estate license for any of these?</h4>
+        <p>No. None of the three strategies in this bundle require a license — wholesaling, flipping, and rental arbitrage are all structured to be done without one.</p>
+      </div>
+      <div class="faq-item">
+        <h4>How much money do I need to start?</h4>
+        <p>It depends which strategy you start with. Wholesale is built for the lowest capital requirement of the three — that's why it's a natural starting point if cash is tight.</p>
+      </div>
+      <div class="faq-item">
+        <h4>How long do I have access?</h4>
+        <p>Lifetime. This is a one-time payment with no subscription and no recurring fees.</p>
+      </div>
+      <div class="faq-item">
+        <h4>What if I only want one course, not all three?</h4>
+        <p>Each course is also sold individually on the store. The bundle exists for the price savings if you want more than one — at $57 for all three it's already cheaper than buying any two separately at full price.</p>
+      </div>
+      <div class="faq-item">
+        <h4>How do I get my access after I buy?</h4>
+        <p>Your confirmation page after checkout hands you all three course access codes plus download links for both bonuses, instantly — nothing to wait on.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<div class="wrap final-cta">
-  <h2>Get all three. Start wherever fits.</h2>
-  <p>$57 one-time · lifetime access · access codes delivered instantly</p>
-  <a class="btn" href="https://beacons.ai/earningera1.0" target="_blank">Get The Bundle — $57</a>
+<div class="final-cta">
+  <div class="wrap reveal">
+    <h2>Get all three. Start wherever fits.</h2>
+    <p>$57 one-time · lifetime access · access codes delivered instantly</p>
+    <a class="btn" href="https://beacons.ai/earningera1.0" target="_blank">Get The Bundle — $57</a>
+  </div>
 </div>
 
 <footer>
@@ -304,5 +395,26 @@
   Questions? Message through <a href="https://beacons.ai/earningera1.0" target="_blank">your Beacons store page</a>.
 </footer>
 
+<script>
+  const els = document.querySelectorAll('.reveal');
+  try {
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:0.12});
+    els.forEach(el=>io.observe(el));
+  } catch(e){
+    els.forEach(el=>el.classList.add('in'));
+  }
+  // safety net: never leave content invisible if something above fails
+  setTimeout(()=>els.forEach(el=>el.classList.add('in')), 4000);
+
+  // Let the embedded calculator tell us its real height instead of guessing one.
+  window.addEventListener('message', (e)=>{
+    if(e.data && e.data.type === 'angell-calc-height'){
+      const ifr = document.querySelector('.calc-frame iframe');
+      if(ifr) ifr.style.height = (e.data.height + 24) + 'px';
+    }
+  });
+</script>
 </body>
 </html>
