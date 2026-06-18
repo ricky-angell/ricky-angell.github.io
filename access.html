@@ -50,6 +50,17 @@
   .support a{color:var(--halo);text-decoration:underline;}
   .logo{margin:0 auto 4px;}
   .error{display:none;}
+
+  .bundle-item{border:1.5px solid var(--halo);border-radius:10px;padding:16px 16px 14px;margin-bottom:14px;background:var(--void);text-align:left;}
+  .bundle-item .b-title{font-family:var(--serif);font-size:0.95rem;font-weight:700;color:var(--starlight);margin-bottom:8px;}
+  .bundle-item .b-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+  .bundle-item .b-code{font-family:'JetBrains Mono','Courier New',monospace;font-size:1rem;font-weight:700;color:var(--halo);letter-spacing:0.04em;}
+  .bundle-item .b-link{font-size:0.82rem;font-weight:600;color:var(--starlight);background:var(--halo-dim);padding:7px 12px;border-radius:7px;text-decoration:none;white-space:nowrap;}
+  .bonus-list{text-align:left;margin-top:6px;}
+  .bonus-list .label{font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--halo);margin-bottom:12px;text-align:center;}
+  .bonus-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.07);font-size:0.88rem;color:#e3e0d8;}
+  .bonus-row:last-child{border-bottom:none;}
+  .bonus-row a{color:var(--halo);font-weight:600;text-decoration:none;white-space:nowrap;}
 </style>
 </head>
 <body>
@@ -74,6 +85,17 @@
       <div class="label">What's Inside</div>
       <ul id="out-bullets"></ul>
     </div>
+  </div>
+
+  <div id="found-bundle" style="display:none;">
+    <h1>You're In — All 3 Unlocked</h1>
+    <p class="lede">Thanks for grabbing the Complete Investor Bundle. Here are your 3 access codes plus your bonus downloads — enter each code at its course lock screen.</p>
+    <div id="bundle-items"></div>
+    <div class="bonus-list">
+      <div class="label">Your Bonuses</div>
+      <div id="bundle-bonuses"></div>
+    </div>
+    <p class="hint">Bookmark this page — you can come back anytime to grab everything again.</p>
   </div>
 
   <div id="missing" style="display:none;">
@@ -134,11 +156,44 @@
     // newcourse: { title: "...", code: "ANGELL-XXXX-2026", url: "https://ricky-angell.github.io/...", bullets: ["…"] }
   };
 
+  // Bundle products work differently: instead of one code/url, they hand back
+  // a list of course items (each with its own code+url) plus bonus download links.
+  const BUNDLES = {
+    bundle: {
+      items: [
+        { title: "Wholesale Real Estate: The No-License Blueprint", code: "ANGELL-WHOLESALE-2026", url: "https://ricky-angell.github.io/Wholesaling" },
+        { title: "Fix &amp; Flip Mastery", code: "ANGELL-FLIP-2026", url: "https://ricky-angell.github.io/fixflip" },
+        { title: "The Rental Arbitrage Business System", code: "ANGELL-BNB-2026", url: "https://ricky-angell.github.io/airbnb" }
+      ],
+      bonuses: [
+        { label: "Combined Deal Calculator", url: "https://ricky-angell.github.io/bonuses/calculator.html" },
+        { label: "ARV Comparable Analysis Worksheet (PDF)", url: "https://ricky-angell.github.io/bonuses/ARV-Comparable-Analysis.pdf" },
+        { label: "Scripts &amp; Contracts Vault", url: "https://ricky-angell.github.io/Wholesaling" }
+      ]
+    }
+  };
+
   const params = new URLSearchParams(window.location.search);
   const slug = params.get('course');
   const product = slug ? PRODUCTS[slug] : null;
+  const bundle = slug ? BUNDLES[slug] : null;
 
-  if(product){
+  if(bundle){
+    document.getElementById('bundle-items').innerHTML = bundle.items.map(it => `
+      <div class="bundle-item">
+        <div class="b-title">${it.title}</div>
+        <div class="b-row">
+          <span class="b-code">${it.code}</span>
+          <a class="b-link" href="${it.url}" target="_blank">Start Course</a>
+        </div>
+      </div>
+    `).join('');
+    document.getElementById('bundle-bonuses').innerHTML = bundle.bonuses.map(b => `
+      <div class="bonus-row"><span>${b.label}</span><a href="${b.url}" target="_blank">Open ↗</a></div>
+    `).join('');
+    document.getElementById('found').style.display = 'none';
+    document.getElementById('found-bundle').style.display = 'block';
+  } else if(product){
     document.getElementById('out-title').textContent = "You're In";
     document.getElementById('out-lede').innerHTML = `Thanks for grabbing <strong>${product.title}</strong>. Here's your access code — enter it at the lock screen to unlock every module.`;
     document.getElementById('out-code').textContent = product.code;
