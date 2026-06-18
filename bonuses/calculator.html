@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deal Calculator | ANGELL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FAF7F2; --paper:#FFFFFF; --ink:#192A2D; --ink-soft:#4A5F62;
+    --teal:#1A5C6B; --teal-deep:#0F3A44; --gold:#C4974A; --gold-soft:#E8D2A4;
+    --line:rgba(26,92,107,.14); --good:#3F8F66; --warn:#B5482E;
+    --shadow:0 2px 4px rgba(15,58,68,.08), 0 18px 50px rgba(15,58,68,.13);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{
+    font-family:'Inter',system-ui,sans-serif; background:var(--cream); color:var(--ink);
+    line-height:1.55; -webkit-font-smoothing:antialiased; padding:28px 18px 60px;
+  }
+  .wrap{max-width:760px;margin:0 auto;}
+  header{display:flex;align-items:center;gap:14px;margin-bottom:6px;}
+  .logo{flex:0 0 auto;}
+  .brand-eyebrow{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:600;}
+  h1{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.7rem;color:var(--ink);letter-spacing:-0.01em;}
+  .sub{color:var(--ink-soft);font-size:.92rem;margin:6px 0 28px;max-width:560px;}
+
+  .tabs{display:flex;gap:8px;margin-bottom:22px;border-bottom:1px solid var(--line);padding-bottom:0;flex-wrap:wrap;}
+  .tab{
+    font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:.88rem;color:var(--ink-soft);
+    background:none;border:none;padding:10px 4px 12px;cursor:pointer;position:relative;
+  }
+  .tab.active{color:var(--teal-deep);}
+  .tab.active::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2.5px;background:var(--gold);border-radius:2px;}
+
+  .panel{display:none;animation:fade .25s ease;}
+  .panel.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:22px 22px 18px;box-shadow:var(--shadow);}
+  .card h2{font-family:'Bricolage Grotesque',sans-serif;font-size:1.05rem;font-weight:700;color:var(--teal-deep);margin-bottom:4px;}
+  .card .desc{color:var(--ink-soft);font-size:.84rem;margin-bottom:18px;}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px;}
+  @media (max-width:520px){.grid{grid-template-columns:1fr;}}
+  .field label{display:block;font-size:.74rem;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px;}
+  .field .hint{font-size:.72rem;color:var(--ink-soft);margin-top:4px;}
+  .input-wrap{position:relative;}
+  .input-wrap .prefix{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--ink-soft);font-family:'JetBrains Mono',monospace;font-size:.85rem;}
+  .input-wrap .suffix{position:absolute;right:11px;top:50%;transform:translateY(-50%);color:var(--ink-soft);font-family:'JetBrains Mono',monospace;font-size:.78rem;}
+  input[type=number]{
+    width:100%;font-family:'JetBrains Mono',monospace;font-size:.92rem;font-weight:600;color:var(--ink);
+    background:var(--cream);border:1.4px solid var(--line);border-radius:8px;padding:10px 12px;
+  }
+  input[type=number].pad-left{padding-left:24px;}
+  input[type=number].pad-right{padding-right:54px;}
+  input[type=number]:focus{outline:none;border-color:var(--teal);}
+  input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+
+  .results{margin-top:20px;background:var(--teal-deep);border-radius:12px;padding:18px 20px;}
+  .results .label{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:3px;}
+  .results-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media (max-width:520px){.results-grid{grid-template-columns:1fr;}}
+  .result-item{padding:6px 0;}
+  .result-item .val{font-family:'Bricolage Grotesque',sans-serif;font-size:1.32rem;font-weight:700;color:var(--cream);}
+  .result-item.hero{grid-column:1/-1;border-top:1px solid rgba(232,210,164,.18);padding-top:14px;margin-top:4px;}
+  .result-item.hero .val{font-size:1.9rem;color:var(--gold-soft);}
+  .flag{display:inline-block;margin-top:6px;font-size:.74rem;font-weight:600;padding:3px 9px;border-radius:20px;}
+  .flag.good{background:rgba(63,143,102,.18);color:#bfe8d2;}
+  .flag.warn{background:rgba(181,72,46,.2);color:#f3c6b8;}
+
+  footer{margin-top:34px;text-align:center;font-size:.74rem;color:var(--ink-soft);}
+  footer a{color:var(--gold);text-decoration:none;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <svg class="logo" width="40" height="40" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="92" stroke="#c4974a" stroke-width="6"/>
+      <circle cx="100" cy="100" r="71" stroke="#c4974a" stroke-width="2" opacity="0.4"/>
+      <polygon points="100,8 113,84 192,100 113,116 100,192 87,116 8,100 87,84" fill="#0F3A44"/>
+      <polygon points="100,84 116,100 100,116 84,100" fill="#c4974a"/>
+    </svg>
+    <div>
+      <div class="brand-eyebrow">Angell Real Estate Academy · Bundle Bonus</div>
+      <h1>Combined Deal Calculator</h1>
+    </div>
+  </header>
+  <p class="sub">One tool for all three strategies in your bundle. Run a wholesale offer, a flip's numbers, or an Airbnb arbitrage unit — switch tabs any time, nothing is saved or sent anywhere.</p>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="wholesale">Wholesale MAO</button>
+    <button class="tab" data-tab="flip">Fix &amp; Flip Profit</button>
+    <button class="tab" data-tab="airbnb">Airbnb Arbitrage</button>
+  </div>
+
+  <!-- WHOLESALE -->
+  <div class="panel active" id="panel-wholesale">
+    <div class="card">
+      <h2>Maximum Allowable Offer</h2>
+      <p class="desc">Conservative 70%-rule MAO, then your contract offer price after your assignment fee is backed out.</p>
+      <div class="grid">
+        <div class="field">
+          <label>After Repair Value (ARV)</label>
+          <div class="input-wrap"><span class="prefix">$</span><input type="number" id="w-arv" class="pad-left" value="220000" min="0"></div>
+        </div>
+        <div class="field">
+          <label>Estimated Repair Cost</label>
+          <div class="input-wrap"><span class="prefix">$</span><input type="number" id="w-repairs" class="pad-left" value="35000" min="0"></div>
+        </div>
+        <div class="field">
+          <label>Your Assignment Fee</label>
+          <div class="input-wrap"><span class="prefix">$</span><input type="number" id="w-fee" class="pad-left" value="10000" min="0"></div>
+          <div class="hint">What you keep when you assign the contract to your cash buyer.</div>
+        </div>
+        <div class="field">
+          <label>Investor Margin (% of ARV)</label>
+          <div class="input-wrap"><input type="number" id="w-pct" class="pad-right" value="70" min="1" max="100"><span class="suffix">% RULE</span></div>
+          <div class="hint">70% is the standard starting point — tighten it in hot markets.</div>
+        </div>
+      </div>
+      <div class="results">
+        <div class="results-grid">
+          <div class="result-item">
+            <div class="label">Investor MAO</div>
+            <div class="val" id="w-mao">$0</div>
+          </div>
+          <div class="result-item">
+            <div class="label">Your Contract Offer</div>
+            <div class="val" id="w-offer">$0</div>
+          </div>
+          <div class="result-item hero">
+            <div class="label">Your Assignment Fee</div>
+            <div class="val" id="w-feeout">$0</div>
+            <span class="flag" id="w-flag"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FIX & FLIP -->
+  <div class="panel" id="panel-flip">
+    <div class="card">
+      <h2>Flip Profit &amp; Max Offer</h2>
+      <p class="desc">Full-cost MAO and projected profit margin once holding and selling costs are included.</p>
+      <div class="grid">
+        <div class="field">
+          <label>After Repair Value (ARV)</label>
+          <div class="input-wrap"><span class="prefix">$</span><input type="number" id="f-arv" class="pad-left" value="248000" min="0"></div>
+        </div>
+        <div class="field">
+          <label>Purchase Price (your offer)</label>
+          <div class="input-wrap"><span class="prefix">$</span><input type="number" id="f-purchase" class="pad-left" value="155000" min="0"></div>
+        </div>
+        <div class="field">
+          <label>Repair / Rehab Budget</label>
+          <div class="input-wrap"><span class="prefix">$</span><input type="number" id="f-repairs" class="pad-left" value="38000" min="0"></div>
+        </div>
+        <div class="field">
+          <label>Holding Costs (taxes, insurance, utilities, loan)</label>
+          <div class="input-wrap"><span class="prefix">$</span><input type="number" id="f-holding" class="pad-left" value="6500" min="0"></div>
+        </div>
+        <div class="field">
+          <label>Selling Costs (% of ARV)</label>
+          <div class="input-wrap"><input type="number" id="f-sellpct" class="pad-right" value="7" min="0" max="100"><span class="suffix">% OF ARV</span></div>
+          <div class="hint">Agent commission + closing costs, typically 6–8%.</div>
+        </div>
+        <div class="field">
+          <label>Minimum Profit Target</label>
+          <div class="input-wrap"><span class="prefix">$</span><input type="number" id="f-minprofit" class="pad-left" value="25000" min="0"></div>
+        </div>
+      </div>
+      <div class="results">
+        <div class="results-grid">
+          <div class="result-item">
+            <div class="label">Full-Cost MAO</div>
+            <div class="val" id="f-mao">$0</div>
+          </div>
+          <div class="result-item">
+            <div class="label">All-In Investment</div>
+            <div class="val" id="f-allin">$0</div>
+          </div>
+          <div class="result-item hero">
+            <div class="label">Projected Profit (at your purchase price)</div>
+            <div class="val" id="f-profit">$0</div>
+            <span class="flag" id="f-flag"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AIRBNB ARBITRAGE -->
+  <div class="panel" id="panel-airbnb">
+    <div class="card">
+      <h2>Arbitrage Unit Cash Flow</h2>
+      <p class="desc">Monthly profit and cash-on-cash return for a leased unit you furnish and sublet short-term.</p>
+      <div class="grid">
+        <div class="field">
+          <label>Avg Nightly Rate</label>
+          <div class="input-wrap"><span class="prefix">$</span><input type="number" id="a-rate" class="pad-left" value="140" min="0"></div>
+        </div>
+        <div class="field">
+          <label>Expected Occupancy</label>
+          <div class="input-wrap"><input type="number" id="a-occ" class="pad-right" value="65" min="0" max="100"><span class="suffix">%</span></div>
+        </div>
+        <div class="field">
+          <label>Monthly Lease Payment</label>
+          <div class="input-wrap"><span class="prefix">$</span><input type="number" id="a-lease" class="pad-left" value="1600" min="0"></div>
+        </div>
+        <div class="field">
+          <label>Utilities + Internet + Supplies</label>
+          <div class="input-wrap"><span class="prefix">$</span><input type="number" id="a-utilities" class="pad-left" value="280" min="0"></div>
+        </div>
+        <div class="field">
+          <label>Cleaning (per turnover, monthly est.)</label>
+          <div class="input-wrap"><span class="prefix">$</span><input type="number" id="a-cleaning" class="pad-left" value="320" min="0"></div>
+        </div>
+        <div class="field">
+          <label>Platform + Software Fees</label>
+          <div class="input-wrap"><input type="number" id="a-platform" class="pad-right" value="4" min="0" max="100"><span class="suffix">% OF REVENUE</span></div>
+        </div>
+        <div class="field">
+          <label>Furnishing + Setup Cost (one-time)</label>
+          <div class="input-wrap"><span class="prefix">$</span><input type="number" id="a-setup" class="pad-left" value="9000" min="0"></div>
+        </div>
+        <div class="field">
+          <label>Security Deposit (one-time)</label>
+          <div class="input-wrap"><span class="prefix">$</span><input type="number" id="a-deposit" class="pad-left" value="1600" min="0"></div>
+        </div>
+      </div>
+      <div class="results">
+        <div class="results-grid">
+          <div class="result-item">
+            <div class="label">Monthly Revenue</div>
+            <div class="val" id="a-revenue">$0</div>
+          </div>
+          <div class="result-item">
+            <div class="label">Monthly Expenses</div>
+            <div class="val" id="a-expenses">$0</div>
+          </div>
+          <div class="result-item">
+            <div class="label">Monthly Cash Flow</div>
+            <div class="val" id="a-cashflow">$0</div>
+          </div>
+          <div class="result-item">
+            <div class="label">Cash Invested to Start</div>
+            <div class="val" id="a-invested">$0</div>
+          </div>
+          <div class="result-item hero">
+            <div class="label">Year-1 Cash-on-Cash Return</div>
+            <div class="val" id="a-coc">0%</div>
+            <span class="flag" id="a-flag"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Part of the Angell Real Estate Bundle (Wholesale · Fix &amp; Flip · Airbnb Arbitrage)<br>
+    Numbers are planning estimates — always verify against your actual local comps, contracts, and lease terms.
+  </footer>
+</div>
+
+<script>
+  // Tabs
+  document.querySelectorAll('.tab').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  const fmt = n => '$' + Math.round(n).toLocaleString('en-US');
+  const num = id => parseFloat(document.getElementById(id).value) || 0;
+
+  function calcWholesale(){
+    const arv = num('w-arv'), repairs = num('w-repairs'), fee = num('w-fee'), pct = num('w-pct')/100;
+    const mao = arv*pct - repairs;
+    const offer = mao - fee;
+    document.getElementById('w-mao').textContent = fmt(mao);
+    document.getElementById('w-offer').textContent = fmt(offer);
+    document.getElementById('w-feeout').textContent = fmt(fee);
+    const flag = document.getElementById('w-flag');
+    if(offer < 0){
+      flag.textContent = 'Offer is negative — fee or repairs too high for this ARV'; flag.className='flag warn';
+    } else {
+      flag.textContent = 'Contract price leaves room for your buyer\u2019s margin'; flag.className='flag good';
+    }
+  }
+
+  function calcFlip(){
+    const arv = num('f-arv'), purchase = num('f-purchase'), repairs = num('f-repairs'),
+          holding = num('f-holding'), sellpct = num('f-sellpct')/100, minprofit = num('f-minprofit');
+    const sellingCosts = arv*sellpct;
+    const mao = arv - repairs - holding - sellingCosts - minprofit;
+    const allin = purchase + repairs + holding + sellingCosts;
+    const profit = arv - allin;
+    document.getElementById('f-mao').textContent = fmt(mao);
+    document.getElementById('f-allin').textContent = fmt(allin);
+    document.getElementById('f-profit').textContent = fmt(profit);
+    const flag = document.getElementById('f-flag');
+    const marginPct = arv>0 ? (profit/arv*100) : 0;
+    if(profit < minprofit){
+      flag.textContent = `Only ${marginPct.toFixed(1)}% margin — below your ${fmt(minprofit)} target`; flag.className='flag warn';
+    } else {
+      flag.textContent = `${marginPct.toFixed(1)}% margin — clears your profit target`; flag.className='flag good';
+    }
+  }
+
+  function calcAirbnb(){
+    const rate = num('a-rate'), occ = num('a-occ')/100, lease = num('a-lease'),
+          utilities = num('a-utilities'), cleaning = num('a-cleaning'), platformPct = num('a-platform')/100,
+          setup = num('a-setup'), deposit = num('a-deposit');
+    const revenue = rate*30*occ;
+    const platformFee = revenue*platformPct;
+    const expenses = lease + utilities + cleaning + platformFee;
+    const cashflow = revenue - expenses;
+    const invested = setup + deposit;
+    const annualCF = cashflow*12;
+    const coc = invested>0 ? (annualCF/invested*100) : 0;
+    document.getElementById('a-revenue').textContent = fmt(revenue);
+    document.getElementById('a-expenses').textContent = fmt(expenses);
+    document.getElementById('a-cashflow').textContent = fmt(cashflow);
+    document.getElementById('a-invested').textContent = fmt(invested);
+    document.getElementById('a-coc').textContent = coc.toFixed(0) + '%';
+    const flag = document.getElementById('a-flag');
+    if(cashflow <= 0){
+      flag.textContent = 'Negative monthly cash flow at this rate/occupancy'; flag.className='flag warn';
+    } else {
+      flag.textContent = `Pays back furnishing + deposit in ~${invested>0 && cashflow>0 ? Math.ceil(invested/cashflow) : '—'} months`; flag.className='flag good';
+    }
+  }
+
+  document.querySelectorAll('#panel-wholesale input').forEach(i=>i.addEventListener('input', calcWholesale));
+  document.querySelectorAll('#panel-flip input').forEach(i=>i.addEventListener('input', calcFlip));
+  document.querySelectorAll('#panel-airbnb input').forEach(i=>i.addEventListener('input', calcAirbnb));
+
+  calcWholesale(); calcFlip(); calcAirbnb();
+</script>
+</body>
+</html>
