@@ -81,6 +81,7 @@ nav.rail{position:static;display:flex;overflow-x:auto;gap:6px;padding-bottom:4px
     <div class="eyebrow">Built By You Academy · Real World Business Blueprints</div>
     <h1>Inflatable Rentals</h1>
     <p>Start a bounce house and inflatable rental business with guest safety first: commercial-grade units, anchoring and wind limits, supervision, state inspection rules, insurance, pricing and booking your first parties.</p>
+    <p><a href="downloads/inflatable-rentals-startup-workbook.xlsx" download style="color:#e3b54a;font-weight:600">⬇ Download the Startup Workbook (Excel)</a> · <a href="#toolkit" style="color:#e3b54a;font-weight:600">Startup links</a></p>
     <div class="progress"><div class="bar"><i id="barfill"></i></div><span id="ptext">0 of 10 complete</span></div>
   </div>
 </header>
@@ -133,7 +134,7 @@ nav.rail{position:static;display:flex;overflow-x:auto;gap:6px;padding-bottom:4px
   <div class="today"><b>Check your state before you buy a single unit</b>Rules are different in every state. Some require registration, yearly inspections, stickers, permits and minimum insurance, and some don't regulate inflatables at all. Search "[your state] amusement ride inflatable inspection" or call your state's department of labor, agriculture or fire marshal. Write down every requirement before you buy.</div>
   <h3>2.2 · Business basics</h3>
   <ol>
-    <li>Register an LLC and get a free EIN at <a href="https://www.irs.gov/businesses/small-businesses-self-employed/apply-for-an-employer-identification-number-ein-online" target="_blank" rel="noopener">irs.gov</a>.</li>
+    <li>Register an LLC and get a free EIN at <a href="https://www.irs.gov/businesses/small-businesses-self-employed/get-an-employer-identification-number" target="_blank" rel="noopener">irs.gov</a>.</li>
     <li>Get your city or county business license.</li>
     <li>Open a business bank account.</li>
   </ol>
@@ -283,6 +284,40 @@ nav.rail{position:static;display:flex;overflow-x:auto;gap:6px;padding-bottom:4px
   <div class="today"><b>Do This Today</b>Put Steps 1 and 2 on your calendar with real dates.</div>
 </template>
 
+
+<template id="t-toolkit">
+  <div class="kicker">Startup Toolkit</div>
+  <h2>Startup Toolkit &amp; Downloads</h2>
+  <p class="lead">Everything you need to actually start: your workbook to download, and direct links to register, get licensed and get free help.</p>
+  <h3>Download your startup workbook</h3>
+  <p><a class="btn primary" href="downloads/inflatable-rentals-startup-workbook.xlsx" download>Download the Inflatable Rentals Startup Workbook (Excel)</a></p>
+  <ul>
+    <li><strong>Startup Costs:</strong> enter your real quotes and get your total budget, with a buffer for surprises.</li>
+    <li><strong>Price Research:</strong> a ready list of who to call and what to ask, so you can find your real local prices.</li>
+    <li><strong>Licenses &amp; Insurance:</strong> a tracker for every license, permit and policy, with links.</li>
+    <li><strong>Launch Checklist:</strong> every step with a date and a done column.</li>
+  </ul>
+  <p class="note">Opens in Excel, Google Sheets (File → Import) or Numbers.</p>
+  <h3>Step-by-step: start the business</h3>
+  <ol>
+    <li><a href="https://www.sba.gov/counseling/plan-your-business/#business-plan" target="_blank" rel="noopener">Write your business plan</a> (SBA)</li>
+    <li><a href="https://www.sba.gov/counseling/plan-your-business/#startup-costs" target="_blank" rel="noopener">Calculate your startup costs</a> (SBA), then fill in your workbook</li>
+    <li><a href="https://www.sba.gov/counseling/plan-your-business/#fund-business" target="_blank" rel="noopener">Fund your business</a> (SBA) and <a href="https://www.sba.gov/loans/" target="_blank" rel="noopener">SBA loans</a></li>
+    <li><a href="https://www.sba.gov/counseling/launch-your-business/#register-business" target="_blank" rel="noopener">Register your business</a>, then use the <a href="https://www.sba.gov/counseling/launch-your-business/state-registration-lookup/" target="_blank" rel="noopener">state registration lookup</a> to find your state's office</li>
+    <li><a href="https://www.irs.gov/businesses/small-businesses-self-employed/get-an-employer-identification-number" target="_blank" rel="noopener">Get your free EIN</a> (IRS)</li>
+    <li><a href="https://www.sba.gov/counseling/launch-your-business/#licenses-permits" target="_blank" rel="noopener">Apply for licenses and permits</a> (SBA)</li>
+    <li><a href="https://www.sba.gov/counseling/launch-your-business/#business-insurance" target="_blank" rel="noopener">Get business insurance</a> (SBA)</li>
+    <li><a href="https://www.sba.gov/counseling/launch-your-business/#bank-account" target="_blank" rel="noopener">Open a business bank account</a> (SBA)</li>
+  </ol>
+  <h3>Free help</h3>
+  <ul>
+    <li><a href="https://www.sba.gov/counseling/local-assistance/" target="_blank" rel="noopener">SBA local assistance</a>: free counseling near you</li>
+    <li><a href="https://www.score.org/" target="_blank" rel="noopener">SCORE</a>: free mentoring from experienced business owners</li>
+    <li><a href="https://www.irs.gov/businesses/small-businesses-self-employed" target="_blank" rel="noopener">IRS small business tax center</a></li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Download your workbook, open the Price Research tab, and make your first 3 calls.</div>
+</template>
+
 <script>
 (function(){
 var mods=[
@@ -296,7 +331,8 @@ var mods=[
 {id:"module-7",t:"t-7",full:"7 · Insurance & Contracts",short:"7 · Insurance"},
 {id:"module-8",t:"t-8",full:"8 · Pricing Rentals",short:"8 · Pricing"},
 {id:"module-9",t:"t-9",full:"9 · Cleaning, Storage & Bookings",short:"9 · Bookings"},
-{id:"module-10",t:"t-10",full:"10 · Your Launch Plan",short:"10 · Launch"}
+{id:"module-10",t:"t-10",full:"10 · Your Launch Plan",short:"10 · Launch"},
+{id:"toolkit",t:"t-toolkit",full:"Startup Toolkit & Downloads",short:"Toolkit"}
 ];
 var KEY="bby-inflatables-done", done={};
 try{done=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){done={}}
