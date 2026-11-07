@@ -1,0 +1,447 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Lash Tech Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+/* Same course-player layout as the other BBY blueprints */
+:root{
+--bg:#f5f6f9; --surface:#ffffff; --ink:#141a2b; --muted:#5a6276; --line:#dde1ea;
+--navy:#16213f; --gold:#b8860b; --gold-soft:#f6ecd2; --ok:#1f7a4d; --ok-soft:#e1f2e8; --bad:#b3261e; --bad-soft:#fbe5e3;
+--display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+--body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}}
+:root[data-theme="dark"]{
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--body)}
+[hidden]{display:none!important}
+a{color:var(--gold);text-underline-offset:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.top{background:var(--navy);color:#fff;padding-block:22px 26px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{max-width:1180px;margin:0 auto;display:grid;gap:6px}
+.eyebrow{font:600 13px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:#e3b54a}
+.top h1{font:italic 700 clamp(34px,6vw,56px)/1 var(--display);margin:0;text-wrap:balance;letter-spacing:.01em}
+.top p{margin:0;color:#c9cfdd;max-width:62ch}
+.progress{display:flex;align-items:center;gap:12px;margin-top:10px;font-size:14px;color:#c9cfdd}
+.bar{flex:0 1 260px;height:8px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:#e3b54a;transition:width .3s}
+.wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:270px minmax(0,1fr);gap:32px;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;display:grid;gap:2px}
+.rail button{all:unset;cursor:pointer;display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;padding:10px 12px;border-radius:8px;color:var(--muted);font-size:15px;line-height:1.35}
+.rail button:hover{background:var(--surface);color:var(--ink)}
+.rail button[aria-current="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:inset 3px 0 0 var(--gold)}
+.dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;margin-top:1px}
+.done .dot{background:var(--ok);border-color:var(--ok);color:#fff}
+main{min-width:0}
+article{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:clamp(20px,4vw,44px)}
+article h2{font:700 clamp(30px,4.4vw,42px)/1.05 var(--display);margin:0 0 6px;text-wrap:balance}
+.kicker{font:600 13px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+article h3{font:700 24px/1.15 var(--display);margin:34px 0 8px;letter-spacing:.01em}
+article p,article li{max-width:68ch}
+article ul,article ol{padding-left:1.3em;display:grid;gap:6px}
+.lead{font-size:18px;color:var(--muted)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:8px}
+.cols > div{border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.cols h4{margin:0 0 6px;font:700 18px/1.2 var(--display);letter-spacing:.03em;text-transform:uppercase}
+.cols .pro{border-color:var(--ok);background:var(--ok-soft)} .cols .pro h4{color:var(--ok)}
+.cols .con{border-color:var(--bad);background:var(--bad-soft)} .cols .con h4{color:var(--bad)}
+.tablewrap{overflow-x:auto;margin-top:10px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{font-weight:700;border-top:2px solid var(--ink)}
+.formula{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 16px;font-weight:600}
+.today{margin-top:34px;background:var(--gold-soft);border-radius:10px;padding:16px 20px;display:grid;gap:4px}
+.today b{font:700 15px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.note{font-size:14px;color:var(--muted)}
+.pager{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;margin-top:20px}
+.btn{all:unset;cursor:pointer;padding:11px 18px;border-radius:8px;font-weight:600;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+:root[data-theme="dark"] .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}}
+.btn.complete[aria-pressed="true"]{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+@media (max-width:820px){
+.wrap{grid-template-columns:1fr;gap:16px}
+nav.rail{position:static;display:flex;overflow-x:auto;gap:6px;padding-bottom:4px}
+.rail button{flex:0 0 auto;grid-template-columns:20px auto;white-space:nowrap;background:var(--surface);border:1px solid var(--line)}
+.rail .full{display:none}
+}
+@media (min-width:821px){.rail .short{display:none}}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+
+/* ---- Real estate blueprint extras ---- */
+article h4{font:700 20px/1.2 var(--display);margin:26px 0 6px;letter-spacing:.02em}
+article h5{font:700 17px/1.2 var(--display);margin:20px 0 4px;letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
+.lsub{color:var(--muted);font-style:italic;margin-top:-2px}
+.lesson-block{border-top:1px solid var(--line);margin-top:34px;padding-top:4px}
+.lesson-block:first-of-type{border-top:0}
+.box,.callout,.card,.template,.reality,.math,.scorebox,.calc,.check,.tab-panel,.compare-card,.tool-card,details.faqitem{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:16px 0}
+.box-title,.s-label,.tlabel,.rlabel,.tag{display:block;font:700 14px/1.2 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.box.warn,.warn{border-left:4px solid var(--bad);background:var(--bad-soft)}
+.box.warn .box-title,.warn .box-title{color:var(--bad)}
+.box.template,.template{border-style:dashed;border-color:var(--gold)}
+.box.script,.script{border-left:4px solid var(--gold);background:var(--gold-soft);position:relative}
+.checkstate{border:2px solid var(--gold);background:var(--gold-soft);border-radius:10px;padding:14px 18px;margin:16px 0}
+.checkstate .box-title{color:var(--gold)}
+.callout{border:1px dashed var(--gold);background:var(--gold-soft)}
+.reality{border-left:4px solid var(--gold)}
+.card.gold{border-left:4px solid var(--gold)} .card.teal{border-left:4px solid var(--navy)}
+pre{white-space:pre-wrap;word-break:break-word;font:14px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;margin:0}
+.res-grid,.toolkit-grid,.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:12px 0}
+.res-card{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--bg)}
+.res-card a{font-weight:700}
+.res-desc{font-size:14px;color:var(--muted);margin-top:4px}
+.linkrow{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.lbtn{display:inline-flex;gap:6px;align-items:center;padding:9px 14px;border-radius:8px;background:var(--navy);color:#fff;text-decoration:none;font-weight:600;font-size:14px}
+.lbtn.alt{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+:root[data-theme="dark"] .lbtn{background:var(--gold);color:#141a2b}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lbtn{background:var(--gold);color:#141a2b}}
+:root[data-theme="dark"] .lbtn.alt{background:var(--surface);color:var(--ink)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lbtn.alt{background:var(--surface);color:var(--ink)}}
+.copy-btn{position:absolute;top:12px;right:12px;border:1px solid var(--gold);background:var(--surface);color:var(--ink);border-radius:6px;padding:4px 10px;font:600 12px var(--body);cursor:pointer}
+.math .row,.calc-result .row{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--line)}
+.math .row:last-child{border-bottom:0;font-weight:700}
+.neg{color:var(--bad)} .pos{color:var(--ok)} td.good{color:var(--ok);font-weight:600} td.bad{color:var(--bad);font-weight:600}
+.compare-card.good{border-left:4px solid var(--ok)} .compare-card.bad{border-left:4px solid var(--bad)}
+.compare-card.good .tag{color:var(--ok)} .compare-card.bad .tag{color:var(--bad)}
+.scoreitem{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
+.scoreitem:last-child{border-bottom:0} .pts{font-weight:700;color:var(--gold);white-space:nowrap}
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:4px}
+.field input{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:15px var(--body)}
+.calc-btn{margin-top:14px;padding:10px 18px;border-radius:8px;border:0;background:var(--gold);color:#141a2b;font-weight:700;cursor:pointer}
+.calc-result{display:none;margin-top:16px} .calc-result.show{display:block}
+.calc-result .row.total{font-weight:700}
+.pill{display:inline-block;padding:5px 12px;border-radius:99px;font-weight:700;font-size:13px}
+.pill.pass{background:var(--ok-soft);color:var(--ok)} .pill.fail{background:var(--bad-soft);color:var(--bad)} .pill.caution{background:var(--gold-soft);color:var(--gold)}
+.badge{display:inline-block;font-size:12px;font-weight:700;padding:3px 8px;border-radius:6px;background:var(--gold-soft);color:var(--gold)}
+.check{display:grid;gap:4px} .check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.check input{width:18px;height:18px;margin-top:4px;accent-color:var(--gold);flex-shrink:0}
+.check input:checked+span{text-decoration:line-through;opacity:.6}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tab-btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 14px;border-radius:8px;font:600 14px var(--body);cursor:pointer}
+.tab-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tab-panel{display:none} .tab-panel.active{display:block}
+details.faqitem summary{cursor:pointer;font-weight:700}
+.tline{border-bottom:1px solid var(--line);padding:6px 0}
+ul.plain{padding-left:1.3em}
+.tnum{color:var(--gold);font-weight:700}
+.tool-card h4{margin-top:4px}
+</style></head><body>
+
+<header class="top">
+  <div class="top-in">
+    <div class="eyebrow">Built By You Academy · Real World Business Blueprints</div>
+    <h1>Lash Tech Business</h1>
+    <p>Start an eyelash extension business: licensing by state, training, supplies with real prices, safety and allergies, pricing from national data, booking, and building a loyal client base.</p>
+    <p><a href="downloads/lash-tech-startup-workbook.xlsx" download style="color:#e3b54a;font-weight:600">⬇ Download the Startup Workbook (Excel)</a> · <a href="#toolkit" style="color:#e3b54a;font-weight:600">Startup links</a></p>
+    <div class="progress"><div class="bar"><i id="barfill"></i></div><span id="ptext">0 of 12 complete</span></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="rail" id="rail" aria-label="Course modules"></nav>
+  <main>
+    <article id="lesson" aria-live="polite"></article>
+    <div class="pager">
+      <button class="btn" id="prev" type="button">← Previous</button>
+      <button class="btn complete" id="done" type="button" aria-pressed="false">Mark complete</button>
+      <button class="btn primary" id="next" type="button">Next module →</button>
+    </div>
+  </main>
+</div>
+<template id="t-overview">
+  <div class="kicker">Start here</div>
+  <h2>Course Overview</h2>
+  <p class="lead">Lash techs apply individual extensions to natural lashes. Clients come back every few weeks for fills, so a good lash tech builds steady, repeat business. This course covers licensing, training, supplies, safety, pricing and getting clients.</p>
+  <div class="cols">
+    <div><h4>Who it's for</h4>People who are patient, detail-focused and good with their hands, and willing to get the license their state requires.</div>
+    <div><h4>How it works</h4>10 modules, each ending with a <strong>Do This Today</strong> task. Your workbook and startup links are in the Toolkit.</div>
+  </div>
+
+  <h3>Honest note</h3>
+  <p>Building a full book takes time, and lash work is hard on your eyes, neck and back. This course doesn't promise income and isn't legal or medical advice.</p>
+</template>
+<template id="t-1">
+  <div class="kicker">Module 1</div>
+  <h2>Is Lash Work Right for You?</h2>
+  <div class="cols">
+    <div class="pro"><h4>Pros</h4><ul><li>Repeat clients every 2–3 weeks for fills</li><li>Low equipment cost compared to many businesses</li><li>Can start in a suite, a salon or a licensed home studio</li></ul></div>
+    <div class="con"><h4>Cons</h4><ul><li>License and training required in most states</li><li>Full sets take 1.5–3 hours</li><li>Allergy and eye safety risks</li><li>Strain on your posture and eyes</li></ul></div>
+  </div>
+  <h3>1.1 · Lash styles</h3>
+  <ul>
+    <li><strong>Classic:</strong> one extension per natural lash</li>
+    <li><strong>Hybrid:</strong> a mix of classic and volume</li>
+    <li><strong>Volume and mega volume:</strong> handmade fans of several thin lashes per natural lash</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Look up 3 local or nearby lash artists' menus and write down their styles and prices.</div>
+</template>
+<template id="t-2">
+  <div class="kicker">Module 2</div>
+  <h2>Licensing &amp; Training</h2>
+  <h3>Register the business</h3>
+  <p>Form your LLC or DBA, get your free EIN, and open a business bank account. Links are in the Toolkit.</p>
+<div class="checkstate">
+    <div class="box-title">⚠ Check your state: you will likely need a license</div>
+    <p>In most states, applying eyelash extensions requires a beauty license, such as a cosmetology or esthetician license, or a special eyelash license. A short certification class by itself usually is <strong>not</strong> a state license.</p>
+    <p><strong>Example:</strong> Texas offers an <strong>Eyelash Extension Specialist</strong> license through TDLR. It requires a 320-hour course at a licensed school, written and practical exams, a minimum age of 17, and a $50 application fee. The license lasts two years. (<a href="https://www.tdlr.texas.gov/barbering-and-cosmetology/individuals/apply-eyelash.htm" target="_blank" rel="noopener">TDLR</a>)</p>
+    <ol>
+      <li>Call your state cosmetology board and ask: "What license do I need to apply eyelash extensions, and does my work location need a license?"</li>
+      <li>Ask your city about a business license and zoning, especially for a home studio.</li>
+      <li>Write every answer in your workbook's Licenses tab.</li>
+    </ol>
+  </div>
+  <h3>Insurance</h3>
+  <p>Ask an insurance agent about general liability, professional liability for your services, and property coverage for your equipment. Landlords usually require proof of insurance. Get at least 2 quotes and record them in your workbook.</p>
+  <h3>Training</h3>
+  <p>After your state license, take hands-on lash training from an experienced educator. Practice on a mannequin head, then on friends with patch tests, before charging clients.</p>
+  <div class="today"><b>Do This Today</b>Call your state cosmetology board about lash licensing.</div>
+</template>
+<template id="t-3">
+  <div class="kicker">Module 3</div>
+  <h2>Supplies &amp; Real Prices</h2>
+  <h3>3.1 · What you need</h3>
+  <ul>
+    <li>Lash bed or reclining chair, and an adjustable stool</li>
+    <li>Magnifying lamp or bright LED lamp</li>
+    <li>Lash trays in different lengths, curls and thicknesses</li>
+    <li>Professional adhesive, primer, remover</li>
+    <li>Isolation and pickup tweezers</li>
+    <li>Under-eye gel pads, tape, micro swabs, lash shampoo, disposable brushes</li>
+    <li>Hygrometer (humidity affects glue), nebulizer or fan</li>
+    <li>Disinfectant and a way to clean tweezers between clients</li>
+  </ul>
+  <h3>3.2 · Real price example</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Item</th><th>Listed price</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>Bella Lash Lash Pro Starter Kit (lashes, adhesive, tweezers, remover, plus online certification)</td><td class="num">$20 sale (regular $115)</td><td><a href="https://bellalash.com/products/lash-pro-starter-kit" target="_blank" rel="noopener">Bella Lash</a>, checked Nov 2026</td></tr>
+    </tbody>
+  </table></div>
+  <p>A starter kit is a starting point. You'll buy more lash trays and adhesive as you get clients. Compare at least 2 professional suppliers. Remember a supplier's online "certification" is not your state license.</p>
+  <div class="today"><b>Do This Today</b>Build a supply list with prices from 2 suppliers in your workbook.</div>
+</template>
+<template id="t-4">
+  <div class="kicker">Module 4</div>
+  <h2>Safety, Allergies &amp; Hygiene</h2>
+  <ul>
+    <li>The FDA considers eyelash extensions and their adhesives cosmetic products. Check the adhesive's ingredients and safety sheet (<a href="https://www.fda.gov/cosmetics/cosmetic-products/eye-cosmetic-safety" target="_blank" rel="noopener">FDA: Eye cosmetic safety</a>)</li>
+    <li>Do a patch test before a client's first full set</li>
+    <li>Keep glue away from the eye and skin; work with the eyes fully closed</li>
+    <li>Use fresh disposables for every client, and clean and disinfect tweezers between clients</li>
+    <li>Don't work on clients with eye infections or irritation; send them to a doctor</li>
+    <li>Have every client sign an intake and consent form listing allergies and health conditions</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Write your client intake and consent form.</div>
+</template>
+<template id="t-5">
+  <div class="kicker">Module 5</div>
+  <h2>Pricing Your Services</h2>
+  <h3>5.1 · What U.S. lash salons charge</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Style</th><th>Full set (average)</th><th>Fill (average)</th></tr></thead>
+    <tbody>
+      <tr><td>Classic</td><td class="num">$164</td><td class="num">$71</td></tr>
+      <tr><td>Hybrid</td><td class="num">$192</td><td class="num">$84</td></tr>
+      <tr><td>Volume</td><td class="num">$227</td><td class="num">$95</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Source: <a href="https://divinelashes.ca/blog/how-much-do-eyelash-extensions-cost/" target="_blank" rel="noopener">Divine Lashes study of U.S. lash salon prices</a> (updated December 2024), based on published prices from about 150 salons across the U.S. Classic full sets ranged from $80 to $375. Prices are lower in small towns and higher in big cities.</p>
+  <div class="checkstate">
+    <div class="box-title">Set your prices: with or without local lash artists</div>
+    <ol>
+      <li>Start with the national averages above.</li>
+      <li>Check local lash artists' menus on their booking pages; if there are none, check the nearest bigger city.</li>
+      <li>New techs often start below average and raise prices as their skill and reviews grow.</li>
+      <li>Make sure each service covers your supplies, rent and time in your workbook.</li>
+    </ol>
+  </div>
+  <div class="today"><b>Do This Today</b>Write your service menu with prices.</div>
+</template>
+<template id="t-6">
+  <div class="kicker">Module 6</div>
+  <h2>Where to Work</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Option</th><th>Pros</th><th>Check</th></tr></thead>
+    <tbody>
+      <tr><td>Salon suite</td><td>Private, professional, low risk</td><td>Weekly rent, lease length, building license</td></tr>
+      <tr><td>Room in a salon or spa</td><td>Walk-in traffic</td><td>Rent or commission terms</td></tr>
+      <tr><td>Home studio</td><td>Lowest cost</td><td>Many states and cities don't allow it or require a separate licensed room. Check first</td></tr>
+    </tbody>
+  </table></div>
+  <div class="today"><b>Do This Today</b>Price 2 places you could work and compare them in your workbook.</div>
+</template>
+<template id="t-7">
+  <div class="kicker">Module 7</div>
+  <h2>Booking, Policies &amp; Aftercare</h2>
+  <ul>
+    <li>Online booking with deposits to reduce no-shows</li>
+    <li>Clear policies: late arrivals, cancellations, how long a "fill" can wait before it's a new full set</li>
+    <li>Aftercare card: keep lashes dry for the time your adhesive maker says, no oil-based products, brush daily, no picking</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Write your booking and cancellation policy.</div>
+</template>
+<template id="t-8">
+  <div class="kicker">Module 8</div>
+  <h2>Insurance &amp; Taxes</h2>
+  <p>Get professional liability insurance that specifically covers eyelash extensions. Set aside money for taxes from every payment. Self-employed people usually pay estimated taxes quarterly (<a href="https://www.irs.gov/businesses/small-businesses-self-employed/estimated-taxes" target="_blank" rel="noopener">IRS: Estimated taxes</a>).</p>
+  <div class="today"><b>Do This Today</b>Get 2 professional liability quotes that cover lash extensions.</div>
+</template>
+<template id="t-9">
+  <div class="kicker">Module 9</div>
+  <h2>Getting Clients</h2>
+  <ul>
+    <li>Instagram and TikTok: close-up before and afters in good light</li>
+    <li>Google Business Profile with reviews</li>
+    <li>Model calls at a discount while building your portfolio</li>
+    <li>Referral rewards: a discount on fills for every friend who books</li>
+    <li>Rebook the next fill before the client leaves</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Post your first 3 before-and-after photos.</div>
+</template>
+<template id="t-10">
+  <div class="kicker">Module 10</div>
+  <h2>Your Launch Plan</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>When</th><th>Goals</th></tr></thead>
+    <tbody>
+      <tr><td>Step 1</td><td>Get your state license and lash training.</td></tr>
+      <tr><td>Step 2</td><td>Form your LLC, get your EIN, open a bank account, get insured.</td></tr>
+      <tr><td>Step 3</td><td>Pick where you'll work and buy supplies.</td></tr>
+      <tr><td>Step 4</td><td>Practice, build your portfolio with model clients, set prices and policies.</td></tr>
+      <tr><td>Step 5</td><td>Open booking and start marketing.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="today"><b>Do This Today</b>Put real dates on every step in the Launch Checklist tab of your workbook.</div>
+</template>
+<template id="t-toolkit">
+  <div class="kicker">Startup Toolkit</div>
+  <h2>Startup Toolkit &amp; Downloads</h2>
+  <p class="lead">Everything you need to actually start: your workbook to download, and direct links to register, get set up and get free help.</p>
+  <h3>Download your startup workbook</h3>
+  <p><a class="btn primary" href="downloads/lash-tech-startup-workbook.xlsx" download>Download the Lash Tech Business Startup Workbook (Excel)</a></p>
+  <ul>
+    <li><strong>Startup Costs:</strong> enter your real quotes and get your total budget, with a buffer for surprises.</li>
+    <li><strong>Price Research:</strong> a ready list of who to call and what to ask, so you can find your real local numbers.</li>
+    <li><strong>Licenses &amp; Insurance:</strong> a tracker for every license, registration and policy, with links.</li>
+    <li><strong>Launch Checklist:</strong> every step with a date and a done column.</li>
+  </ul>
+  <p class="note">Opens in Excel, Google Sheets (File → Import) or Numbers.</p>
+  <h3>Step-by-step: start the business</h3>
+  <ol>
+    <li><a href="https://www.sba.gov/counseling/plan-your-business/#business-plan" target="_blank" rel="noopener">Write your business plan</a> (SBA)</li>
+    <li><a href="https://www.sba.gov/counseling/plan-your-business/#startup-costs" target="_blank" rel="noopener">Calculate your startup costs</a> (SBA), then fill in your workbook</li>
+    <li><a href="https://www.sba.gov/counseling/plan-your-business/#fund-business" target="_blank" rel="noopener">Fund your business</a> (SBA)</li>
+    <li><a href="https://www.sba.gov/counseling/launch-your-business/#register-business" target="_blank" rel="noopener">Register your business</a>, then use the <a href="https://www.sba.gov/counseling/launch-your-business/state-registration-lookup/" target="_blank" rel="noopener">state registration lookup</a> to find your state's office</li>
+    <li><a href="https://www.irs.gov/businesses/small-businesses-self-employed/get-an-employer-identification-number" target="_blank" rel="noopener">Get your free EIN</a> (IRS)</li>
+    <li><a href="https://www.sba.gov/counseling/launch-your-business/#licenses-permits" target="_blank" rel="noopener">Apply for licenses and permits</a> (SBA)</li>
+    <li><a href="https://www.sba.gov/counseling/launch-your-business/#business-insurance" target="_blank" rel="noopener">Get business insurance</a> (SBA)</li>
+    <li><a href="https://www.sba.gov/counseling/launch-your-business/#bank-account" target="_blank" rel="noopener">Open a business bank account</a> (SBA)</li>
+  </ol>
+  <h3>Links for this business</h3>
+  <ul>
+    <li><a href="https://www.tdlr.texas.gov/barbering-and-cosmetology/individuals/apply-eyelash.htm" target="_blank" rel="noopener">Texas Eyelash Extension Specialist license</a>: example of a state lash license</li>
+    <li><a href="https://www.fda.gov/cosmetics/cosmetic-products/eye-cosmetic-safety" target="_blank" rel="noopener">FDA: Eye cosmetic safety</a>: lash extensions and adhesives</li>
+    <li><a href="https://divinelashes.ca/blog/how-much-do-eyelash-extensions-cost/" target="_blank" rel="noopener">U.S. lash price study</a>: national price benchmarks</li>
+    <li><a href="https://bellalash.com/products/lash-pro-starter-kit" target="_blank" rel="noopener">Bella Lash starter kit</a>: supply example</li>
+  </ul>
+  <h3>Free help</h3>
+  <ul>
+    <li><a href="https://www.sba.gov/counseling/local-assistance/" target="_blank" rel="noopener">SBA local assistance</a>: free counseling near you</li>
+    <li><a href="https://www.score.org/" target="_blank" rel="noopener">SCORE</a>: free mentoring from experienced business owners</li>
+    <li><a href="https://www.irs.gov/businesses/small-businesses-self-employed" target="_blank" rel="noopener">IRS small business tax center</a></li>
+  </ul>
+  <div class="checkstate" id="resell-rights">
+    <div class="box-title">✦ Your resell rights</div>
+    <p>As a Built By You Academy member, <strong>this course is yours to use however you want.</strong> You can:</p>
+    <ul>
+      <li><strong>Resell it</strong> at any price you choose by sharing this course link with your buyers</li>
+      <li><strong>Give it away</strong> for free, as a bonus or a gift</li>
+      <li><strong>Bundle it</strong> with your own products, services or memberships</li>
+      <li>Keep <strong>100% of what you make</strong>. It's up to you.</li>
+    </ul>
+    <p class="note">If you resell, don't promise your buyers income or results. The course doesn't, and you shouldn't either.</p>
+  </div>
+  <div class="today"><b>Do This Today</b>Download your workbook and call your state cosmetology board about lash licensing.</div>
+</template>
+
+<script>
+function copyScript(btn){var p=btn.parentElement.querySelector('p')||btn.parentElement.querySelector('pre');var text=p?p.innerText:'';
+function ok(){btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy'},1600)}
+if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(ok,function(){})}else{var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(ta);ok()}}
+function switchTab(id,idx,btn){var c=document.getElementById(id);c.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});btn.classList.add('active');
+c.querySelectorAll('.tab-panel').forEach(function(p){p.classList.toggle('active',Number(p.getAttribute('data-idx'))===idx)})}
+function $v(id){return parseFloat(document.getElementById(id).value)||0}
+function money(n){return '$'+n.toLocaleString(undefined,{maximumFractionDigits:0})}
+function calcStartup(){var ids=['su-rent','su-deposit','su-furnish','su-photo','su-insurance','su-permits','su-reserve'],t=0;ids.forEach(function(i){t+=$v(i)});
+document.getElementById('su-total').textContent=money(t);document.getElementById('su-result').classList.add('show')}
+function calcDeal(){var rent=$v('da-rent'),rev=$v('da-adr')*30*($v('da-occ')/100),exp=rent+$v('da-util')+$v('da-ins')+$v('da-soft')+$v('da-cleancost')*$v('da-turnovers'),prof=rev-exp,mult=rent>0?rev/rent:0,score=Math.max(0,Math.min(100,Math.round(mult/3*100)));
+var c='fail',t='FAIL: below 1.5x, skip this deal';if(mult>=2){c='pass';t='PASS: clears the 2X rule'}else if(mult>=1.5){c='caution';t='CAUTION: marginal, negotiate harder'}
+document.getElementById('da-revenue').textContent=money(rev);document.getElementById('da-expenses').textContent=money(exp);document.getElementById('da-profit').textContent=money(prof);
+document.getElementById('da-multiple').textContent=mult.toFixed(2)+'x';document.getElementById('da-score').textContent=score+' / 100';
+var p=document.getElementById('da-pill');p.className='pill '+c;p.textContent=t;document.getElementById('da-result').classList.add('show')}
+</script>
+<script>
+(function(){
+var mods=[
+{id:"overview",t:"t-overview",full:"Course Overview",short:"Course Overview"},
+{id:"module-1",t:"t-1",full:"1 · Is Lash Work Right for You?",short:"1 · Fit"},
+{id:"module-2",t:"t-2",full:"2 · Licensing & Training",short:"2 · Licensing"},
+{id:"module-3",t:"t-3",full:"3 · Supplies & Real Prices",short:"3 · Supplies"},
+{id:"module-4",t:"t-4",full:"4 · Safety, Allergies & Hygiene",short:"4 · Safety"},
+{id:"module-5",t:"t-5",full:"5 · Pricing Your Services",short:"5 · Pricing"},
+{id:"module-6",t:"t-6",full:"6 · Where to Work",short:"6 · Location"},
+{id:"module-7",t:"t-7",full:"7 · Booking, Policies & Aftercare",short:"7 · Policies"},
+{id:"module-8",t:"t-8",full:"8 · Insurance & Taxes",short:"8 · Insurance"},
+{id:"module-9",t:"t-9",full:"9 · Getting Clients",short:"9 · Marketing"},
+{id:"module-10",t:"t-10",full:"10 · Your Launch Plan",short:"10 · Launch"},
+{id:"toolkit",t:"t-toolkit",full:"Startup Toolkit & Downloads",short:"Toolkit"}
+];
+var KEY="bby-lash-tech-done", done={};
+try{done=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){done={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}}
+var rail=document.getElementById("rail"), lesson=document.getElementById("lesson");
+var cur=0;
+mods.forEach(function(m,i){
+var b=document.createElement("button"); b.type="button"; b.id="nav-"+m.id;
+b.innerHTML='<span class="dot" aria-hidden="true"></span><span><span class="full"></span><span class="short"></span></span>';
+b.querySelector(".full").textContent=m.full; b.querySelector(".short").textContent=m.short;
+b.addEventListener("click",function(){go(i,true)}); rail.appendChild(b);
+});
+function paint(){
+var n=0;
+mods.forEach(function(m,i){
+var b=document.getElementById("nav-"+m.id);
+b.classList.toggle("done",!!done[m.id]); b.querySelector(".dot").textContent=done[m.id]?"✓":"";
+b.setAttribute("aria-current",i===cur?"true":"false"); if(done[m.id])n++;
+});
+document.getElementById("barfill").style.width=(n/mods.length*100)+"%";
+document.getElementById("ptext").textContent=n+" of "+mods.length+" complete";
+var d=document.getElementById("done"), on=!!done[mods[cur].id];
+d.setAttribute("aria-pressed",on?"true":"false"); d.textContent=on?"✓ Completed":"Mark complete";
+document.getElementById("prev").hidden=cur===0;
+document.getElementById("next").hidden=cur===mods.length-1;
+}
+function go(i,scroll){
+cur=Math.max(0,Math.min(mods.length-1,i));
+lesson.innerHTML=""; lesson.appendChild(document.getElementById(mods[cur].t).content.cloneNode(true));
+if(location.hash!=="#"+mods[cur].id){try{history.replaceState(null,"","#"+mods[cur].id)}catch(e){location.hash=mods[cur].id}}
+paint(); if(scroll)window.scrollTo({top:0});
+}
+document.getElementById("prev").addEventListener("click",function(){go(cur-1,true)});
+document.getElementById("next").addEventListener("click",function(){go(cur+1,true)});
+document.getElementById("done").addEventListener("click",function(){
+var id=mods[cur].id; if(done[id])delete done[id]; else done[id]=true; save(); paint();
+});
+function fromHash(){var h=location.hash.slice(1),i=mods.findIndex(function(m){return m.id===h}); go(i<0?0:i,false)}
+window.addEventListener("hashchange",fromHash); fromHash();
+})();
+</script>
+</body></html>
