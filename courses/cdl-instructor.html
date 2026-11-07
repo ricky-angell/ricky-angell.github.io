@@ -1,0 +1,368 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>CDL Instructor Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+/* Same course-player layout as the other BBY blueprints */
+:root{
+--bg:#f5f6f9; --surface:#ffffff; --ink:#141a2b; --muted:#5a6276; --line:#dde1ea;
+--navy:#16213f; --gold:#b8860b; --gold-soft:#f6ecd2; --ok:#1f7a4d; --ok-soft:#e1f2e8; --bad:#b3261e; --bad-soft:#fbe5e3;
+--display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+--body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}}
+:root[data-theme="dark"]{
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--body)}
+[hidden]{display:none!important}
+a{color:var(--gold);text-underline-offset:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.top{background:var(--navy);color:#fff;padding-block:22px 26px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{max-width:1180px;margin:0 auto;display:grid;gap:6px}
+.eyebrow{font:600 13px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:#e3b54a}
+.top h1{font:italic 700 clamp(34px,6vw,56px)/1 var(--display);margin:0;text-wrap:balance;letter-spacing:.01em}
+.top p{margin:0;color:#c9cfdd;max-width:62ch}
+.progress{display:flex;align-items:center;gap:12px;margin-top:10px;font-size:14px;color:#c9cfdd}
+.bar{flex:0 1 260px;height:8px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:#e3b54a;transition:width .3s}
+.wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:270px minmax(0,1fr);gap:32px;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;display:grid;gap:2px}
+.rail button{all:unset;cursor:pointer;display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;padding:10px 12px;border-radius:8px;color:var(--muted);font-size:15px;line-height:1.35}
+.rail button:hover{background:var(--surface);color:var(--ink)}
+.rail button[aria-current="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:inset 3px 0 0 var(--gold)}
+.dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;margin-top:1px}
+.done .dot{background:var(--ok);border-color:var(--ok);color:#fff}
+main{min-width:0}
+article{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:clamp(20px,4vw,44px)}
+article h2{font:700 clamp(30px,4.4vw,42px)/1.05 var(--display);margin:0 0 6px;text-wrap:balance}
+.kicker{font:600 13px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+article h3{font:700 24px/1.15 var(--display);margin:34px 0 8px;letter-spacing:.01em}
+article p,article li{max-width:68ch}
+article ul,article ol{padding-left:1.3em;display:grid;gap:6px}
+.lead{font-size:18px;color:var(--muted)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:8px}
+.cols > div{border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.cols h4{margin:0 0 6px;font:700 18px/1.2 var(--display);letter-spacing:.03em;text-transform:uppercase}
+.cols .pro{border-color:var(--ok);background:var(--ok-soft)} .cols .pro h4{color:var(--ok)}
+.cols .con{border-color:var(--bad);background:var(--bad-soft)} .cols .con h4{color:var(--bad)}
+.tablewrap{overflow-x:auto;margin-top:10px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{font-weight:700;border-top:2px solid var(--ink)}
+.formula{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 16px;font-weight:600}
+.today{margin-top:34px;background:var(--gold-soft);border-radius:10px;padding:16px 20px;display:grid;gap:4px}
+.today b{font:700 15px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.note{font-size:14px;color:var(--muted)}
+.pager{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;margin-top:20px}
+.btn{all:unset;cursor:pointer;padding:11px 18px;border-radius:8px;font-weight:600;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+:root[data-theme="dark"] .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}}
+.btn.complete[aria-pressed="true"]{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+@media (max-width:820px){
+.wrap{grid-template-columns:1fr;gap:16px}
+nav.rail{position:static;display:flex;overflow-x:auto;gap:6px;padding-bottom:4px}
+.rail button{flex:0 0 auto;grid-template-columns:20px auto;white-space:nowrap;background:var(--surface);border:1px solid var(--line)}
+.rail .full{display:none}
+}
+@media (min-width:821px){.rail .short{display:none}}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style></head><body>
+
+<header class="top">
+  <div class="top-in">
+    <div class="eyebrow">Built By You Academy · Real World Business Blueprints</div>
+    <h1>CDL Instructor</h1>
+    <p>Turn your commercial driving experience into a teaching business: qualify as a CDL instructor under the federal training rules, get hired or contract with schools, and when you're ready, open your own registered CDL school.</p>
+    <div class="progress"><div class="bar"><i id="barfill"></i></div><span id="ptext">0 of 9 complete</span></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="rail" id="rail" aria-label="Course modules"></nav>
+  <main>
+    <article id="lesson" aria-live="polite"></article>
+    <div class="pager">
+      <button class="btn" id="prev" type="button">← Previous</button>
+      <button class="btn complete" id="done" type="button" aria-pressed="false">Mark complete</button>
+      <button class="btn primary" id="next" type="button">Next module →</button>
+    </div>
+  </main>
+</div>
+
+<template id="t-overview">
+  <div class="kicker">Start here</div>
+  <h2>Course Overview</h2>
+  <p class="lead">By the end of this course you'll know whether you qualify to teach, how the federal Entry-Level Driver Training rules work, how to land instructor work, and what it takes to open your own school on FMCSA's Training Provider Registry.</p>
+  <div class="cols">
+    <div><h4>Who it's for</h4>CDL holders with at least 2 years of driving experience who want to teach, and business owners who want to open a CDL school with qualified instructors.</div>
+    <div><h4>How it works</h4>Every module ends with a <strong>Do This Today</strong> task. Finish it before you move on.</div>
+  </div>
+  <h3>Two paths in this course</h3>
+  <ul>
+    <li><strong>Path 1, Instructor:</strong> teach for an existing school, carrier or community college (Modules 1–4).</li>
+    <li><strong>Path 2, School owner:</strong> open your own CDL training business (Modules 5–9).</li>
+  </ul>
+  <h3>Honest note</h3>
+  <p>This is a regulated field. Federal rules set the minimums and your state adds its own. This course explains the rules and the steps. It doesn't promise income and isn't legal advice. Always confirm requirements with FMCSA and your state agency.</p>
+</template>
+
+<template id="t-1">
+  <div class="kicker">Module 1</div>
+  <h2>Is This Business Right for You?</h2>
+  <p class="lead">New truck drivers have to be trained before they can test, and every school needs qualified instructors.</p>
+  <h3>1.1 · Why there's demand</h3>
+  <ul>
+    <li>Since February 7, 2022, new Class A and Class B drivers, Class B to A upgrades, and first-time school bus, passenger and hazmat endorsements require Entry-Level Driver Training (ELDT) before testing. (<a href="https://www.fmcsa.dot.gov/registration/commercial-drivers-license/entry-level-driver-training-eldt" target="_blank" rel="noopener">FMCSA</a>)</li>
+    <li>FMCSA's Training Provider Registry reports over 2 million drivers trained since February 2022 and more than 18,000 active training providers. (<a href="https://tpr.fmcsa.dot.gov/" target="_blank" rel="noopener">TPR, Nov 2026</a>)</li>
+    <li>Most truck drivers attend a private truck driving school or a community college program lasting 3 to 6 months. (<a href="https://www.bls.gov/ooh/transportation-and-material-moving/heavy-and-tractor-trailer-truck-drivers.htm" target="_blank" rel="noopener">BLS</a>)</li>
+  </ul>
+  <h3>1.2 · The honest pros and cons</h3>
+  <div class="cols">
+    <div><h4>Pros</h4><ul><li>Home every night, unlike long-haul driving</li><li>Uses experience you already have</li><li>Steady demand from schools and carriers</li><li>A path to owning your own school</li></ul></div>
+    <div><h4>Cons</h4><ul><li>You need years of CDL driving experience first</li><li>Teaching nervous new drivers takes patience</li><li>Heavy paperwork and regulations</li><li>Owning a school takes trucks, a range and insurance</li></ul></div>
+  </div>
+  <div class="today"><b>Do This Today</b>Write down your CDL class, your endorsements and exactly how many years you've driven with them.</div>
+</template>
+
+<template id="t-2">
+  <div class="kicker">Module 2</div>
+  <h2>The Rules: Entry-Level Driver Training</h2>
+  <p class="lead">ELDT is the federal training standard every school and instructor works under.</p>
+  <h3>2.1 · Who must complete ELDT</h3>
+  <ul>
+    <li>Anyone getting a Class A or Class B CDL for the first time</li>
+    <li>Anyone upgrading a Class B CDL to Class A</li>
+    <li>Anyone getting a school bus (S), passenger (P) or hazmat (H) endorsement for the first time</li>
+  </ul>
+  <p class="note">It isn't retroactive: drivers who had their CDL or endorsement before February 7, 2022 don't have to complete it. (<a href="https://www.fmcsa.dot.gov/registration/commercial-drivers-license/entry-level-driver-training-eldt" target="_blank" rel="noopener">FMCSA</a>)</p>
+  <h3>2.2 · Two kinds of training</h3>
+  <div class="cols">
+    <div><h4>Theory</h4>Knowledge instruction: rules, safety, vehicle systems, trip planning. Can be classroom or online.</div>
+    <div><h4>Behind-the-wheel (BTW)</h4>Actually driving the truck, on a range and on public roads.</div>
+  </div>
+  <h3>2.3 · The Training Provider Registry (TPR)</h3>
+  <p>Only providers listed on FMCSA's <a href="https://tpr.fmcsa.dot.gov/" target="_blank" rel="noopener">Training Provider Registry</a> can deliver ELDT. When a student finishes, the provider must submit their certification by midnight of the second business day after training ends. The student can't take the skills or knowledge test until that's on file.</p>
+  <div class="today"><b>Do This Today</b>Open the TPR website and search for training providers near you. List 5 with their training types.</div>
+</template>
+
+<template id="t-3">
+  <div class="kicker">Module 3</div>
+  <h2>Qualifying as an Instructor</h2>
+  <p class="lead">Federal rules set two kinds of instructor: theory and behind-the-wheel. (<a href="https://www.ecfr.gov/current/title-49/subtitle-B/chapter-III/subchapter-B/part-380/subpart-F/section-380.605" target="_blank" rel="noopener">49 CFR 380.605</a>)</p>
+  <h3>3.1 · Behind-the-wheel instructor</h3>
+  <ul>
+    <li>Holds a CDL of the same or higher class, with every endorsement needed for the truck you're teaching in</li>
+    <li><strong>And</strong> has at least 2 years of experience driving a CMV that needs that class or endorsement, <strong>or</strong> at least 2 years as a BTW instructor</li>
+    <li><strong>And</strong> meets your state's qualification requirements for CMV instructors</li>
+  </ul>
+  <p class="note">If you only teach on a private range (not public roads), you don't have to currently hold the CDL, as long as you previously held one of the same or higher class and meet the experience rule.</p>
+  <h3>3.2 · Theory instructor</h3>
+  <ul>
+    <li>Same CDL class, endorsement and 2-year experience rules as BTW</li>
+    <li>You may teach theory with a previously held CDL of the same or higher class</li>
+    <li>Online-only providers don't have to meet state qualification requirements for theory instructors</li>
+  </ul>
+  <h3>3.3 · What disqualifies you</h3>
+  <p>If your CDL was cancelled, suspended or revoked for a disqualifying offense under 49 CFR 383.51, you can't instruct for 2 years after your CDL is reinstated.</p>
+  <h3>3.4 · Your state's rules</h3>
+  <p>Many states license driving schools and instructors separately, with their own applications, background checks or training. Search "[your state] CDL instructor license" and "[your state] truck driving school license," or call your state DMV.</p>
+  <div class="today"><b>Do This Today</b>Check yourself against 3.1–3.3, then find your state's instructor requirements and write them down.</div>
+</template>
+
+<template id="t-4">
+  <div class="kicker">Module 4</div>
+  <h2>Getting Instructor Work</h2>
+  <p class="lead">Start by teaching for someone else. You'll learn the curriculum, the paperwork and the business.</p>
+  <h3>4.1 · Who hires CDL instructors</h3>
+  <ul>
+    <li>Private truck driving schools</li>
+    <li>Community colleges and technical schools</li>
+    <li>Trucking companies with in-house training</li>
+    <li>School districts and bus companies (for S and P endorsements)</li>
+    <li>Third-party CDL testing sites, where your state allows them</li>
+  </ul>
+  <h3>4.2 · Your instructor resume</h3>
+  <ul>
+    <li>CDL class, endorsements and years driving each</li>
+    <li>Clean driving record and safety awards</li>
+    <li>Types of equipment: manual and automatic, tanker, flatbed, doubles</li>
+    <li>Any training or mentoring you've done as a driver-trainer</li>
+  </ul>
+  <h3>4.3 · Contract work</h3>
+  <p>Some schools hire part-time or contract BTW instructors for weekends and busy seasons. It's a low-risk way to earn while you plan your own school. Get any contract in writing, including who provides insurance.</p>
+  <div class="today"><b>Do This Today</b>Update your resume for instructor jobs and apply to 3 schools or carriers.</div>
+</template>
+
+<template id="t-5">
+  <div class="kicker">Module 5</div>
+  <h2>Opening Your Own CDL School</h2>
+  <p class="lead">To deliver ELDT, your school must qualify for the Training Provider Registry. (<a href="https://www.ecfr.gov/current/title-49/subtitle-B/chapter-III/subchapter-B/part-380/subpart-G/section-380.703" target="_blank" rel="noopener">49 CFR 380.703</a>)</p>
+  <h3>5.1 · What FMCSA requires of a provider</h3>
+  <ol>
+    <li>Follow a curriculum that meets the federal criteria in Appendices A–E of Part 380</li>
+    <li>Use facilities that meet the federal standard (§380.709)</li>
+    <li>Use vehicles that meet the federal standard (§380.711)</li>
+    <li>Use instructors who meet the federal standard (§380.713)</li>
+    <li>Be licensed, certified, registered or authorized under the laws of every state where you train in person</li>
+    <li>Allow FMCSA audits and investigations</li>
+    <li>Register each campus or training location through the TPR website to get a TPR number</li>
+  </ol>
+  <h3>5.2 · Pick your model</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Model</th><th>What you need</th><th>Good for</th></tr></thead>
+    <tbody>
+      <tr><td>Theory only, online</td><td>Online course that meets the curriculum; no trucks</td><td>Lowest startup cost</td></tr>
+      <tr><td>BTW only</td><td>Truck, range access, qualified BTW instructors</td><td>Partnering with online theory providers</td></tr>
+      <tr><td>Full school</td><td>Classroom or online theory, trucks, range, instructors, state license</td><td>Complete Class A and B programs</td></tr>
+      <tr><td>Endorsements only</td><td>Curriculum for S, P or H</td><td>A narrow, focused offering</td></tr>
+    </tbody>
+  </table></div>
+  <div class="today"><b>Do This Today</b>Pick the model you'll start with and read the federal curriculum appendix for it.</div>
+</template>
+
+<template id="t-6">
+  <div class="kicker">Module 6</div>
+  <h2>Setting Up the Business</h2>
+  <h3>6.1 · Business and state licensing</h3>
+  <ol>
+    <li>Register an LLC or corporation with your state and get an EIN at <a href="https://www.irs.gov/businesses/small-businesses-self-employed/apply-for-an-employer-identification-number-ein-online" target="_blank" rel="noopener">irs.gov</a>.</li>
+    <li>Find which state agency licenses truck driving schools in your state, and get its application and fees.</li>
+    <li>Complete state licensing before you train anyone in person.</li>
+    <li>Register on the TPR for each location.</li>
+  </ol>
+  <h3>6.2 · Trucks and range</h3>
+  <ul>
+    <li>Training trucks and trailers that meet the federal vehicle standard for the class you teach</li>
+    <li>A safe off-road range for backing and coupling: owned, leased or shared</li>
+    <li>Regular maintenance and inspection records</li>
+  </ul>
+  <h3>6.3 · Insurance</h3>
+  <p>A driving school needs commercial auto coverage that allows student drivers, plus general liability. Workers' comp is required in most states once you hire. Student-driver coverage is specialized, so get quotes from agents who insure CDL schools.</p>
+  <h3>6.4 · Records</h3>
+  <ul>
+    <li>Student enrollment and attendance</li>
+    <li>Theory assessment results and BTW proficiency</li>
+    <li>TPR certifications submitted on time</li>
+    <li>Instructor qualification files</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Identify your state's school licensing agency and download its application checklist.</div>
+</template>
+
+<template id="t-7">
+  <div class="kicker">Module 7</div>
+  <h2>Pricing &amp; Getting Students</h2>
+  <p class="lead">Set your price from real costs and your local market.</p>
+  <h3>7.1 · Price your program</h3>
+  <ul>
+    <li>Look up tuition at 5 schools near you, by program (Class A, Class B, endorsements, refresher).</li>
+    <li>Add up your cost per student: instructor hours, fuel, truck and range time, insurance, materials and TPR reporting time.</li>
+    <li>Offer packages: theory only, BTW only, full program and refresher lessons.</li>
+  </ul>
+  <p class="formula">Tuition = cost per student + overhead share + profit</p>
+  <h3>7.2 · Where students come from</h3>
+  <ul>
+    <li>Your local workforce center: ask whether they fund CDL training and how schools get approved.</li>
+    <li>Carriers that need new drivers and will sponsor training</li>
+    <li>School districts and bus companies that need S and P drivers</li>
+    <li>Google Business Profile, Facebook groups and short videos of real training</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Collect tuition prices from 5 nearby schools and call your local workforce center about training funding.</div>
+</template>
+
+<template id="t-8">
+  <div class="kicker">Module 8</div>
+  <h2>Running Classes Safely</h2>
+  <ul>
+    <li>Follow your curriculum exactly. It's what FMCSA can audit.</li>
+    <li>Start BTW on the range before public roads.</li>
+    <li>Pre-trip every truck before every lesson.</li>
+    <li>Keep student-to-truck time fair and logged.</li>
+    <li>Submit TPR certifications by midnight of the second business day after a student finishes.</li>
+    <li>Ask every graduate for a review and track your pass rates.</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Write a one-page lesson plan for your first BTW session.</div>
+</template>
+
+<template id="t-9">
+  <div class="kicker">Module 9</div>
+  <h2>Your Launch Plan</h2>
+  <div class="cols">
+    <div><h4>Step 1 · Qualify</h4><ul><li>Confirm you meet 49 CFR 380.605</li><li>Meet your state's instructor rules</li></ul></div>
+    <div><h4>Step 2 · Teach</h4><ul><li>Get hired or contract with a school</li><li>Learn the curriculum and paperwork</li></ul></div>
+    <div><h4>Step 3 · Set up</h4><ul><li>Business registered</li><li>State school license</li><li>Trucks, range and insurance</li></ul></div>
+    <div><h4>Step 4 · Launch</h4><ul><li>TPR registration done</li><li>Tuition set</li><li>First class enrolled</li></ul></div>
+  </div>
+  <h3>Sources used in this course</h3>
+  <ul class="note">
+    <li><a href="https://www.fmcsa.dot.gov/registration/commercial-drivers-license/entry-level-driver-training-eldt" target="_blank" rel="noopener">FMCSA: Entry-Level Driver Training</a></li>
+    <li><a href="https://tpr.fmcsa.dot.gov/" target="_blank" rel="noopener">FMCSA: Training Provider Registry</a></li>
+    <li><a href="https://www.ecfr.gov/current/title-49/subtitle-B/chapter-III/subchapter-B/part-380/subpart-F/section-380.605" target="_blank" rel="noopener">49 CFR 380.605: Instructor definitions</a></li>
+    <li><a href="https://www.ecfr.gov/current/title-49/subtitle-B/chapter-III/subchapter-B/part-380/subpart-G/section-380.703" target="_blank" rel="noopener">49 CFR 380.703: Training provider requirements</a></li>
+    <li><a href="https://www.bls.gov/ooh/transportation-and-material-moving/heavy-and-tractor-trailer-truck-drivers.htm" target="_blank" rel="noopener">BLS: Heavy and Tractor-Trailer Truck Drivers</a></li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Put Steps 1 and 2 on your calendar with real dates.</div>
+</template>
+
+<script>
+(function(){
+var mods=[
+{id:"overview",t:"t-overview",full:"Course Overview",short:"Overview"},
+{id:"module-1",t:"t-1",full:"1 · Is This Business Right for You?",short:"1 · Fit"},
+{id:"module-2",t:"t-2",full:"2 · The Rules: Entry-Level Driver Training",short:"2 · ELDT"},
+{id:"module-3",t:"t-3",full:"3 · Qualifying as an Instructor",short:"3 · Qualify"},
+{id:"module-4",t:"t-4",full:"4 · Getting Instructor Work",short:"4 · Jobs"},
+{id:"module-5",t:"t-5",full:"5 · Opening Your Own CDL School",short:"5 · Your School"},
+{id:"module-6",t:"t-6",full:"6 · Setting Up the Business",short:"6 · Setup"},
+{id:"module-7",t:"t-7",full:"7 · Pricing & Getting Students",short:"7 · Students"},
+{id:"module-8",t:"t-8",full:"8 · Running Classes Safely",short:"8 · Classes"},
+{id:"module-9",t:"t-9",full:"9 · Your Launch Plan",short:"9 · Launch"}
+];
+var KEY="bby-cdl-instructor-done", done={};
+try{done=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){done={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}}
+var rail=document.getElementById("rail"), lesson=document.getElementById("lesson");
+var cur=0;
+mods.forEach(function(m,i){
+var b=document.createElement("button"); b.type="button"; b.id="nav-"+m.id;
+b.innerHTML='<span class="dot" aria-hidden="true"></span><span><span class="full"></span><span class="short"></span></span>';
+b.querySelector(".full").textContent=m.full; b.querySelector(".short").textContent=m.short;
+b.addEventListener("click",function(){go(i,true)}); rail.appendChild(b);
+});
+function paint(){
+var n=0;
+mods.forEach(function(m,i){
+var b=document.getElementById("nav-"+m.id);
+b.classList.toggle("done",!!done[m.id]); b.querySelector(".dot").textContent=done[m.id]?"✓":"";
+b.setAttribute("aria-current",i===cur?"true":"false"); if(done[m.id])n++;
+});
+document.getElementById("barfill").style.width=(n/mods.length*100)+"%";
+document.getElementById("ptext").textContent=n+" of "+mods.length+" complete";
+var d=document.getElementById("done"), on=!!done[mods[cur].id];
+d.setAttribute("aria-pressed",on?"true":"false"); d.textContent=on?"✓ Completed":"Mark complete";
+document.getElementById("prev").hidden=cur===0;
+document.getElementById("next").hidden=cur===mods.length-1;
+}
+function go(i,scroll){
+cur=Math.max(0,Math.min(mods.length-1,i));
+lesson.innerHTML=""; lesson.appendChild(document.getElementById(mods[cur].t).content.cloneNode(true));
+if(location.hash!=="#"+mods[cur].id){try{history.replaceState(null,"","#"+mods[cur].id)}catch(e){location.hash=mods[cur].id}}
+paint(); if(scroll)window.scrollTo({top:0});
+}
+document.getElementById("prev").addEventListener("click",function(){go(cur-1,true)});
+document.getElementById("next").addEventListener("click",function(){go(cur+1,true)});
+document.getElementById("done").addEventListener("click",function(){
+var id=mods[cur].id; if(done[id])delete done[id]; else done[id]=true; save(); paint();
+});
+function fromHash(){var h=location.hash.slice(1),i=mods.findIndex(function(m){return m.id===h}); go(i<0?0:i,false)}
+window.addEventListener("hashchange",fromHash); fromHash();
+})();
+</script>
+</body></html>
