@@ -1,0 +1,517 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>AI Vending Machines Blueprint</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+/* Layout: course player — sticky module rail on the left, one module of reading on the right; rail collapses to a top strip on phones */
+:root{
+  --bg:#f5f6f9; --surface:#ffffff; --ink:#141a2b; --muted:#5a6276; --line:#dde1ea;
+  --navy:#16213f; --gold:#b8860b; --gold-soft:#f6ecd2; --ok:#1f7a4d; --ok-soft:#e1f2e8;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+  --navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+  --navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.65 var(--body)}
+a{color:var(--gold);text-underline-offset:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.top{background:var(--navy);color:#fff;padding-block:22px 26px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{max-width:1180px;margin:0 auto;display:grid;gap:6px}
+.eyebrow{font:600 13px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:#e3b54a}
+.top h1{font:italic 700 clamp(34px,6vw,56px)/1 var(--display);margin:0;text-wrap:balance;letter-spacing:.01em}
+.top p{margin:0;color:#c9cfdd;max-width:62ch}
+.progress{display:flex;align-items:center;gap:12px;margin-top:10px;font-size:14px;color:#c9cfdd}
+.bar{flex:0 1 260px;height:8px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:#e3b54a;transition:width .3s}
+.wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:270px minmax(0,1fr);gap:32px;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;display:grid;gap:2px}
+.rail button{all:unset;cursor:pointer;display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;padding:10px 12px;border-radius:8px;color:var(--muted);font-size:15px;line-height:1.35}
+.rail button:hover{background:var(--surface);color:var(--ink)}
+.rail button[aria-current="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:inset 3px 0 0 var(--gold)}
+.dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;margin-top:1px}
+.done .dot{background:var(--ok);border-color:var(--ok);color:#fff}
+main{min-width:0}
+article{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:clamp(20px,4vw,44px)}
+article h2{font:700 clamp(30px,4.4vw,42px)/1.05 var(--display);margin:0 0 6px;text-wrap:balance}
+.kicker{font:600 13px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+article h3{font:700 24px/1.15 var(--display);margin:34px 0 8px;letter-spacing:.01em}
+article p,article li{max-width:68ch}
+article ul,article ol{padding-left:1.3em;display:grid;gap:6px}
+.lead{font-size:18px;color:var(--muted)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:8px}
+.cols > div{border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.cols h4{margin:0 0 6px;font:700 18px/1.2 var(--display);letter-spacing:.03em;text-transform:uppercase}
+.tablewrap{overflow-x:auto;margin-top:10px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.formula{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 16px;font-weight:600}
+.today{margin-top:34px;background:var(--gold-soft);border-radius:10px;padding:16px 20px;display:grid;gap:4px}
+.today b{font:700 15px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.note{font-size:14px;color:var(--muted)}
+.pager{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;margin-top:20px}
+.btn{all:unset;cursor:pointer;padding:11px 18px;border-radius:8px;font-weight:600;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+:root[data-theme="dark"] .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}}
+.btn.complete[aria-pressed="true"]{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+@media (max-width:820px){
+  .wrap{grid-template-columns:1fr;gap:16px}
+  nav.rail{position:static;display:flex;overflow-x:auto;gap:6px;padding-bottom:4px}
+  .rail button{flex:0 0 auto;grid-template-columns:20px auto;white-space:nowrap;background:var(--surface);border:1px solid var(--line)}
+  .rail .full{display:none}
+}
+@media (min-width:821px){.rail .short{display:none}}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+
+<header class="top">
+  <div class="top-in">
+    <div class="eyebrow">Built By You Academy · Real World Business Blueprints</div>
+    <h1>AI-Powered Vending Machines</h1>
+    <p>Start an AI smart vending business from the ground up, from your first machine quote to your first signed location, then grow toward hospitals, campuses and airports.</p>
+    <div class="progress"><div class="bar"><i id="barfill"></i></div><span id="ptext">0 of 9 complete</span></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="rail" id="rail" aria-label="Course modules"></nav>
+  <main>
+    <article id="lesson" aria-live="polite"></article>
+    <div class="pager">
+      <button class="btn" id="prev" type="button">← Previous</button>
+      <button class="btn complete" id="done" type="button" aria-pressed="false">Mark complete</button>
+      <button class="btn primary" id="next" type="button">Next module →</button>
+    </div>
+  </main>
+</div>
+
+<template id="t-overview">
+  <div class="kicker">Start here</div>
+  <h2>Course Overview</h2>
+  <p class="lead">By the end of this course you'll have a machine picked out, a real startup budget, your business set up legally, insurance lined up, a pitch you can use on business owners and your first signed location agreement.</p>
+  <div class="cols">
+    <div><h4>Who it's for</h4>Beginners who want to own AI-powered vending machines (smart coolers) and place them at local businesses, then grow toward hospitals, campuses and airports.</div>
+    <div><h4>How it works</h4>Every module ends with a <strong>Do This Today</strong> task. Finish it before you move on.</div>
+  </div>
+  <h3>How to use this course</h3>
+  <ol>
+    <li>Go in order. Each module builds on the one before.</li>
+    <li>Keep one notebook or spreadsheet for your numbers, contacts and quotes.</li>
+    <li>Post your finished Do This Today task in the BBY community for feedback.</li>
+    <li>Prices, fees and rules change and vary by state and city. Every number here is a starting range, so always confirm with real quotes and your local offices.</li>
+  </ol>
+  <h3>What "AI vending" means</h3>
+  <p>An AI vending machine is usually a <strong>smart cooler</strong>: a glass-door fridge or cabinet that unlocks when a customer taps a card or phone. The customer opens the door, grabs what they want and closes it. Cameras, and on better models weight sensors, see what was taken and charge the card automatically. No coils, no stuck snacks, and you can sell bigger items like meals, salads and drinks.</p>
+  <h3>Honest note</h3>
+  <p>Vending is often sold as "passive income." It isn't. You'll restock, clean, fix problems, chase new locations and answer business owners. This course teaches you how to build the business. It doesn't promise income. What you earn depends on your locations, your products and how well you run it.</p>
+</template>
+
+<template id="t-1">
+  <div class="kicker">Module 1</div>
+  <h2>Is This Business Right for You?</h2>
+  <p class="lead">AI vending can grow into a route that pays well, but your money is made by picking great locations and running a tight restock schedule.</p>
+  <h3>1.1 · The honest pros and cons</h3>
+  <div class="cols">
+    <div><h4>Pros</h4><ul><li>No storefront, no rent and no employees to start</li><li>Machines sell 24/7 at the right location</li><li>Smart coolers fit fresh food and big items regular machines can't</li><li>Cashless payments; no coins to count or steal</li><li>Real-time sales data shows what to restock and what to drop</li><li>Start with one machine and grow at your own pace</li></ul></div>
+    <div><h4>Cons</h4><ul><li>$3,000–$10,000+ per machine upfront</li><li>A bad location can earn almost nothing</li><li>Monthly software, card reader and data fees whether you sell or not</li><li>Restocking, cleaning and expired product are real work</li><li>Theft, vandalism and machine errors happen</li><li>Lots of "done-for-you" scams target beginners (Module 5)</li></ul></div>
+  </div>
+  <h3>1.2 · A real week on the route</h3>
+  <ol>
+    <li>Check your dashboard: what sold, what's low, any machine offline or reporting errors.</li>
+    <li>Build your shopping list and buy stock from a warehouse club or distributor.</li>
+    <li>Drive your route: restock, rotate older product to the front, pull anything close to expiring.</li>
+    <li>Wipe down the glass, shelves and handle. Check the temperature reading.</li>
+    <li>Talk to the location contact for two minutes. Ask what customers are asking for.</li>
+    <li>Once a month: pay commissions, review sales and swap out the slowest sellers.</li>
+  </ol>
+  <h3>1.3 · Check your local opportunity</h3>
+  <ul>
+    <li>Make a list of 30 places in your area where people work, wait or stay for hours: factories, warehouses, hospitals, gyms, apartment complexes, hotels, car dealerships, auto shops, schools and offices with 50+ employees.</li>
+    <li>Visit 5 of them. Note whether they already have machines, what's in them and whether they're working.</li>
+    <li>Old coin machines with empty slots and "out of order" signs are your best openings.</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Write your list of 30 possible locations in your area, grouped by type.</div>
+</template>
+
+<template id="t-2">
+  <div class="kicker">Module 2</div>
+  <h2>Choosing Your Machine</h2>
+  <p class="lead">Your machine decides what you can sell, where you can place it and how much you'll pay every month to run it.</p>
+  <h3>2.1 · Machine types compared</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Type</th><th>New</th><th>Used</th><th>Best for</th></tr></thead>
+    <tbody>
+      <tr><td>Snack (coil machine)</td><td class="num">$3,700–$6,500</td><td class="num">$2,750–$4,850</td><td>Chips, candy, cheap starter locations</td></tr>
+      <tr><td>Drink / soda</td><td class="num">$5,600–$8,500</td><td class="num">$3,250–$5,150</td><td>Gyms, warehouses, outdoor-covered spots</td></tr>
+      <tr><td>Combo (snack + drink)</td><td class="num">$5,400–$8,300</td><td class="num">$3,300–$5,250</td><td>Small offices with room for one machine</td></tr>
+      <tr><td><strong>AI smart cooler</strong></td><td class="num">$4,200–$10,800</td><td class="num">$3,800–$8,650</td><td>Fresh food, drinks, premium items, any staffed indoor site</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Ranges from <a href="https://www.vending.com/blog/the-true-cost-of-vending-machines/" target="_blank" rel="noopener">Vending.com: The True Cost of Vending Machines</a> (updated 2026). This is a machine seller, so get your own quotes.</p>
+  <h3>2.2 · AI cooler price tiers</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Tier</th><th>Typical price</th><th>What to expect</th></tr></thead>
+    <tbody>
+      <tr><td>Budget import</td><td class="num">Under $1,500</td><td>Thin support, unknown software, parts can be hard to get</td></tr>
+      <tr><td>Mid-market</td><td class="num">$1,500–$3,500</td><td>Smaller units, camera-only recognition</td></tr>
+      <tr><td>Commercial grade</td><td class="num">$3,950–$7,940</td><td>Full-size fridge, US support, warranty</td></tr>
+      <tr><td>Frozen / cold chain</td><td class="num">$8,000+</td><td>Ice cream and frozen meals</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">From <a href="https://vmfsusa.com/blogs/business/ai-vending-machines-cost" target="_blank" rel="noopener">VMFS USA: AI Vending Machines Cost</a> (Oct 2026), a machine seller.</p>
+  <h3>2.3 · Camera-only vs. camera + weight</h3>
+  <p>Camera-only coolers are cheaper but miss more items. One seller reports 85–92% accuracy for camera-only and about 99% with weight sensors added. Every missed item is product you paid for and didn't get paid for. For busy locations, pay for weight sensing.</p>
+  <h3>2.4 · Questions to ask every seller</h3>
+  <ul>
+    <li>What is the monthly software fee, and is there a per-sale fee?</li>
+    <li>Is the card reader included? Who is the payment processor and what's the rate?</li>
+    <li>Does it need Wi-Fi, or does it come with a cellular SIM (and what does that cost)?</li>
+    <li>What's the warranty, and who fixes it in my area?</li>
+    <li>Can I see the dashboard, and can I set my own prices remotely?</li>
+    <li>Does it have UL or ETL safety certification for US use?</li>
+    <li>Can I talk to 2 current customers who've had the machine for a year?</li>
+  </ul>
+  <h3>2.5 · Where to start shopping</h3>
+  <ul>
+    <li><a href="https://vmfsusa.com/blogs/business/ai-vending-machines-the-complete-buyers-guide-2026" target="_blank" rel="noopener">VMFS USA: AI Vending Machines Buyer's Guide 2026</a></li>
+    <li><a href="https://www.vending.com/" target="_blank" rel="noopener">Vending.com</a> (new and used machines, financing)</li>
+    <li><a href="https://evending.com/" target="_blank" rel="noopener">eVending</a> (machines and financing)</li>
+    <li><a href="https://www.namanow.org/" target="_blank" rel="noopener">NAMA, the National Automatic Merchandising Association</a> (industry group, trade show and supplier lists)</li>
+    <li>Facebook Marketplace and local operators selling used machines. Always see it running and check the serial number.</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Get written quotes from 3 sellers for the same type of AI cooler, including every monthly fee.</div>
+</template>
+
+<template id="t-3">
+  <div class="kicker">Module 3</div>
+  <h2>Startup Costs &amp; Profit Math</h2>
+  <p class="lead">Know your real numbers before you buy. Monthly fees, card fees and commissions all come out before you see profit.</p>
+  <h3>3.1 · One-machine startup budget</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Item</th><th>Typical cost</th></tr></thead>
+    <tbody>
+      <tr><td>AI smart cooler</td><td class="num">$3,950–$10,800</td></tr>
+      <tr><td>Card reader (if not included)</td><td class="num">About $450</td></tr>
+      <tr><td>Delivery and install</td><td class="num">$200–$1,000</td></tr>
+      <tr><td>First load of products</td><td class="num">$200–$800</td></tr>
+      <tr><td>Optional wrap with your branding</td><td class="num">About $600</td></tr>
+      <tr><td>LLC, EIN and local licenses</td><td class="num">Varies by state ($0–$500)</td></tr>
+      <tr><td>Emergency repair fund</td><td class="num">About $500</td></tr>
+    </tbody>
+  </table></div>
+  <h3>3.2 · Monthly costs per machine</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Cost</th><th>Typical</th></tr></thead>
+    <tbody>
+      <tr><td>Software / cloud platform</td><td class="num">About $40/mo</td></tr>
+      <tr><td>Card reader service</td><td class="num">About $10/mo</td></tr>
+      <tr><td>Cellular data (if no site Wi-Fi)</td><td class="num">About $15/mo</td></tr>
+      <tr><td>AI recognition fee (some models)</td><td class="num">$0.07–$0.10 per sale</td></tr>
+      <tr><td>Card processing</td><td class="num">2–4% of sales</td></tr>
+      <tr><td>Location commission</td><td class="num">0–30% of sales</td></tr>
+      <tr><td>Electricity (if you pay it)</td><td class="num">$20–$50/mo chilled</td></tr>
+      <tr><td>Insurance (shared across machines)</td><td class="num">$37–$58/mo</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">From <a href="https://vmfsusa.com/blogs/business/ai-vending-machines-cost" target="_blank" rel="noopener">VMFS USA</a>, <a href="https://www.vending.com/blog/the-true-cost-of-vending-machines/" target="_blank" rel="noopener">Vending.com</a> and <a href="https://insureon.com/retail-business-insurance/vending-machine-operators/cost" target="_blank" rel="noopener">Insureon</a>. Your seller's fees may differ.</p>
+  <h3>3.3 · Do the profit math</h3>
+  <p class="formula">Monthly profit = sales − product cost − card fees − commission − monthly fees − gas</p>
+  <p class="formula">Payback months = total startup cost ÷ monthly profit</p>
+  <p>Typical new machines bring in <strong>$250–$1,000 a month in sales</strong> (<a href="https://evending.com/blogs/news/are-vending-machines-really-profitable-in-2026-here-s-what-no-one-tells-new-operators" target="_blank" rel="noopener">eVending, May 2026</a>). Snacks and drinks usually carry a 40–60% gross margin.</p>
+  <h3>3.4 · Worked example (one seller's model)</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th></th><th>Average location</th><th>Busy location</th></tr></thead>
+    <tbody>
+      <tr><td>Monthly sales</td><td class="num">$1,500</td><td class="num">$2,500</td></tr>
+      <tr><td>Profit after all costs</td><td class="num">About $314</td><td class="num">About $611</td></tr>
+      <tr><td>All-in startup</td><td class="num">$4,700</td><td class="num">$4,700</td></tr>
+      <tr><td>Payback</td><td class="num">About 15 months</td><td class="num">About 8 months</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">This is a seller's example, not a promise. Run it again with your own quotes and a conservative sales guess.</p>
+  <h3>3.5 · Financing, carefully</h3>
+  <p>Many sellers offer "$0 down" or "no payments for 90 days." Financing can help, but a payment on a machine in a bad location is the fastest way to lose money in this business. Lock in your location before you finance a machine for it.</p>
+  <div class="today"><b>Do This Today</b>Fill in the budget and profit formulas with your 3 quotes from Module 2. Work out payback at $500, $1,000 and $1,500 a month in sales.</div>
+</template>
+
+<template id="t-4">
+  <div class="kicker">Module 4</div>
+  <h2>Legal, Licensing &amp; Insurance</h2>
+  <p class="lead">Location managers, and every airport, will ask for your business details and proof of insurance before they say yes.</p>
+  <h3>4.1 · Set up the business</h3>
+  <ol>
+    <li>Check your business name with your Secretary of State, as a domain and on social media.</li>
+    <li>Register an LLC or sole proprietorship with your state.</li>
+    <li>Get a free EIN at <a href="https://www.irs.gov/businesses/small-businesses-self-employed/apply-for-an-employer-identification-number-ein-online" target="_blank" rel="noopener">irs.gov</a>.</li>
+    <li>Open a separate business bank account. Never mix personal and business money.</li>
+    <li>Use the <a href="https://www.sba.gov/business-guide/launch-your-business/apply-licenses-permits" target="_blank" rel="noopener">SBA licenses and permits guide</a> to find your state and local requirements.</li>
+  </ol>
+  <h3>4.2 · Permits and taxes</h3>
+  <ul>
+    <li><strong>Sales tax permit:</strong> most states tax some or all vending sales. Register with your state's revenue department and ask how vending is taxed.</li>
+    <li><strong>City or county business license.</strong> Some places also charge a per-machine vending decal or license. Call and ask.</li>
+    <li><strong>Health department:</strong> fresh food, sandwiches and salads can need a food permit or approved supplier. Call your county health department before you stock anything perishable.</li>
+    <li><strong>Calorie labels:</strong> the FDA's vending calorie labeling rule applies to operators with 20 or more machines. See <a href="https://www.fda.gov/food/food-labeling-nutrition/calorie-labeling-articles-vending-machines" target="_blank" rel="noopener">FDA: Calorie Labeling of Articles of Food in Vending Machines</a>.</li>
+  </ul>
+  <h3>4.3 · Insurance you need</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Coverage</th><th>What it covers</th><th>Typical cost</th></tr></thead>
+    <tbody>
+      <tr><td>General liability</td><td>Someone is hurt by your machine, or a product makes someone sick</td><td class="num">$37/mo · $442/yr</td></tr>
+      <tr><td>Business owner's policy</td><td>Liability plus your machines and stock</td><td class="num">$58/mo · $698/yr</td></tr>
+      <tr><td>Commercial auto</td><td>Your vehicle while restocking. Personal auto may not cover business use.</td><td class="num">$171/mo · $2,054/yr</td></tr>
+      <tr><td>Umbrella</td><td>Extra limits that airports and big sites often require</td><td class="num">$59/mo per $1M</td></tr>
+      <tr><td>Workers' comp</td><td>Required in most states once you hire</td><td class="num">$86/mo · $1,036/yr</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Figures from <a href="https://insureon.com/retail-business-insurance/vending-machine-operators/cost" target="_blank" rel="noopener">Insureon: Vending Machine Insurance Cost</a>. Get at least 3 quotes. Ask whether theft and vandalism of machines placed at other businesses are covered.</p>
+  <div class="today"><b>Do This Today</b>Call your state revenue department and your city or county clerk. Write down exactly what permits a vending business needs and what they cost.</div>
+</template>
+
+<template id="t-5">
+  <div class="kicker">Module 5</div>
+  <h2>Finding &amp; Securing Local Locations</h2>
+  <p class="lead">Location is everything. A great machine in a bad spot loses money. A plain machine in a busy break room can pay for itself in months.</p>
+  <h3>5.1 · What makes a great location</h3>
+  <ul>
+    <li>50+ people on site every day, or a steady stream of visitors who wait</li>
+    <li>Few food options nearby, or long shifts (nights and weekends are a plus)</li>
+    <li>Indoors, staffed and secure, which matters a lot for glass-door coolers</li>
+    <li>Wi-Fi you can use, or good cell signal</li>
+    <li>A decision-maker you can actually reach</li>
+  </ul>
+  <h3>5.2 · Best places to start</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Location</th><th>Why it works</th></tr></thead>
+    <tbody>
+      <tr><td>Factories and warehouses</td><td>Long shifts, short breaks, no time to leave</td></tr>
+      <tr><td>Hospitals and nursing homes</td><td>24/7 staff and visitors</td></tr>
+      <tr><td>Apartment complexes and dorms</td><td>Residents want snacks and drinks late at night</td></tr>
+      <tr><td>Gyms</td><td>Drinks, protein bars and recovery snacks</td></tr>
+      <tr><td>Car dealerships and auto shops</td><td>Customers waiting an hour or more</td></tr>
+      <tr><td>Hotels without a market</td><td>Guests at night with nothing open</td></tr>
+    </tbody>
+  </table></div>
+  <h3>5.3 · Your pitch, word for word</h3>
+  <p class="formula">"Hi, I'm [name] with [business]. I place AI smart coolers that sell fresh snacks, drinks and meals with tap-to-pay. There's no cost to you. I install it, stock it, clean it and handle any problems, and I can share a percentage of sales with you. Who would be the right person to talk to about adding one for your staff?"</p>
+  <ul>
+    <li>Walk in between 9 and 11 a.m. or 2 and 4 p.m. Bring a one-page flyer with photos of the machine.</li>
+    <li>Ask for the office manager, HR manager, general manager or facilities manager.</li>
+    <li>If they already have a machine, ask: "How happy are your employees with it?"</li>
+    <li>Follow up in 3 days by phone or email. Most yeses come on the second or third contact.</li>
+  </ul>
+  <h3>5.4 · Commissions</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Location type</th><th>Typical commission</th></tr></thead>
+    <tbody>
+      <tr><td>Small offices and break rooms</td><td class="num">0–15% of sales</td></tr>
+      <tr><td>Schools and gyms</td><td class="num">15–30%</td></tr>
+      <tr><td>Malls and busy transit spots</td><td class="num">20–30%</td></tr>
+      <tr><td>Flat fee instead of %</td><td class="num">$50–$100 per machine/mo</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">From <a href="https://vendingexchange.com/vending-machine-locators/vending-location-commission-explained" target="_blank" rel="noopener">Vending Exchange: Location Commission Explained</a>. For a new location, offer 0–10% at first, or start commissions once sales pass a set amount.</p>
+  <h3>5.5 · What goes in your location agreement</h3>
+  <ul>
+    <li>Where the machine goes and who pays for power and Wi-Fi</li>
+    <li>Commission rate, how it's calculated (on sales before or after tax) and when it's paid</li>
+    <li>Term (for example, 1–3 years) and how either side can end it with 30 days' notice</li>
+    <li>You own the machine and can remove it at any time</li>
+    <li>Exclusivity: no other vending machines on site</li>
+    <li>Who's responsible for damage and theft</li>
+  </ul>
+  <p class="note">Have a lawyer in your state review your agreement before you use it.</p>
+  <h3>5.6 · Watch out for locator and "turnkey" scams</h3>
+  <p>The FTC has sued many vending "business opportunity" sellers that promised great locations and big profits. Before you pay any company to find locations or sell you a vending package:</p>
+  <ul>
+    <li>Ask for the FTC <strong>disclosure document</strong>. Sellers covered by the FTC Business Opportunity Rule must give you one at least 7 days before you pay.</li>
+    <li>Get the names of 10 past buyers and call them yourself.</li>
+    <li>Visit the locations they promise before you pay, and talk to the business owner.</li>
+    <li>Don't trust earnings claims without written proof.</li>
+  </ul>
+  <p class="note">Read <a href="https://consumer.ftc.gov/articles/buying-business-opportunity" target="_blank" rel="noopener">FTC: Buying a Business Opportunity</a> before you sign anything.</p>
+  <div class="today"><b>Do This Today</b>Visit 5 locations from your Module 1 list and give your pitch. Write down every name, phone number and answer.</div>
+</template>
+
+<template id="t-6">
+  <div class="kicker">Module 6</div>
+  <h2>Airports &amp; High-Traffic Locations</h2>
+  <p class="lead">Airports are the top tier of vending. They're also run by formal bids, strict insurance and security rules, and they usually want proof you already run machines well.</p>
+  <h3>6.1 · How airports pick vending operators</h3>
+  <ol>
+    <li>The airport posts a <strong>Request for Proposals (RFP)</strong> for vending or "automated retail" concessions.</li>
+    <li>Operators submit a written proposal by a deadline: experience, equipment, products, prices, and what percentage they'll pay the airport.</li>
+    <li>A committee scores the proposals and awards a contract, often for 3–5 years.</li>
+    <li>The winner gets security badges, installs machines and pays the airport a monthly concession fee.</li>
+  </ol>
+  <h3>6.2 · A real example: Duluth International Airport</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Requirement</th><th>What the RFP asked for</th></tr></thead>
+    <tbody>
+      <tr><td>Experience</td><td>3 or more similar operations, run for at least 2 years each, plus 3 business references</td></tr>
+      <tr><td>Insurance</td><td>At least $1,500,000 general and auto liability (umbrella allowed); workers' comp</td></tr>
+      <tr><td>Fee to the airport</td><td>20% of gross revenue, reported and paid monthly</td></tr>
+      <tr><td>Term</td><td>Three-year base term with option years</td></tr>
+      <tr><td>Equipment</td><td>New or like-new machines, cut sheets, a stocking plan and a refund process</td></tr>
+      <tr><td>Security</td><td>Fingerprint background checks and airport badges, paid by you</td></tr>
+      <tr><td>Scoring</td><td>50% qualifications and pricing, 50% products and equipment</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">From the <a href="https://duluthmn.gov/media/gdrhcg5l/25-4405-duluth-airport-vending-concession-request-for-proposals.pdf" target="_blank" rel="noopener">Duluth Airport Vending Concession RFP (2025)</a>. That bid has closed. Use it as a model of what to prepare.</p>
+  <h3>6.3 · Your path to an airport</h3>
+  <ol>
+    <li><strong>Year 1:</strong> build 3–5 strong local locations and keep clean records of sales, uptime and service.</li>
+    <li><strong>Year 1–2:</strong> move up to bigger sites like hospitals, colleges, bus stations and government buildings. These also use bids and teach you the process.</li>
+    <li><strong>Get references</strong> from your best location managers in writing.</li>
+    <li><strong>Raise your insurance limits</strong> with an umbrella policy so you meet $1M–$2M requirements.</li>
+    <li><strong>Watch for bids</strong> and apply, or partner with a bigger operator as a subcontractor first.</li>
+  </ol>
+  <h3>6.4 · Where to find bids</h3>
+  <ul>
+    <li>Your local airport's website, under "Business," "Concessions" or "Procurement." In the tristate area: <a href="https://www.tristateairport.com/" target="_blank" rel="noopener">Huntington Tri-State Airport</a>.</li>
+    <li><a href="https://airportscouncil.org/" target="_blank" rel="noopener">Airports Council International – North America</a> posts airport RFPs.</li>
+    <li><a href="https://www.bidnetdirect.com/" target="_blank" rel="noopener">BidNet Direct</a> lists state and local government bids. Search "vending."</li>
+    <li>City, county and state purchasing pages. Sign up for bid alerts.</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Find your nearest airport's concessions or procurement page and sign up for bid alerts. Save one past vending RFP and highlight every requirement you don't meet yet.</div>
+</template>
+
+<template id="t-7">
+  <div class="kicker">Module 7</div>
+  <h2>Stocking, Operations &amp; Using Your AI Data</h2>
+  <p class="lead">Your dashboard tells you exactly what sells. Use it every week to cut waste and raise sales.</p>
+  <h3>7.1 · Where to buy stock</h3>
+  <ul>
+    <li><a href="https://www.samsclub.com/" target="_blank" rel="noopener">Sam's Club</a> and <a href="https://www.costcobusinessdelivery.com/" target="_blank" rel="noopener">Costco Business Center</a> for bulk snacks and drinks</li>
+    <li>Local drink distributors (Coke and Pepsi bottlers) once your volume grows</li>
+    <li>Licensed local commissaries or caterers for sandwiches and salads (check with your health department)</li>
+    <li>Watch for sales and buy your top sellers in bulk</li>
+  </ul>
+  <h3>7.2 · Pricing your products</h3>
+  <p class="formula">Price = product cost × 2 (about a 50% margin), rounded to an easy number</p>
+  <p>Check what the nearest convenience store charges. Smart coolers can usually charge a little more for convenience, but not much more.</p>
+  <h3>7.3 · Your first product mix</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Category</th><th>Share of shelf space</th></tr></thead>
+    <tbody>
+      <tr><td>Cold drinks (water, soda, energy, sports)</td><td class="num">About 40%</td></tr>
+      <tr><td>Chips and salty snacks</td><td class="num">About 20%</td></tr>
+      <tr><td>Candy and sweets</td><td class="num">About 15%</td></tr>
+      <tr><td>Healthy (bars, nuts, jerky)</td><td class="num">About 15%</td></tr>
+      <tr><td>Fresh or meal items (after you test demand)</td><td class="num">About 10%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">A starting point only. Let your sales data take over after the first month.</p>
+  <h3>7.4 · Use the data every week</h3>
+  <ul>
+    <li>Top 10 sellers: never let them run out. Give them more facings.</li>
+    <li>Bottom 5: replace them every month.</li>
+    <li>Busiest hours and days: restock right before them.</li>
+    <li>Missed or unpaid items: if a machine's shrink is high, switch on weight sensing or move it.</li>
+    <li>Temperature alerts: act the same day. Throw out anything that got warm.</li>
+  </ul>
+  <h3>7.5 · Restock and cleaning routine</h3>
+  <ul>
+    <li>First in, first out: newer stock goes behind older stock.</li>
+    <li>Pull anything within 3 days of its expiration date.</li>
+    <li>Clean the glass, handle and shelves every visit.</li>
+    <li>Keep a log: date, items added, items thrown out, any problems.</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Price out your first product load at Sam's Club or Costco and set a selling price for every item.</div>
+</template>
+
+<template id="t-8">
+  <div class="kicker">Module 8</div>
+  <h2>Your 30-Day Launch Plan</h2>
+  <p class="lead">Follow this plan and you can have your first machine placed and selling by day 30. Lock in the location before you buy the machine.</p>
+  <div class="cols">
+    <div><h4>Week 1 · Decide</h4><ul><li>30-location list done</li><li>3 machine quotes with all fees</li><li>Budget and payback math done</li></ul></div>
+    <div><h4>Week 2 · Make it legal</h4><ul><li>Business registered, EIN received</li><li>Business bank account open</li><li>Sales tax permit and local license applied for</li><li>3 insurance quotes; coverage bought</li></ul></div>
+    <div><h4>Week 3 · Land a location</h4><ul><li>15 locations pitched in person</li><li>Follow-ups done</li><li>First agreement signed</li><li>Machine ordered for that spot</li></ul></div>
+    <div><h4>Week 4 · Launch</h4><ul><li>First product load bought and priced</li><li>Machine installed and tested</li><li>Flyer posted at the site</li><li>Week-one sales reviewed</li></ul></div>
+  </div>
+  <h3>How to grow after machine one</h3>
+  <ul>
+    <li>Add a new machine once the first one has run 60–90 days with steady sales.</li>
+    <li>Keep machines close together so one restock trip covers several stops.</li>
+    <li>Ask every happy location manager for a referral to another business.</li>
+    <li>Keep records clean from day one. They're your proof for bigger bids later.</li>
+  </ul>
+  <h3>Sources used in this course</h3>
+  <ul class="note">
+    <li><a href="https://vmfsusa.com/blogs/business/ai-vending-machines-cost" target="_blank" rel="noopener">VMFS USA: AI Vending Machines Cost</a></li>
+    <li><a href="https://vmfsusa.com/blogs/business/ai-vending-machines-the-complete-buyers-guide-2026" target="_blank" rel="noopener">VMFS USA: AI Vending Machines Buyer's Guide 2026</a></li>
+    <li><a href="https://www.vending.com/blog/the-true-cost-of-vending-machines/" target="_blank" rel="noopener">Vending.com: The True Cost of Vending Machines</a></li>
+    <li><a href="https://evending.com/blogs/news/are-vending-machines-really-profitable-in-2026-here-s-what-no-one-tells-new-operators" target="_blank" rel="noopener">eVending: Are Vending Machines Really Profitable in 2026?</a></li>
+    <li><a href="https://insureon.com/retail-business-insurance/vending-machine-operators/cost" target="_blank" rel="noopener">Insureon: Vending Machine Insurance Cost</a></li>
+    <li><a href="https://vendingexchange.com/vending-machine-locators/vending-location-commission-explained" target="_blank" rel="noopener">Vending Exchange: Location Commission Explained</a></li>
+    <li><a href="https://duluthmn.gov/media/gdrhcg5l/25-4405-duluth-airport-vending-concession-request-for-proposals.pdf" target="_blank" rel="noopener">Duluth Airport Vending Concession RFP</a></li>
+    <li><a href="https://consumer.ftc.gov/articles/buying-business-opportunity" target="_blank" rel="noopener">FTC: Buying a Business Opportunity</a></li>
+    <li><a href="https://www.fda.gov/food/food-labeling-nutrition/calorie-labeling-articles-vending-machines" target="_blank" rel="noopener">FDA: Calorie Labeling in Vending Machines</a></li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Put the 30-day plan on your calendar with a real start date.</div>
+</template>
+
+<script>
+(function(){
+  var mods=[
+    {id:"overview",t:"t-overview",full:"Course Overview",short:"Overview"},
+    {id:"module-1",t:"t-1",full:"1 · Is This Business Right for You?",short:"1 · Fit"},
+    {id:"module-2",t:"t-2",full:"2 · Choosing Your Machine",short:"2 · Machine"},
+    {id:"module-3",t:"t-3",full:"3 · Startup Costs & Profit Math",short:"3 · Costs"},
+    {id:"module-4",t:"t-4",full:"4 · Legal, Licensing & Insurance",short:"4 · Legal"},
+    {id:"module-5",t:"t-5",full:"5 · Finding Local Locations",short:"5 · Locations"},
+    {id:"module-6",t:"t-6",full:"6 · Airports & High-Traffic Sites",short:"6 · Airports"},
+    {id:"module-7",t:"t-7",full:"7 · Stocking & AI Data",short:"7 · Stocking"},
+    {id:"module-8",t:"t-8",full:"8 · Your 30-Day Launch Plan",short:"8 · Launch"}
+  ];
+  var KEY="bby-ai-vending-done", done={};
+  try{done=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){done={}}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}}
+  var rail=document.getElementById("rail"), lesson=document.getElementById("lesson");
+  var cur=0;
+  mods.forEach(function(m,i){
+    var b=document.createElement("button"); b.type="button"; b.id="nav-"+m.id;
+    b.innerHTML='<span class="dot" aria-hidden="true"></span><span><span class="full"></span><span class="short"></span></span>';
+    b.querySelector(".full").textContent=m.full; b.querySelector(".short").textContent=m.short;
+    b.addEventListener("click",function(){go(i,true)}); rail.appendChild(b);
+  });
+  function paint(){
+    var n=0;
+    mods.forEach(function(m,i){
+      var b=document.getElementById("nav-"+m.id);
+      b.classList.toggle("done",!!done[m.id]); b.querySelector(".dot").textContent=done[m.id]?"✓":"";
+      b.setAttribute("aria-current",i===cur?"true":"false"); if(done[m.id])n++;
+    });
+    document.getElementById("barfill").style.width=(n/mods.length*100)+"%";
+    document.getElementById("ptext").textContent=n+" of "+mods.length+" complete";
+    var d=document.getElementById("done"), on=!!done[mods[cur].id];
+    d.setAttribute("aria-pressed",on?"true":"false"); d.textContent=on?"✓ Completed":"Mark complete";
+    document.getElementById("prev").hidden=cur===0;
+    var nx=document.getElementById("next"); nx.hidden=cur===mods.length-1;
+  }
+  function go(i,scroll){
+    cur=Math.max(0,Math.min(mods.length-1,i));
+    lesson.innerHTML=""; lesson.appendChild(document.getElementById(mods[cur].t).content.cloneNode(true));
+    if(location.hash!=="#"+mods[cur].id){try{history.replaceState(null,"","#"+mods[cur].id)}catch(e){location.hash=mods[cur].id}}
+    paint(); if(scroll)window.scrollTo({top:0});
+  }
+  document.getElementById("prev").addEventListener("click",function(){go(cur-1,true)});
+  document.getElementById("next").addEventListener("click",function(){go(cur+1,true)});
+  document.getElementById("done").addEventListener("click",function(){
+    var id=mods[cur].id; if(done[id])delete done[id]; else done[id]=true; save(); paint();
+  });
+  function fromHash(){var h=location.hash.slice(1),i=mods.findIndex(function(m){return m.id===h}); go(i<0?0:i,false)}
+  window.addEventListener("hashchange",fromHash); fromHash();
+})();
+</script>
+
+</body></html>
