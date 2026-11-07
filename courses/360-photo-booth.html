@@ -1,0 +1,516 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>360 Photo Booth Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+/* Same course-player layout as the other BBY blueprints */
+:root{
+--bg:#f5f6f9; --surface:#ffffff; --ink:#141a2b; --muted:#5a6276; --line:#dde1ea;
+--navy:#16213f; --gold:#b8860b; --gold-soft:#f6ecd2; --ok:#1f7a4d; --ok-soft:#e1f2e8; --bad:#b3261e; --bad-soft:#fbe5e3;
+--display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+--body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}}
+:root[data-theme="dark"]{
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--body)}
+[hidden]{display:none!important}
+a{color:var(--gold);text-underline-offset:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.top{background:var(--navy);color:#fff;padding-block:22px 26px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{max-width:1180px;margin:0 auto;display:grid;gap:6px}
+.eyebrow{font:600 13px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:#e3b54a}
+.top h1{font:italic 700 clamp(34px,6vw,56px)/1 var(--display);margin:0;text-wrap:balance;letter-spacing:.01em}
+.top p{margin:0;color:#c9cfdd;max-width:62ch}
+.progress{display:flex;align-items:center;gap:12px;margin-top:10px;font-size:14px;color:#c9cfdd}
+.bar{flex:0 1 260px;height:8px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:#e3b54a;transition:width .3s}
+.wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:270px minmax(0,1fr);gap:32px;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;display:grid;gap:2px}
+.rail button{all:unset;cursor:pointer;display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;padding:10px 12px;border-radius:8px;color:var(--muted);font-size:15px;line-height:1.35}
+.rail button:hover{background:var(--surface);color:var(--ink)}
+.rail button[aria-current="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:inset 3px 0 0 var(--gold)}
+.dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;margin-top:1px}
+.done .dot{background:var(--ok);border-color:var(--ok);color:#fff}
+main{min-width:0}
+article{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:clamp(20px,4vw,44px)}
+article h2{font:700 clamp(30px,4.4vw,42px)/1.05 var(--display);margin:0 0 6px;text-wrap:balance}
+.kicker{font:600 13px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+article h3{font:700 24px/1.15 var(--display);margin:34px 0 8px;letter-spacing:.01em}
+article p,article li{max-width:68ch}
+article ul,article ol{padding-left:1.3em;display:grid;gap:6px}
+.lead{font-size:18px;color:var(--muted)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:8px}
+.cols > div{border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.cols h4{margin:0 0 6px;font:700 18px/1.2 var(--display);letter-spacing:.03em;text-transform:uppercase}
+.cols .pro{border-color:var(--ok);background:var(--ok-soft)} .cols .pro h4{color:var(--ok)}
+.cols .con{border-color:var(--bad);background:var(--bad-soft)} .cols .con h4{color:var(--bad)}
+.tablewrap{overflow-x:auto;margin-top:10px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{font-weight:700;border-top:2px solid var(--ink)}
+.formula{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 16px;font-weight:600}
+.today{margin-top:34px;background:var(--gold-soft);border-radius:10px;padding:16px 20px;display:grid;gap:4px}
+.today b{font:700 15px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.note{font-size:14px;color:var(--muted)}
+.pager{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;margin-top:20px}
+.btn{all:unset;cursor:pointer;padding:11px 18px;border-radius:8px;font-weight:600;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+:root[data-theme="dark"] .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}}
+.btn.complete[aria-pressed="true"]{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+@media (max-width:820px){
+.wrap{grid-template-columns:1fr;gap:16px}
+nav.rail{position:static;display:flex;overflow-x:auto;gap:6px;padding-bottom:4px}
+.rail button{flex:0 0 auto;grid-template-columns:20px auto;white-space:nowrap;background:var(--surface);border:1px solid var(--line)}
+.rail .full{display:none}
+}
+@media (min-width:821px){.rail .short{display:none}}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+
+/* ---- Real estate blueprint extras ---- */
+article h4{font:700 20px/1.2 var(--display);margin:26px 0 6px;letter-spacing:.02em}
+article h5{font:700 17px/1.2 var(--display);margin:20px 0 4px;letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
+.lsub{color:var(--muted);font-style:italic;margin-top:-2px}
+.lesson-block{border-top:1px solid var(--line);margin-top:34px;padding-top:4px}
+.lesson-block:first-of-type{border-top:0}
+.box,.callout,.card,.template,.reality,.math,.scorebox,.calc,.check,.tab-panel,.compare-card,.tool-card,details.faqitem{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:16px 0}
+.box-title,.s-label,.tlabel,.rlabel,.tag{display:block;font:700 14px/1.2 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.box.warn,.warn{border-left:4px solid var(--bad);background:var(--bad-soft)}
+.box.warn .box-title,.warn .box-title{color:var(--bad)}
+.box.template,.template{border-style:dashed;border-color:var(--gold)}
+.box.script,.script{border-left:4px solid var(--gold);background:var(--gold-soft);position:relative}
+.checkstate{border:2px solid var(--gold);background:var(--gold-soft);border-radius:10px;padding:14px 18px;margin:16px 0}
+.checkstate .box-title{color:var(--gold)}
+.callout{border:1px dashed var(--gold);background:var(--gold-soft)}
+.reality{border-left:4px solid var(--gold)}
+.card.gold{border-left:4px solid var(--gold)} .card.teal{border-left:4px solid var(--navy)}
+pre{white-space:pre-wrap;word-break:break-word;font:14px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;margin:0}
+.res-grid,.toolkit-grid,.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:12px 0}
+.res-card{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--bg)}
+.res-card a{font-weight:700}
+.res-desc{font-size:14px;color:var(--muted);margin-top:4px}
+.linkrow{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.lbtn{display:inline-flex;gap:6px;align-items:center;padding:9px 14px;border-radius:8px;background:var(--navy);color:#fff;text-decoration:none;font-weight:600;font-size:14px}
+.lbtn.alt{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+:root[data-theme="dark"] .lbtn{background:var(--gold);color:#141a2b}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lbtn{background:var(--gold);color:#141a2b}}
+:root[data-theme="dark"] .lbtn.alt{background:var(--surface);color:var(--ink)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lbtn.alt{background:var(--surface);color:var(--ink)}}
+.copy-btn{position:absolute;top:12px;right:12px;border:1px solid var(--gold);background:var(--surface);color:var(--ink);border-radius:6px;padding:4px 10px;font:600 12px var(--body);cursor:pointer}
+.math .row,.calc-result .row{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--line)}
+.math .row:last-child{border-bottom:0;font-weight:700}
+.neg{color:var(--bad)} .pos{color:var(--ok)} td.good{color:var(--ok);font-weight:600} td.bad{color:var(--bad);font-weight:600}
+.compare-card.good{border-left:4px solid var(--ok)} .compare-card.bad{border-left:4px solid var(--bad)}
+.compare-card.good .tag{color:var(--ok)} .compare-card.bad .tag{color:var(--bad)}
+.scoreitem{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
+.scoreitem:last-child{border-bottom:0} .pts{font-weight:700;color:var(--gold);white-space:nowrap}
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:4px}
+.field input{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:15px var(--body)}
+.calc-btn{margin-top:14px;padding:10px 18px;border-radius:8px;border:0;background:var(--gold);color:#141a2b;font-weight:700;cursor:pointer}
+.calc-result{display:none;margin-top:16px} .calc-result.show{display:block}
+.calc-result .row.total{font-weight:700}
+.pill{display:inline-block;padding:5px 12px;border-radius:99px;font-weight:700;font-size:13px}
+.pill.pass{background:var(--ok-soft);color:var(--ok)} .pill.fail{background:var(--bad-soft);color:var(--bad)} .pill.caution{background:var(--gold-soft);color:var(--gold)}
+.badge{display:inline-block;font-size:12px;font-weight:700;padding:3px 8px;border-radius:6px;background:var(--gold-soft);color:var(--gold)}
+.check{display:grid;gap:4px} .check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.check input{width:18px;height:18px;margin-top:4px;accent-color:var(--gold);flex-shrink:0}
+.check input:checked+span{text-decoration:line-through;opacity:.6}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tab-btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 14px;border-radius:8px;font:600 14px var(--body);cursor:pointer}
+.tab-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tab-panel{display:none} .tab-panel.active{display:block}
+details.faqitem summary{cursor:pointer;font-weight:700}
+.tline{border-bottom:1px solid var(--line);padding:6px 0}
+ul.plain{padding-left:1.3em}
+.tnum{color:var(--gold);font-weight:700}
+.tool-card h4{margin-top:4px}
+</style></head><body>
+
+<header class="top">
+  <div class="top-in">
+    <div class="eyebrow">Built By You Academy · Real World Business Blueprints</div>
+    <h1>360 Photo Booth Rentals</h1>
+    <p>Start a 360 photo booth rental business: choose and test your equipment, set up safely at events, price your packages, write contracts, get insured, market to party and event clients, and run smooth events.</p>
+    <p><a href="downloads/360-photo-booth-startup-workbook.xlsx" download style="color:#e3b54a;font-weight:600">⬇ Download the Startup Workbook (Excel)</a> · <a href="#toolkit" style="color:#e3b54a;font-weight:600">Startup links</a></p>
+    <div class="progress"><div class="bar"><i id="barfill"></i></div><span id="ptext">0 of 12 complete</span></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="rail" id="rail" aria-label="Course modules"></nav>
+  <main>
+    <article id="lesson" aria-live="polite"></article>
+    <div class="pager">
+      <button class="btn" id="prev" type="button">← Previous</button>
+      <button class="btn complete" id="done" type="button" aria-pressed="false">Mark complete</button>
+      <button class="btn primary" id="next" type="button">Next module →</button>
+    </div>
+  </main>
+</div>
+<template id="t-overview">
+  <div class="kicker">Start here</div>
+  <h2>Course Overview</h2>
+  <p class="lead">A 360 photo booth is a platform where guests stand while a camera arm spins around them, recording short slow-motion videos they can share right away. You rent the booth, usually with an attendant, for weddings, birthdays, proms, corporate events and more.</p>
+  <div class="cols">
+    <div><h4>Who it's for</h4>People who like events and people, can haul and set up equipment, and can work nights and weekends.</div>
+    <div><h4>How it works</h4>10 modules, each ending with a <strong>Do This Today</strong> task. Your workbook and startup links are in the Toolkit.</div>
+  </div>
+  <h3>Honest note</h3>
+  <p>Event businesses are seasonal and depend on bookings, and 360 booths have plenty of competition in many areas. This course doesn't promise income and isn't legal, tax or insurance advice. Check your state and city rules and get real quotes before you buy anything.</p>
+</template>
+<template id="t-1">
+  <div class="kicker">Module 1</div>
+  <h2>Is This Business Right for You?</h2>
+  <div class="cols">
+    <div class="pro"><h4>Pros</h4><ul><li>Fun, popular at parties and events</li><li>One booth can work many events a month</li><li>Easy upsells: props, backdrops, custom overlays, extra hours</li><li>Pairs well with other event rentals like inflatables, gaming trucks or DJs</li></ul></div>
+    <div class="con"><h4>Cons</h4><ul><li>Nights and weekends</li><li>Equipment has to be hauled, set up and torn down</li><li>Busy and slow seasons</li><li>Lots of competition in some markets, which pushes prices down</li></ul></div>
+  </div>
+  <h3>1.1 · Who books 360 booths</h3>
+  <ul>
+    <li>Weddings and anniversaries</li>
+    <li>Birthdays, sweet 16s and quinceañeras</li>
+    <li>Proms, homecomings and graduations</li>
+    <li>Corporate parties, product launches and trade shows</li>
+    <li>Churches, schools and community events</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Search "360 photo booth" plus your city and count how many companies already serve your area.</div>
+</template>
+<template id="t-2">
+  <div class="kicker">Module 2</div>
+  <h2>Equipment: What to Buy &amp; What to Check</h2>
+  <h3>2.1 · What a full setup includes</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Item</th><th>What to check</th></tr></thead>
+    <tbody>
+      <tr><td>360 platform with spinning arm</td><td>Platform size (how many guests fit), weight limit, motor quality, speed control, remote control, warranty</td></tr>
+      <tr><td>Phone or tablet for recording</td><td>Works with your booth software and records smooth slow motion</td></tr>
+      <tr><td>Ring light or arm-mounted light</td><td>Bright, even light on faces</td></tr>
+      <tr><td>Sharing station (tablet on a stand)</td><td>Lets guests text, email or scan a QR code for their video</td></tr>
+      <tr><td>Stanchions and red rope or LED barrier</td><td>Keeps the crowd out of the arm's path</td></tr>
+      <tr><td>Backdrop and props</td><td>Matches the event style</td></tr>
+      <tr><td>Hard cases and a cart or dolly</td><td>Protects gear and saves your back</td></tr>
+      <tr><td>Extension cords, power strip, tape, mats</td><td>Safe power and no trip hazards</td></tr>
+      <tr><td>Hotspot or mobile data plan</td><td>Many venues have weak Wi-Fi</td></tr>
+    </tbody>
+  </table></div>
+  <h3>2.2 · Booth software</h3>
+  <p>Apps like Touchpix and ChackTok are made for 360 booths: they record, add slow motion, music and overlays, and let guests share. Compare features, monthly cost and which devices each supports, and use free trials before you pay.</p>
+  <div class="checkstate">
+    <div class="box-title">No set prices here: find your real costs</div>
+    <ol>
+      <li>Get price quotes on the same size platform from at least 3 sellers.</li>
+      <li>Ask each seller about the warranty, replacement parts and how fast they ship parts.</li>
+      <li>Read reviews from other booth owners in operator groups before you buy.</li>
+      <li>Check each software's pricing page for the current monthly cost.</li>
+      <li>Write everything in your workbook's Startup Costs and Price Research tabs.</li>
+    </ol>
+  </div>
+  <div class="today"><b>Do This Today</b>Get quotes from 3 platform sellers and write them in your workbook.</div>
+</template>
+<template id="t-3">
+  <div class="kicker">Module 3</div>
+  <h2>Safety at Every Event</h2>
+  <p class="lead">A spinning arm can hit people. Safety is your job, every time.</p>
+  <h3>3.1 · Setup rules</h3>
+  <ul>
+    <li>Put the platform on a flat, solid floor. Never on a slope, loose ground or wet surface</li>
+    <li>Leave a clear circle around the arm's full swing, and mark it with stanchions or rope</li>
+    <li>Tape down or cover every cord</li>
+    <li>Follow the maker's weight limit and number of people allowed on the platform</li>
+    <li>Outdoors, watch for wind, rain and uneven ground. Have a tent or indoor backup plan</li>
+  </ul>
+  <h3>3.2 · Running the booth</h3>
+  <ul>
+    <li>Always have an attendant at the booth while it's running</li>
+    <li>Start slow, and tell guests to stay in the middle and not step off while it spins</li>
+    <li>No running, jumping or kids on the platform without an adult (follow the maker's rules)</li>
+    <li>Stop the arm right away if anyone walks into the circle</li>
+    <li>Keep the remote in your hand, not on a table</li>
+  </ul>
+  <div class="checkstate">
+    <div class="box-title">⚠ Read your equipment manual</div>
+    <p>Follow the manufacturer's weight limits, speed settings and safety instructions exactly. Your insurance may require it.</p>
+  </div>
+  <div class="today"><b>Do This Today</b>Write a one-page safety checklist for your attendants based on your platform's manual.</div>
+</template>
+<template id="t-4">
+  <div class="kicker">Module 4</div>
+  <h2>Set Up Your Business, Licenses &amp; Insurance</h2>
+  <h3>4.1 · Business setup</h3>
+  <p>Register your business name or LLC, get your free EIN, and open a business bank account. Links are in the Toolkit.</p>
+  <div class="checkstate">
+    <div class="box-title">⚠ Check your state and city</div>
+    <ul>
+      <li><strong>Business license:</strong> ask your city or county clerk if you need a general business license.</li>
+      <li><strong>Sales tax:</strong> some states charge sales tax on equipment rentals or event services. Call your state department of revenue and ask if your rentals are taxable and whether you need a sales tax permit.</li>
+      <li><strong>Events in other cities:</strong> some cities require their own license for vendors.</li>
+    </ul>
+    <p>Write every answer in your workbook's Licenses tab.</p>
+  </div>
+  <h3>4.2 · Insurance</h3>
+  <p>Most venues will ask for a <strong>certificate of insurance (COI)</strong> showing general liability coverage, and some will want to be listed as an additional insured. Ask an agent about:</p>
+  <ul>
+    <li>General liability insurance</li>
+    <li>Equipment (inland marine) coverage for your booth and gear</li>
+    <li>Commercial auto if you use your vehicle for business</li>
+  </ul>
+  <p>Get at least 2 quotes and record them in your workbook.</p>
+  <div class="today"><b>Do This Today</b>Call 2 insurance agents for general liability and equipment coverage quotes.</div>
+</template>
+<template id="t-5">
+  <div class="kicker">Module 5</div>
+  <h2>Packages &amp; Pricing</h2>
+  <h3>5.1 · Build simple packages</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Package</th><th>What might be included</th></tr></thead>
+    <tbody>
+      <tr><td>Basic</td><td>Set number of hours, attendant, standard overlay and music, instant sharing</td></tr>
+      <tr><td>Party</td><td>More hours, custom overlay with names and date, backdrop, props</td></tr>
+      <tr><td>Premium</td><td>Everything above plus LED barrier, online gallery, branded sharing screen, extra hour</td></tr>
+    </tbody>
+  </table></div>
+  <h3>5.2 · Add-ons</h3>
+  <ul>
+    <li>Extra hours and idle time (booth set up but not running)</li>
+    <li>Custom backdrops or themed props</li>
+    <li>Corporate branding on videos and sharing screens</li>
+    <li>Travel fee beyond your service area</li>
+  </ul>
+  <div class="formula">Your price must cover: setup + teardown + event hours + travel time + attendant pay + gas + software + wear on equipment + insurance</div>
+  <div class="checkstate">
+    <div class="box-title">No set prices here: find your real local numbers</div>
+    <ol>
+      <li>Request quotes from 3 local 360 booth companies for the same date, hours and package.</li>
+      <li>Ask a few wedding and event planners what their clients usually pay.</li>
+      <li>Add up your real cost per event from your workbook.</li>
+      <li>Set your prices in the Price Research tab.</li>
+    </ol>
+  </div>
+  <div class="today"><b>Do This Today</b>Request quotes from 3 local 360 booth companies as if you were a customer.</div>
+</template>
+<template id="t-6">
+  <div class="kicker">Module 6</div>
+  <h2>Contracts, Deposits &amp; Policies</h2>
+  <h3>6.1 · What your rental agreement should cover</h3>
+  <ul>
+    <li>Date, times, address and package</li>
+    <li>Total price, deposit amount and when the balance is due</li>
+    <li>Cancellation and rescheduling policy, including weather for outdoor events</li>
+    <li>Setup space needed (size, flat floor, power within reach)</li>
+    <li>Guest safety rules and the attendant's right to stop the booth</li>
+    <li>Damage to equipment by guests</li>
+    <li>Overtime rates</li>
+    <li>Permission to use videos in your marketing, with an opt-out</li>
+  </ul>
+  <p>Many booth businesses take a deposit to hold the date. Have a local attorney review your agreement once.</p>
+  <h3>6.2 · Photos, videos and privacy</h3>
+  <ul>
+    <li>Get written permission from the client before posting event videos online</li>
+    <li>Be extra careful with videos of children. Get the parent's permission</li>
+    <li>Delete videos from your devices on the schedule your agreement promises</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Write your rental agreement draft using the list above.</div>
+</template>
+<template id="t-7">
+  <div class="kicker">Module 7</div>
+  <h2>Music, Overlays &amp; Copyright</h2>
+  <h3>7.1 · Music</h3>
+  <p>Popular songs are copyrighted. Use music your booth software licenses for this use, royalty-free music you have rights to, or let guests add music when they post on their own accounts. Read your software's terms to see what's covered.</p>
+  <h3>7.2 · Overlays and branding</h3>
+  <ul>
+    <li>Design overlays with names, dates and event themes</li>
+    <li>Don't use logos, characters or brand names you don't have permission to use</li>
+    <li>For corporate events, get the company's logo files and written approval</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Design 3 sample overlays (wedding, birthday, corporate) for your portfolio.</div>
+</template>
+<template id="t-8">
+  <div class="kicker">Module 8</div>
+  <h2>Running an Event, Start to Finish</h2>
+  <h3>8.1 · Before the event</h3>
+  <ol>
+    <li>Confirm time, address, contact person, parking and load-in 2–3 days before</li>
+    <li>Test the platform, phone, software, light and sharing station</li>
+    <li>Charge all batteries and pack backups</li>
+    <li>Load the custom overlay and test a video</li>
+  </ol>
+  <h3>8.2 · At the event</h3>
+  <ol>
+    <li>Arrive early enough to set up before guests arrive</li>
+    <li>Set up the safety circle first</li>
+    <li>Run test spins, then open the booth</li>
+    <li>Keep the line moving and the energy up</li>
+    <li>Tear down safely and leave the space clean</li>
+  </ol>
+  <h3>8.3 · After the event</h3>
+  <ol>
+    <li>Send the client their gallery link</li>
+    <li>Ask for a review</li>
+    <li>Clean and check all equipment</li>
+  </ol>
+  <div class="today"><b>Do This Today</b>Do a full practice setup and teardown at home and time it.</div>
+</template>
+<template id="t-9">
+  <div class="kicker">Module 9</div>
+  <h2>Getting Bookings</h2>
+  <h3>9.1 · Where bookings come from</h3>
+  <ul>
+    <li><strong>Google Business Profile:</strong> people search "360 photo booth near me"</li>
+    <li><strong>Social media:</strong> post event videos (with permission). 360 videos are made for TikTok and Reels</li>
+    <li><strong>Event pros:</strong> wedding planners, DJs, venues, caterers and party rental companies</li>
+    <li><strong>Schools:</strong> prom and graduation committees book early</li>
+    <li><strong>Corporate:</strong> HR teams and event planners for holiday parties</li>
+    <li><strong>Bridal and community expos</strong></li>
+  </ul>
+  <h3>9.2 · Short outreach message to venues and planners</h3>
+  <div class="formula">"Hi [Name], I run [Business], a 360 video booth for weddings and events in [area]. I'd love to show you how it works. Could I set it up at your next open house or staff event at no cost so your team can try it?"</div>
+  <h3>9.3 · Reviews and referrals</h3>
+  <p>Ask every happy client for a Google review the day after the event. Offer referral partners a simple thank-you for every booking they send.</p>
+  <div class="today"><b>Do This Today</b>Set up your Google Business Profile and list 10 venues and planners to contact.</div>
+</template>
+<template id="t-10">
+  <div class="kicker">Module 10</div>
+  <h2>Your 30-Day Launch Plan</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Week</th><th>Goals</th></tr></thead>
+    <tbody>
+      <tr><td>Week 1</td><td>Research competitors and pricing. Get equipment and insurance quotes. Pick your business name.</td></tr>
+      <tr><td>Week 2</td><td>Form your LLC, get your EIN, open a bank account. Check license and sales tax rules. Buy your equipment.</td></tr>
+      <tr><td>Week 3</td><td>Practice setup and safety. Design overlays. Finish your agreement and packages.</td></tr>
+      <tr><td>Week 4</td><td>Do 1–2 demo events for portfolio videos. Launch your Google profile and social pages. Contact 10 venues and planners.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="today"><b>Do This Today</b>Put real dates on every step in the Launch Checklist tab of your workbook.</div>
+</template>
+<template id="t-toolkit">
+  <div class="kicker">Startup Toolkit</div>
+  <h2>Startup Toolkit &amp; Downloads</h2>
+  <p class="lead">Everything you need to actually start: your workbook to download, and direct links to register, get set up and get free help.</p>
+  <h3>Download your startup workbook</h3>
+  <p><a class="btn primary" href="downloads/360-photo-booth-startup-workbook.xlsx" download>Download the 360 Photo Booth Rentals Startup Workbook (Excel)</a></p>
+  <ul>
+    <li><strong>Startup Costs:</strong> enter your real quotes and get your total budget, with a buffer for surprises.</li>
+    <li><strong>Price Research:</strong> a ready list of who to call and what to ask, so you can find your real local numbers.</li>
+    <li><strong>Licenses &amp; Insurance:</strong> a tracker for every license, registration and policy, with links.</li>
+    <li><strong>Launch Checklist:</strong> every step with a date and a done column.</li>
+  </ul>
+  <p class="note">Opens in Excel, Google Sheets (File → Import) or Numbers.</p>
+  <h3>Step-by-step: start the business</h3>
+  <ol>
+    <li><a href="https://www.sba.gov/counseling/plan-your-business/#business-plan" target="_blank" rel="noopener">Write your business plan</a> (SBA)</li>
+    <li><a href="https://www.sba.gov/counseling/plan-your-business/#startup-costs" target="_blank" rel="noopener">Calculate your startup costs</a> (SBA), then fill in your workbook</li>
+    <li><a href="https://www.sba.gov/counseling/plan-your-business/#fund-business" target="_blank" rel="noopener">Fund your business</a> (SBA)</li>
+    <li><a href="https://www.sba.gov/counseling/launch-your-business/#register-business" target="_blank" rel="noopener">Register your business</a>, then use the <a href="https://www.sba.gov/counseling/launch-your-business/state-registration-lookup/" target="_blank" rel="noopener">state registration lookup</a> to find your state's office</li>
+    <li><a href="https://www.irs.gov/businesses/small-businesses-self-employed/get-an-employer-identification-number" target="_blank" rel="noopener">Get your free EIN</a> (IRS)</li>
+    <li><a href="https://www.sba.gov/counseling/launch-your-business/#licenses-permits" target="_blank" rel="noopener">Apply for licenses and permits</a> (SBA)</li>
+    <li><a href="https://www.sba.gov/counseling/launch-your-business/#business-insurance" target="_blank" rel="noopener">Get business insurance</a> (SBA)</li>
+    <li><a href="https://www.sba.gov/counseling/launch-your-business/#bank-account" target="_blank" rel="noopener">Open a business bank account</a> (SBA)</li>
+  </ol>
+  <h3>Links for this business</h3>
+  <ul>
+    <li><a href="https://touchpix.com/" target="_blank" rel="noopener">Touchpix</a>: 360 booth software (compare features and pricing)</li>
+    <li><a href="https://apps.apple.com/us/app/-/id1613120226" target="_blank" rel="noopener">ChackTok on the App Store</a>: 360 booth app (compare features and pricing)</li>
+    <li><a href="https://www.google.com/business/" target="_blank" rel="noopener">Google Business Profile</a>: help local customers find you</li>
+  </ul>
+  <h3>Free help</h3>
+  <ul>
+    <li><a href="https://www.sba.gov/counseling/local-assistance/" target="_blank" rel="noopener">SBA local assistance</a>: free counseling near you</li>
+    <li><a href="https://www.score.org/" target="_blank" rel="noopener">SCORE</a>: free mentoring from experienced business owners</li>
+    <li><a href="https://www.irs.gov/businesses/small-businesses-self-employed" target="_blank" rel="noopener">IRS small business tax center</a></li>
+  </ul>
+  <div class="checkstate" id="resell-rights">
+    <div class="box-title">✦ Your resell rights</div>
+    <p>As a Built By You Academy member, <strong>this course is yours to use however you want.</strong> You can:</p>
+    <ul>
+      <li><strong>Resell it</strong> at any price you choose by sharing this course link with your buyers</li>
+      <li><strong>Give it away</strong> for free, as a bonus or a gift</li>
+      <li><strong>Bundle it</strong> with your own products, services or memberships</li>
+      <li>Keep <strong>100% of what you make</strong>. It's up to you.</li>
+    </ul>
+    <p class="note">If you resell, don't promise your buyers income or results. The course doesn't, and you shouldn't either.</p>
+  </div>
+  <div class="today"><b>Do This Today</b>Download your workbook, open the Price Research tab, and request quotes from 3 local 360 booth companies.</div>
+</template>
+
+<script>
+function copyScript(btn){var p=btn.parentElement.querySelector('p')||btn.parentElement.querySelector('pre');var text=p?p.innerText:'';
+function ok(){btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy'},1600)}
+if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(ok,function(){})}else{var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(ta);ok()}}
+function switchTab(id,idx,btn){var c=document.getElementById(id);c.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});btn.classList.add('active');
+c.querySelectorAll('.tab-panel').forEach(function(p){p.classList.toggle('active',Number(p.getAttribute('data-idx'))===idx)})}
+function $v(id){return parseFloat(document.getElementById(id).value)||0}
+function money(n){return '$'+n.toLocaleString(undefined,{maximumFractionDigits:0})}
+function calcStartup(){var ids=['su-rent','su-deposit','su-furnish','su-photo','su-insurance','su-permits','su-reserve'],t=0;ids.forEach(function(i){t+=$v(i)});
+document.getElementById('su-total').textContent=money(t);document.getElementById('su-result').classList.add('show')}
+function calcDeal(){var rent=$v('da-rent'),rev=$v('da-adr')*30*($v('da-occ')/100),exp=rent+$v('da-util')+$v('da-ins')+$v('da-soft')+$v('da-cleancost')*$v('da-turnovers'),prof=rev-exp,mult=rent>0?rev/rent:0,score=Math.max(0,Math.min(100,Math.round(mult/3*100)));
+var c='fail',t='FAIL: below 1.5x, skip this deal';if(mult>=2){c='pass';t='PASS: clears the 2X rule'}else if(mult>=1.5){c='caution';t='CAUTION: marginal, negotiate harder'}
+document.getElementById('da-revenue').textContent=money(rev);document.getElementById('da-expenses').textContent=money(exp);document.getElementById('da-profit').textContent=money(prof);
+document.getElementById('da-multiple').textContent=mult.toFixed(2)+'x';document.getElementById('da-score').textContent=score+' / 100';
+var p=document.getElementById('da-pill');p.className='pill '+c;p.textContent=t;document.getElementById('da-result').classList.add('show')}
+</script>
+<script>
+(function(){
+var mods=[
+{id:"overview",t:"t-overview",full:"Course Overview",short:"Course Overview"},
+{id:"module-1",t:"t-1",full:"1 · Is This Business Right for You?",short:"1 · Fit"},
+{id:"module-2",t:"t-2",full:"2 · Equipment: What to Buy & What to Check",short:"2 · Equipment"},
+{id:"module-3",t:"t-3",full:"3 · Safety at Every Event",short:"3 · Safety"},
+{id:"module-4",t:"t-4",full:"4 · Set Up Your Business, Licenses & Insurance",short:"4 · Setup"},
+{id:"module-5",t:"t-5",full:"5 · Packages & Pricing",short:"5 · Pricing"},
+{id:"module-6",t:"t-6",full:"6 · Contracts, Deposits & Policies",short:"6 · Contracts"},
+{id:"module-7",t:"t-7",full:"7 · Music, Overlays & Copyright",short:"7 · Copyright"},
+{id:"module-8",t:"t-8",full:"8 · Running an Event, Start to Finish",short:"8 · Event Day"},
+{id:"module-9",t:"t-9",full:"9 · Getting Bookings",short:"9 · Marketing"},
+{id:"module-10",t:"t-10",full:"10 · Your 30-Day Launch Plan",short:"10 · Launch"},
+{id:"toolkit",t:"t-toolkit",full:"Startup Toolkit & Downloads",short:"Toolkit"}
+];
+var KEY="bby-360-photo-booth-done", done={};
+try{done=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){done={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}}
+var rail=document.getElementById("rail"), lesson=document.getElementById("lesson");
+var cur=0;
+mods.forEach(function(m,i){
+var b=document.createElement("button"); b.type="button"; b.id="nav-"+m.id;
+b.innerHTML='<span class="dot" aria-hidden="true"></span><span><span class="full"></span><span class="short"></span></span>';
+b.querySelector(".full").textContent=m.full; b.querySelector(".short").textContent=m.short;
+b.addEventListener("click",function(){go(i,true)}); rail.appendChild(b);
+});
+function paint(){
+var n=0;
+mods.forEach(function(m,i){
+var b=document.getElementById("nav-"+m.id);
+b.classList.toggle("done",!!done[m.id]); b.querySelector(".dot").textContent=done[m.id]?"✓":"";
+b.setAttribute("aria-current",i===cur?"true":"false"); if(done[m.id])n++;
+});
+document.getElementById("barfill").style.width=(n/mods.length*100)+"%";
+document.getElementById("ptext").textContent=n+" of "+mods.length+" complete";
+var d=document.getElementById("done"), on=!!done[mods[cur].id];
+d.setAttribute("aria-pressed",on?"true":"false"); d.textContent=on?"✓ Completed":"Mark complete";
+document.getElementById("prev").hidden=cur===0;
+document.getElementById("next").hidden=cur===mods.length-1;
+}
+function go(i,scroll){
+cur=Math.max(0,Math.min(mods.length-1,i));
+lesson.innerHTML=""; lesson.appendChild(document.getElementById(mods[cur].t).content.cloneNode(true));
+if(location.hash!=="#"+mods[cur].id){try{history.replaceState(null,"","#"+mods[cur].id)}catch(e){location.hash=mods[cur].id}}
+paint(); if(scroll)window.scrollTo({top:0});
+}
+document.getElementById("prev").addEventListener("click",function(){go(cur-1,true)});
+document.getElementById("next").addEventListener("click",function(){go(cur+1,true)});
+document.getElementById("done").addEventListener("click",function(){
+var id=mods[cur].id; if(done[id])delete done[id]; else done[id]=true; save(); paint();
+});
+function fromHash(){var h=location.hash.slice(1),i=mods.findIndex(function(m){return m.id===h}); go(i<0?0:i,false)}
+window.addEventListener("hashchange",fromHash); fromHash();
+})();
+</script>
+</body></html>
