@@ -1,0 +1,355 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Junk Hauling Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+/* Same course-player layout as the other BBY blueprints */
+:root{
+--bg:#f5f6f9; --surface:#ffffff; --ink:#141a2b; --muted:#5a6276; --line:#dde1ea;
+--navy:#16213f; --gold:#b8860b; --gold-soft:#f6ecd2; --ok:#1f7a4d; --ok-soft:#e1f2e8; --bad:#b3261e; --bad-soft:#fbe5e3;
+--display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+--body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}}
+:root[data-theme="dark"]{
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--body)}
+[hidden]{display:none!important}
+a{color:var(--gold);text-underline-offset:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.top{background:var(--navy);color:#fff;padding-block:22px 26px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{max-width:1180px;margin:0 auto;display:grid;gap:6px}
+.eyebrow{font:600 13px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:#e3b54a}
+.top h1{font:italic 700 clamp(34px,6vw,56px)/1 var(--display);margin:0;text-wrap:balance;letter-spacing:.01em}
+.top p{margin:0;color:#c9cfdd;max-width:62ch}
+.progress{display:flex;align-items:center;gap:12px;margin-top:10px;font-size:14px;color:#c9cfdd}
+.bar{flex:0 1 260px;height:8px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:#e3b54a;transition:width .3s}
+.wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:270px minmax(0,1fr);gap:32px;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;display:grid;gap:2px}
+.rail button{all:unset;cursor:pointer;display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;padding:10px 12px;border-radius:8px;color:var(--muted);font-size:15px;line-height:1.35}
+.rail button:hover{background:var(--surface);color:var(--ink)}
+.rail button[aria-current="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:inset 3px 0 0 var(--gold)}
+.dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;margin-top:1px}
+.done .dot{background:var(--ok);border-color:var(--ok);color:#fff}
+main{min-width:0}
+article{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:clamp(20px,4vw,44px)}
+article h2{font:700 clamp(30px,4.4vw,42px)/1.05 var(--display);margin:0 0 6px;text-wrap:balance}
+.kicker{font:600 13px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+article h3{font:700 24px/1.15 var(--display);margin:34px 0 8px;letter-spacing:.01em}
+article p,article li{max-width:68ch}
+article ul,article ol{padding-left:1.3em;display:grid;gap:6px}
+.lead{font-size:18px;color:var(--muted)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:8px}
+.cols > div{border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.cols h4{margin:0 0 6px;font:700 18px/1.2 var(--display);letter-spacing:.03em;text-transform:uppercase}
+.cols .pro{border-color:var(--ok);background:var(--ok-soft)} .cols .pro h4{color:var(--ok)}
+.cols .con{border-color:var(--bad);background:var(--bad-soft)} .cols .con h4{color:var(--bad)}
+.tablewrap{overflow-x:auto;margin-top:10px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{font-weight:700;border-top:2px solid var(--ink)}
+.formula{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 16px;font-weight:600}
+.today{margin-top:34px;background:var(--gold-soft);border-radius:10px;padding:16px 20px;display:grid;gap:4px}
+.today b{font:700 15px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.note{font-size:14px;color:var(--muted)}
+.pager{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;margin-top:20px}
+.btn{all:unset;cursor:pointer;padding:11px 18px;border-radius:8px;font-weight:600;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+:root[data-theme="dark"] .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}}
+.btn.complete[aria-pressed="true"]{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+@media (max-width:820px){
+.wrap{grid-template-columns:1fr;gap:16px}
+nav.rail{position:static;display:flex;overflow-x:auto;gap:6px;padding-bottom:4px}
+.rail button{flex:0 0 auto;grid-template-columns:20px auto;white-space:nowrap;background:var(--surface);border:1px solid var(--line)}
+.rail .full{display:none}
+}
+@media (min-width:821px){.rail .short{display:none}}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style></head><body>
+
+<header class="top">
+  <div class="top-in">
+    <div class="eyebrow">Built By You Academy · Real World Business Blueprints</div>
+    <h1>Junk Hauling</h1>
+    <p>Start a junk removal business from the ground up: truck or trailer, pricing by the load, legal disposal of appliances, electronics and hazardous items, donation and recycling, insurance and your first customers.</p>
+    <div class="progress"><div class="bar"><i id="barfill"></i></div><span id="ptext">0 of 10 complete</span></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="rail" id="rail" aria-label="Course modules"></nav>
+  <main>
+    <article id="lesson" aria-live="polite"></article>
+    <div class="pager">
+      <button class="btn" id="prev" type="button">← Previous</button>
+      <button class="btn complete" id="done" type="button" aria-pressed="false">Mark complete</button>
+      <button class="btn primary" id="next" type="button">Next module →</button>
+    </div>
+  </main>
+</div>
+
+<template id="t-overview">
+  <div class="kicker">Start here</div>
+  <h2>Course Overview</h2>
+  <p class="lead">By the end of this course you'll know what equipment to start with, how to price a job by the load, where everything legally goes, and how to get your first paying jobs.</p>
+  <div class="cols">
+    <div><h4>Who it's for</h4>Beginners with a truck (or a plan to get one) who want a service business with low startup costs.</div>
+    <div><h4>How it works</h4>Every module ends with a <strong>Do This Today</strong> task. Finish it before you move on.</div>
+  </div>
+  <h3>Honest note</h3>
+  <p>Junk hauling is heavy, physical work, and disposal rules are real. Dumping illegally or throwing hazardous items in the trash can bring fines. This course teaches you how to build the business the right way. It doesn't promise income and isn't legal advice.</p>
+</template>
+
+<template id="t-1">
+  <div class="kicker">Module 1</div>
+  <h2>Is This Business Right for You?</h2>
+  <div class="cols">
+    <div><h4>Pros</h4><ul><li>Low startup cost if you have a truck</li><li>Steady demand: moves, cleanouts, renovations, estates</li><li>Same-day jobs paid on the spot</li><li>Extra income from scrap metal and resale</li></ul></div>
+    <div><h4>Cons</h4><ul><li>Heavy lifting and injury risk</li><li>Dump fees cut into every job</li><li>Disposal rules for appliances, electronics and chemicals</li><li>Truck wear, fuel and repairs</li></ul></div>
+  </div>
+  <h3>1.1 · Who hires junk haulers</h3>
+  <ul>
+    <li>Homeowners cleaning out garages, basements and attics</li>
+    <li>Families handling estate cleanouts</li>
+    <li>Landlords and property managers after move-outs and evictions</li>
+    <li>Real estate agents getting houses ready to sell</li>
+    <li>Contractors and businesses with debris or old furniture</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>List 5 local junk removal companies with their prices and reviews.</div>
+</template>
+
+<template id="t-2">
+  <div class="kicker">Module 2</div>
+  <h2>Truck, Trailer &amp; Equipment</h2>
+  <h3>2.1 · Your hauling setup</h3>
+  <ul>
+    <li><strong>Pickup truck:</strong> fine for small jobs and single items</li>
+    <li><strong>Pickup plus dump trailer:</strong> the common starter setup; unloads fast at the dump</li>
+    <li><strong>Box truck or dump truck:</strong> bigger loads; check the weight rating, since heavier trucks can need a CDL</li>
+  </ul>
+  <h3>2.2 · Tools and gear</h3>
+  <ul>
+    <li>Appliance dolly, hand truck, furniture dolly</li>
+    <li>Moving blankets, straps and a tarp to cover loads</li>
+    <li>Contractor bags, shovels, brooms, rakes</li>
+    <li>Basic tools for taking things apart: drill, pry bar, saw</li>
+    <li>Safety gear: gloves, boots, eye protection, dust masks</li>
+  </ul>
+  <p class="note">Always cover and secure your load. Many states and cities fine uncovered loads.</p>
+  <div class="today"><b>Do This Today</b>Decide your starter setup and price it out with real local quotes.</div>
+</template>
+
+<template id="t-3">
+  <div class="kicker">Module 3</div>
+  <h2>Where the Junk Goes</h2>
+  <p class="lead">Knowing where everything legally goes is what makes you a professional.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Item</th><th>Where it goes</th></tr></thead>
+    <tbody>
+      <tr><td>Usable furniture, clothes, household goods</td><td>Donation centers and resale</td></tr>
+      <tr><td>Metal, appliances without refrigerant</td><td>Scrap metal recyclers (may pay you)</td></tr>
+      <tr><td>Cardboard, some plastics</td><td>Recycling centers</td></tr>
+      <tr><td>Electronics</td><td>Electronics recyclers</td></tr>
+      <tr><td>Paint, oil, chemicals, pesticides, batteries</td><td>Household hazardous waste collection</td></tr>
+      <tr><td>Everything else</td><td>Landfill or transfer station</td></tr>
+    </tbody>
+  </table></div>
+  <h3>3.1 · Dump fees</h3>
+  <p>Landfills charge a "tipping fee" per ton. The U.S. average in 2023 was about $57 per ton. Regional averages ranged from about $43 in the Southeast to about $84 in the Northeast. (<a href="https://erefdn.org/analyzing-municipal-solid-waste-landfill-tipping-fees/" target="_blank" rel="noopener">EREF</a>)</p>
+  <div class="today"><b>Find your local disposal sites and fees</b>Fees and rules change by county. Call your local landfill or transfer station and ask their price per ton, minimum charge, hours, and which items they refuse. Then find your nearest scrap yard, donation centers that pick up, electronics recycler and household hazardous waste collection site.</div>
+  <div class="today"><b>Do This Today</b>Build your disposal map: one landfill, one scrap yard, two donation centers, one electronics recycler and one hazardous waste site, with their fees and hours.</div>
+</template>
+
+<template id="t-4">
+  <div class="kicker">Module 4</div>
+  <h2>Disposal Rules: Appliances, Electronics &amp; Hazardous Items</h2>
+  <h3>4.1 · Refrigerators, freezers and AC units</h3>
+  <p>These contain refrigerant that must be recovered before disposal under federal rules. For household refrigerators, freezers and window AC units, the final person in the disposal chain (like a scrap recycler or landfill) is responsible for making sure the refrigerant was recovered. They may ask you for a signed statement with the name and address of who recovered the refrigerant and the date. (<a href="https://www.epa.gov/section608/stationary-refrigeration-safe-disposal-requirements" target="_blank" rel="noopener">EPA</a>)</p>
+  <ul>
+    <li>Ask your scrap yard or landfill exactly what they require before you bring an appliance.</li>
+    <li>Charge extra for refrigerant appliances to cover the recovery or drop-off fee.</li>
+  </ul>
+  <h3>4.2 · Household hazardous waste</h3>
+  <p>Paints, cleaners, oils, batteries and pesticides can contain hazardous ingredients and need special care. Pouring them down drains or on the ground, or in some cases putting them in regular trash, is improper disposal. Use your local household hazardous waste collection. (<a href="https://www.epa.gov/hw/household-hazardous-waste-hhw" target="_blank" rel="noopener">EPA</a>)</p>
+  <h3>4.3 · Electronics and batteries</h3>
+  <p>Lithium-ion batteries and devices that contain them should not go in household garbage or recycling bins. Remove batteries where possible, and take electronics to an electronics recycler. (<a href="https://www.epa.gov/recycle/electronics-donation-and-recycling" target="_blank" rel="noopener">EPA</a>)</p>
+  <div class="today"><b>Check your state and city</b>States and cities add their own rules, like bans on electronics, tires or mattresses in landfills, or permits for haulers. Call your county solid waste office and ask what's banned from the landfill and whether junk haulers need a permit.</div>
+  <div class="today"><b>Do This Today</b>Call your county solid waste office and write down your local rules.</div>
+</template>
+
+<template id="t-5">
+  <div class="kicker">Module 5</div>
+  <h2>Pricing Junk Removal</h2>
+  <p class="lead">Most junk haulers price by how much of the truck a job fills.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Load (20-yard truck)</th><th>Typical price</th></tr></thead>
+    <tbody>
+      <tr><td>1/8 truck</td><td class="num">$75–$125</td></tr>
+      <tr><td>1/4 truck</td><td class="num">$125–$200</td></tr>
+      <tr><td>1/2 truck</td><td class="num">$200–$400</td></tr>
+      <tr><td>3/4 truck</td><td class="num">$400–$600</td></tr>
+      <tr><td>Full truck</td><td class="num">$600–$800</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">From <a href="https://www.angi.com/articles/how-much-does-junk-removal-cost.htm" target="_blank" rel="noopener">Angi (2025 data)</a>, which puts the average job at about $242 and a single bulky item minimum at $60–$150. Mattresses typically run $75–$150 and refrigerators $50–$150. Set your own prices from your truck size, dump fees and local competitors.</p>
+  <p class="formula">Job price = dump fees + labor + truck and fuel + profit</p>
+  <ul>
+    <li>Set a minimum charge for single items.</li>
+    <li>Add fees for refrigerant appliances, mattresses, tires and heavy materials like concrete or dirt.</li>
+    <li>Give firm quotes on-site, or from photos for small jobs.</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Make your price sheet for each load size, using your local dump fees and competitor prices.</div>
+</template>
+
+<template id="t-6">
+  <div class="kicker">Module 6</div>
+  <h2>Licenses &amp; Insurance</h2>
+  <ol>
+    <li>Register an LLC and get a free EIN at <a href="https://www.irs.gov/businesses/small-businesses-self-employed/apply-for-an-employer-identification-number-ein-online" target="_blank" rel="noopener">irs.gov</a>.</li>
+    <li>Get your city or county business license.</li>
+    <li>Ask your city and county whether junk haulers need a hauling permit (Module 4).</li>
+    <li>Open a business bank account.</li>
+  </ol>
+  <h3>6.1 · Insurance</h3>
+  <ul>
+    <li><strong>General liability:</strong> damage to a customer's property, like a scraped door frame</li>
+    <li><strong>Commercial auto:</strong> your truck and trailer used for business</li>
+    <li><strong>Workers' comp:</strong> required in most states once you hire</li>
+    <li><strong>Inland marine (tools and equipment):</strong> stolen or damaged gear</li>
+  </ul>
+  <div class="today"><b>No set insurance prices here: get real quotes</b>We couldn't find reliable published insurance prices for junk removal. Get quotes from at least 3 agents for general liability and commercial auto, and tell them you haul junk with a truck and trailer.</div>
+  <div class="today"><b>Do This Today</b>Request 3 insurance quotes.</div>
+</template>
+
+<template id="t-7">
+  <div class="kicker">Module 7</div>
+  <h2>Running a Job</h2>
+  <ol>
+    <li>Confirm the job, the address and what's going.</li>
+    <li>Walk through with the customer and give a firm price before you lift anything.</li>
+    <li>Protect floors and door frames.</li>
+    <li>Load heavy items first and secure everything.</li>
+    <li>Sweep the area clean when you're done.</li>
+    <li>Get paid on-site and ask for a review.</li>
+    <li>Sort at the end of the day: donate, scrap, recycle, hazardous drop-off, then landfill.</li>
+  </ol>
+  <h3>7.1 · Safety</h3>
+  <ul>
+    <li>Two people for heavy items, and use dollies.</li>
+    <li>Watch for sharp objects, broken glass and pests in cleanouts.</li>
+    <li>Never overload your truck or trailer past its weight rating.</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Write your job-day checklist from arrival to sweep-up.</div>
+</template>
+
+<template id="t-8">
+  <div class="kicker">Module 8</div>
+  <h2>Extra Income Streams</h2>
+  <ul>
+    <li><strong>Scrap metal:</strong> appliances and metal items can pay at the scrap yard.</li>
+    <li><strong>Resale:</strong> clean furniture and items can be sold online.</li>
+    <li><strong>Add-on services:</strong> light demolition (sheds, decks, hot tubs), estate cleanouts, construction debris, yard waste.</li>
+    <li><strong>Recurring accounts:</strong> property managers and real estate agents who need regular cleanouts.</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Find your scrap yard's current prices and pick one add-on service.</div>
+</template>
+
+<template id="t-9">
+  <div class="kicker">Module 9</div>
+  <h2>Getting Customers</h2>
+  <ul>
+    <li>Google Business Profile with before-and-after photos</li>
+    <li>Truck and trailer signs with your phone number</li>
+    <li>Property managers, landlords and real estate agents</li>
+    <li>Estate attorneys and senior move managers</li>
+    <li>Nextdoor and local Facebook groups</li>
+    <li>Short videos of big cleanouts</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Set up your Google Business Profile and contact 3 property managers.</div>
+</template>
+
+<template id="t-10">
+  <div class="kicker">Module 10</div>
+  <h2>Your Launch Plan</h2>
+  <div class="cols">
+    <div><h4>Week 1 · Plan</h4><ul><li>Competitors listed</li><li>Truck and trailer setup chosen</li><li>Disposal map built</li></ul></div>
+    <div><h4>Week 2 · Legal</h4><ul><li>LLC, EIN, bank account</li><li>Local hauler rules confirmed</li><li>Insurance bought</li></ul></div>
+    <div><h4>Week 3 · Set up</h4><ul><li>Gear bought</li><li>Price sheet done</li><li>Truck signs and Google profile</li></ul></div>
+    <div><h4>Week 4 · Launch</h4><ul><li>5 property managers and agents contacted</li><li>First 5 jobs booked</li><li>Reviews requested</li></ul></div>
+  </div>
+  <h3>Sources used in this course</h3>
+  <ul class="note">
+    <li><a href="https://www.epa.gov/section608/stationary-refrigeration-safe-disposal-requirements" target="_blank" rel="noopener">EPA: Refrigeration Safe Disposal Requirements</a></li>
+    <li><a href="https://www.epa.gov/hw/household-hazardous-waste-hhw" target="_blank" rel="noopener">EPA: Household Hazardous Waste</a></li>
+    <li><a href="https://www.epa.gov/recycle/electronics-donation-and-recycling" target="_blank" rel="noopener">EPA: Electronics Donation and Recycling</a></li>
+    <li><a href="https://www.angi.com/articles/how-much-does-junk-removal-cost.htm" target="_blank" rel="noopener">Angi: How Much Does Junk Removal Cost</a></li>
+    <li><a href="https://erefdn.org/analyzing-municipal-solid-waste-landfill-tipping-fees/" target="_blank" rel="noopener">EREF: Landfill Tipping Fees</a></li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Put this launch plan on your calendar with real dates.</div>
+</template>
+
+<script>
+(function(){
+var mods=[
+{id:"overview",t:"t-overview",full:"Course Overview",short:"Overview"},
+{id:"module-1",t:"t-1",full:"1 · Is This Business Right for You?",short:"1 · Fit"},
+{id:"module-2",t:"t-2",full:"2 · Truck, Trailer & Equipment",short:"2 · Equipment"},
+{id:"module-3",t:"t-3",full:"3 · Where the Junk Goes",short:"3 · Disposal"},
+{id:"module-4",t:"t-4",full:"4 · Disposal Rules",short:"4 · Rules"},
+{id:"module-5",t:"t-5",full:"5 · Pricing Junk Removal",short:"5 · Pricing"},
+{id:"module-6",t:"t-6",full:"6 · Licenses & Insurance",short:"6 · Legal"},
+{id:"module-7",t:"t-7",full:"7 · Running a Job",short:"7 · Jobs"},
+{id:"module-8",t:"t-8",full:"8 · Extra Income Streams",short:"8 · Extras"},
+{id:"module-9",t:"t-9",full:"9 · Getting Customers",short:"9 · Customers"},
+{id:"module-10",t:"t-10",full:"10 · Your Launch Plan",short:"10 · Launch"}
+];
+var KEY="bby-junk-hauling-done", done={};
+try{done=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){done={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}}
+var rail=document.getElementById("rail"), lesson=document.getElementById("lesson");
+var cur=0;
+mods.forEach(function(m,i){
+var b=document.createElement("button"); b.type="button"; b.id="nav-"+m.id;
+b.innerHTML='<span class="dot" aria-hidden="true"></span><span><span class="full"></span><span class="short"></span></span>';
+b.querySelector(".full").textContent=m.full; b.querySelector(".short").textContent=m.short;
+b.addEventListener("click",function(){go(i,true)}); rail.appendChild(b);
+});
+function paint(){
+var n=0;
+mods.forEach(function(m,i){
+var b=document.getElementById("nav-"+m.id);
+b.classList.toggle("done",!!done[m.id]); b.querySelector(".dot").textContent=done[m.id]?"✓":"";
+b.setAttribute("aria-current",i===cur?"true":"false"); if(done[m.id])n++;
+});
+document.getElementById("barfill").style.width=(n/mods.length*100)+"%";
+document.getElementById("ptext").textContent=n+" of "+mods.length+" complete";
+var d=document.getElementById("done"), on=!!done[mods[cur].id];
+d.setAttribute("aria-pressed",on?"true":"false"); d.textContent=on?"✓ Completed":"Mark complete";
+document.getElementById("prev").hidden=cur===0;
+document.getElementById("next").hidden=cur===mods.length-1;
+}
+function go(i,scroll){
+cur=Math.max(0,Math.min(mods.length-1,i));
+lesson.innerHTML=""; lesson.appendChild(document.getElementById(mods[cur].t).content.cloneNode(true));
+if(location.hash!=="#"+mods[cur].id){try{history.replaceState(null,"","#"+mods[cur].id)}catch(e){location.hash=mods[cur].id}}
+paint(); if(scroll)window.scrollTo({top:0});
+}
+document.getElementById("prev").addEventListener("click",function(){go(cur-1,true)});
+document.getElementById("next").addEventListener("click",function(){go(cur+1,true)});
+document.getElementById("done").addEventListener("click",function(){
+var id=mods[cur].id; if(done[id])delete done[id]; else done[id]=true; save(); paint();
+});
+function fromHash(){var h=location.hash.slice(1),i=mods.findIndex(function(m){return m.id===h}); go(i<0?0:i,false)}
+window.addEventListener("hashchange",fromHash); fromHash();
+})();
+</script>
+</body></html>
