@@ -1,0 +1,356 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Laundry Services Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+/* Same course-player layout as the other BBY blueprints */
+:root{
+--bg:#f5f6f9; --surface:#ffffff; --ink:#141a2b; --muted:#5a6276; --line:#dde1ea;
+--navy:#16213f; --gold:#b8860b; --gold-soft:#f6ecd2; --ok:#1f7a4d; --ok-soft:#e1f2e8; --bad:#b3261e; --bad-soft:#fbe5e3;
+--display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+--body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}}
+:root[data-theme="dark"]{
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--body)}
+[hidden]{display:none!important}
+a{color:var(--gold);text-underline-offset:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.top{background:var(--navy);color:#fff;padding-block:22px 26px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{max-width:1180px;margin:0 auto;display:grid;gap:6px}
+.eyebrow{font:600 13px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:#e3b54a}
+.top h1{font:italic 700 clamp(34px,6vw,56px)/1 var(--display);margin:0;text-wrap:balance;letter-spacing:.01em}
+.top p{margin:0;color:#c9cfdd;max-width:62ch}
+.progress{display:flex;align-items:center;gap:12px;margin-top:10px;font-size:14px;color:#c9cfdd}
+.bar{flex:0 1 260px;height:8px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:#e3b54a;transition:width .3s}
+.wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:270px minmax(0,1fr);gap:32px;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;display:grid;gap:2px}
+.rail button{all:unset;cursor:pointer;display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;padding:10px 12px;border-radius:8px;color:var(--muted);font-size:15px;line-height:1.35}
+.rail button:hover{background:var(--surface);color:var(--ink)}
+.rail button[aria-current="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:inset 3px 0 0 var(--gold)}
+.dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;margin-top:1px}
+.done .dot{background:var(--ok);border-color:var(--ok);color:#fff}
+main{min-width:0}
+article{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:clamp(20px,4vw,44px)}
+article h2{font:700 clamp(30px,4.4vw,42px)/1.05 var(--display);margin:0 0 6px;text-wrap:balance}
+.kicker{font:600 13px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+article h3{font:700 24px/1.15 var(--display);margin:34px 0 8px;letter-spacing:.01em}
+article p,article li{max-width:68ch}
+article ul,article ol{padding-left:1.3em;display:grid;gap:6px}
+.lead{font-size:18px;color:var(--muted)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:8px}
+.cols > div{border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.cols h4{margin:0 0 6px;font:700 18px/1.2 var(--display);letter-spacing:.03em;text-transform:uppercase}
+.cols .pro{border-color:var(--ok);background:var(--ok-soft)} .cols .pro h4{color:var(--ok)}
+.cols .con{border-color:var(--bad);background:var(--bad-soft)} .cols .con h4{color:var(--bad)}
+.tablewrap{overflow-x:auto;margin-top:10px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{font-weight:700;border-top:2px solid var(--ink)}
+.formula{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 16px;font-weight:600}
+.today{margin-top:34px;background:var(--gold-soft);border-radius:10px;padding:16px 20px;display:grid;gap:4px}
+.today b{font:700 15px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.note{font-size:14px;color:var(--muted)}
+.pager{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;margin-top:20px}
+.btn{all:unset;cursor:pointer;padding:11px 18px;border-radius:8px;font-weight:600;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+:root[data-theme="dark"] .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}}
+.btn.complete[aria-pressed="true"]{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+@media (max-width:820px){
+.wrap{grid-template-columns:1fr;gap:16px}
+nav.rail{position:static;display:flex;overflow-x:auto;gap:6px;padding-bottom:4px}
+.rail button{flex:0 0 auto;grid-template-columns:20px auto;white-space:nowrap;background:var(--surface);border:1px solid var(--line)}
+.rail .full{display:none}
+}
+@media (min-width:821px){.rail .short{display:none}}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style></head><body>
+
+<header class="top">
+  <div class="top-in">
+    <div class="eyebrow">Built By You Academy · Real World Business Blueprints</div>
+    <h1>Laundry Services &amp; Laundromats</h1>
+    <p>Two ways into the laundry business: start a wash-and-fold and pickup-and-delivery service with low startup costs, or buy or build a laundromat. Costs, equipment, pricing, permits and getting customers for both.</p>
+    <div class="progress"><div class="bar"><i id="barfill"></i></div><span id="ptext">0 of 10 complete</span></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="rail" id="rail" aria-label="Course modules"></nav>
+  <main>
+    <article id="lesson" aria-live="polite"></article>
+    <div class="pager">
+      <button class="btn" id="prev" type="button">← Previous</button>
+      <button class="btn complete" id="done" type="button" aria-pressed="false">Mark complete</button>
+      <button class="btn primary" id="next" type="button">Next module →</button>
+    </div>
+  </main>
+</div>
+
+<template id="t-overview">
+  <div class="kicker">Start here</div>
+  <h2>Course Overview</h2>
+  <p class="lead">This course covers two very different laundry businesses. Path A is a laundry service with no storefront. Path B is a laundromat. Many owners start with A and later add B, or run both.</p>
+  <div class="cols">
+    <div><h4>Path A · Laundry service</h4>Wash-and-fold, pickup and delivery, and commercial accounts. Low startup cost. You sell convenience. (Modules 2–5)</div>
+    <div><h4>Path B · Laundromat</h4>A self-service store with washers and dryers. High startup cost. You sell machines and space. (Modules 6–8)</div>
+  </div>
+  <h3>How it works</h3>
+  <p>Every module ends with a <strong>Do This Today</strong> task. Finish it before you move on.</p>
+  <h3>Honest note</h3>
+  <p>A laundromat is a large investment, and a laundry service is hands-on, repetitive work. This course teaches you how to build either business. It doesn't promise income and isn't financial or legal advice. Get real quotes, and have an accountant and attorney review any purchase.</p>
+</template>
+
+<template id="t-1">
+  <div class="kicker">Module 1</div>
+  <h2>Which Laundry Business Is Right for You?</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th></th><th>Laundry service (Path A)</th><th>Laundromat (Path B)</th></tr></thead>
+    <tbody>
+      <tr><td>Startup cost</td><td>Low: supplies, a vehicle and software</td><td>High: anywhere from $50,000 to over $3 million</td></tr>
+      <tr><td>Your time</td><td>Hands-on: washing, folding, driving</td><td>Managing the store, machines and staff</td></tr>
+      <tr><td>Customers</td><td>Busy families, professionals, seniors, businesses</td><td>Mostly renters without their own machines</td></tr>
+      <tr><td>Biggest risk</td><td>Damaged or lost clothes; your time limits growth</td><td>Paying too much; lease, machines and utilities</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Laundromat cost range from <a href="https://www.nav.com/blog/how-much-does-it-cost-to-open-a-laundromat-2450227/" target="_blank" rel="noopener">Nav (Jan 2026)</a>. Renters are the primary users of coin laundries, per the <a href="https://laundryassociation.org/for-investors/industry-overview/" target="_blank" rel="noopener">Coin Laundry Association</a>.</p>
+  <h3>1.1 · Check your market</h3>
+  <ul>
+    <li>Map every laundromat and laundry service within 15 minutes of you.</li>
+    <li>Note their prices, hours, cleanliness and reviews.</li>
+    <li>Look for apartment-heavy areas without a nearby laundromat, and busy neighborhoods without a pickup service.</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Pick Path A or Path B, and list 5 local competitors with their prices.</div>
+</template>
+
+<template id="t-2">
+  <div class="kicker">Module 2 · Path A</div>
+  <h2>Your Laundry Service</h2>
+  <h3>2.1 · Services to offer</h3>
+  <ul>
+    <li><strong>Wash-and-fold:</strong> priced by the pound</li>
+    <li><strong>Pickup and delivery:</strong> scheduled or on demand</li>
+    <li><strong>Subscriptions:</strong> weekly or monthly plans</li>
+    <li><strong>Commercial accounts:</strong> salons, gyms, Airbnb hosts, small clinics, restaurants (towels, linens, aprons)</li>
+    <li><strong>Add-ons:</strong> bedding, hang-dry items, stain treatment, dry cleaning through a partner</li>
+  </ul>
+  <h3>2.2 · Where you'll wash</h3>
+  <ul>
+    <li>Partner with a local laundromat for machine time or a wholesale rate.</li>
+    <li>Use commercial machines in a space you rent.</li>
+    <li>Check your local rules before washing other people's laundry at home. Zoning and business licensing can limit home-based businesses.</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Choose your first 3 services and call 2 laundromats about a partner rate.</div>
+</template>
+
+<template id="t-3">
+  <div class="kicker">Module 3 · Path A</div>
+  <h2>Pricing Your Service</h2>
+  <p class="lead">Wash-and-fold is usually priced per pound, with delivery fees or subscriptions on top.</p>
+  <p>One real example: LaundryGrab, a Houston pickup-and-delivery service, charges about <strong>$3.95 per pound</strong> for wash-and-fold, and offers subscriptions from $195 to $595 a month. A typical 30 lb order is about $118. (<a href="https://communityimpact.com/heights-river-oaks-montrose/business/on-demand-laundry-pickup-service-now-washing-clothes-in-greater-houston-area/" target="_blank" rel="noopener">Community Impact, July 2026</a>) That's one company in one big city, not a national average.</p>
+  <div class="today"><b>Find your real prices</b>Prices change a lot by city.
+    <ol>
+      <li>Call or check the websites of 3 wash-and-fold or pickup services near you. Write down the price per pound, minimum order, delivery fee and subscription prices.</li>
+      <li>Find your cost per pound: detergent, machine time or utilities, bags, and your labor.</li>
+      <li>Add your driving cost per pickup.</li>
+      <li>Set a per-pound price, a minimum order and a delivery fee that cover your costs plus profit.</li>
+    </ol>
+  </div>
+  <p class="formula">Price per pound = (supplies + machine cost + labor per pound) + profit</p>
+  <div class="today"><b>Do This Today</b>Do the 3 competitor checks above and set your price list.</div>
+</template>
+
+<template id="t-4">
+  <div class="kicker">Module 4 · Path A</div>
+  <h2>Operations &amp; Quality</h2>
+  <ol>
+    <li><strong>Pickup:</strong> weigh the bag in front of the customer or at intake, and tag it with their name.</li>
+    <li><strong>Sort:</strong> check pockets, separate colors, flag stains and special-care items.</li>
+    <li><strong>Wash and dry</strong> following the customer's preferences and care labels.</li>
+    <li><strong>Fold and package</strong> neatly in labeled bags.</li>
+    <li><strong>Deliver</strong> on time with a text notice.</li>
+  </ol>
+  <h3>4.1 · Protect yourself</h3>
+  <ul>
+    <li>Written terms: what you won't wash, and your limit on damage or loss claims</li>
+    <li>Never mix customers' loads</li>
+    <li>Photos of damaged items at intake</li>
+    <li>Laundry software for orders, routes, billing and customer texts</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Write your intake and quality checklist and your customer terms.</div>
+</template>
+
+<template id="t-5">
+  <div class="kicker">Module 5 · Path A</div>
+  <h2>Getting Laundry Customers</h2>
+  <ul>
+    <li>Apartment complexes and senior communities: offer resident pickup days</li>
+    <li>Airbnb hosts, gyms, salons and spas: recurring linen and towel accounts</li>
+    <li>Busy neighborhoods: door hangers with a first-order discount</li>
+    <li>Google Business Profile, Nextdoor and local Facebook groups</li>
+    <li>Referral credits for every new customer a client sends</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Contact 3 Airbnb hosts or local businesses about a linen account.</div>
+</template>
+
+<template id="t-6">
+  <div class="kicker">Module 6 · Path B</div>
+  <h2>Buying vs. Building a Laundromat</h2>
+  <p class="lead">There are about 29,500 coin laundries in the U.S., generating nearly $5 billion a year. (<a href="https://laundryassociation.org/for-investors/industry-overview/" target="_blank" rel="noopener">Coin Laundry Association</a>)</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Option</th><th>Cost range</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Buy an existing laundromat</td><td class="num">Listings from about $25,000 to $9.2 million</td><td>Valued at about 3–5 times net cash flow</td></tr>
+      <tr><td>Retool an existing space</td><td class="num">$50,000–$100,000 minimum</td><td>Plumbing, venting and electrical often needed</td></tr>
+      <tr><td>Build new</td><td class="num">From about $250,000 to $3 million+</td><td>Full control, highest cost</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Listing range and build costs from <a href="https://www.nav.com/blog/how-much-does-it-cost-to-open-a-laundromat-2450227/" target="_blank" rel="noopener">Nav (Jan 2026)</a>. Valuation multiple from the Coin Laundry Association, which also says stores typically range from $50,000 to over $1 million in value.</p>
+  <h3>6.1 · Before you buy one</h3>
+  <ul>
+    <li>Get at least 12–24 months of utility bills. They show real machine use better than the seller's numbers.</li>
+    <li>Check machine age. CLA lists useful life as 5–8 years for top-load washers and 10–15 years for front-load washers and dryers.</li>
+    <li>Read the lease: years left, renewal options and rent increases.</li>
+    <li>Have an accountant and attorney review the deal.</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Look up 3 laundromats for sale in your area and write down price, machine count and lease terms.</div>
+</template>
+
+<template id="t-7">
+  <div class="kicker">Module 7 · Path B</div>
+  <h2>Equipment, Permits &amp; Setup</h2>
+  <h3>7.1 · Equipment costs</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Item</th><th>Typical cost</th></tr></thead>
+    <tbody>
+      <tr><td>Commercial washer</td><td class="num">$5,000–$7,000; large units up to $15,000</td></tr>
+      <tr><td>Commercial dryer</td><td class="num">$6,000–$7,000; up to $10,000</td></tr>
+      <tr><td>Change machine</td><td class="num">About $1,300 to $10,000+</td></tr>
+      <tr><td>Card reader</td><td class="num">About $400 to $7,000+ per machine</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">From <a href="https://www.nav.com/blog/how-much-does-it-cost-to-open-a-laundromat-2450227/" target="_blank" rel="noopener">Nav (Jan 2026)</a>, quoting an industry consultant. Get quotes from at least 2 equipment distributors.</p>
+  <h3>7.2 · Permits and local rules</h3>
+  <div class="today"><b>Check your city and county</b>Laundromats use a lot of water and send a lot of wastewater to the sewer. Many cities have rules on sewer connections, lint traps and plumbing, plus building, electrical and gas permits for venting and dryers. Rules vary by location. Before you sign a lease, call your city's building department and water or sewer utility and ask what a laundromat needs.</div>
+  <h3>7.3 · Insurance</h3>
+  <ul>
+    <li>General liability: customer injuries, like slips on wet floors</li>
+    <li>Commercial property: building contents and machines</li>
+    <li>Equipment breakdown coverage</li>
+    <li>Workers' comp once you hire</li>
+  </ul>
+  <p class="note">We couldn't find reliable published insurance prices for laundromats. Get quotes from at least 3 agents.</p>
+  <div class="today"><b>Do This Today</b>Call your city building department and water utility and ask what permits a laundromat needs.</div>
+</template>
+
+<template id="t-8">
+  <div class="kicker">Module 8 · Path B</div>
+  <h2>Running a Laundromat</h2>
+  <ul>
+    <li>Keep it clean, bright and safe. It's what customers notice first.</li>
+    <li>Fix or put an "out of order" sign on broken machines right away.</li>
+    <li>Track machine use. CLA reports washers run from 3 to 8 or more turns per day, and dryer income usually runs 40–60% of washer income.</li>
+    <li>Watch utilities closely. They're one of your biggest costs.</li>
+    <li>Add revenue: wash-and-fold (Path A inside your store), vending, and commercial accounts.</li>
+    <li>Common hours run about 6 a.m. to 10 p.m.</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Write a daily opening and closing checklist for the store.</div>
+</template>
+
+<template id="t-9">
+  <div class="kicker">Module 9</div>
+  <h2>Business Setup (Both Paths)</h2>
+  <ol>
+    <li>Register an LLC and get a free EIN at <a href="https://www.irs.gov/businesses/small-businesses-self-employed/apply-for-an-employer-identification-number-ein-online" target="_blank" rel="noopener">irs.gov</a>.</li>
+    <li>Get your city or county business license.</li>
+    <li>Check whether your state taxes laundry services and register for sales tax if needed.</li>
+    <li>Open a business bank account.</li>
+    <li>Get insurance quotes for your path.</li>
+  </ol>
+  <div class="today"><b>Do This Today</b>Complete steps 1 and 2.</div>
+</template>
+
+<template id="t-10">
+  <div class="kicker">Module 10</div>
+  <h2>Your Launch Plan</h2>
+  <div class="cols">
+    <div><h4>Path A · Weeks 1–2</h4><ul><li>Services and prices set</li><li>Washing partner or space secured</li><li>LLC, license and insurance</li></ul></div>
+    <div><h4>Path A · Weeks 3–4</h4><ul><li>Software and terms ready</li><li>Door hangers and Google profile</li><li>First 10 customers and 1 business account</li></ul></div>
+    <div><h4>Path B · Research</h4><ul><li>3 listings or sites compared</li><li>Utility bills and leases reviewed</li><li>Permits confirmed</li></ul></div>
+    <div><h4>Path B · Buy or build</h4><ul><li>Accountant and attorney review</li><li>Financing and insurance</li><li>Grand opening with a free-wash day</li></ul></div>
+  </div>
+  <h3>Sources used in this course</h3>
+  <ul class="note">
+    <li><a href="https://laundryassociation.org/for-investors/industry-overview/" target="_blank" rel="noopener">Coin Laundry Association: Industry Overview</a></li>
+    <li><a href="https://www.nav.com/blog/how-much-does-it-cost-to-open-a-laundromat-2450227/" target="_blank" rel="noopener">Nav: How Much Does It Cost to Open a Laundromat</a></li>
+    <li><a href="https://communityimpact.com/heights-river-oaks-montrose/business/on-demand-laundry-pickup-service-now-washing-clothes-in-greater-houston-area/" target="_blank" rel="noopener">Community Impact: On-demand laundry pickup service in Houston</a></li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Put your path's first two steps on your calendar with real dates.</div>
+</template>
+
+<script>
+(function(){
+var mods=[
+{id:"overview",t:"t-overview",full:"Course Overview",short:"Overview"},
+{id:"module-1",t:"t-1",full:"1 · Which Laundry Business Is Right for You?",short:"1 · Fit"},
+{id:"module-2",t:"t-2",full:"2 · Your Laundry Service (Path A)",short:"2 · Service"},
+{id:"module-3",t:"t-3",full:"3 · Pricing Your Service (Path A)",short:"3 · Pricing"},
+{id:"module-4",t:"t-4",full:"4 · Operations & Quality (Path A)",short:"4 · Operations"},
+{id:"module-5",t:"t-5",full:"5 · Getting Laundry Customers (Path A)",short:"5 · Customers"},
+{id:"module-6",t:"t-6",full:"6 · Buying vs. Building a Laundromat (Path B)",short:"6 · Buy/Build"},
+{id:"module-7",t:"t-7",full:"7 · Equipment, Permits & Setup (Path B)",short:"7 · Equipment"},
+{id:"module-8",t:"t-8",full:"8 · Running a Laundromat (Path B)",short:"8 · Running"},
+{id:"module-9",t:"t-9",full:"9 · Business Setup (Both Paths)",short:"9 · Setup"},
+{id:"module-10",t:"t-10",full:"10 · Your Launch Plan",short:"10 · Launch"}
+];
+var KEY="bby-laundry-done", done={};
+try{done=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){done={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}}
+var rail=document.getElementById("rail"), lesson=document.getElementById("lesson");
+var cur=0;
+mods.forEach(function(m,i){
+var b=document.createElement("button"); b.type="button"; b.id="nav-"+m.id;
+b.innerHTML='<span class="dot" aria-hidden="true"></span><span><span class="full"></span><span class="short"></span></span>';
+b.querySelector(".full").textContent=m.full; b.querySelector(".short").textContent=m.short;
+b.addEventListener("click",function(){go(i,true)}); rail.appendChild(b);
+});
+function paint(){
+var n=0;
+mods.forEach(function(m,i){
+var b=document.getElementById("nav-"+m.id);
+b.classList.toggle("done",!!done[m.id]); b.querySelector(".dot").textContent=done[m.id]?"✓":"";
+b.setAttribute("aria-current",i===cur?"true":"false"); if(done[m.id])n++;
+});
+document.getElementById("barfill").style.width=(n/mods.length*100)+"%";
+document.getElementById("ptext").textContent=n+" of "+mods.length+" complete";
+var d=document.getElementById("done"), on=!!done[mods[cur].id];
+d.setAttribute("aria-pressed",on?"true":"false"); d.textContent=on?"✓ Completed":"Mark complete";
+document.getElementById("prev").hidden=cur===0;
+document.getElementById("next").hidden=cur===mods.length-1;
+}
+function go(i,scroll){
+cur=Math.max(0,Math.min(mods.length-1,i));
+lesson.innerHTML=""; lesson.appendChild(document.getElementById(mods[cur].t).content.cloneNode(true));
+if(location.hash!=="#"+mods[cur].id){try{history.replaceState(null,"","#"+mods[cur].id)}catch(e){location.hash=mods[cur].id}}
+paint(); if(scroll)window.scrollTo({top:0});
+}
+document.getElementById("prev").addEventListener("click",function(){go(cur-1,true)});
+document.getElementById("next").addEventListener("click",function(){go(cur+1,true)});
+document.getElementById("done").addEventListener("click",function(){
+var id=mods[cur].id; if(done[id])delete done[id]; else done[id]=true; save(); paint();
+});
+function fromHash(){var h=location.hash.slice(1),i=mods.findIndex(function(m){return m.id===h}); go(i<0?0:i,false)}
+window.addEventListener("hashchange",fromHash); fromHash();
+})();
+</script>
+</body></html>
