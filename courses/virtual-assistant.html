@@ -1,0 +1,369 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Virtual Assistant Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+/* Same course-player layout as the other BBY blueprints */
+:root{
+--bg:#f5f6f9; --surface:#ffffff; --ink:#141a2b; --muted:#5a6276; --line:#dde1ea;
+--navy:#16213f; --gold:#b8860b; --gold-soft:#f6ecd2; --ok:#1f7a4d; --ok-soft:#e1f2e8; --bad:#b3261e; --bad-soft:#fbe5e3;
+--display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+--body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}}
+:root[data-theme="dark"]{
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--body)}
+[hidden]{display:none!important}
+a{color:var(--gold);text-underline-offset:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.top{background:var(--navy);color:#fff;padding-block:22px 26px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{max-width:1180px;margin:0 auto;display:grid;gap:6px}
+.eyebrow{font:600 13px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:#e3b54a}
+.top h1{font:italic 700 clamp(34px,6vw,56px)/1 var(--display);margin:0;text-wrap:balance;letter-spacing:.01em}
+.top p{margin:0;color:#c9cfdd;max-width:62ch}
+.progress{display:flex;align-items:center;gap:12px;margin-top:10px;font-size:14px;color:#c9cfdd}
+.bar{flex:0 1 260px;height:8px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:#e3b54a;transition:width .3s}
+.wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:270px minmax(0,1fr);gap:32px;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;display:grid;gap:2px}
+.rail button{all:unset;cursor:pointer;display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;padding:10px 12px;border-radius:8px;color:var(--muted);font-size:15px;line-height:1.35}
+.rail button:hover{background:var(--surface);color:var(--ink)}
+.rail button[aria-current="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:inset 3px 0 0 var(--gold)}
+.dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;margin-top:1px}
+.done .dot{background:var(--ok);border-color:var(--ok);color:#fff}
+main{min-width:0}
+article{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:clamp(20px,4vw,44px)}
+article h2{font:700 clamp(30px,4.4vw,42px)/1.05 var(--display);margin:0 0 6px;text-wrap:balance}
+.kicker{font:600 13px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+article h3{font:700 24px/1.15 var(--display);margin:34px 0 8px;letter-spacing:.01em}
+article p,article li{max-width:68ch}
+article ul,article ol{padding-left:1.3em;display:grid;gap:6px}
+.lead{font-size:18px;color:var(--muted)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:8px}
+.cols > div{border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.cols h4{margin:0 0 6px;font:700 18px/1.2 var(--display);letter-spacing:.03em;text-transform:uppercase}
+.cols .pro{border-color:var(--ok);background:var(--ok-soft)} .cols .pro h4{color:var(--ok)}
+.cols .con{border-color:var(--bad);background:var(--bad-soft)} .cols .con h4{color:var(--bad)}
+.tablewrap{overflow-x:auto;margin-top:10px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{font-weight:700;border-top:2px solid var(--ink)}
+.formula{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 16px;font-weight:600}
+.today{margin-top:34px;background:var(--gold-soft);border-radius:10px;padding:16px 20px;display:grid;gap:4px}
+.today b{font:700 15px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.note{font-size:14px;color:var(--muted)}
+.pager{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;margin-top:20px}
+.btn{all:unset;cursor:pointer;padding:11px 18px;border-radius:8px;font-weight:600;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+:root[data-theme="dark"] .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}}
+.btn.complete[aria-pressed="true"]{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+@media (max-width:820px){
+.wrap{grid-template-columns:1fr;gap:16px}
+nav.rail{position:static;display:flex;overflow-x:auto;gap:6px;padding-bottom:4px}
+.rail button{flex:0 0 auto;grid-template-columns:20px auto;white-space:nowrap;background:var(--surface);border:1px solid var(--line)}
+.rail .full{display:none}
+}
+@media (min-width:821px){.rail .short{display:none}}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style></head><body>
+
+<header class="top">
+  <div class="top-in">
+    <div class="eyebrow">Built By You Academy · Real World Business Blueprints</div>
+    <h1>Virtual Assistant Business</h1>
+    <p>Start a virtual assistant business from home: pick your services, set up with low startup costs, avoid scams, price your work, land your first clients on job platforms and through direct outreach, and handle taxes the right way.</p>
+    <div class="progress"><div class="bar"><i id="barfill"></i></div><span id="ptext">0 of 11 complete</span></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="rail" id="rail" aria-label="Course modules"></nav>
+  <main>
+    <article id="lesson" aria-live="polite"></article>
+    <div class="pager">
+      <button class="btn" id="prev" type="button">← Previous</button>
+      <button class="btn complete" id="done" type="button" aria-pressed="false">Mark complete</button>
+      <button class="btn primary" id="next" type="button">Next module →</button>
+    </div>
+  </main>
+</div>
+
+<template id="t-overview">
+  <div class="kicker">Start here</div>
+  <h2>Course Overview</h2>
+  <p class="lead">A virtual assistant (VA) helps businesses remotely with tasks like email, scheduling, customer service, social media and bookkeeping support. By the end of this course you'll have a service menu, a profile on a job platform, a pitch you can send today, and your business set up to get paid and pay taxes correctly.</p>
+  <div class="cols">
+    <div><h4>Who it's for</h4>Beginners with a computer and internet who are organized and reliable.</div>
+    <div><h4>How it works</h4>Every module ends with a <strong>Do This Today</strong> task. The templates in Module 9 are ready to copy and use.</div>
+  </div>
+  <h3>Honest note</h3>
+  <p>Your first clients take effort to land, and early rates may be low while you build reviews. This course teaches you how to build the business. It doesn't promise income and isn't tax or legal advice.</p>
+</template>
+
+<template id="t-1">
+  <div class="kicker">Module 1</div>
+  <h2>Is This Business Right for You?</h2>
+  <div class="cols">
+    <div><h4>Pros</h4><ul><li>Work from home with low startup costs</li><li>Use skills you already have</li><li>Flexible hours, and clients can be anywhere</li><li>Long-term, recurring clients</li></ul></div>
+    <div><h4>Cons</h4><ul><li>Lots of competition on job platforms</li><li>Finding first clients takes time</li><li>You handle your own taxes</li><li>Scammers target people looking for VA work</li></ul></div>
+  </div>
+  <h3>1.1 · What you need to start</h3>
+  <ul>
+    <li>A reliable computer and fast internet</li>
+    <li>A professional email address</li>
+    <li>A quiet place to take calls</li>
+    <li>Free or low-cost tools (Module 3)</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Write down every work, school or life skill you have that a business owner would pay for.</div>
+</template>
+
+<template id="t-2">
+  <div class="kicker">Module 2</div>
+  <h2>Choose Your Services &amp; Niche</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Type of VA</th><th>Common tasks</th></tr></thead>
+    <tbody>
+      <tr><td>Administrative</td><td>Email inbox, calendar, data entry, travel booking, documents</td></tr>
+      <tr><td>Customer service</td><td>Answering emails and chats, order support, returns</td></tr>
+      <tr><td>Social media</td><td>Scheduling posts, replying to comments, simple graphics in Canva</td></tr>
+      <tr><td>E-commerce</td><td>Product listings, order processing, Shopify or Etsy support</td></tr>
+      <tr><td>Bookkeeping support</td><td>Entering receipts and invoices, organizing records</td></tr>
+      <tr><td>Executive assistant</td><td>Managing a busy owner's schedule, projects and communication</td></tr>
+    </tbody>
+  </table></div>
+  <h3>2.1 · Pick a niche</h3>
+  <p>"VA for real estate agents" or "VA for Shopify stores" is easier to sell than "VA for anyone." Choose an industry you know or like.</p>
+  <div class="today"><b>Do This Today</b>Pick 3 to 5 services and 1 niche, and write one sentence: "I help [niche] with [services]."</div>
+</template>
+
+<template id="t-3">
+  <div class="kicker">Module 3</div>
+  <h2>Startup Costs &amp; Your Toolkit</h2>
+  <p class="lead">You can start with the computer you already have and free plans of the tools below. Upgrade only when a client needs it.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Need</th><th>Common tools (click to sign up)</th></tr></thead>
+    <tbody>
+      <tr><td>Email, docs, calendar</td><td><a href="https://workspace.google.com/" target="_blank" rel="noopener">Google Workspace</a> or a free <a href="https://accounts.google.com/signup" target="_blank" rel="noopener">Gmail</a> to start</td></tr>
+      <tr><td>Video calls</td><td><a href="https://zoom.us/" target="_blank" rel="noopener">Zoom</a>, <a href="https://meet.google.com/" target="_blank" rel="noopener">Google Meet</a></td></tr>
+      <tr><td>Scheduling</td><td><a href="https://calendly.com/" target="_blank" rel="noopener">Calendly</a></td></tr>
+      <tr><td>Graphics</td><td><a href="https://www.canva.com/" target="_blank" rel="noopener">Canva</a></td></tr>
+      <tr><td>Task management</td><td><a href="https://trello.com/" target="_blank" rel="noopener">Trello</a>, <a href="https://asana.com/" target="_blank" rel="noopener">Asana</a></td></tr>
+      <tr><td>Passwords</td><td>A password manager, so clients can share logins safely</td></tr>
+      <tr><td>Invoices and payments</td><td><a href="https://www.paypal.com/us/business" target="_blank" rel="noopener">PayPal Business</a>, <a href="https://stripe.com/" target="_blank" rel="noopener">Stripe</a></td></tr>
+      <tr><td>Time tracking</td><td><a href="https://toggl.com/" target="_blank" rel="noopener">Toggl Track</a></td></tr>
+    </tbody>
+  </table></div>
+  <div class="today"><b>Check current prices</b>Software prices and free-plan limits change often. Check each tool's pricing page before you sign up, and start on free plans where you can.</div>
+  <div class="today"><b>Do This Today</b>Create a professional email, a Calendly link and a Canva account.</div>
+</template>
+
+<template id="t-4">
+  <div class="kicker">Module 4</div>
+  <h2>Avoid VA Job Scams</h2>
+  <p class="lead">The FTC warns that scammers post fake job ads for virtual assistants on job sites. (<a href="https://consumer.ftc.gov/articles/job-scams" target="_blank" rel="noopener">FTC</a>)</p>
+  <ul>
+    <li><strong>Never pay to get a job.</strong> Honest employers never ask you to pay to get hired.</li>
+    <li><strong>Never deposit a check and send money back or buy gift cards or equipment with it.</strong> That's a scam, even if the bank says the check "cleared."</li>
+    <li><strong>Don't receive and reship packages</strong> for a "personal assistant" job.</li>
+    <li>Keep conversations and payments on the platform until you've verified a client.</li>
+    <li>Look up the business, its website and real reviews before you share personal information.</li>
+  </ul>
+  <p>Report scams at <a href="https://reportfraud.ftc.gov/" target="_blank" rel="noopener">ReportFraud.ftc.gov</a>.</p>
+  <div class="today"><b>Do This Today</b>Write your own 3 "walk away" rules based on this module.</div>
+</template>
+
+<template id="t-5">
+  <div class="kicker">Module 5</div>
+  <h2>Set Up Your Business</h2>
+  <ol>
+    <li><strong>Pick a structure.</strong> If you work under your own legal name as a sole proprietor, you may not need to register anywhere. Most states require you to register a DBA ("doing business as") name if you use one. In most cases, registering a business costs less than $300. (<a href="https://www.sba.gov/business-guide/launch-your-business/register-your-business" target="_blank" rel="noopener">SBA</a>)</li>
+    <li><strong>Register</strong> with your state's Secretary of State website if you form an LLC or use a business name.</li>
+    <li><strong>Get a free EIN</strong> at <a href="https://www.irs.gov/businesses/small-businesses-self-employed/apply-for-an-employer-identification-number-ein-online" target="_blank" rel="noopener">IRS.gov</a>, so you don't have to give clients your Social Security number.</li>
+    <li><strong>Open a business bank account</strong> to keep VA income separate.</li>
+    <li><strong>Check your city or county</strong> for a home business license.</li>
+  </ol>
+  <p class="note">Use the SBA's free <a href="https://www.sba.gov/business-guide" target="_blank" rel="noopener">Business Guide</a> for step-by-step help, and find free local mentoring through <a href="https://www.score.org/" target="_blank" rel="noopener">SCORE</a>.</p>
+  <div class="today"><b>Do This Today</b>Decide your business name and structure, and get your EIN.</div>
+</template>
+
+<template id="t-6">
+  <div class="kicker">Module 6</div>
+  <h2>Taxes for Self-Employed VAs</h2>
+  <ul>
+    <li><strong>Self-employment tax is 15.3%</strong> (Social Security and Medicare) if your net earnings are $400 or more. You file it on Schedule SE, and report your business income and expenses on Schedule C. (<a href="https://www.irs.gov/businesses/small-businesses-self-employed/self-employment-tax-social-security-and-medicare-taxes" target="_blank" rel="noopener">IRS</a>)</li>
+    <li><strong>Quarterly estimated taxes:</strong> if you expect to owe $1,000 or more when you file, you generally need to make estimated payments during the year using Form 1040-ES. The year has four payment periods. (<a href="https://www.irs.gov/businesses/small-businesses-self-employed/estimated-taxes" target="_blank" rel="noopener">IRS</a>)</li>
+    <li>Set aside part of every payment for taxes in a separate savings account.</li>
+    <li>Track business expenses like software, equipment and a portion of internet costs, and keep receipts.</li>
+  </ul>
+  <p class="note">This is general information, not tax advice. A tax professional can tell you how much to set aside.</p>
+  <div class="today"><b>Do This Today</b>Open a separate savings account for taxes and set up a simple income and expense tracker.</div>
+</template>
+
+<template id="t-7">
+  <div class="kicker">Module 7</div>
+  <h2>Pricing Your Services</h2>
+  <p class="lead">Upwork reports freelance virtual assistants on its platform charge an average of $18–$35 an hour, depending on skills and experience. (<a href="https://www.upwork.com/hire/virtual-assistants/cost/" target="_blank" rel="noopener">Upwork</a>)</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Type of VA (North America, experienced)</th><th>Upwork rate range</th></tr></thead>
+    <tbody>
+      <tr><td>Administrative / data entry</td><td class="num">$12–$20+/hr</td></tr>
+      <tr><td>Marketing, customer service, accounting support</td><td class="num">$20–$35+/hr</td></tr>
+      <tr><td>Advanced VA, consultant, executive assistant</td><td class="num">$38–$50+/hr</td></tr>
+    </tbody>
+  </table></div>
+  <h3>7.1 · Ways to charge</h3>
+  <ul>
+    <li><strong>Hourly:</strong> good when you're starting and tasks vary</li>
+    <li><strong>Monthly retainer:</strong> a set number of hours each month, paid in advance</li>
+    <li><strong>Per project:</strong> for clear tasks like setting up a newsletter</li>
+  </ul>
+  <p>Remember platform fees and taxes when you set your rate (Modules 6 and 8).</p>
+  <div class="today"><b>Do This Today</b>Set your starting hourly rate and a monthly retainer package (for example, 10 or 20 hours).</div>
+</template>
+
+<template id="t-8">
+  <div class="kicker">Module 8</div>
+  <h2>How to Find VA Jobs</h2>
+  <h3>8.1 · Freelance platforms</h3>
+  <ul>
+    <li><a href="https://www.upwork.com/" target="_blank" rel="noopener"><strong>Upwork</strong></a>: you send proposals to posted jobs. Upwork's service fee is 20% of your first $500 with each client, 10% from $500.01 to $10,000, and 5% above $10,000. (<a href="https://support.upwork.com/hc/en-us/articles/211062538-Freelancer-Service-Fees" target="_blank" rel="noopener">Upwork fees</a>)</li>
+    <li><a href="https://www.fiverr.com/" target="_blank" rel="noopener"><strong>Fiverr</strong></a>: you list service packages and buyers come to you. Check Fiverr's current seller fees in its Help Center before you price.</li>
+    <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener"><strong>LinkedIn</strong></a>: set your headline to your one-sentence niche and search for posts asking for help.</li>
+  </ul>
+  <h3>8.2 · Find clients directly (no platform fees)</h3>
+  <ul>
+    <li>Reach out to small businesses in your niche with the pitch in Module 9.</li>
+    <li>Join Facebook groups and online communities where your niche hangs out. Help first, sell second.</li>
+    <li>Tell everyone you know what you do. Many first clients come from referrals.</li>
+  </ul>
+  <h3>8.3 · Win on the platforms</h3>
+  <ul>
+    <li>Complete profile, professional photo and a niche headline</li>
+    <li>Short samples: a sample email reply, a tidy spreadsheet, a Canva graphic</li>
+    <li>Personal proposals that repeat the client's problem back to them (template in Module 9)</li>
+    <li>Ask every happy client for a review</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Create your Upwork or Fiverr profile and send 5 proposals or pitches.</div>
+</template>
+
+<template id="t-9">
+  <div class="kicker">Module 9</div>
+  <h2>Copy-and-Paste Templates</h2>
+  <h3>9.1 · Direct pitch (email or DM)</h3>
+  <p class="formula">Hi [Name], I help [niche] save time with [service 1], [service 2] and [service 3]. I noticed [something specific about their business]. I'd love to take [one task] off your plate. Are you open to a quick 15-minute call this week? Here's my calendar: [Calendly link]. [Your name]</p>
+  <h3>9.2 · Job platform proposal</h3>
+  <p class="formula">Hi [Name], you need help with [their problem in their words]. I can [how you'd do it], and I'm available [hours/time zone]. Here's a quick sample: [link]. I can start [date]. What's the first task you'd want handled?</p>
+  <h3>9.3 · Service menu</h3>
+  <p class="formula">[Business name], Virtual Assistant for [niche]<br>Services: [list]<br>Hourly: $[rate]/hr · Retainer: [hours]/month for $[price], billed in advance<br>Hours: [days/times, time zone] · Response time: within [X] business hours</p>
+  <h3>9.4 · New client onboarding checklist</h3>
+  <ul>
+    <li>Signed agreement: services, rate, payment terms, hours, confidentiality, how either side can end it</li>
+    <li>First invoice paid (for retainers)</li>
+    <li>Logins shared through a password manager</li>
+    <li>Preferred communication channel and check-in schedule</li>
+    <li>List of first tasks and priorities</li>
+  </ul>
+  <p class="note">Have a local attorney review your client agreement.</p>
+  <div class="today"><b>Do This Today</b>Fill in all four templates with your own details.</div>
+</template>
+
+<template id="t-10">
+  <div class="kicker">Module 10</div>
+  <h2>Working With Clients</h2>
+  <ul>
+    <li>Track your time on every task, even on retainers.</li>
+    <li>Send a short weekly update: what you did, what's next, any questions.</li>
+    <li>Protect client information. Never share logins or data.</li>
+    <li>Set office hours and a response time, and stick to them.</li>
+    <li>Raise rates for new clients once you have reviews and steady work.</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Write your weekly client update template.</div>
+</template>
+
+<template id="t-11">
+  <div class="kicker">Module 11</div>
+  <h2>Your 30-Day Launch Plan</h2>
+  <div class="cols">
+    <div><h4>Week 1 · Decide</h4><ul><li>Services and niche picked</li><li>Rates set</li><li>Tools set up</li></ul></div>
+    <div><h4>Week 2 · Set up</h4><ul><li>Business name, EIN, bank account</li><li>Tax savings account</li><li>Templates filled in</li></ul></div>
+    <div><h4>Week 3 · Get seen</h4><ul><li>Upwork or Fiverr profile live</li><li>LinkedIn updated</li><li>3 samples ready</li></ul></div>
+    <div><h4>Week 4 · Pitch</h4><ul><li>5 pitches or proposals a day</li><li>First discovery calls</li><li>First client signed</li></ul></div>
+  </div>
+  <h3>Sources used in this course</h3>
+  <ul class="note">
+    <li><a href="https://consumer.ftc.gov/articles/job-scams" target="_blank" rel="noopener">FTC: Job Scams</a></li>
+    <li><a href="https://www.sba.gov/business-guide/launch-your-business/register-your-business" target="_blank" rel="noopener">SBA: Register Your Business</a></li>
+    <li><a href="https://www.irs.gov/businesses/small-businesses-self-employed/self-employment-tax-social-security-and-medicare-taxes" target="_blank" rel="noopener">IRS: Self-Employment Tax</a></li>
+    <li><a href="https://www.irs.gov/businesses/small-businesses-self-employed/estimated-taxes" target="_blank" rel="noopener">IRS: Estimated Taxes</a></li>
+    <li><a href="https://support.upwork.com/hc/en-us/articles/211062538-Freelancer-Service-Fees" target="_blank" rel="noopener">Upwork: Freelancer Service Fees</a></li>
+    <li><a href="https://www.upwork.com/hire/virtual-assistants/cost/" target="_blank" rel="noopener">Upwork: Virtual Assistant Cost</a></li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Put this plan on your calendar with real dates.</div>
+</template>
+
+<script>
+(function(){
+var mods=[
+{id:"overview",t:"t-overview",full:"Course Overview",short:"Overview"},
+{id:"module-1",t:"t-1",full:"1 · Is This Business Right for You?",short:"1 · Fit"},
+{id:"module-2",t:"t-2",full:"2 · Choose Your Services & Niche",short:"2 · Services"},
+{id:"module-3",t:"t-3",full:"3 · Startup Costs & Your Toolkit",short:"3 · Toolkit"},
+{id:"module-4",t:"t-4",full:"4 · Avoid VA Job Scams",short:"4 · Scams"},
+{id:"module-5",t:"t-5",full:"5 · Set Up Your Business",short:"5 · Setup"},
+{id:"module-6",t:"t-6",full:"6 · Taxes for Self-Employed VAs",short:"6 · Taxes"},
+{id:"module-7",t:"t-7",full:"7 · Pricing Your Services",short:"7 · Pricing"},
+{id:"module-8",t:"t-8",full:"8 · How to Find VA Jobs",short:"8 · Find Jobs"},
+{id:"module-9",t:"t-9",full:"9 · Copy-and-Paste Templates",short:"9 · Templates"},
+{id:"module-10",t:"t-10",full:"10 · Working With Clients",short:"10 · Clients"},
+{id:"module-11",t:"t-11",full:"11 · Your 30-Day Launch Plan",short:"11 · Launch"}
+];
+var KEY="bby-virtual-assistant-done", done={};
+try{done=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){done={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}}
+var rail=document.getElementById("rail"), lesson=document.getElementById("lesson");
+var cur=0;
+mods.forEach(function(m,i){
+var b=document.createElement("button"); b.type="button"; b.id="nav-"+m.id;
+b.innerHTML='<span class="dot" aria-hidden="true"></span><span><span class="full"></span><span class="short"></span></span>';
+b.querySelector(".full").textContent=m.full; b.querySelector(".short").textContent=m.short;
+b.addEventListener("click",function(){go(i,true)}); rail.appendChild(b);
+});
+function paint(){
+var n=0;
+mods.forEach(function(m,i){
+var b=document.getElementById("nav-"+m.id);
+b.classList.toggle("done",!!done[m.id]); b.querySelector(".dot").textContent=done[m.id]?"✓":"";
+b.setAttribute("aria-current",i===cur?"true":"false"); if(done[m.id])n++;
+});
+document.getElementById("barfill").style.width=(n/mods.length*100)+"%";
+document.getElementById("ptext").textContent=n+" of "+mods.length+" complete";
+var d=document.getElementById("done"), on=!!done[mods[cur].id];
+d.setAttribute("aria-pressed",on?"true":"false"); d.textContent=on?"✓ Completed":"Mark complete";
+document.getElementById("prev").hidden=cur===0;
+document.getElementById("next").hidden=cur===mods.length-1;
+}
+function go(i,scroll){
+cur=Math.max(0,Math.min(mods.length-1,i));
+lesson.innerHTML=""; lesson.appendChild(document.getElementById(mods[cur].t).content.cloneNode(true));
+if(location.hash!=="#"+mods[cur].id){try{history.replaceState(null,"","#"+mods[cur].id)}catch(e){location.hash=mods[cur].id}}
+paint(); if(scroll)window.scrollTo({top:0});
+}
+document.getElementById("prev").addEventListener("click",function(){go(cur-1,true)});
+document.getElementById("next").addEventListener("click",function(){go(cur+1,true)});
+document.getElementById("done").addEventListener("click",function(){
+var id=mods[cur].id; if(done[id])delete done[id]; else done[id]=true; save(); paint();
+});
+function fromHash(){var h=location.hash.slice(1),i=mods.findIndex(function(m){return m.id===h}); go(i<0?0:i,false)}
+window.addEventListener("hashchange",fromHash); fromHash();
+})();
+</script>
+</body></html>
