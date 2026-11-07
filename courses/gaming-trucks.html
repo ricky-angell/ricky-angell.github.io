@@ -1,0 +1,341 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Gaming Truck Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+/* Same course-player layout as the other BBY blueprints */
+:root{
+--bg:#f5f6f9; --surface:#ffffff; --ink:#141a2b; --muted:#5a6276; --line:#dde1ea;
+--navy:#16213f; --gold:#b8860b; --gold-soft:#f6ecd2; --ok:#1f7a4d; --ok-soft:#e1f2e8; --bad:#b3261e; --bad-soft:#fbe5e3;
+--display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+--body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}}
+:root[data-theme="dark"]{
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--body)}
+[hidden]{display:none!important}
+a{color:var(--gold);text-underline-offset:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.top{background:var(--navy);color:#fff;padding-block:22px 26px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{max-width:1180px;margin:0 auto;display:grid;gap:6px}
+.eyebrow{font:600 13px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:#e3b54a}
+.top h1{font:italic 700 clamp(34px,6vw,56px)/1 var(--display);margin:0;text-wrap:balance;letter-spacing:.01em}
+.top p{margin:0;color:#c9cfdd;max-width:62ch}
+.progress{display:flex;align-items:center;gap:12px;margin-top:10px;font-size:14px;color:#c9cfdd}
+.bar{flex:0 1 260px;height:8px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:#e3b54a;transition:width .3s}
+.wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:270px minmax(0,1fr);gap:32px;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;display:grid;gap:2px}
+.rail button{all:unset;cursor:pointer;display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;padding:10px 12px;border-radius:8px;color:var(--muted);font-size:15px;line-height:1.35}
+.rail button:hover{background:var(--surface);color:var(--ink)}
+.rail button[aria-current="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:inset 3px 0 0 var(--gold)}
+.dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;margin-top:1px}
+.done .dot{background:var(--ok);border-color:var(--ok);color:#fff}
+main{min-width:0}
+article{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:clamp(20px,4vw,44px)}
+article h2{font:700 clamp(30px,4.4vw,42px)/1.05 var(--display);margin:0 0 6px;text-wrap:balance}
+.kicker{font:600 13px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+article h3{font:700 24px/1.15 var(--display);margin:34px 0 8px;letter-spacing:.01em}
+article p,article li{max-width:68ch}
+article ul,article ol{padding-left:1.3em;display:grid;gap:6px}
+.lead{font-size:18px;color:var(--muted)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:8px}
+.cols > div{border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.cols h4{margin:0 0 6px;font:700 18px/1.2 var(--display);letter-spacing:.03em;text-transform:uppercase}
+.cols .pro{border-color:var(--ok);background:var(--ok-soft)} .cols .pro h4{color:var(--ok)}
+.cols .con{border-color:var(--bad);background:var(--bad-soft)} .cols .con h4{color:var(--bad)}
+.tablewrap{overflow-x:auto;margin-top:10px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{font-weight:700;border-top:2px solid var(--ink)}
+.formula{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 16px;font-weight:600}
+.today{margin-top:34px;background:var(--gold-soft);border-radius:10px;padding:16px 20px;display:grid;gap:4px}
+.today b{font:700 15px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.note{font-size:14px;color:var(--muted)}
+.pager{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;margin-top:20px}
+.btn{all:unset;cursor:pointer;padding:11px 18px;border-radius:8px;font-weight:600;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+:root[data-theme="dark"] .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}}
+.btn.complete[aria-pressed="true"]{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+@media (max-width:820px){
+.wrap{grid-template-columns:1fr;gap:16px}
+nav.rail{position:static;display:flex;overflow-x:auto;gap:6px;padding-bottom:4px}
+.rail button{flex:0 0 auto;grid-template-columns:20px auto;white-space:nowrap;background:var(--surface);border:1px solid var(--line)}
+.rail .full{display:none}
+}
+@media (min-width:821px){.rail .short{display:none}}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style></head><body>
+
+<header class="top">
+  <div class="top-in">
+    <div class="eyebrow">Built By You Academy · Real World Business Blueprints</div>
+    <h1>Gaming Trucks for Parties</h1>
+    <p>Start a mobile video game party business: the truck or trailer, game and console licensing, keeping guests safe, power and generators, pricing parties, add-ons like laser tag, and booking your first events.</p>
+    <div class="progress"><div class="bar"><i id="barfill"></i></div><span id="ptext">0 of 10 complete</span></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="rail" id="rail" aria-label="Course modules"></nav>
+  <main>
+    <article id="lesson" aria-live="polite"></article>
+    <div class="pager">
+      <button class="btn" id="prev" type="button">← Previous</button>
+      <button class="btn complete" id="done" type="button" aria-pressed="false">Mark complete</button>
+      <button class="btn primary" id="next" type="button">Next module →</button>
+    </div>
+  </main>
+</div>
+
+<template id="t-overview">
+  <div class="kicker">Start here</div>
+  <h2>Course Overview</h2>
+  <p class="lead">A gaming truck is a climate-controlled video game room on wheels that you bring to birthday parties, schools, churches and company events. By the end of this course you'll know what to build or buy, how to run parties safely, and how to price and book them.</p>
+  <div class="cols">
+    <div><h4>Who it's for</h4>Beginners who love games and kids' events and want a party business.</div>
+    <div><h4>How it works</h4>Every module ends with a <strong>Do This Today</strong> task. Finish it before you move on.</div>
+  </div>
+  <h3>Honest note</h3>
+  <p>A gaming truck is a big investment, and you're responsible for other people's kids. This course teaches you how to build the business safely and legally. It doesn't promise income and isn't legal advice.</p>
+</template>
+
+<template id="t-1">
+  <div class="kicker">Module 1</div>
+  <h2>Is This Business Right for You?</h2>
+  <div class="cols">
+    <div><h4>Pros</h4><ul><li>Kids' birthday parties happen every weekend</li><li>Schools, churches and companies book events too</li><li>Easy add-ons: laser tag, gel blasters, outdoor games</li><li>Fun work with repeat customers</li></ul></div>
+    <div><h4>Cons</h4><ul><li>Expensive vehicle, screens, consoles and climate control</li><li>Mostly weekend and evening work</li><li>Generator, fuel and maintenance costs</li><li>Supervising groups of excited kids</li><li>Game licensing rules to sort out</li></ul></div>
+  </div>
+  <h3>1.1 · How the big players do it</h3>
+  <p>GameTruck, one of the best-known brands, runs franchise locations in more than 30 states and offers video game parties, laser tag, gel blasters and other outdoor games. Its parties usually run 2 to 3 hours, and it uses background-checked "GameCoaches" to run each party. (<a href="https://www.gametruckparty.com/" target="_blank" rel="noopener">GameTruck</a>)</p>
+  <div class="today"><b>Do This Today</b>Find every gaming truck company that serves your area and write down what they offer and charge.</div>
+</template>
+
+<template id="t-2">
+  <div class="kicker">Module 2</div>
+  <h2>The Truck or Trailer</h2>
+  <h3>2.1 · Your options</h3>
+  <ul>
+    <li><strong>Buy a custom-built gaming trailer or truck</strong> from a builder: fastest, highest cost</li>
+    <li><strong>Buy a used one</strong> from an owner leaving the business</li>
+    <li><strong>Build your own</strong> from an enclosed trailer: cheapest, but you handle electrical, insulation and climate control</li>
+    <li><strong>Join a franchise:</strong> brand and training included, with franchise fees</li>
+  </ul>
+  <h3>2.2 · What goes inside</h3>
+  <ul>
+    <li>Several large TVs mounted securely, each with its own console station</li>
+    <li>Gaming consoles, controllers and a game library</li>
+    <li>Comfortable, secure seating</li>
+    <li>Air conditioning and heat</li>
+    <li>Interior and exterior lighting, an entry step and handrail</li>
+    <li>Power: a generator, shore power, or both (Module 4)</li>
+  </ul>
+  <div class="today"><b>No set build prices here: get real quotes</b>We couldn't find reliable published prices for gaming truck builds. Get written quotes from at least 2 builders and look at 3 used listings. Ask exactly what's included: TVs, consoles, games, generator, AC, seating and warranty.</div>
+  <div class="today"><b>Do This Today</b>Request 2 builder quotes and save 3 used listings.</div>
+</template>
+
+<template id="t-3">
+  <div class="kicker">Module 3</div>
+  <h2>Game &amp; Console Licensing</h2>
+  <p class="lead">This step trips up a lot of new owners. Read the terms before you charge money for game time.</p>
+  <ul>
+    <li>Console and game terms of service are usually written for personal, noncommercial use. Microsoft's Services Agreement, for example, says Xbox services and games are for personal, noncommercial use and restricts public performance of digital games. (<a href="https://www.microsoft.com/en-us/servicesagreement" target="_blank" rel="noopener">Microsoft</a>)</li>
+    <li>Nintendo, PlayStation and individual game publishers have their own terms.</li>
+    <li>Gaming truck companies handle this in different ways. Some work with game licensing companies or get permission from publishers.</li>
+  </ul>
+  <div class="today"><b>Check the terms and get advice</b>Before your first paid party: read the current terms for every console and game you'll use, look for what they say about commercial or public use, and talk with a business attorney about how to stay within them. Ask any builder or franchise you talk to how their owners handle game licensing.</div>
+  <div class="today"><b>Do This Today</b>Read the terms for the consoles you plan to use and write down what they say about commercial use.</div>
+</template>
+
+<template id="t-4">
+  <div class="kicker">Module 4</div>
+  <h2>Guest Safety, Power &amp; Generators</h2>
+  <p class="lead">Taking care of the guests comes first, every party.</p>
+  <h3>4.1 · Generator safety</h3>
+  <p>One portable generator can produce as much carbon monoxide as hundreds of cars. Never run one inside a home or garage, even with doors open. Run generators outside only, at least 20 feet from homes, with the exhaust pointed away. (<a href="https://www.cpsc.gov/Safety-Education/Safety-Education-Centers/Carbon-Monoxide-Information-Center" target="_blank" rel="noopener">CPSC</a>)</p>
+  <ul>
+    <li>Place the generator away from the trailer door, guests and open windows, with exhaust pointing away from the party.</li>
+    <li>Install carbon monoxide detectors inside the trailer and test them before every party.</li>
+    <li>Keep kids away from the generator, fuel and cords. Fence or block the area.</li>
+    <li>Use shore power from the customer's outlet only if it's rated for your load.</li>
+  </ul>
+  <h3>4.2 · Guest safety inside the truck</h3>
+  <ul>
+    <li>Set a maximum number of guests inside at one time, and stick to it.</li>
+    <li>Keep the doorway, step and exit clear. Use a handrail and outside lighting.</li>
+    <li>Secure every TV, cable and seat. No loose cords on the floor.</li>
+    <li>Have a fire extinguisher and first aid kit on board.</li>
+    <li>Keep the temperature comfortable, and make water breaks part of the party.</li>
+    <li>Watch screen time and game ratings. Let parents pick age-appropriate games ahead of time.</li>
+  </ul>
+  <h3>4.3 · Your party staff</h3>
+  <ul>
+    <li>Background checks for everyone who works parties</li>
+    <li>Train staff on emergencies, the generator and handling kids' conflicts</li>
+    <li>One staff member always with the kids</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Write your safety checklist for before, during and after every party.</div>
+</template>
+
+<template id="t-5">
+  <div class="kicker">Module 5</div>
+  <h2>Licenses &amp; Insurance</h2>
+  <ol>
+    <li>Register an LLC and get a free EIN at <a href="https://www.irs.gov/businesses/small-businesses-self-employed/apply-for-an-employer-identification-number-ein-online" target="_blank" rel="noopener">irs.gov</a>.</li>
+    <li>Get your city or county business license.</li>
+    <li>Register and insure the trailer or truck. Check your state's rules for towing weight and driver's license class.</li>
+    <li>Ask your city about permits for parking and running a generator at events or in parks.</li>
+  </ol>
+  <h3>5.1 · Insurance</h3>
+  <ul>
+    <li><strong>General liability:</strong> guest injuries at parties. Schools and event venues often require it.</li>
+    <li><strong>Commercial auto:</strong> the truck, or your tow vehicle and trailer</li>
+    <li><strong>Inland marine or equipment coverage:</strong> TVs, consoles and gear</li>
+    <li><strong>Workers' comp:</strong> required in most states once you hire</li>
+  </ul>
+  <div class="today"><b>Get real insurance quotes</b>We couldn't find reliable published insurance prices for gaming trucks. Get quotes from at least 3 agents, and tell them you host children's parties in a mobile game trailer with a generator.</div>
+  <div class="today"><b>Do This Today</b>Request 3 insurance quotes.</div>
+</template>
+
+<template id="t-6">
+  <div class="kicker">Module 6</div>
+  <h2>Pricing Parties</h2>
+  <p class="lead">Most gaming truck parties are sold as a 2- or 3-hour package that includes the truck, consoles, games, setup and a party host.</p>
+  <ul>
+    <li>Price by party length, with an extra-hour rate.</li>
+    <li>Add a travel fee outside your service area.</li>
+    <li>Charge more for weekends and holidays.</li>
+    <li>Take a deposit to hold the date. GameTruck's terms, for example, require a 50% non-refundable deposit at booking. (<a href="https://www.gametruckparty.com/terms-and-conditions" target="_blank" rel="noopener">GameTruck</a>)</li>
+    <li>Offer add-ons: laser tag, gel blasters, extra time, party favors.</li>
+  </ul>
+  <p class="formula">Party price = staff pay + fuel and generator + wear on equipment + insurance share + profit</p>
+  <div class="today"><b>No set party prices here: find your local rates</b>Party prices vary a lot by city. Get quotes from 3 gaming truck companies that serve your area for a 2-hour weekend birthday party. Write down what's included, the deposit and the travel fee, then set your packages.</div>
+  <div class="today"><b>Do This Today</b>Get 3 local quotes and set your 2-hour and 3-hour package prices.</div>
+</template>
+
+<template id="t-7">
+  <div class="kicker">Module 7</div>
+  <h2>Running a Party</h2>
+  <ol>
+    <li>Confirm the date, address, parking spot, guest count, ages and game choices.</li>
+    <li>Arrive early, level and set up the trailer, place the generator safely and test CO detectors.</li>
+    <li>Welcome the birthday child and go over the rules with the kids.</li>
+    <li>Rotate players so everyone gets time.</li>
+    <li>Close with a birthday moment, photos and a thank-you.</li>
+    <li>Pack up, clean controllers and leave the site clean.</li>
+    <li>Ask the parent for a review.</li>
+  </ol>
+  <div class="today"><b>Do This Today</b>Write your party-day timeline from arrival to departure.</div>
+</template>
+
+<template id="t-8">
+  <div class="kicker">Module 8</div>
+  <h2>Add-Ons &amp; More Revenue</h2>
+  <ul>
+    <li>Outdoor laser tag, gel blaster tag or water tag</li>
+    <li>School field days, lock-ins and fundraisers</li>
+    <li>Church youth events and community festivals</li>
+    <li>Company picnics and holiday parties</li>
+    <li>Tournaments for teens</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Pick one add-on and price it.</div>
+</template>
+
+<template id="t-9">
+  <div class="kicker">Module 9</div>
+  <h2>Getting Bookings</h2>
+  <ul>
+    <li>Google Business Profile with photos and videos of the truck</li>
+    <li>Your truck is a billboard: bright wrap with your website</li>
+    <li>Schools, PTAs, churches and youth sports leagues</li>
+    <li>Short videos of parties (only with parents' written permission to show children)</li>
+    <li>Referral credit for parents who send a friend</li>
+    <li>Online booking with a calendar and deposit</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Contact 3 schools or PTAs about a field day or fundraiser event.</div>
+</template>
+
+<template id="t-10">
+  <div class="kicker">Module 10</div>
+  <h2>Your Launch Plan</h2>
+  <div class="cols">
+    <div><h4>Step 1 · Research</h4><ul><li>Local competitors and prices</li><li>Builder quotes and used listings</li><li>Game terms read</li></ul></div>
+    <div><h4>Step 2 · Legal</h4><ul><li>LLC, EIN, bank account</li><li>Insurance bought</li><li>Generator and parking rules checked</li></ul></div>
+    <div><h4>Step 3 · Build</h4><ul><li>Truck or trailer ready</li><li>CO detectors, extinguisher, first aid</li><li>Safety checklist and staff trained</li></ul></div>
+    <div><h4>Step 4 · Launch</h4><ul><li>Free demo at a school or church event</li><li>Booking page live</li><li>First 5 parties booked</li></ul></div>
+  </div>
+  <h3>Sources used in this course</h3>
+  <ul class="note">
+    <li><a href="https://www.gametruckparty.com/" target="_blank" rel="noopener">GameTruck</a> and its <a href="https://www.gametruckparty.com/terms-and-conditions" target="_blank" rel="noopener">terms and conditions</a></li>
+    <li><a href="https://www.microsoft.com/en-us/servicesagreement" target="_blank" rel="noopener">Microsoft Services Agreement</a></li>
+    <li><a href="https://www.cpsc.gov/Safety-Education/Safety-Education-Centers/Carbon-Monoxide-Information-Center" target="_blank" rel="noopener">CPSC: Carbon Monoxide Information Center</a></li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Put Steps 1 and 2 on your calendar with real dates.</div>
+</template>
+
+<script>
+(function(){
+var mods=[
+{id:"overview",t:"t-overview",full:"Course Overview",short:"Overview"},
+{id:"module-1",t:"t-1",full:"1 · Is This Business Right for You?",short:"1 · Fit"},
+{id:"module-2",t:"t-2",full:"2 · The Truck or Trailer",short:"2 · Truck"},
+{id:"module-3",t:"t-3",full:"3 · Game & Console Licensing",short:"3 · Licensing"},
+{id:"module-4",t:"t-4",full:"4 · Guest Safety, Power & Generators",short:"4 · Safety"},
+{id:"module-5",t:"t-5",full:"5 · Licenses & Insurance",short:"5 · Legal"},
+{id:"module-6",t:"t-6",full:"6 · Pricing Parties",short:"6 · Pricing"},
+{id:"module-7",t:"t-7",full:"7 · Running a Party",short:"7 · Parties"},
+{id:"module-8",t:"t-8",full:"8 · Add-Ons & More Revenue",short:"8 · Add-Ons"},
+{id:"module-9",t:"t-9",full:"9 · Getting Bookings",short:"9 · Bookings"},
+{id:"module-10",t:"t-10",full:"10 · Your Launch Plan",short:"10 · Launch"}
+];
+var KEY="bby-gaming-truck-done", done={};
+try{done=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){done={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}}
+var rail=document.getElementById("rail"), lesson=document.getElementById("lesson");
+var cur=0;
+mods.forEach(function(m,i){
+var b=document.createElement("button"); b.type="button"; b.id="nav-"+m.id;
+b.innerHTML='<span class="dot" aria-hidden="true"></span><span><span class="full"></span><span class="short"></span></span>';
+b.querySelector(".full").textContent=m.full; b.querySelector(".short").textContent=m.short;
+b.addEventListener("click",function(){go(i,true)}); rail.appendChild(b);
+});
+function paint(){
+var n=0;
+mods.forEach(function(m,i){
+var b=document.getElementById("nav-"+m.id);
+b.classList.toggle("done",!!done[m.id]); b.querySelector(".dot").textContent=done[m.id]?"✓":"";
+b.setAttribute("aria-current",i===cur?"true":"false"); if(done[m.id])n++;
+});
+document.getElementById("barfill").style.width=(n/mods.length*100)+"%";
+document.getElementById("ptext").textContent=n+" of "+mods.length+" complete";
+var d=document.getElementById("done"), on=!!done[mods[cur].id];
+d.setAttribute("aria-pressed",on?"true":"false"); d.textContent=on?"✓ Completed":"Mark complete";
+document.getElementById("prev").hidden=cur===0;
+document.getElementById("next").hidden=cur===mods.length-1;
+}
+function go(i,scroll){
+cur=Math.max(0,Math.min(mods.length-1,i));
+lesson.innerHTML=""; lesson.appendChild(document.getElementById(mods[cur].t).content.cloneNode(true));
+if(location.hash!=="#"+mods[cur].id){try{history.replaceState(null,"","#"+mods[cur].id)}catch(e){location.hash=mods[cur].id}}
+paint(); if(scroll)window.scrollTo({top:0});
+}
+document.getElementById("prev").addEventListener("click",function(){go(cur-1,true)});
+document.getElementById("next").addEventListener("click",function(){go(cur+1,true)});
+document.getElementById("done").addEventListener("click",function(){
+var id=mods[cur].id; if(done[id])delete done[id]; else done[id]=true; save(); paint();
+});
+function fromHash(){var h=location.hash.slice(1),i=mods.findIndex(function(m){return m.id===h}); go(i<0?0:i,false)}
+window.addEventListener("hashchange",fromHash); fromHash();
+})();
+</script>
+</body></html>
