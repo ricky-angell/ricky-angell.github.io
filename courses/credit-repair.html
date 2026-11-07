@@ -1,0 +1,559 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Credit Repair Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+/* Same course-player layout as the other BBY blueprints */
+:root{
+--bg:#f5f6f9; --surface:#ffffff; --ink:#141a2b; --muted:#5a6276; --line:#dde1ea;
+--navy:#16213f; --gold:#b8860b; --gold-soft:#f6ecd2; --ok:#1f7a4d; --ok-soft:#e1f2e8; --bad:#b3261e; --bad-soft:#fbe5e3;
+--display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+--body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}}
+:root[data-theme="dark"]{
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--body)}
+[hidden]{display:none!important}
+a{color:var(--gold);text-underline-offset:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.top{background:var(--navy);color:#fff;padding-block:22px 26px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{max-width:1180px;margin:0 auto;display:grid;gap:6px}
+.eyebrow{font:600 13px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:#e3b54a}
+.top h1{font:italic 700 clamp(34px,6vw,56px)/1 var(--display);margin:0;text-wrap:balance;letter-spacing:.01em}
+.top p{margin:0;color:#c9cfdd;max-width:62ch}
+.progress{display:flex;align-items:center;gap:12px;margin-top:10px;font-size:14px;color:#c9cfdd}
+.bar{flex:0 1 260px;height:8px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:#e3b54a;transition:width .3s}
+.wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:270px minmax(0,1fr);gap:32px;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;display:grid;gap:2px}
+.rail button{all:unset;cursor:pointer;display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;padding:10px 12px;border-radius:8px;color:var(--muted);font-size:15px;line-height:1.35}
+.rail button:hover{background:var(--surface);color:var(--ink)}
+.rail button[aria-current="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:inset 3px 0 0 var(--gold)}
+.dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;margin-top:1px}
+.done .dot{background:var(--ok);border-color:var(--ok);color:#fff}
+main{min-width:0}
+article{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:clamp(20px,4vw,44px)}
+article h2{font:700 clamp(30px,4.4vw,42px)/1.05 var(--display);margin:0 0 6px;text-wrap:balance}
+.kicker{font:600 13px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+article h3{font:700 24px/1.15 var(--display);margin:34px 0 8px;letter-spacing:.01em}
+article p,article li{max-width:68ch}
+article ul,article ol{padding-left:1.3em;display:grid;gap:6px}
+.lead{font-size:18px;color:var(--muted)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:8px}
+.cols > div{border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.cols h4{margin:0 0 6px;font:700 18px/1.2 var(--display);letter-spacing:.03em;text-transform:uppercase}
+.cols .pro{border-color:var(--ok);background:var(--ok-soft)} .cols .pro h4{color:var(--ok)}
+.cols .con{border-color:var(--bad);background:var(--bad-soft)} .cols .con h4{color:var(--bad)}
+.tablewrap{overflow-x:auto;margin-top:10px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{font-weight:700;border-top:2px solid var(--ink)}
+.formula{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 16px;font-weight:600}
+.today{margin-top:34px;background:var(--gold-soft);border-radius:10px;padding:16px 20px;display:grid;gap:4px}
+.today b{font:700 15px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.note{font-size:14px;color:var(--muted)}
+.pager{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;margin-top:20px}
+.btn{all:unset;cursor:pointer;padding:11px 18px;border-radius:8px;font-weight:600;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+:root[data-theme="dark"] .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}}
+.btn.complete[aria-pressed="true"]{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+@media (max-width:820px){
+.wrap{grid-template-columns:1fr;gap:16px}
+nav.rail{position:static;display:flex;overflow-x:auto;gap:6px;padding-bottom:4px}
+.rail button{flex:0 0 auto;grid-template-columns:20px auto;white-space:nowrap;background:var(--surface);border:1px solid var(--line)}
+.rail .full{display:none}
+}
+@media (min-width:821px){.rail .short{display:none}}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+
+/* ---- Real estate blueprint extras ---- */
+article h4{font:700 20px/1.2 var(--display);margin:26px 0 6px;letter-spacing:.02em}
+article h5{font:700 17px/1.2 var(--display);margin:20px 0 4px;letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
+.lsub{color:var(--muted);font-style:italic;margin-top:-2px}
+.lesson-block{border-top:1px solid var(--line);margin-top:34px;padding-top:4px}
+.lesson-block:first-of-type{border-top:0}
+.box,.callout,.card,.template,.reality,.math,.scorebox,.calc,.check,.tab-panel,.compare-card,.tool-card,details.faqitem{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:16px 0}
+.box-title,.s-label,.tlabel,.rlabel,.tag{display:block;font:700 14px/1.2 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.box.warn,.warn{border-left:4px solid var(--bad);background:var(--bad-soft)}
+.box.warn .box-title,.warn .box-title{color:var(--bad)}
+.box.template,.template{border-style:dashed;border-color:var(--gold)}
+.box.script,.script{border-left:4px solid var(--gold);background:var(--gold-soft);position:relative}
+.checkstate{border:2px solid var(--gold);background:var(--gold-soft);border-radius:10px;padding:14px 18px;margin:16px 0}
+.checkstate .box-title{color:var(--gold)}
+.callout{border:1px dashed var(--gold);background:var(--gold-soft)}
+.reality{border-left:4px solid var(--gold)}
+.card.gold{border-left:4px solid var(--gold)} .card.teal{border-left:4px solid var(--navy)}
+pre{white-space:pre-wrap;word-break:break-word;font:14px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;margin:0}
+.res-grid,.toolkit-grid,.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:12px 0}
+.res-card{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--bg)}
+.res-card a{font-weight:700}
+.res-desc{font-size:14px;color:var(--muted);margin-top:4px}
+.linkrow{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.lbtn{display:inline-flex;gap:6px;align-items:center;padding:9px 14px;border-radius:8px;background:var(--navy);color:#fff;text-decoration:none;font-weight:600;font-size:14px}
+.lbtn.alt{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+:root[data-theme="dark"] .lbtn{background:var(--gold);color:#141a2b}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lbtn{background:var(--gold);color:#141a2b}}
+:root[data-theme="dark"] .lbtn.alt{background:var(--surface);color:var(--ink)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lbtn.alt{background:var(--surface);color:var(--ink)}}
+.copy-btn{position:absolute;top:12px;right:12px;border:1px solid var(--gold);background:var(--surface);color:var(--ink);border-radius:6px;padding:4px 10px;font:600 12px var(--body);cursor:pointer}
+.math .row,.calc-result .row{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--line)}
+.math .row:last-child{border-bottom:0;font-weight:700}
+.neg{color:var(--bad)} .pos{color:var(--ok)} td.good{color:var(--ok);font-weight:600} td.bad{color:var(--bad);font-weight:600}
+.compare-card.good{border-left:4px solid var(--ok)} .compare-card.bad{border-left:4px solid var(--bad)}
+.compare-card.good .tag{color:var(--ok)} .compare-card.bad .tag{color:var(--bad)}
+.scoreitem{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
+.scoreitem:last-child{border-bottom:0} .pts{font-weight:700;color:var(--gold);white-space:nowrap}
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:4px}
+.field input{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:15px var(--body)}
+.calc-btn{margin-top:14px;padding:10px 18px;border-radius:8px;border:0;background:var(--gold);color:#141a2b;font-weight:700;cursor:pointer}
+.calc-result{display:none;margin-top:16px} .calc-result.show{display:block}
+.calc-result .row.total{font-weight:700}
+.pill{display:inline-block;padding:5px 12px;border-radius:99px;font-weight:700;font-size:13px}
+.pill.pass{background:var(--ok-soft);color:var(--ok)} .pill.fail{background:var(--bad-soft);color:var(--bad)} .pill.caution{background:var(--gold-soft);color:var(--gold)}
+.badge{display:inline-block;font-size:12px;font-weight:700;padding:3px 8px;border-radius:6px;background:var(--gold-soft);color:var(--gold)}
+.check{display:grid;gap:4px} .check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.check input{width:18px;height:18px;margin-top:4px;accent-color:var(--gold);flex-shrink:0}
+.check input:checked+span{text-decoration:line-through;opacity:.6}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tab-btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 14px;border-radius:8px;font:600 14px var(--body);cursor:pointer}
+.tab-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tab-panel{display:none} .tab-panel.active{display:block}
+details.faqitem summary{cursor:pointer;font-weight:700}
+.tline{border-bottom:1px solid var(--line);padding:6px 0}
+ul.plain{padding-left:1.3em}
+.tnum{color:var(--gold);font-weight:700}
+.tool-card h4{margin-top:4px}
+</style></head><body>
+
+<header class="top">
+  <div class="top-in">
+    <div class="eyebrow">Built By You Academy · Real World Business Blueprints</div>
+    <h1>Credit Repair Agency</h1>
+    <p>Start a credit repair business the legal way: what you can and can't do under federal law, your state's registration rules, the dispute process, contracts, pricing without advance fees, finding clients and running your business.</p>
+    <p><a href="downloads/credit-repair-startup-workbook.xlsx" download style="color:#e3b54a;font-weight:600">⬇ Download the Startup Workbook (Excel)</a> · <a href="#toolkit" style="color:#e3b54a;font-weight:600">Startup links</a></p>
+    <div class="progress"><div class="bar"><i id="barfill"></i></div><span id="ptext">0 of 12 complete</span></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="rail" id="rail" aria-label="Course modules"></nav>
+  <main>
+    <article id="lesson" aria-live="polite"></article>
+    <div class="pager">
+      <button class="btn" id="prev" type="button">← Previous</button>
+      <button class="btn complete" id="done" type="button" aria-pressed="false">Mark complete</button>
+      <button class="btn primary" id="next" type="button">Next module →</button>
+    </div>
+  </main>
+</div>
+<template id="t-overview">
+  <div class="kicker">Start here</div>
+  <h2>Course Overview</h2>
+  <p class="lead">A credit repair business helps people find and dispute errors on their credit reports, understand what's hurting their credit, and build better credit habits. It's one of the most regulated small businesses you can start, so this course puts the law first and the marketing second.</p>
+  <div class="cols">
+    <div><h4>Who it's for</h4>Organized people who like paperwork, can explain things simply, and will follow the rules exactly.</div>
+    <div><h4>How it works</h4>10 modules, each ending with a <strong>Do This Today</strong> task. Your workbook and startup links are in the Toolkit.</div>
+  </div>
+  <div class="checkstate">
+    <div class="box-title">⚠ The 3 rules that matter most</div>
+    <ol>
+      <li><strong>No money up front.</strong> Federal law bans charging for a service before it's fully performed (Module 2).</li>
+      <li><strong>No promises to remove accurate negative information.</strong> Only inaccurate, incomplete or unverifiable items can be removed.</li>
+      <li><strong>Check your state.</strong> Many states require registration, a surety bond or both before you take a single client (Module 3).</li>
+    </ol>
+  </div>
+  <h3>Honest note</h3>
+  <p>Anyone can dispute errors on their own credit report for free. Your value is doing it correctly, organizing the process and coaching your client. This course doesn't promise income and isn't legal advice. Have a local attorney review your contract and your state requirements before you open.</p>
+</template>
+<template id="t-1">
+  <div class="kicker">Module 1</div>
+  <h2>Is This Business Right for You?</h2>
+  <div class="cols">
+    <div class="pro"><h4>Pros</h4><ul><li>Low startup cost, can run from home</li><li>Big demand: lots of people have errors or confusion on their reports</li><li>Monthly clients for several months</li><li>Pairs well with financial coaching, tax prep, real estate and car sales referrals</li></ul></div>
+    <div class="con"><h4>Cons</h4><ul><li>Heavily regulated, with real penalties for mistakes</li><li>Can't charge up front, so cash flow is slower</li><li>Results aren't guaranteed and depend on what's actually on the report</li><li>The industry has a bad reputation because of scammers</li></ul></div>
+  </div>
+  <h3>1.1 · What you actually do</h3>
+  <ul>
+    <li>Pull and review your client's reports from all three bureaus</li>
+    <li>Find items that are inaccurate, incomplete, outdated or can't be verified</li>
+    <li>Write and send disputes to the credit bureaus and to the companies reporting the information</li>
+    <li>Track responses and follow up</li>
+    <li>Coach clients on payment history, credit use and building positive credit</li>
+  </ul>
+  <h3>1.2 · What you can't do</h3>
+  <p>You can't remove accurate, current negative information. The CFPB says plainly that no one can do this. You also can't help anyone hide their identity or create a "new" credit file. Module 2 covers the exact rules.</p>
+  <div class="today"><b>Do This Today</b>Pull your own free credit reports at AnnualCreditReport.com and read every line, so you know what your clients will see.</div>
+</template>
+<template id="t-2">
+  <div class="kicker">Module 2</div>
+  <h2>The Law: CROA, FCRA &amp; Telemarketing Rules</h2>
+  <p class="lead">The Credit Repair Organizations Act (CROA) is the federal law for your business. Read it once yourself: it's short.</p>
+  <h3>2.1 · What the Credit Repair Organizations Act requires</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Rule</th><th>What it means for you</th><th>Law</th></tr></thead>
+    <tbody>
+      <tr><td>No advance fees</td><td>You can't charge or receive money for a service before that service is fully performed.</td><td><a href="https://www.law.cornell.edu/uscode/text/15/1679b" target="_blank" rel="noopener">15 U.S.C. 1679b</a>(b)</td></tr>
+      <tr><td>Disclosure first</td><td>Before the client signs anything, give them the "Consumer Credit File Rights Under State and Federal Law" statement as a separate document. Keep their signed acknowledgment for 2 years.</td><td><a href="https://www.law.cornell.edu/uscode/text/15/1679c" target="_blank" rel="noopener">15 U.S.C. 1679c</a></td></tr>
+      <tr><td>Written contract</td><td>Signed and dated, with total payments, a detailed description of services, an estimated completion time, your business name and address, and a bold cancellation statement near the signature line.</td><td><a href="https://www.law.cornell.edu/uscode/text/15/1679d" target="_blank" rel="noopener">15 U.S.C. 1679d</a></td></tr>
+      <tr><td>3-day cancellation</td><td>The client can cancel before midnight of the 3rd business day after signing. Attach a "Notice of Cancellation" form in duplicate. Don't start work until that period ends.</td><td><a href="https://www.law.cornell.edu/uscode/text/15/1679e" target="_blank" rel="noopener">15 U.S.C. 1679e</a></td></tr>
+      <tr><td>No false statements</td><td>Never send untrue or misleading information to a bureau or creditor, never try to hide accurate negative information, and never misrepresent your services.</td><td><a href="https://www.law.cornell.edu/uscode/text/15/1679b" target="_blank" rel="noopener">15 U.S.C. 1679b</a>(a)</td></tr>
+    </tbody>
+  </table></div>
+  <h3>2.2 · Selling by phone: the Telemarketing Sales Rule</h3>
+  <p>If you sell credit repair over the phone, the FTC's Telemarketing Sales Rule is even stricter. You can't ask for or accept payment until <strong>both</strong> of these happen:</p>
+  <ol>
+    <li>The time frame you promised for the services has passed, and</li>
+    <li>You've given the client a consumer report from a credit bureau, issued <strong>more than six months after</strong> the results were achieved, showing the results you promised.</li>
+  </ol>
+  <p class="note">Source: <a href="https://www.law.cornell.edu/cfr/text/16/310.4" target="_blank" rel="noopener">16 CFR 310.4(a)(2)</a>. Talk to an attorney about how this applies if you take sign-ups by phone.</p>
+  <h3>2.3 · The Fair Credit Reporting Act (FCRA)</h3>
+  <p>The FCRA gives every consumer the right to dispute inaccurate or incomplete information with the credit bureaus and with the companies that report it. That's the legal right your disputes are built on. The CFPB is clear that disputing is free and consumers don't have to pay anyone to do it. Be upfront about that with clients.</p>
+  <div class="checkstate">
+    <div class="box-title">⚠ Red flags regulators look for</div>
+    <ul>
+      <li>Promising a specific score increase or "guaranteed deletions"</li>
+      <li>Promising to remove accurate, current negative items</li>
+      <li>Telling clients to use a different SSN or EIN to build a "new credit file"</li>
+      <li>Collecting fees before the work is done</li>
+      <li>Telling clients not to contact the bureaus themselves</li>
+    </ul>
+  </div>
+  <div class="today"><b>Do This Today</b>Read 15 U.S.C. 1679b through 1679e (linked above) from start to finish and write down every requirement in your workbook's Licenses tab.</div>
+</template>
+<template id="t-3">
+  <div class="kicker">Module 3</div>
+  <h2>Check Your State: Registration &amp; Bonds</h2>
+  <div class="checkstate">
+    <div class="box-title">⚠ Your state's rules decide whether you can open</div>
+    <p>On top of federal law, many states have their own credit repair or "credit services organization" laws. Depending on your state, you may need to:</p>
+    <ul>
+      <li>Register with the state (often the Secretary of State or Attorney General) before you advertise or take clients</li>
+      <li>Buy a surety bond and file it with the state</li>
+      <li>Use extra contract language or a longer cancellation period</li>
+      <li>Follow state limits on fees</li>
+    </ul>
+    <p>California and Texas, for example, both have Credit Services Organization laws with registration and bond requirements. Some states restrict credit repair even more. Rules and amounts change, so don't rely on any list, including this one.</p>
+  </div>
+  <h3>3.1 · How to find your state's rules</h3>
+  <ol>
+    <li>Search your state's name plus "credit services organization act" and "credit repair registration."</li>
+    <li>Call your state Attorney General's consumer protection office. Ask: "Do I need to register or post a bond to offer credit repair services here? Who do I register with, and what does it cost?"</li>
+    <li>Call your Secretary of State's office and ask the same question.</li>
+    <li>If you serve clients in other states, you may have to follow <strong>their</strong> state's rules too. Ask an attorney.</li>
+    <li>Write every answer, name and date in your workbook's Licenses tab.</li>
+  </ol>
+  <h3>3.2 · Getting a surety bond</h3>
+  <p>If your state requires a bond, you'll buy it from a surety company or insurance agent. The yearly cost is usually a percentage of the bond amount and depends on your credit. Get at least 2 quotes and record them in your workbook.</p>
+  <h3>3.3 · Register your business</h3>
+  <p>Form your LLC or DBA, get your EIN and open a business bank account. The links are in the Toolkit.</p>
+  <div class="today"><b>Do This Today</b>Call your state Attorney General's consumer protection office and ask the registration and bond questions above.</div>
+</template>
+<template id="t-4">
+  <div class="kicker">Module 4</div>
+  <h2>How Credit Reports &amp; Scores Work</h2>
+  <h3>4.1 · The three bureaus</h3>
+  <p>Equifax, Experian and TransUnion each keep their own file. The same account can show up differently on each one, so always review all three.</p>
+  <h3>4.2 · Free reports</h3>
+  <p>All three bureaus let people check their reports <strong>once a week for free</strong> at AnnualCreditReport.com, the only site authorized by federal law for free reports. <span class="note">(Source: <a href="https://consumer.ftc.gov/articles/free-credit-reports" target="_blank" rel="noopener">FTC: Free Credit Reports</a>)</span></p>
+  <p>Have clients pull their own reports and share them with you. That keeps them in control of their information.</p>
+  <h3>4.3 · What shows up on a report</h3>
+  <ul>
+    <li>Personal information (names, addresses, employers)</li>
+    <li>Accounts (credit cards, loans, mortgages), with balances and payment history</li>
+    <li>Collections</li>
+    <li>Public records like bankruptcies</li>
+    <li>Inquiries</li>
+  </ul>
+  <h3>4.4 · What usually moves a score</h3>
+  <p>Payment history and how much of their available credit someone uses are among the biggest factors. Credit history length, types of credit and new credit also matter. Teaching clients to pay on time and keep balances low is often worth more than any dispute.</p>
+  <div class="note">Learn more: <a href="https://www.consumerfinance.gov/consumer-tools/credit-reports-and-scores/" target="_blank" rel="noopener">CFPB: Credit reports and scores</a></div>
+  <div class="today"><b>Do This Today</b>Pull all three of your own reports and list every difference you find between them.</div>
+</template>
+<template id="t-5">
+  <div class="kicker">Module 5</div>
+  <h2>The Dispute Process, Step by Step</h2>
+  <h3>5.1 · Review the reports</h3>
+  <p>Go line by line with your client. Mark anything that's wrong: accounts that aren't theirs, wrong balances, late payments that weren't late, duplicate collections, outdated items, or wrong personal information.</p>
+  <h3>5.2 · Gather proof</h3>
+  <p>Collect statements, payment confirmations, letters and ID. Disputes with documents are stronger than disputes without them.</p>
+  <h3>5.3 · Dispute with the credit bureau</h3>
+  <p>Dispute in writing with each bureau that shows the error. The bureau must investigate, forward the dispute to the company that reported the information, and send the results. If a bureau decides a dispute is frivolous, it must notify the consumer within five business days.</p>
+  <h3>5.4 · Dispute with the furnisher</h3>
+  <p>Also dispute directly with the company that reported the information (the "furnisher"), by certified mail to the address on the report or the address they specify. Furnishers generally must investigate and respond within <strong>30 days</strong> of receiving the dispute.</p>
+  <p class="note">Source: <a href="https://www.consumerfinance.gov/ask-cfpb/how-do-i-dispute-an-error-on-my-credit-report-en-314/" target="_blank" rel="noopener">CFPB: How do I dispute an error on my credit report?</a></p>
+  <h3>5.5 · Track everything</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Track this</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>Date sent and certified mail number</td><td>Proves when the clock started</td></tr>
+      <tr><td>Who it went to</td><td>Bureau or furnisher, with address</td></tr>
+      <tr><td>Item disputed and reason</td><td>So follow-ups are specific</td></tr>
+      <tr><td>Response and date</td><td>Shows results and next steps</td></tr>
+    </tbody>
+  </table></div>
+  <div class="checkstate">
+    <div class="box-title">⚠ Only dispute what you believe is wrong</div>
+    <p>Mass-disputing accurate items with false claims breaks the law (Module 2) and can get disputes marked frivolous. Every dispute should state a real reason.</p>
+  </div>
+  <div class="today"><b>Do This Today</b>Write one practice dispute letter for an item on your own report (or a made-up one) using the steps above.</div>
+</template>
+<template id="t-6">
+  <div class="kicker">Module 6</div>
+  <h2>Contracts, Disclosures &amp; Paperwork</h2>
+  <p class="lead">Your client paperwork packet must match federal law and your state's law. Build it once, have an attorney review it, then use it every time.</p>
+  <h3>6.1 · Your client packet, in order</h3>
+  <ol>
+    <li><strong>Consumer Credit File Rights disclosure</strong>: separate document, given before anything is signed. Get a signed acknowledgment and keep it 2 years.</li>
+    <li><strong>Client service agreement</strong>: total payments, detailed services, estimated completion time, your name and address, and the bold cancellation statement near the signature.</li>
+    <li><strong>Notice of Cancellation</strong>: two copies attached to the contract.</li>
+    <li><strong>Limited authorization</strong>: permission to communicate with bureaus and furnishers for them.</li>
+    <li><strong>Privacy notice</strong>: how you collect, store and protect their information.</li>
+    <li>Any extra forms your state requires.</li>
+  </ol>
+  <p>Give the client copies of everything they sign, at the time they sign.</p>
+  <h3>6.2 · Protect client data</h3>
+  <ul>
+    <li>Use a secure client portal or encrypted storage, not email attachments</li>
+    <li>Turn on two-factor login for every account</li>
+    <li>Collect only what you need, and shred paper copies</li>
+    <li>Never store full card numbers</li>
+  </ul>
+  <div class="checkstate">
+    <div class="box-title">⚠ Have an attorney review your packet</div>
+    <p>Credit repair contracts have exact legal requirements, and they differ by state. A one-time review by a local attorney is one of the best investments you'll make. Ask for a flat fee quote and record it in your workbook.</p>
+  </div>
+  <div class="today"><b>Do This Today</b>Call 2 local attorneys and ask for a flat-fee quote to review a credit repair client packet.</div>
+</template>
+<template id="t-7">
+  <div class="kicker">Module 7</div>
+  <h2>Pricing Without Advance Fees</h2>
+  <p class="lead">Because you can't charge before work is done, your pricing model has to bill only for work already completed.</p>
+  <h3>7.1 · Common legal models</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Model</th><th>How it works</th><th>Watch out for</th></tr></thead>
+    <tbody>
+      <tr><td>Monthly, billed after the month's work</td><td>You do the month's disputes and reviews, then bill for that month</td><td>Never bill for next month's work in advance. Describe exactly what you did.</td></tr>
+      <tr><td>Per item, after results</td><td>You charge for each item corrected or removed, after it happens</td><td>Clear definitions of what counts as a result</td></tr>
+      <tr><td>Flat fee after completion</td><td>One fee once the agreed services are fully done</td><td>Longer wait for your money</td></tr>
+    </tbody>
+  </table></div>
+  <p>Some businesses also offer separate services like credit education classes or budgeting coaching. Get legal advice on how your state treats those, because they can still count as credit repair.</p>
+  <div class="checkstate">
+    <div class="box-title">No set prices here: find your real local numbers</div>
+    <ol>
+      <li>Look up 3 credit repair companies that serve your area and write down their pricing model and price.</li>
+      <li>Ask 2 local mortgage loan officers or car dealers what their customers usually pay for credit help.</li>
+      <li>Add your monthly costs (software, postage, certified mail, bond, insurance) from your workbook.</li>
+      <li>Set a price that covers your costs and fits your market, and put it in your workbook's Price Research tab.</li>
+    </ol>
+  </div>
+  <div class="today"><b>Do This Today</b>Fill in the Price Research tab with 3 competitors' pricing models.</div>
+</template>
+<template id="t-8">
+  <div class="kicker">Module 8</div>
+  <h2>Tools, Software &amp; Daily Operations</h2>
+  <h3>8.1 · What you need</h3>
+  <ul>
+    <li><strong>Credit repair or CRM software</strong> to track clients, disputes and deadlines (compare at least 2 and check their security)</li>
+    <li><strong>Secure document storage</strong> or a client portal</li>
+    <li><strong>Certified mail</strong>, either at the post office or through an online certified mail service</li>
+    <li><strong>E-signature tool</strong> for contracts</li>
+    <li><strong>Business phone number</strong> and email</li>
+    <li><strong>Accounting software</strong> and a separate business bank account</li>
+  </ul>
+  <h3>8.2 · Weekly routine</h3>
+  <ol>
+    <li>Check new responses and update each client file</li>
+    <li>Send the next round of disputes where needed</li>
+    <li>Send each client a short progress update</li>
+    <li>Bill only for completed work</li>
+    <li>Follow up on leads and referral partners</li>
+  </ol>
+  <h3>8.3 · Insurance</h3>
+  <p>Ask an agent about professional liability (errors and omissions) and cyber liability insurance, since you handle sensitive personal data. Get 2 quotes and record them in your workbook.</p>
+  <div class="today"><b>Do This Today</b>Sign up for free trials of 2 credit repair software tools and compare them in your workbook.</div>
+</template>
+<template id="t-9">
+  <div class="kicker">Module 9</div>
+  <h2>Finding Clients the Right Way</h2>
+  <h3>9.1 · Referral partners</h3>
+  <p>Many credit repair clients come from people who see credit problems every day:</p>
+  <ul>
+    <li>Mortgage loan officers and real estate agents</li>
+    <li>Car dealerships</li>
+    <li>Apartment leasing offices</li>
+    <li>Tax preparers and financial coaches</li>
+  </ul>
+  <p>Before you pay anyone for referrals, ask your attorney. Some referral payments raise legal issues, especially in real estate.</p>
+  <h3>9.2 · Content and community</h3>
+  <ul>
+    <li>Post simple credit tips on social media (how to read a report, how disputes work)</li>
+    <li>Teach free workshops at libraries, churches or community centers</li>
+    <li>Set up a Google Business Profile so locals can find you</li>
+  </ul>
+  <h3>9.3 · What your marketing can't say</h3>
+  <div class="checkstate">
+    <div class="box-title">⚠ Keep your ads legal</div>
+    <ul>
+      <li>No "guaranteed" score increases or deletions</li>
+      <li>No "we can remove anything" claims</li>
+      <li>No "new credit identity" offers</li>
+      <li>No fake reviews or testimonials</li>
+    </ul>
+    <p>Honest claims build trust in an industry with a lot of scams.</p>
+  </div>
+  <h3>9.4 · Free consultation script</h3>
+  <div class="formula">"Thanks for reaching out. Let's look at your reports together. I'll show you what looks inaccurate and what's accurate. I can't remove accurate information, and no one honestly can, but I'll explain your options. You can dispute errors yourself for free, or I can handle it for you. I don't charge anything until the work is done."</div>
+  <div class="today"><b>Do This Today</b>Make a list of 10 local loan officers, car dealers and leasing offices you could introduce yourself to.</div>
+</template>
+<template id="t-10">
+  <div class="kicker">Module 10</div>
+  <h2>Your 30-Day Launch Plan</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Week</th><th>Goals</th></tr></thead>
+    <tbody>
+      <tr><td>Week 1</td><td>Read CROA. Check your state's registration and bond rules. Pick your business name.</td></tr>
+      <tr><td>Week 2</td><td>Form your LLC, get your EIN, open a bank account. Apply for state registration and bond if required.</td></tr>
+      <tr><td>Week 3</td><td>Build your client packet and have an attorney review it. Pick your software. Get insurance quotes.</td></tr>
+      <tr><td>Week 4</td><td>Set your pricing. Launch your Google Business Profile and social pages. Meet 5 referral partners.</td></tr>
+    </tbody>
+  </table></div>
+  <p>Don't take a paying client until your state registration (if required) and your attorney-reviewed paperwork are done.</p>
+  <div class="today"><b>Do This Today</b>Put real dates on every step in the Launch Checklist tab of your workbook.</div>
+</template>
+<template id="t-toolkit">
+  <div class="kicker">Startup Toolkit</div>
+  <h2>Startup Toolkit &amp; Downloads</h2>
+  <p class="lead">Everything you need to actually start: your workbook to download, and direct links to register, get set up and get free help.</p>
+  <h3>Download your startup workbook</h3>
+  <p><a class="btn primary" href="downloads/credit-repair-startup-workbook.xlsx" download>Download the Credit Repair Agency Startup Workbook (Excel)</a></p>
+  <ul>
+    <li><strong>Startup Costs:</strong> enter your real quotes and get your total budget, with a buffer for surprises.</li>
+    <li><strong>Price Research:</strong> a ready list of who to call and what to ask, so you can find your real local numbers.</li>
+    <li><strong>Licenses &amp; Insurance:</strong> a tracker for every license, registration and policy, with links.</li>
+    <li><strong>Launch Checklist:</strong> every step with a date and a done column.</li>
+  </ul>
+  <p class="note">Opens in Excel, Google Sheets (File → Import) or Numbers.</p>
+  <h3>Step-by-step: start the business</h3>
+  <ol>
+    <li><a href="https://www.sba.gov/counseling/plan-your-business/#business-plan" target="_blank" rel="noopener">Write your business plan</a> (SBA)</li>
+    <li><a href="https://www.sba.gov/counseling/plan-your-business/#startup-costs" target="_blank" rel="noopener">Calculate your startup costs</a> (SBA), then fill in your workbook</li>
+    <li><a href="https://www.sba.gov/counseling/plan-your-business/#fund-business" target="_blank" rel="noopener">Fund your business</a> (SBA)</li>
+    <li><a href="https://www.sba.gov/counseling/launch-your-business/#register-business" target="_blank" rel="noopener">Register your business</a>, then use the <a href="https://www.sba.gov/counseling/launch-your-business/state-registration-lookup/" target="_blank" rel="noopener">state registration lookup</a> to find your state's office</li>
+    <li><a href="https://www.irs.gov/businesses/small-businesses-self-employed/get-an-employer-identification-number" target="_blank" rel="noopener">Get your free EIN</a> (IRS)</li>
+    <li><a href="https://www.sba.gov/counseling/launch-your-business/#licenses-permits" target="_blank" rel="noopener">Apply for licenses and permits</a> (SBA)</li>
+    <li><a href="https://www.sba.gov/counseling/launch-your-business/#business-insurance" target="_blank" rel="noopener">Get business insurance</a> (SBA)</li>
+    <li><a href="https://www.sba.gov/counseling/launch-your-business/#bank-account" target="_blank" rel="noopener">Open a business bank account</a> (SBA)</li>
+  </ol>
+  <h3>Links for this business</h3>
+  <ul>
+    <li><a href="https://www.law.cornell.edu/uscode/text/15/chapter-41/subchapter-II-A" target="_blank" rel="noopener">Credit Repair Organizations Act (full text)</a>: the federal law for your business</li>
+    <li><a href="https://www.law.cornell.edu/cfr/text/16/310.4" target="_blank" rel="noopener">FTC Telemarketing Sales Rule, 16 CFR 310.4</a>: payment rules if you sell by phone</li>
+    <li><a href="https://www.annualcreditreport.com/" target="_blank" rel="noopener">AnnualCreditReport.com</a>: free weekly credit reports from all three bureaus</li>
+    <li><a href="https://www.consumerfinance.gov/ask-cfpb/how-do-i-dispute-an-error-on-my-credit-report-en-314/" target="_blank" rel="noopener">CFPB: How to dispute a credit report error</a>: the official dispute process</li>
+    <li><a href="https://www.consumerfinance.gov/ask-cfpb/how-can-i-tell-a-credit-repair-scam-from-a-reputable-credit-counselor-en-1343/" target="_blank" rel="noopener">CFPB: Credit repair scams</a>: what regulators warn consumers about</li>
+    <li><a href="https://www.naag.org/find-my-ag/" target="_blank" rel="noopener">Find your state Attorney General</a>: ask about credit repair registration and bonds</li>
+  </ul>
+  <h3>Free help</h3>
+  <ul>
+    <li><a href="https://www.sba.gov/counseling/local-assistance/" target="_blank" rel="noopener">SBA local assistance</a>: free counseling near you</li>
+    <li><a href="https://www.score.org/" target="_blank" rel="noopener">SCORE</a>: free mentoring from experienced business owners</li>
+    <li><a href="https://www.irs.gov/businesses/small-businesses-self-employed" target="_blank" rel="noopener">IRS small business tax center</a></li>
+  </ul>
+  <div class="checkstate" id="resell-rights">
+    <div class="box-title">✦ Your resell rights</div>
+    <p>As a Built By You Academy member, <strong>this course is yours to use however you want.</strong> You can:</p>
+    <ul>
+      <li><strong>Resell it</strong> at any price you choose by sharing this course link with your buyers</li>
+      <li><strong>Give it away</strong> for free, as a bonus or a gift</li>
+      <li><strong>Bundle it</strong> with your own products, services or memberships</li>
+      <li>Keep <strong>100% of what you make</strong>. It's up to you.</li>
+    </ul>
+    <p class="note">If you resell, don't promise your buyers income or results. The course doesn't, and you shouldn't either.</p>
+  </div>
+  <div class="today"><b>Do This Today</b>Download your workbook and call your state Attorney General's office about registration and bonds.</div>
+</template>
+
+<script>
+function copyScript(btn){var p=btn.parentElement.querySelector('p')||btn.parentElement.querySelector('pre');var text=p?p.innerText:'';
+function ok(){btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy'},1600)}
+if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(ok,function(){})}else{var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(ta);ok()}}
+function switchTab(id,idx,btn){var c=document.getElementById(id);c.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});btn.classList.add('active');
+c.querySelectorAll('.tab-panel').forEach(function(p){p.classList.toggle('active',Number(p.getAttribute('data-idx'))===idx)})}
+function $v(id){return parseFloat(document.getElementById(id).value)||0}
+function money(n){return '$'+n.toLocaleString(undefined,{maximumFractionDigits:0})}
+function calcStartup(){var ids=['su-rent','su-deposit','su-furnish','su-photo','su-insurance','su-permits','su-reserve'],t=0;ids.forEach(function(i){t+=$v(i)});
+document.getElementById('su-total').textContent=money(t);document.getElementById('su-result').classList.add('show')}
+function calcDeal(){var rent=$v('da-rent'),rev=$v('da-adr')*30*($v('da-occ')/100),exp=rent+$v('da-util')+$v('da-ins')+$v('da-soft')+$v('da-cleancost')*$v('da-turnovers'),prof=rev-exp,mult=rent>0?rev/rent:0,score=Math.max(0,Math.min(100,Math.round(mult/3*100)));
+var c='fail',t='FAIL: below 1.5x, skip this deal';if(mult>=2){c='pass';t='PASS: clears the 2X rule'}else if(mult>=1.5){c='caution';t='CAUTION: marginal, negotiate harder'}
+document.getElementById('da-revenue').textContent=money(rev);document.getElementById('da-expenses').textContent=money(exp);document.getElementById('da-profit').textContent=money(prof);
+document.getElementById('da-multiple').textContent=mult.toFixed(2)+'x';document.getElementById('da-score').textContent=score+' / 100';
+var p=document.getElementById('da-pill');p.className='pill '+c;p.textContent=t;document.getElementById('da-result').classList.add('show')}
+</script>
+<script>
+(function(){
+var mods=[
+{id:"overview",t:"t-overview",full:"Course Overview",short:"Course Overview"},
+{id:"module-1",t:"t-1",full:"1 · Is This Business Right for You?",short:"1 · Fit"},
+{id:"module-2",t:"t-2",full:"2 · The Law: CROA, FCRA & Telemarketing Rules",short:"2 · The Law"},
+{id:"module-3",t:"t-3",full:"3 · Check Your State: Registration & Bonds",short:"3 · Your State"},
+{id:"module-4",t:"t-4",full:"4 · How Credit Reports & Scores Work",short:"4 · Credit Basics"},
+{id:"module-5",t:"t-5",full:"5 · The Dispute Process, Step by Step",short:"5 · Disputes"},
+{id:"module-6",t:"t-6",full:"6 · Contracts, Disclosures & Paperwork",short:"6 · Paperwork"},
+{id:"module-7",t:"t-7",full:"7 · Pricing Without Advance Fees",short:"7 · Pricing"},
+{id:"module-8",t:"t-8",full:"8 · Tools, Software & Daily Operations",short:"8 · Operations"},
+{id:"module-9",t:"t-9",full:"9 · Finding Clients the Right Way",short:"9 · Clients"},
+{id:"module-10",t:"t-10",full:"10 · Your 30-Day Launch Plan",short:"10 · Launch"},
+{id:"toolkit",t:"t-toolkit",full:"Startup Toolkit & Downloads",short:"Toolkit"}
+];
+var KEY="bby-credit-repair-done", done={};
+try{done=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){done={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}}
+var rail=document.getElementById("rail"), lesson=document.getElementById("lesson");
+var cur=0;
+mods.forEach(function(m,i){
+var b=document.createElement("button"); b.type="button"; b.id="nav-"+m.id;
+b.innerHTML='<span class="dot" aria-hidden="true"></span><span><span class="full"></span><span class="short"></span></span>';
+b.querySelector(".full").textContent=m.full; b.querySelector(".short").textContent=m.short;
+b.addEventListener("click",function(){go(i,true)}); rail.appendChild(b);
+});
+function paint(){
+var n=0;
+mods.forEach(function(m,i){
+var b=document.getElementById("nav-"+m.id);
+b.classList.toggle("done",!!done[m.id]); b.querySelector(".dot").textContent=done[m.id]?"✓":"";
+b.setAttribute("aria-current",i===cur?"true":"false"); if(done[m.id])n++;
+});
+document.getElementById("barfill").style.width=(n/mods.length*100)+"%";
+document.getElementById("ptext").textContent=n+" of "+mods.length+" complete";
+var d=document.getElementById("done"), on=!!done[mods[cur].id];
+d.setAttribute("aria-pressed",on?"true":"false"); d.textContent=on?"✓ Completed":"Mark complete";
+document.getElementById("prev").hidden=cur===0;
+document.getElementById("next").hidden=cur===mods.length-1;
+}
+function go(i,scroll){
+cur=Math.max(0,Math.min(mods.length-1,i));
+lesson.innerHTML=""; lesson.appendChild(document.getElementById(mods[cur].t).content.cloneNode(true));
+if(location.hash!=="#"+mods[cur].id){try{history.replaceState(null,"","#"+mods[cur].id)}catch(e){location.hash=mods[cur].id}}
+paint(); if(scroll)window.scrollTo({top:0});
+}
+document.getElementById("prev").addEventListener("click",function(){go(cur-1,true)});
+document.getElementById("next").addEventListener("click",function(){go(cur+1,true)});
+document.getElementById("done").addEventListener("click",function(){
+var id=mods[cur].id; if(done[id])delete done[id]; else done[id]=true; save(); paint();
+});
+function fromHash(){var h=location.hash.slice(1),i=mods.findIndex(function(m){return m.id===h}); go(i<0?0:i,false)}
+window.addEventListener("hashchange",fromHash); fromHash();
+})();
+</script>
+</body></html>
