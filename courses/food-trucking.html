@@ -1,0 +1,880 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Food Truck Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+/* Same course-player layout as the other BBY blueprints */
+:root{
+--bg:#f5f6f9; --surface:#ffffff; --ink:#141a2b; --muted:#5a6276; --line:#dde1ea;
+--navy:#16213f; --gold:#b8860b; --gold-soft:#f6ecd2; --ok:#1f7a4d; --ok-soft:#e1f2e8; --bad:#b3261e; --bad-soft:#fbe5e3;
+--display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+--body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}}
+:root[data-theme="dark"]{
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--body)}
+[hidden]{display:none!important}
+a{color:var(--gold);text-underline-offset:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.top{background:var(--navy);color:#fff;padding-block:22px 26px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{max-width:1180px;margin:0 auto;display:grid;gap:6px}
+.eyebrow{font:600 13px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:#e3b54a}
+.top h1{font:italic 700 clamp(34px,6vw,56px)/1 var(--display);margin:0;text-wrap:balance;letter-spacing:.01em}
+.top p{margin:0;color:#c9cfdd;max-width:62ch}
+.progress{display:flex;align-items:center;gap:12px;margin-top:10px;font-size:14px;color:#c9cfdd}
+.bar{flex:0 1 260px;height:8px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:#e3b54a;transition:width .3s}
+.wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:270px minmax(0,1fr);gap:32px;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;display:grid;gap:2px}
+.rail button{all:unset;cursor:pointer;display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;padding:10px 12px;border-radius:8px;color:var(--muted);font-size:15px;line-height:1.35}
+.rail button:hover{background:var(--surface);color:var(--ink)}
+.rail button[aria-current="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:inset 3px 0 0 var(--gold)}
+.dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;margin-top:1px}
+.done .dot{background:var(--ok);border-color:var(--ok);color:#fff}
+main{min-width:0}
+article{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:clamp(20px,4vw,44px)}
+article h2{font:700 clamp(30px,4.4vw,42px)/1.05 var(--display);margin:0 0 6px;text-wrap:balance}
+.kicker{font:600 13px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+article h3{font:700 24px/1.15 var(--display);margin:34px 0 8px;letter-spacing:.01em}
+article p,article li{max-width:68ch}
+article ul,article ol{padding-left:1.3em;display:grid;gap:6px}
+.lead{font-size:18px;color:var(--muted)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:8px}
+.cols > div{border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.cols h4{margin:0 0 6px;font:700 18px/1.2 var(--display);letter-spacing:.03em;text-transform:uppercase}
+.cols .pro{border-color:var(--ok);background:var(--ok-soft)} .cols .pro h4{color:var(--ok)}
+.cols .con{border-color:var(--bad);background:var(--bad-soft)} .cols .con h4{color:var(--bad)}
+.tablewrap{overflow-x:auto;margin-top:10px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{font-weight:700;border-top:2px solid var(--ink)}
+.formula{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 16px;font-weight:600}
+.today{margin-top:34px;background:var(--gold-soft);border-radius:10px;padding:16px 20px;display:grid;gap:4px}
+.today b{font:700 15px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.note{font-size:14px;color:var(--muted)}
+.pager{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;margin-top:20px}
+.btn{all:unset;cursor:pointer;padding:11px 18px;border-radius:8px;font-weight:600;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+:root[data-theme="dark"] .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}}
+.btn.complete[aria-pressed="true"]{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+@media (max-width:820px){
+.wrap{grid-template-columns:1fr;gap:16px}
+nav.rail{position:static;display:flex;overflow-x:auto;gap:6px;padding-bottom:4px}
+.rail button{flex:0 0 auto;grid-template-columns:20px auto;white-space:nowrap;background:var(--surface);border:1px solid var(--line)}
+.rail .full{display:none}
+}
+@media (min-width:821px){.rail .short{display:none}}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style></head><body>
+
+<header class="top">
+<div class="top-in">
+<div class="eyebrow">Built By You Academy · Real World Business Blueprints</div>
+<h1>Food Trucking</h1>
+<p>Start a food truck from the ground up: concept, menu, buying and setting up your truck, every piece of equipment inside it, permits, suppliers and your first booked locations.</p>
+<div class="progress"><div class="bar"><i id="barfill"></i></div><span id="ptext">0 of 12 complete</span></div>
+</div>
+</header>
+
+<div class="wrap">
+<nav class="rail" id="rail" aria-label="Course modules"></nav>
+<main>
+<article id="lesson" aria-live="polite"></article>
+<div class="pager">
+<button class="btn" id="prev" type="button">← Previous</button>
+<button class="btn complete" id="done" type="button" aria-pressed="false">Mark complete</button>
+<button class="btn primary" id="next" type="button">Next module →</button>
+</div>
+</main>
+</div>
+
+<!-- ============ OVERVIEW ============ -->
+<template id="t-overview">
+<div class="kicker">Start here</div>
+<h2>Course Overview</h2>
+<p class="lead">By the end of this course you'll have a tested concept and menu, a truck or trailer picked out, a full equipment list with real prices, your permits and insurance lined up, your suppliers set up and your first locations booked.</p>
+<div class="cols">
+<div><h4>Who it's for</h4>Beginners who want to start a food truck or food trailer, whether you've cooked professionally or just get told your food is good.</div>
+<div><h4>How it works</h4>12 modules. Every module ends with a <strong>Do This Today</strong> task. Finish it before you move on.</div>
+</div>
+<h3>The business in one minute</h3>
+<p>A food truck is a small restaurant on wheels. You cook a short menu out of a licensed vehicle, park where the crowds are (breweries, offices, festivals, events), and prep and clean at a licensed kitchen called a commissary. Realistic startup: <strong>about $30,000 for a lean used setup to $200,000+ for a new custom truck</strong>. (<a href="https://merchants.doordash.com/en-us/blog/how-much-does-a-food-truck-cost" target="_blank" rel="noopener">source</a>)</p>
+<h3>What you'll build, module by module</h3>
+<ol>
+<li>Decide if this business fits your life and budget</li>
+<li>Pick a concept and build a menu that makes money</li>
+<li>Choose and buy your rig: truck, trailer or cart</li>
+<li>Set up the truck: layout, power, propane, water and ventilation</li>
+<li>Equip the inside: every appliance, tool and supply with prices and where to buy</li>
+<li>Build your startup budget</li>
+<li>Get licensed, permitted, inspected and insured</li>
+<li>Set up suppliers, pricing and your POS</li>
+<li>Find locations, book events and market the truck</li>
+<li>Run daily operations: open, serve, close, clean</li>
+<li>Your 60-day launch plan and every source and vendor link</li>
+</ol>
+<h3>How to use this course</h3>
+<ol>
+<li>Go in order. Each module builds on the one before.</li>
+<li>Click the links. Every price, rule and vendor links to where it came from or where to buy.</li>
+<li>Post your finished Do This Today task in the community for feedback.</li>
+<li>Costs and rules change and vary by state, county and city. Every number here is a starting range, so always confirm with your health department, fire marshal and real quotes.</li>
+</ol>
+<h3>Honest note</h3>
+<p>This course teaches you how to build the business. It doesn't promise income. Food trucks have real costs and real risk, and many full-service operators net in the single digits as a percentage of sales. What you earn depends on your food, your prices, your locations and how tightly you control costs.</p>
+</template>
+
+<!-- ============ MODULE 1 ============ -->
+<template id="t-1">
+<div class="kicker">Module 1</div>
+<h2>Is a Food Truck Right for You?</h2>
+<p class="lead">It's cheaper than opening a restaurant, but it's still a restaurant: long days, hot kitchen, tight space, inspections, breakdowns and weather. Go in with open eyes.</p>
+
+<h3>1.1 · The honest pros and cons</h3>
+<div class="cols">
+<div class="pro"><h4>Pros</h4>
+<ul>
+<li>Far cheaper than opening a sit-down restaurant with a lease and build-out</li>
+<li>You go where the customers are: offices, breweries, festivals, ballgames</li>
+<li>Small menu means less waste and faster service</li>
+<li>Private catering (weddings, company lunches, parties) pays a guaranteed minimum</li>
+<li>Great way to test a restaurant concept before signing a lease</li>
+<li>Strong social media appeal: people love following a truck</li>
+<li>The truck itself is an asset you can sell later</li>
+</ul></div>
+<div class="con"><h4>Cons</h4>
+<ul>
+<li>Big upfront cost: $30,000 to $200,000+</li>
+<li>Long days: prep, drive, set up, serve, break down, clean and restock. 12–14 hours is normal</li>
+<li>Weather and slow days can wipe out a week's profit</li>
+<li>Breakdowns: no truck, no income</li>
+<li>Lots of permits, and each city or county can have its own rules</li>
+<li>Thin margins: Restroworks puts typical net margin at 6–10% (<a href="https://www.restroworks.com/blog/food-truck-cost/" target="_blank" rel="noopener">source</a>)</li>
+<li>Hot, cramped workspace and physical work</li>
+</ul></div>
+</div>
+
+<h3>1.2 · Truck, trailer or cart?</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Type</th><th>Typical cost</th><th>Best for</th><th>Watch out</th></tr></thead>
+<tbody>
+<tr><td>Food cart / kiosk</td><td class="num">$5,000–$25,000</td><td>Hot dogs, coffee, ice cream, simple menus</td><td>Very limited menu and storage; some areas restrict carts</td></tr>
+<tr><td>Concession trailer</td><td class="num">$15,000–$90,000</td><td>Festivals, fairs, parking at one spot all day</td><td>Need a heavy tow vehicle; harder to move several times a day</td></tr>
+<tr><td>Used food truck</td><td class="num">$30,000–$100,000</td><td>Daily routes and multiple stops</td><td>Hidden engine, plumbing and electrical problems</td></tr>
+<tr><td>New or custom truck</td><td class="num">$75,000–$200,000+</td><td>Turnkey, financing, warranty</td><td>Big payment before you've proven your concept; build times can run months</td></tr>
+</tbody></table></div>
+<p class="note">Truck ranges from <a href="https://merchants.doordash.com/en-us/blog/how-much-does-a-food-truck-cost" target="_blank" rel="noopener">DoorDash (Sept 2026)</a>. Cart and trailer ranges are typical market listings; compare real listings in Module 3.</p>
+
+<h3>1.3 · A real day on the truck</h3>
+<ol>
+<li><strong>6–9 AM:</strong> At the commissary: fill fresh water, dump grey water, load prepped food, check propane and generator fuel.</li>
+<li><strong>9–10:30 AM:</strong> Drive to your spot, level the truck, start the generator, fire up equipment, set out menu boards.</li>
+<li><strong>11 AM–2 PM:</strong> Lunch service. Take orders, cook, serve, keep hot food above 135°F and cold food below 41°F.</li>
+<li><strong>2–4 PM:</strong> Break down, or move to an evening spot (brewery, event).</li>
+<li><strong>5–9 PM:</strong> Dinner or event service.</li>
+<li><strong>9–11 PM:</strong> Back at the commissary: clean, empty grey water, wash dishes, log temps and sales, prep tomorrow.</li>
+</ol>
+
+<h3>1.4 · Check your local market</h3>
+<ol>
+<li>Search <a href="https://www.google.com/maps/search/food+truck+near+me" target="_blank" rel="noopener">"food truck near me" on Google Maps</a> and check <a href="https://streetfoodfinder.com/" target="_blank" rel="noopener">StreetFoodFinder</a> and <a href="https://www.roaminghunger.com/" target="_blank" rel="noopener">Roaming Hunger</a> for trucks in your area.</li>
+<li>Join your area's food truck Facebook groups (search "[your city] food trucks"). See who's posting, where they park and what events book them.</li>
+<li>Write down every truck's cuisine, price range and where it parks. Look for a gap: what's missing?</li>
+<li>Visit 3 trucks as a customer at lunch. Count customers in 30 minutes and note the average order.</li>
+<li>Call your county health department and ask: "What do I need to operate a mobile food unit here, and do I need a commissary?"</li>
+</ol>
+<div class="today"><b>Do This Today</b>List 10 local trucks with their cuisine, price range and where they park, and call your county health department about mobile food unit rules.</div>
+</template>
+
+<!-- ============ MODULE 2 ============ -->
+<template id="t-2">
+<div class="kicker">Module 2</div>
+<h2>Concept &amp; Menu</h2>
+<p class="lead">Your concept decides your equipment, your truck layout and your budget. Pick the menu first, then build the truck around it, never the other way around.</p>
+
+<h3>2.1 · Pick a concept that works on wheels</h3>
+<ul>
+<li><strong>Fast to cook:</strong> each order should be out in 3–7 minutes.</li>
+<li><strong>Few ingredients that cross over:</strong> the same protein used in 3–4 items cuts waste.</li>
+<li><strong>Easy to eat standing up:</strong> tacos, burgers, bowls, sandwiches, wings, loaded fries.</li>
+<li><strong>Something people can remember:</strong> one clear thing you're known for ("smash burgers," "Nashville hot chicken," "birria tacos").</li>
+<li><strong>Fits the gap</strong> you found in Module 1.</li>
+</ul>
+
+<h3>2.2 · Build a short menu</h3>
+<ul>
+<li>5–8 main items, 2–3 sides, 2–3 drinks. That's it.</li>
+<li>1–2 "hero" items that are on every post and every menu board.</li>
+<li>A combo (main + side + drink) to raise your average ticket.</li>
+<li>One vegetarian option so groups don't skip you.</li>
+<li>Every item must be cookable on the equipment you'll have in a space smaller than a home kitchen.</li>
+</ul>
+
+<h3>2.3 · Cost out every item</h3>
+<p>Food cost is usually 28–35% of sales. (<a href="https://merchants.doordash.com/en-us/blog/how-much-does-a-food-truck-cost" target="_blank" rel="noopener">source</a>) Write a recipe card for every item with the exact amount and cost of every ingredient, including the bun, sauce, wrapper and napkin.</p>
+<p class="formula">Menu price = Plate cost ÷ Target food cost %</p>
+<p>Example: a smash burger with fries costs you $3.10 in food and packaging. $3.10 ÷ 0.30 = $10.33, so price it at <strong>$10.99</strong> or <strong>$11</strong>.</p>
+<div class="tablewrap"><table>
+<thead><tr><th>Recipe card line</th><th>Amount</th><th>Cost</th></tr></thead>
+<tbody>
+<tr><td>Ground beef 80/20</td><td>2 × 3 oz</td><td class="num">$1.15</td></tr>
+<tr><td>Bun</td><td>1</td><td class="num">$0.35</td></tr>
+<tr><td>Cheese, onion, pickles, sauce</td><td>—</td><td class="num">$0.55</td></tr>
+<tr><td>Fries (6 oz) + oil</td><td>—</td><td class="num">$0.65</td></tr>
+<tr><td>Clamshell, wrapper, napkin</td><td>—</td><td class="num">$0.40</td></tr>
+<tr class="total"><td>Plate cost</td><td></td><td class="num">$3.10</td></tr>
+</tbody></table></div>
+<p class="note">Example costs only. Price your own recipe with real supplier prices from Module 8.</p>
+
+<h3>2.4 · Test before you buy a truck</h3>
+<ul>
+<li>Cook your menu 10+ times for friends and family and time every item.</li>
+<li>Do a pop-up, farmers market or catering job using a licensed kitchen (check your state's rules for temporary events).</li>
+<li>Ask people what they'd pay. Watch what they finish and what they leave.</li>
+</ul>
+<div class="today"><b>Do This Today</b>Write your menu (5–8 items) and a recipe card with plate cost and menu price for your top 3 items.</div>
+</template>
+
+<!-- ============ MODULE 3 ============ -->
+<template id="t-3">
+<div class="kicker">Module 3</div>
+<h2>Buying Your Rig</h2>
+<p class="lead">The truck is your biggest cost and your biggest risk. A cheap truck with bad wiring, a weak engine or a non-compliant kitchen can cost more than a good one.</p>
+
+<h3>3.1 · What rigs cost</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Option</th><th>Typical cost</th><th>Good</th><th>Watch out</th></tr></thead>
+<tbody>
+<tr><td>Used food truck</td><td class="num">$30,000–$100,000</td><td>Ready to work soon; cheaper</td><td>Engine and transmission, rust, old wiring, kitchen that won't pass your county's rules</td></tr>
+<tr><td>New fully fitted truck</td><td class="num">≈ $109,500 average</td><td>Built to code, warranty, financing</td><td>Highest cost; long build queue</td></tr>
+<tr><td>Custom build</td><td class="num">$100,000–$200,000+</td><td>Laid out exactly for your menu</td><td>Months of build time, change orders</td></tr>
+<tr><td>Concession trailer (new)</td><td class="num">$15,000–$90,000</td><td>Lower cost, no engine to break</td><td>Needs a truck that can tow it safely</td></tr>
+</tbody></table></div>
+<p class="note">Sources: <a href="https://merchants.doordash.com/en-us/blog/how-much-does-a-food-truck-cost" target="_blank" rel="noopener">DoorDash</a>, <a href="https://www.restroworks.com/blog/food-truck-cost/" target="_blank" rel="noopener">Restroworks (2026)</a>. Trailer range is from typical market listings.</p>
+
+<h3>3.2 · Where to buy (vendors)</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Vendor</th><th>What they sell</th></tr></thead>
+<tbody>
+<tr><td><a href="https://www.usedvending.com/" target="_blank" rel="noopener">UsedVending.com</a></td><td>Largest marketplace of used and new food trucks and trailers</td></tr>
+<tr><td><a href="https://www.roaminghunger.com/food-trucks-for-sale/" target="_blank" rel="noopener">Roaming Hunger Marketplace</a></td><td>Used and new trucks and trailers for sale</td></tr>
+<tr><td><a href="https://www.prestigefoodtrucks.com/" target="_blank" rel="noopener">Prestige Food Trucks</a></td><td>Custom-built trucks and trailers, financing</td></tr>
+<tr><td><a href="https://www.mrtrailers.com/" target="_blank" rel="noopener">M&amp;R Specialty Trailers and Trucks</a></td><td>Custom concession trailers and trucks</td></tr>
+<tr><td><a href="https://www.cruisingkitchens.com/" target="_blank" rel="noopener">Cruising Kitchens</a></td><td>High-end custom builds</td></tr>
+<tr><td><a href="https://www.futuristotrailers.com/" target="_blank" rel="noopener">Futuristo Trailers</a></td><td>Concession trailers and trucks</td></tr>
+<tr><td><a href="https://www.facebook.com/marketplace/" target="_blank" rel="noopener">Facebook Marketplace</a> &amp; <a href="https://www.craigslist.org/" target="_blank" rel="noopener">Craigslist</a></td><td>Local private sales (cheapest, highest risk)</td></tr>
+</tbody></table></div>
+<p class="note">These are well-known vendors, not endorsements. Get at least 3 quotes and check reviews and Better Business Bureau ratings before sending any deposit.</p>
+
+<h3>3.3 · Used truck inspection checklist</h3>
+<ul>
+<li>Have a <strong>diesel or truck mechanic</strong> inspect the engine, transmission, brakes, tires and frame. Check the title and mileage.</li>
+<li>Ask for the truck's <strong>last health permit and fire inspection</strong>. A truck that passed recently in a nearby county is a good sign.</li>
+<li>Check the <strong>plumbing</strong>: hand sink and 3-compartment sink, hot water under pressure, and a waste tank larger than the fresh tank.</li>
+<li>Check the <strong>hood and fire suppression</strong>: when was it last serviced? Tags should be current.</li>
+<li>Check <strong>propane lines</strong> for leaks and that tanks are in date.</li>
+<li>Check the <strong>electrical panel</strong>, outlets and generator hours.</li>
+<li>Test every appliance hot and cold: fridge temps, fryer heats up, griddle heats evenly.</li>
+<li>Look for floor rot, rust and water damage under the sinks and around the serving window.</li>
+<li>Bring your county's mobile unit requirements and check them line by line <em>before</em> you buy.</li>
+</ul>
+
+<h3>3.4 · Financing options</h3>
+<ul>
+<li><a href="https://www.sba.gov/funding-programs/loans" target="_blank" rel="noopener">SBA loans</a> (7(a) and microloans) through local banks and lenders</li>
+<li>Builder financing (most custom builders offer it)</li>
+<li>Equipment financing and leasing</li>
+<li>Local credit unions and <a href="https://www.cdfifund.gov/" target="_blank" rel="noopener">CDFI lenders</a></li>
+</ul>
+<div class="today"><b>Do This Today</b>Pick your rig type and save 5 real listings or quotes with price, year, mileage and included equipment.</div>
+</template>
+
+<!-- ============ MODULE 4 ============ -->
+<template id="t-4">
+<div class="kicker">Module 4</div>
+<h2>Setting Up Your Truck</h2>
+<p class="lead">A good truck layout lets one or two people cook fast without bumping into each other. The systems behind the walls (power, propane, water, ventilation) are what get you through inspection.</p>
+
+<h3>4.1 · Lay out the line like an assembly line</h3>
+<p>Food should move in one direction: <strong>cold storage → prep → cook → hold → serve window</strong>.</p>
+<ol>
+<li><strong>Cold zone:</strong> reach-in fridge and freezer closest to the prep table.</li>
+<li><strong>Prep zone:</strong> refrigerated prep table (sandwich/salad unit) next to the cook line.</li>
+<li><strong>Hot zone:</strong> griddle, fryer, range or charbroiler all under the hood, on the back wall.</li>
+<li><strong>Hold &amp; finish zone:</strong> heat lamp or warmer and packaging right before the window.</li>
+<li><strong>Service window:</strong> POS, order ticket rail, napkins and sauces.</li>
+<li><strong>Wash zone:</strong> 3-compartment sink and a separate hand sink, away from food prep.</li>
+</ol>
+<p class="note">Rule of thumb: a cook should be able to reach the fridge, griddle and plating area in 1–2 steps.</p>
+
+<h3>4.2 · Power: generator and electrical</h3>
+<ul>
+<li>Add up the <strong>running watts</strong> of everything that can run at once (fridges, freezer, prep table, lights, fans, water pump, POS, any electric fryers). Then add 25% headroom.</li>
+<li>Fridges and AC units need 2–3× their running watts for a moment when they start. Size for that.</li>
+<li>Most trucks use a <strong>quiet inverter generator</strong> (many events and cities have noise limits) or a built-in RV-style generator.</li>
+<li>Add a <strong>shore power inlet</strong> so you can plug in at events and the commissary.</li>
+<li>Have a licensed electrician check the panel, breakers and GFCI outlets near water.</li>
+</ul>
+<p class="formula">Generator size = (Total running watts + biggest startup surge) × 1.25</p>
+
+<h3>4.3 · Propane (gas)</h3>
+<ul>
+<li>Propane runs griddles, fryers, ranges and water heaters. Tanks are mounted <strong>outside</strong> the kitchen, secured, with a regulator and shut-off valve.</li>
+<li>Use commercial flexible gas connectors (quick-disconnect hose kits) on appliances so you can pull them out to clean.</li>
+<li>Install a <strong>propane leak detector</strong> and a <strong>carbon monoxide detector</strong> inside the truck.</li>
+<li>Your fire marshal will inspect the gas system. Many require a leak (pressure) test by a licensed gas technician.</li>
+<li>Refill at a local propane dealer (e.g. <a href="https://www.amerigas.com/" target="_blank" rel="noopener">AmeriGas</a>, <a href="https://www.ferrellgas.com/" target="_blank" rel="noopener">Ferrellgas</a>, or a local supplier). Tractor Supply and U-Haul often refill too.</li>
+</ul>
+
+<h3>4.4 · Water and plumbing</h3>
+<p>Health departments are strict here. In Lexington, KY, for example, a mobile unit needs a hand sink, a 3-compartment sink, an NSF fresh water tank, hot and cold running water under pressure, and a <strong>waste tank at least 50% larger than the fresh tank</strong>. (<a href="https://www.lfchd.org/wp-content/uploads/2021/05/English-Guidelines-for-Mobile-Food-Units-5-10-2021.pdf" target="_blank" rel="noopener">LFCHD guidelines</a>)</p>
+<ul>
+<li>Fresh water tank (NSF/food-grade), often 30–50 gallons</li>
+<li>Grey (waste) water tank, larger than fresh</li>
+<li>12-volt water pump (e.g. <a href="https://www.shurflo.com/" target="_blank" rel="noopener">SHURflo</a>) and accumulator tank</li>
+<li>Water heater: small electric tank or propane on-demand unit</li>
+<li>Food-grade (white or blue) drinking water hose for filling, kept separate from any other hose</li>
+<li>In Kentucky, plumbing plans need state review and a plumbing inspection (green sticker) before the health inspection.</li>
+</ul>
+
+<h3>4.5 · Ventilation and fire safety</h3>
+<ul>
+<li>A commercial <strong>Type I exhaust hood</strong> is required over grease-producing equipment (griddles, fryers, charbroilers) under NFPA 96.</li>
+<li>A <strong>fire suppression system</strong> (e.g. <a href="https://www.ansul.com/" target="_blank" rel="noopener">Ansul</a>, <a href="https://www.amerex-fire.com/" target="_blank" rel="noopener">Amerex</a>) in the hood, with a manual pull station and automatic gas shut-off. It must be inspected about every 6 months by a licensed fire protection company.</li>
+<li><strong>Class K extinguisher</strong> near the fryer, plus an <strong>ABC extinguisher</strong>.</li>
+<li>Hood filters cleaned weekly; hood and duct professionally cleaned on a schedule.</li>
+<li>See the <a href="https://www.nfpa.org/" target="_blank" rel="noopener">NFPA food truck safety resources</a>.</li>
+</ul>
+<p class="note">Hood plus fire suppression together typically run $5,000–$10,000 installed. (<a href="https://www.restroworks.com/blog/food-truck-cost/" target="_blank" rel="noopener">source</a>)</p>
+
+<h3>4.6 · Finishes inspectors look for</h3>
+<ul>
+<li>Smooth, non-absorbent, easy-to-clean walls and ceiling (stainless steel or FRP)</li>
+<li>Commercial non-slip, washable floor with sealed seams</li>
+<li>Shielded or shatter-proof lights</li>
+<li>Screened windows and a self-closing serving window or door</li>
+<li>Commercial (NSF-listed) equipment only, no home appliances</li>
+<li>Everything secured so it can't move while driving</li>
+</ul>
+<div class="today"><b>Do This Today</b>Draw your truck layout on paper (cold → prep → hot → hold → window) and list every appliance with its watts or BTUs so you can size your generator.</div>
+</template>
+
+<!-- ============ MODULE 5 ============ -->
+<template id="t-5">
+<div class="kicker">Module 5</div>
+<h2>Equipment Inside the Truck</h2>
+<p class="lead">Here's everything that goes inside a typical burger, taco or fried-food truck, with real prices and where to buy. Cross off what your menu doesn't need.</p>
+
+<h3>5.1 · Cooking equipment</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Item</th><th>Real-world price</th><th>Example / where to buy</th></tr></thead>
+<tbody>
+<tr><td>Flat-top griddle, 36" propane</td><td class="num">≈ $1,100 (budget) – $6,000</td><td>Atosa ATMG-36-LP ≈ $1,112 at <a href="https://therestaurantwarehouse.com/" target="_blank" rel="noopener">The Restaurant Warehouse</a>; also <a href="https://www.webstaurantstore.com/" target="_blank" rel="noopener">WebstaurantStore</a>, <a href="https://www.katom.com/" target="_blank" rel="noopener">KaTom</a></td></tr>
+<tr><td>Flat-top griddle, 24" propane</td><td class="num">≈ $840</td><td>Atosa ATMG-24-LP</td></tr>
+<tr><td>Deep fryer, 40 lb propane</td><td class="num">≈ $1,070 – $4,000</td><td>Atosa ATFS-40-LP ≈ $1,068</td></tr>
+<tr><td>Charbroiler, 24" propane</td><td class="num">≈ $920</td><td>Atosa ATRC-24-LP</td></tr>
+<tr><td>2-burner hot plate</td><td class="num">≈ $570</td><td>Atosa ACHP-2-LP</td></tr>
+<tr><td>4-burner range with oven</td><td class="num">≈ $1,730+</td><td>Atosa AGR-4B-LP</td></tr>
+<tr><td>Gas hose kit with quick disconnect (per appliance)</td><td class="num">$300–$450</td><td>BK Resources, Dormont</td></tr>
+<tr><td>Food warmer / heat lamp</td><td class="num">$150–$800</td><td>WebstaurantStore, KaTom</td></tr>
+<tr><td>Rice cooker, steam table or soup well (menu dependent)</td><td class="num">$100–$700</td><td>WebstaurantStore</td></tr>
+</tbody></table></div>
+<p class="note">Atosa listing prices from <a href="https://therestaurantwarehouse.com/blogs/restaurant-equipment/food-truck-equipment-guide" target="_blank" rel="noopener">The Restaurant Warehouse food truck guide</a>; range of higher-end prices from <a href="https://www.restroworks.com/blog/food-truck-cost/" target="_blank" rel="noopener">Restroworks</a>. Prices move, so check current listings.</p>
+
+<h3>5.2 · Refrigeration</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Item</th><th>Real-world price</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td>24" food-truck reach-in refrigerator</td><td class="num">≈ $1,790</td><td>Atosa MBF8519GR</td></tr>
+<tr><td>24" reach-in freezer</td><td class="num">≈ $2,470</td><td>Atosa MBF8520GR</td></tr>
+<tr><td>Refrigerated sandwich/salad prep table</td><td class="num">≈ $1,950 – $3,000</td><td>Atosa MSF17GR-NTCV (17") ≈ $1,946</td></tr>
+<tr><td>Undercounter refrigerator (under the griddle line)</td><td class="num">$2,500–$6,000</td><td>Refrigerated chef base / undercounter units</td></tr>
+<tr><td>Appliance thermometers (one per unit)</td><td class="num">$5–$15 each</td><td>Required to show cold holding at 41°F or below</td></tr>
+</tbody></table></div>
+
+<h3>5.3 · Sinks, water and plumbing parts</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Item</th><th>Price range</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>3-compartment sink (with drainboards if space allows)</td><td class="num">≈ $300–$900</td><td>Wash, rinse, sanitize. Bowls must fit your largest pan</td></tr>
+<tr><td>Hand sink with soap and towel dispenser</td><td class="num">≈ $100–$350</td><td>Separate from the 3-compartment sink</td></tr>
+<tr><td>Fresh + grey water tanks, pump, water heater, installed</td><td class="num">$2,000–$5,000</td><td>(<a href="https://www.restroworks.com/blog/food-truck-cost/" target="_blank" rel="noopener">source</a>)</td></tr>
+<tr><td>Drinking-water-safe fill hose</td><td class="num">$25–$60</td><td>Hardware or RV store</td></tr>
+</tbody></table></div>
+
+<h3>5.4 · Power and safety</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Item</th><th>Price range</th><th>Where to look</th></tr></thead>
+<tbody>
+<tr><td>Generator</td><td class="num">$500–$3,000 portable; quiet 7,000 W inverter or built-in units cost more</td><td><a href="https://powerequipment.honda.com/generators" target="_blank" rel="noopener">Honda</a>, <a href="https://www.cummins.com/generators" target="_blank" rel="noopener">Cummins Onan</a>, <a href="https://www.championpowerequipment.com/" target="_blank" rel="noopener">Champion</a></td></tr>
+<tr><td>Hood + fire suppression, installed</td><td class="num">$5,000–$10,000</td><td>Local licensed fire protection company</td></tr>
+<tr><td>Class K + ABC fire extinguishers</td><td class="num">$150–$400 total</td><td>Fire equipment supplier (gets you inspection tags)</td></tr>
+<tr><td>Propane tanks (2 × 40–100 lb), regulator, leak detector, CO detector</td><td class="num">$400–$1,200</td><td>Local propane dealer</td></tr>
+<tr><td>First-aid kit and burn kit</td><td class="num">$40–$100</td><td>Any supplier</td></tr>
+<tr><td>Wheel chocks and leveling blocks</td><td class="num">$30–$100</td><td>RV or auto parts store</td></tr>
+</tbody></table></div>
+
+<h3>5.5 · Smallwares and tools checklist</h3>
+<p>Budget $1,000–$3,000 for smallwares. (<a href="https://www.restroworks.com/blog/food-truck-cost/" target="_blank" rel="noopener">source</a>) Buy from <a href="https://www.webstaurantstore.com/" target="_blank" rel="noopener">WebstaurantStore</a>, <a href="https://www.restaurantdepot.com/" target="_blank" rel="noopener">Restaurant Depot</a> or a local restaurant supply store.</p>
+<div class="cols">
+<div><h4>Cooking tools</h4>
+<ul>
+<li>Griddle spatulas, smash press, scraper</li>
+<li>Tongs (color-coded raw/cooked)</li>
+<li>Fry baskets, fry scoop, oil filter cones</li>
+<li>Chef's knives, paring knives, knife guards</li>
+<li>Cutting boards (color-coded)</li>
+<li>Squeeze bottles, portion scoops, ladles</li>
+<li>Hotel pans, lids, sixth and ninth pans</li>
+<li>Sheet pans and wire racks</li>
+<li>Probe thermometers + calibration</li>
+<li>Kitchen timer and ticket rail</li>
+</ul></div>
+<div><h4>Cleaning &amp; safety</h4>
+<ul>
+<li>Sanitizer + test strips</li>
+<li>Degreaser, griddle cleaner, grill bricks</li>
+<li>Labeled spray bottles, towels, sanitizer buckets</li>
+<li>Disposable gloves, hair nets or hats</li>
+<li>Hand soap and paper towels</li>
+<li>Trash and recycling bins with lids</li>
+<li>Grease container for used fryer oil</li>
+<li>Floor mats, mop and bucket</li>
+<li>Pest-proof storage bins</li>
+<li>Day dot labels and a marker</li>
+</ul></div>
+<div><h4>Service &amp; front</h4>
+<ul>
+<li>POS tablet + card reader (Module 8)</li>
+<li>Cash box and change</li>
+<li>Menu board (A-frame or window)</li>
+<li>Clamshells, boats, cups, lids, straws</li>
+<li>Napkins, forks, sauce cups</li>
+<li>Bags and drink carriers</li>
+<li>Condiment station</li>
+<li>Pop-up tent, table and weights for events</li>
+<li>Extension cords (outdoor rated)</li>
+<li>Coolers for drinks</li>
+</ul></div>
+</div>
+
+<h3>5.6 · Branding</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Item</th><th>Price range</th></tr></thead>
+<tbody>
+<tr><td>Full vinyl wrap</td><td class="num">$2,500–$5,000</td></tr>
+<tr><td>Logo design</td><td class="num">$300–$1,000</td></tr>
+<tr><td>Signage and menu boards</td><td class="num">$500–$1,500</td></tr>
+</tbody></table></div>
+<p class="note">(<a href="https://www.restroworks.com/blog/food-truck-cost/" target="_blank" rel="noopener">source</a>)</p>
+<div class="today"><b>Do This Today</b>Build your equipment list from these tables: cross off what your menu doesn't need, and put a real price and store link next to every item you keep.</div>
+</template>
+
+<!-- ============ MODULE 6 ============ -->
+<template id="t-6">
+<div class="kicker">Module 6</div>
+<h2>Your Startup Budget</h2>
+<p class="lead">Add everything up before you spend a dollar. Running out of cash in month two is how most trucks fail, not bad food.</p>
+
+<h3>6.1 · Three real starting budgets</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Line item</th><th>Lean used trailer</th><th>Used truck</th><th>New custom truck</th></tr></thead>
+<tbody>
+<tr><td>Rig (truck or trailer)</td><td class="num">$25,000</td><td class="num">$55,000</td><td class="num">$130,000</td></tr>
+<tr><td>Extra or replacement equipment</td><td class="num">$4,000</td><td class="num">$5,000</td><td class="num">Included</td></tr>
+<tr><td>Generator</td><td class="num">$3,000</td><td class="num">$5,000</td><td class="num">$6,000</td></tr>
+<tr><td>Fire suppression service, extinguishers</td><td class="num">$800</td><td class="num">$1,000</td><td class="num">Included</td></tr>
+<tr><td>Wrap, logo, signage</td><td class="num">$3,000</td><td class="num">$4,000</td><td class="num">$5,000</td></tr>
+<tr><td>Licenses, permits, plan review, inspections</td><td class="num">$1,000</td><td class="num">$1,500</td><td class="num">$2,000</td></tr>
+<tr><td>Insurance (first year)</td><td class="num">$3,000</td><td class="num">$4,000</td><td class="num">$4,500</td></tr>
+<tr><td>POS hardware and setup</td><td class="num">$500</td><td class="num">$800</td><td class="num">$1,200</td></tr>
+<tr><td>Smallwares + first food and packaging order</td><td class="num">$3,000</td><td class="num">$4,000</td><td class="num">$5,000</td></tr>
+<tr><td>Commissary (first 3 months)</td><td class="num">$1,500</td><td class="num">$2,400</td><td class="num">$2,400</td></tr>
+<tr><td>Working capital (cash cushion)</td><td class="num">$8,000</td><td class="num">$10,000</td><td class="num">$15,000</td></tr>
+<tr class="total"><td>Total</td><td class="num">$52,800</td><td class="num">$92,700</td><td class="num">$171,100</td></tr>
+</tbody></table></div>
+<p class="note">Example budgets built from the price ranges in this course, not quotes. Add a 10–15% buffer for surprises. Overall startup ranges: $30,000–$200,000+ (<a href="https://merchants.doordash.com/en-us/blog/how-much-does-a-food-truck-cost" target="_blank" rel="noopener">DoorDash</a>) and $50,000–$250,000 (<a href="https://www.restroworks.com/blog/food-truck-cost/" target="_blank" rel="noopener">Restroworks</a>).</p>
+
+<h3>6.2 · Monthly operating costs</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Cost</th><th>Typical monthly range</th></tr></thead>
+<tbody>
+<tr><td>Food and packaging</td><td class="num">28–35% of sales</td></tr>
+<tr><td>Fuel and propane</td><td class="num">$500–$1,500</td></tr>
+<tr><td>Commissary and parking</td><td class="num">$400–$1,200</td></tr>
+<tr><td>Insurance</td><td class="num">$200–$400+</td></tr>
+<tr><td>Maintenance and repairs</td><td class="num">$500–$1,000</td></tr>
+<tr><td>Staff (2–3 people)</td><td class="num">$6,000–$12,000</td></tr>
+<tr><td>POS and software</td><td class="num">$50–$300</td></tr>
+<tr><td>Event and location fees</td><td class="num">Flat fee or 10–20% of event sales (varies)</td></tr>
+</tbody></table></div>
+<p class="note">Sources: <a href="https://merchants.doordash.com/en-us/blog/how-much-does-a-food-truck-cost" target="_blank" rel="noopener">DoorDash</a>, <a href="https://www.restroworks.com/blog/food-truck-cost/" target="_blank" rel="noopener">Restroworks</a>. Event fee range is a typical industry norm; confirm with each organizer.</p>
+
+<h3>6.3 · Know your break-even</h3>
+<p class="formula">Break-even sales per month = Fixed monthly costs ÷ (1 − Food cost % − Card fees %)</p>
+<p>Example: $9,000 in fixed monthly costs, 30% food cost and 3% card fees: $9,000 ÷ 0.67 = <strong>$13,433 in sales per month</strong> just to break even. At a $14 average order, that's about 960 orders, or about 48 orders a day over 20 service days.</p>
+<div class="today"><b>Do This Today</b>Fill in your own startup budget and monthly costs, and calculate how many orders a day you need to break even.</div>
+</template>
+
+<!-- ============ MODULE 7 ============ -->
+<template id="t-7">
+<div class="kicker">Module 7</div>
+<h2>Licenses, Permits, Health &amp; Insurance</h2>
+<p class="lead">Expect 4–8 weeks for permits. (<a href="https://merchants.doordash.com/en-us/blog/how-much-does-a-food-truck-cost" target="_blank" rel="noopener">source</a>) Start this before your truck is finished, not after.</p>
+
+<h3>7.1 · Business setup</h3>
+<ol>
+<li><strong>Form an LLC:</strong> <a href="https://www.sos.ky.gov/bus/business-filings/" target="_blank" rel="noopener">Kentucky</a>, <a href="https://onestop.wv.gov/" target="_blank" rel="noopener">West Virginia</a>, <a href="https://www.ohiosos.gov/businesses/" target="_blank" rel="noopener">Ohio</a>, or any state via the <a href="https://www.sba.gov/business-guide/launch-your-business/register-your-business" target="_blank" rel="noopener">SBA guide</a>.</li>
+<li><strong>Get a free EIN</strong> from the <a href="https://www.irs.gov/businesses/small-businesses-self-employed/apply-for-an-employer-identification-number-ein-online" target="_blank" rel="noopener">IRS</a>.</li>
+<li><strong>Register for sales tax</strong> with your state (prepared food is taxable in most states). Kentucky: <a href="https://revenue.ky.gov/" target="_blank" rel="noopener">KY Department of Revenue</a>.</li>
+<li><strong>Get a city/county business license</strong> and any mobile vending permit your city requires.</li>
+<li><strong>Open a business bank account.</strong></li>
+</ol>
+
+<h3>7.2 · Health permit and commissary</h3>
+<ul>
+<li>Most health departments require a <strong>commissary</strong>: a licensed kitchen where you prep, store food, fill water, dump waste water and clean. You'll usually need a signed commissary agreement to get your permit.</li>
+<li>Find one: church and community kitchens, restaurants with off-hours space, shared kitchens (search <a href="https://www.thekitchendoor.com/" target="_blank" rel="noopener">The Kitchen Door</a> or "commissary kitchen near me").</li>
+<li>Submit your menu, truck layout and equipment list for plan review.</li>
+<li>Pass the health inspection. Keep hot food at 135°F or above and cold food at 41°F or below.</li>
+</ul>
+
+<h3>7.3 · Kentucky example (Lexington)</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Permit</th><th>Fee</th></tr></thead>
+<tbody>
+<tr><td>State mobile food unit permit (cooking on the truck)</td><td class="num">$200/yr</td></tr>
+<tr><td>Location registration</td><td class="num">$25 per location, or $100/yr unlimited</td></tr>
+<tr><td>Mobile retail unit (prepackaged/limited)</td><td class="num">$60/yr</td></tr>
+<tr><td>Commissary permit (if you run your own)</td><td class="num">$125/yr</td></tr>
+<tr><td>Plumbing plan review (state)</td><td class="num">≈ $100</td></tr>
+</tbody></table></div>
+<p class="note">From the <a href="https://www.lfchd.org/wp-content/uploads/2021/05/English-Guidelines-for-Mobile-Food-Units-5-10-2021.pdf" target="_blank" rel="noopener">Lexington-Fayette County Health Dept. guidelines</a> (2021) and <a href="https://blog.tryotter.com/resource/wiki/licenses-and-permits-to-open-a-food-truck-in-kentucky" target="_blank" rel="noopener">Otter's Kentucky permit guide</a>. Louisville charges $200 plus $50 per vendor ID; Owensboro $250/yr. Fees change, so confirm with your county health department. Statewide info: <a href="https://www.chfs.ky.gov/agencies/dph/dphps/fsb/Pages/default.aspx" target="_blank" rel="noopener">KY Food Safety Branch</a>.</p>
+<p>Working in more than one county or state? Each health department may want its own permit or registration. Ask about reciprocity.</p>
+
+<h3>7.4 · Fire and food safety certifications</h3>
+<ul>
+<li><strong>Fire marshal inspection</strong> of the hood, suppression, extinguishers and propane.</li>
+<li><strong>Food Protection Manager certification</strong> for the owner or lead: <a href="https://www.servsafe.com/" target="_blank" rel="noopener">ServSafe Manager</a>.</li>
+<li><strong>Food handler cards</strong> for every worker (required in Lexington). <a href="https://www.servsafe.com/ServSafe-Food-Handler" target="_blank" rel="noopener">ServSafe Food Handler</a> is a common option.</li>
+<li>Commercial driver's license is <em>not</em> usually needed for a standard food truck, but check the weight rating if you tow a large trailer.</li>
+</ul>
+
+<h3>7.5 · Insurance</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Policy</th><th>What it covers</th><th>Median cost</th></tr></thead>
+<tbody>
+<tr><td>General liability</td><td>Customer injuries, food illness claims, property damage</td><td class="num">$37/mo ($440/yr)</td></tr>
+<tr><td>Commercial auto</td><td>The truck on the road (your personal auto policy won't)</td><td class="num">$209/mo ($2,509/yr)</td></tr>
+<tr><td>Business owner's policy (BOP)</td><td>General liability + equipment and property</td><td class="num">$96/mo ($1,147/yr)</td></tr>
+<tr><td>Workers' comp</td><td>Employee injuries (required in most states once you hire)</td><td class="num">$46/mo ($550/yr)</td></tr>
+<tr><td>Liquor liability</td><td>Only if you serve alcohol</td><td class="num">$64/mo</td></tr>
+</tbody></table></div>
+<p class="note">Medians from <a href="https://www.insureon.com/food-business-insurance/food-trucks/cost" target="_blank" rel="noopener">Insureon (Sept 2026)</a>. Event organizers will ask for a certificate of insurance naming them as additional insured, so get a policy that allows that. Get quotes from <a href="https://www.insureon.com/" target="_blank" rel="noopener">Insureon</a>, <a href="https://www.fliprogram.com/" target="_blank" rel="noopener">FLIP</a>, <a href="https://www.nextinsurance.com/" target="_blank" rel="noopener">NEXT</a> and a local agent.</p>
+<div class="today"><b>Do This Today</b>Call your county health department, get their mobile food unit packet and fee list, and make a short list of 3 possible commissary kitchens.</div>
+</template>
+
+<!-- ============ MODULE 8 ============ -->
+<template id="t-8">
+<div class="kicker">Module 8</div>
+<h2>Suppliers, Pricing &amp; Your POS</h2>
+<p class="lead">Where you buy and how you ring people up affect your profit as much as your menu does.</p>
+
+<h3>8.1 · Food and packaging suppliers</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Supplier</th><th>Good for</th></tr></thead>
+<tbody>
+<tr><td><a href="https://www.restaurantdepot.com/" target="_blank" rel="noopener">Restaurant Depot</a></td><td>Wholesale cash-and-carry, free membership with a business license</td></tr>
+<tr><td><a href="https://www.gfs.com/" target="_blank" rel="noopener">Gordon Food Service (GFS)</a></td><td>Store pickup and delivery; stores across KY, OH, WV</td></tr>
+<tr><td><a href="https://www.sysco.com/" target="_blank" rel="noopener">Sysco</a></td><td>Delivery once you meet order minimums</td></tr>
+<tr><td><a href="https://www.usfoods.com/" target="_blank" rel="noopener">US Foods</a> (and CHEF'STORE)</td><td>Delivery and cash-and-carry stores</td></tr>
+<tr><td><a href="https://www.samsclub.com/" target="_blank" rel="noopener">Sam's Club</a> / <a href="https://www.costcobusinessdelivery.com/" target="_blank" rel="noopener">Costco Business</a></td><td>Backup shopping and early days</td></tr>
+<tr><td><a href="https://www.webstaurantstore.com/" target="_blank" rel="noopener">WebstaurantStore</a></td><td>Packaging, disposables and smallwares shipped to you</td></tr>
+<tr><td>Local farms and bakeries</td><td>Buns, produce, a "local" story customers like</td></tr>
+</tbody></table></div>
+<p>Tips: compare prices on your top 10 ingredients every month, buy packaging by the case, and track waste daily.</p>
+
+<h3>8.2 · Pricing checklist</h3>
+<ul>
+<li>Keep food + packaging at 28–35% of each price (Module 2 formula).</li>
+<li>Use round prices ($10, $12, $14) for faster service and easier cash.</li>
+<li>Build combos to raise your average order.</li>
+<li>Price event and catering menus higher to cover fees and minimums.</li>
+<li>Add card fees into your prices instead of charging a surcharge at the window.</li>
+</ul>
+
+<h3>8.3 · POS (point of sale)</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>POS</th><th>Why trucks use it</th></tr></thead>
+<tbody>
+<tr><td><a href="https://squareup.com/us/en/point-of-sale/restaurants" target="_blank" rel="noopener">Square for Restaurants</a></td><td>Free plan to start, works offline, cheap hardware</td></tr>
+<tr><td><a href="https://pos.toasttab.com/" target="_blank" rel="noopener">Toast</a></td><td>Built for restaurants, kitchen display, online ordering</td></tr>
+<tr><td><a href="https://www.clover.com/" target="_blank" rel="noopener">Clover</a></td><td>Popular through banks; handheld options</td></tr>
+</tbody></table></div>
+<p class="note">Cloud POS often runs $50–$150/mo, up to $300/mo for a full software stack. (<a href="https://www.restroworks.com/blog/food-truck-cost/" target="_blank" rel="noopener">source</a>) Pick one that works offline, because festival Wi-Fi and cell signal are often bad.</p>
+
+<h3>8.4 · Online ordering and delivery</h3>
+<ul>
+<li>Turn on pre-ordering through your POS so office crowds can order ahead.</li>
+<li>Delivery apps (<a href="https://merchants.doordash.com/" target="_blank" rel="noopener">DoorDash</a>, <a href="https://merchants.ubereats.com/" target="_blank" rel="noopener">Uber Eats</a>, <a href="https://get.grubhub.com/" target="_blank" rel="noopener">Grubhub</a>) can work on days you're parked in one spot. Check their commission and price your app menu to cover it.</li>
+</ul>
+<div class="today"><b>Do This Today</b>Price your top 10 ingredients at 2 suppliers, then sign up for a free POS account and load your menu.</div>
+</template>
+
+<!-- ============ MODULE 9 ============ -->
+<template id="t-9">
+<div class="kicker">Module 9</div>
+<h2>Locations, Events &amp; Marketing</h2>
+<p class="lead">Where you park decides how much you sell. Build a weekly schedule of steady spots, then add events and catering on top.</p>
+
+<h3>9.1 · Where food trucks make money</h3>
+<ul>
+<li><strong>Breweries and wineries:</strong> most don't serve food and want trucks. Often no fee.</li>
+<li><strong>Office parks, hospitals, factories:</strong> weekday lunch crowds with no good food nearby.</li>
+<li><strong>Apartment complexes and neighborhoods:</strong> evening "truck nights."</li>
+<li><strong>Festivals, fairs, concerts, ballgames:</strong> big sales days, but higher fees.</li>
+<li><strong>Private catering:</strong> weddings, birthdays, company lunches, graduations. Charge a guaranteed minimum.</li>
+<li><strong>Food truck parks and rallies</strong> in your area.</li>
+</ul>
+<p class="note">Always check that the spot is allowed: private property needs the owner's written permission, and many cities restrict street parking for trucks.</p>
+
+<h3>9.2 · Booking platforms</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Platform</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><a href="https://www.roaminghunger.com/" target="_blank" rel="noopener">Roaming Hunger</a></td><td>Catering and event bookings, truck listing</td></tr>
+<tr><td><a href="https://www.bestfoodtrucks.com/" target="_blank" rel="noopener">Best Food Trucks</a></td><td>Scheduled lunch spots and event bookings (select cities)</td></tr>
+<tr><td><a href="https://streetfoodfinder.com/" target="_blank" rel="noopener">StreetFoodFinder</a></td><td>Customers track your location and schedule</td></tr>
+<tr><td><a href="https://www.thumbtack.com/" target="_blank" rel="noopener">Thumbtack</a> &amp; <a href="https://www.theknot.com/" target="_blank" rel="noopener">The Knot</a></td><td>Catering and wedding leads</td></tr>
+<tr><td>Local Facebook groups</td><td>Event organizers post "trucks wanted" all the time</td></tr>
+</tbody></table></div>
+
+<h3>9.3 · Marketing that works for trucks</h3>
+<ol>
+<li>Set up a <a href="https://www.google.com/business/" target="_blank" rel="noopener">Google Business Profile</a>, Instagram, Facebook and TikTok.</li>
+<li>Post your weekly schedule every Monday and your location every day you're out.</li>
+<li>Short videos of food on the griddle, the line out the window and customer reactions.</li>
+<li>Use the same name and logo on the truck, menu, cups and social handles.</li>
+<li>Collect phone numbers or emails (POS loyalty or a text club) to announce spots.</li>
+<li>Partner with breweries and businesses: they post you, you post them.</li>
+</ol>
+
+<h3>9.4 · Pitch for a brewery or business</h3>
+<p class="formula">"Hi, I'm [name] with [truck]. We serve [cuisine], fully licensed and insured. We'd love to park at [place] on [day]. We bring our own power and water, handle all our trash, and we'll promote you to our followers. Can I send you our menu and insurance certificate?"</p>
+<div class="today"><b>Do This Today</b>List 15 possible spots (breweries, offices, apartments, events), and send the pitch to the first 5.</div>
+</template>
+
+<!-- ============ MODULE 10 ============ -->
+<template id="t-10">
+<div class="kicker">Module 10</div>
+<h2>Daily Operations</h2>
+<p class="lead">Checklists keep you safe, legal and fast. Print these and tape them inside the truck.</p>
+
+<h3>10.1 · Opening checklist</h3>
+<ul>
+<li>Fresh water tank full, grey tank empty</li>
+<li>Propane levels checked, lines and leak detector OK</li>
+<li>Generator fueled and oil checked</li>
+<li>All food loaded, labeled and dated; fridge temps logged at 41°F or below</li>
+<li>Hand sink stocked with soap and paper towels; sanitizer bucket mixed and tested</li>
+<li>Fire extinguishers in place, suppression pull station clear</li>
+<li>Truck leveled and chocked</li>
+<li>POS charged, card reader working, cash drawer counted</li>
+<li>Menu board out, items you're out of marked</li>
+</ul>
+
+<h3>10.2 · During service</h3>
+<ul>
+<li>Check and log hot holding (135°F+) and cold holding (41°F or below) every 2–4 hours</li>
+<li>Wash hands between raw and ready-to-eat food and every time you change tasks</li>
+<li>One person on the window, one on the line when possible</li>
+<li>Keep the line moving: call out wait times if it's backing up</li>
+<li>Track what sells out and when</li>
+</ul>
+
+<h3>10.3 · Closing checklist</h3>
+<ul>
+<li>Cool and store leftovers properly or throw them out</li>
+<li>Scrape and clean griddle; filter or change fryer oil</li>
+<li>Wash, rinse and sanitize all dishes in the 3-compartment sink</li>
+<li>Wipe down every surface, sweep and mop</li>
+<li>Empty grey water and grease <strong>only</strong> at the commissary or approved site</li>
+<li>Count cash, close out POS, log sales and waste</li>
+<li>Write tomorrow's prep list and order list</li>
+</ul>
+
+<h3>10.4 · Maintenance schedule</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>How often</th><th>Task</th></tr></thead>
+<tbody>
+<tr><td>Daily</td><td>Clean griddle, fryer, hood filters as needed; check tires and fluids</td></tr>
+<tr><td>Weekly</td><td>Deep clean, hood filters washed, fridge coils checked, inventory count</td></tr>
+<tr><td>Monthly</td><td>Generator oil (by hours), propane system check, pest check</td></tr>
+<tr><td>Every ~6 months</td><td>Fire suppression inspection by a licensed company; hood and duct cleaning as needed</td></tr>
+<tr><td>Yearly</td><td>Extinguisher inspection, permit renewals, insurance renewal, vehicle service</td></tr>
+</tbody></table></div>
+
+<h3>10.5 · Numbers to track every week</h3>
+<ul>
+<li>Sales per day and per location</li>
+<li>Number of orders and average order</li>
+<li>Food cost % (purchases ÷ sales)</li>
+<li>Labor cost %</li>
+<li>Best and worst sellers</li>
+<li>Which spots are worth going back to</li>
+</ul>
+<p class="note">Many trucks report $20,000–$50,000 in monthly sales once established, with net margins around 6–10%. (<a href="https://www.restroworks.com/blog/food-truck-cost/" target="_blank" rel="noopener">source</a>) Your results will depend on your market and execution.</p>
+<div class="today"><b>Do This Today</b>Print your opening and closing checklists and a temperature log, and practice a full open-to-close run before your first real service.</div>
+</template>
+
+<!-- ============ MODULE 11 ============ -->
+<template id="t-11">
+<div class="kicker">Module 11</div>
+<h2>Your 60-Day Launch Plan</h2>
+<p class="lead">Permits and builds take time, so plan 60 days from buying the truck to your grand opening.</p>
+
+<h3>Weeks 1–2 · Plan and register</h3>
+<ul>
+<li>Finish your concept, menu and recipe cards.</li>
+<li>Form your LLC, get your EIN, open a bank account, register for sales tax.</li>
+<li>Get your health department packet and lock in a commissary.</li>
+<li>Get financing or set aside your cash.</li>
+</ul>
+<h3>Weeks 3–4 · Truck and equipment</h3>
+<ul>
+<li>Buy or order your truck or trailer after a full inspection.</li>
+<li>Buy missing equipment and smallwares.</li>
+<li>Submit plan review (menu, layout, equipment, plumbing).</li>
+<li>Get insurance quotes and bind your policy.</li>
+</ul>
+<h3>Weeks 5–6 · Inspections and branding</h3>
+<ul>
+<li>Plumbing, fire and health inspections.</li>
+<li>Get ServSafe Manager and food handler cards.</li>
+<li>Wrap the truck, set up POS, Google profile and social media.</li>
+<li>Line up your first 10 spots and 2–3 events.</li>
+</ul>
+<h3>Weeks 7–8 · Soft open and launch</h3>
+<ul>
+<li>Do 2–3 soft openings for friends, family and a partner business.</li>
+<li>Time every order and fix bottlenecks.</li>
+<li>Announce your grand opening spot a week ahead.</li>
+<li>Launch, then review your numbers every week.</li>
+</ul>
+
+<h3>All vendors &amp; links</h3>
+<div class="cols">
+<div><h4>Trucks &amp; trailers</h4>
+<ul>
+<li><a href="https://www.usedvending.com/" target="_blank" rel="noopener">UsedVending.com</a></li>
+<li><a href="https://www.roaminghunger.com/food-trucks-for-sale/" target="_blank" rel="noopener">Roaming Hunger Marketplace</a></li>
+<li><a href="https://www.prestigefoodtrucks.com/" target="_blank" rel="noopener">Prestige Food Trucks</a></li>
+<li><a href="https://www.mrtrailers.com/" target="_blank" rel="noopener">M&amp;R Specialty Trailers</a></li>
+<li><a href="https://www.cruisingkitchens.com/" target="_blank" rel="noopener">Cruising Kitchens</a></li>
+<li><a href="https://www.futuristotrailers.com/" target="_blank" rel="noopener">Futuristo Trailers</a></li>
+</ul></div>
+<div><h4>Equipment &amp; supplies</h4>
+<ul>
+<li><a href="https://www.webstaurantstore.com/" target="_blank" rel="noopener">WebstaurantStore</a></li>
+<li><a href="https://www.katom.com/" target="_blank" rel="noopener">KaTom</a></li>
+<li><a href="https://therestaurantwarehouse.com/" target="_blank" rel="noopener">The Restaurant Warehouse</a></li>
+<li><a href="https://www.restaurantdepot.com/" target="_blank" rel="noopener">Restaurant Depot</a></li>
+<li><a href="https://www.gfs.com/" target="_blank" rel="noopener">Gordon Food Service</a></li>
+<li><a href="https://www.sysco.com/" target="_blank" rel="noopener">Sysco</a> · <a href="https://www.usfoods.com/" target="_blank" rel="noopener">US Foods</a></li>
+</ul></div>
+<div><h4>Power, fire &amp; safety</h4>
+<ul>
+<li><a href="https://powerequipment.honda.com/generators" target="_blank" rel="noopener">Honda Generators</a></li>
+<li><a href="https://www.cummins.com/generators" target="_blank" rel="noopener">Cummins Onan</a></li>
+<li><a href="https://www.ansul.com/" target="_blank" rel="noopener">Ansul fire suppression</a></li>
+<li><a href="https://www.nfpa.org/" target="_blank" rel="noopener">NFPA food truck safety</a></li>
+<li><a href="https://www.servsafe.com/" target="_blank" rel="noopener">ServSafe</a></li>
+</ul></div>
+<div><h4>Selling &amp; booking</h4>
+<ul>
+<li><a href="https://squareup.com/us/en/point-of-sale/restaurants" target="_blank" rel="noopener">Square for Restaurants</a></li>
+<li><a href="https://pos.toasttab.com/" target="_blank" rel="noopener">Toast</a></li>
+<li><a href="https://www.roaminghunger.com/" target="_blank" rel="noopener">Roaming Hunger</a></li>
+<li><a href="https://www.bestfoodtrucks.com/" target="_blank" rel="noopener">Best Food Trucks</a></li>
+<li><a href="https://streetfoodfinder.com/" target="_blank" rel="noopener">StreetFoodFinder</a></li>
+</ul></div>
+</div>
+
+<h3>Sources</h3>
+<ul>
+<li><a href="https://merchants.doordash.com/en-us/blog/how-much-does-a-food-truck-cost" target="_blank" rel="noopener">DoorDash: How Much Does a Food Truck Cost? (2026)</a></li>
+<li><a href="https://www.restroworks.com/blog/food-truck-cost/" target="_blank" rel="noopener">Restroworks: Food Truck Cost (2026)</a></li>
+<li><a href="https://therestaurantwarehouse.com/blogs/restaurant-equipment/food-truck-equipment-guide" target="_blank" rel="noopener">The Restaurant Warehouse: Food Truck Equipment Guide</a></li>
+<li><a href="https://www.insureon.com/food-business-insurance/food-trucks/cost" target="_blank" rel="noopener">Insureon: Food Truck Insurance Cost</a></li>
+<li><a href="https://www.lfchd.org/wp-content/uploads/2021/05/English-Guidelines-for-Mobile-Food-Units-5-10-2021.pdf" target="_blank" rel="noopener">Lexington-Fayette County Health Dept: Mobile Food Unit Guidelines</a></li>
+<li><a href="https://blog.tryotter.com/resource/wiki/licenses-and-permits-to-open-a-food-truck-in-kentucky" target="_blank" rel="noopener">Otter: Licenses and Permits for a Food Truck in Kentucky</a></li>
+<li><a href="https://www.sba.gov/business-guide/launch-your-business/register-your-business" target="_blank" rel="noopener">SBA: Register Your Business</a></li>
+</ul>
+<div class="today"><b>Do This Today</b>Put this 60-day plan on your calendar with a real start date and a target grand opening day.</div>
+</template>
+<script>
+(function(){
+var mods=[
+{id:"overview",t:"t-overview",full:"Course Overview",short:"Overview"},
+{id:"module-1",t:"t-1",full:"1 · Is a Food Truck Right for You?",short:"1 · Fit"},
+{id:"module-2",t:"t-2",full:"2 · Concept & Menu",short:"2 · Menu"},
+{id:"module-3",t:"t-3",full:"3 · Buying Your Rig",short:"3 · Rig"},
+{id:"module-4",t:"t-4",full:"4 · Setting Up Your Truck",short:"4 · Setup"},
+{id:"module-5",t:"t-5",full:"5 · Equipment Inside the Truck",short:"5 · Equipment"},
+{id:"module-6",t:"t-6",full:"6 · Your Startup Budget",short:"6 · Budget"},
+{id:"module-7",t:"t-7",full:"7 · Licenses, Permits & Insurance",short:"7 · Legal"},
+{id:"module-8",t:"t-8",full:"8 · Suppliers, Pricing & POS",short:"8 · Suppliers"},
+{id:"module-9",t:"t-9",full:"9 · Locations, Events & Marketing",short:"9 · Locations"},
+{id:"module-10",t:"t-10",full:"10 · Daily Operations",short:"10 · Operations"},
+{id:"module-11",t:"t-11",full:"11 · Your 60-Day Launch Plan",short:"11 · Launch"}
+];
+var KEY="bby-food-trucking-done", done={};
+try{done=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){done={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}}
+var rail=document.getElementById("rail"), lesson=document.getElementById("lesson");
+var cur=0;
+mods.forEach(function(m,i){
+var b=document.createElement("button"); b.type="button"; b.id="nav-"+m.id;
+b.innerHTML='<span class="dot" aria-hidden="true"></span><span><span class="full"></span><span class="short"></span></span>';
+b.querySelector(".full").textContent=m.full; b.querySelector(".short").textContent=m.short;
+b.addEventListener("click",function(){go(i,true)}); rail.appendChild(b);
+});
+function paint(){
+var n=0;
+mods.forEach(function(m,i){
+var b=document.getElementById("nav-"+m.id);
+b.classList.toggle("done",!!done[m.id]); b.querySelector(".dot").textContent=done[m.id]?"✓":"";
+b.setAttribute("aria-current",i===cur?"true":"false"); if(done[m.id])n++;
+});
+document.getElementById("barfill").style.width=(n/mods.length*100)+"%";
+document.getElementById("ptext").textContent=n+" of "+mods.length+" complete";
+var d=document.getElementById("done"), on=!!done[mods[cur].id];
+d.setAttribute("aria-pressed",on?"true":"false"); d.textContent=on?"✓ Completed":"Mark complete";
+document.getElementById("prev").hidden=cur===0;
+document.getElementById("next").hidden=cur===mods.length-1;
+}
+function go(i,scroll){
+cur=Math.max(0,Math.min(mods.length-1,i));
+lesson.innerHTML=""; lesson.appendChild(document.getElementById(mods[cur].t).content.cloneNode(true));
+if(location.hash!=="#"+mods[cur].id){try{history.replaceState(null,"","#"+mods[cur].id)}catch(e){location.hash=mods[cur].id}}
+paint(); if(scroll)window.scrollTo({top:0});
+}
+document.getElementById("prev").addEventListener("click",function(){go(cur-1,true)});
+document.getElementById("next").addEventListener("click",function(){go(cur+1,true)});
+document.getElementById("done").addEventListener("click",function(){
+var id=mods[cur].id; if(done[id])delete done[id]; else done[id]=true; save(); paint();
+});
+function fromHash(){var h=location.hash.slice(1),i=mods.findIndex(function(m){return m.id===h}); go(i<0?0:i,false)}
+window.addEventListener("hashchange",fromHash); fromHash();
+})();
+</script>
+</body></html>
