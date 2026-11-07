@@ -1,0 +1,445 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Mobile Pet Spa Blueprint</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+/* Layout: course player — sticky module rail on the left, one module of reading on the right; rail collapses to a top strip on phones */
+:root{
+  --bg:#f5f6f9; --surface:#ffffff; --ink:#141a2b; --muted:#5a6276; --line:#dde1ea;
+  --navy:#16213f; --gold:#b8860b; --gold-soft:#f6ecd2; --ok:#1f7a4d; --ok-soft:#e1f2e8;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+  --navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+  --navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.65 var(--body)}
+a{color:var(--gold);text-underline-offset:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.top{background:var(--navy);color:#fff;padding-block:22px 26px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{max-width:1180px;margin:0 auto;display:grid;gap:6px}
+.eyebrow{font:600 13px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:#e3b54a}
+.top h1{font:italic 700 clamp(34px,6vw,56px)/1 var(--display);margin:0;text-wrap:balance;letter-spacing:.01em}
+.top p{margin:0;color:#c9cfdd;max-width:62ch}
+.progress{display:flex;align-items:center;gap:12px;margin-top:10px;font-size:14px;color:#c9cfdd}
+.bar{flex:0 1 260px;height:8px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:#e3b54a;transition:width .3s}
+.wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:270px minmax(0,1fr);gap:32px;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;display:grid;gap:2px}
+.rail button{all:unset;cursor:pointer;display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;padding:10px 12px;border-radius:8px;color:var(--muted);font-size:15px;line-height:1.35}
+.rail button:hover{background:var(--surface);color:var(--ink)}
+.rail button[aria-current="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:inset 3px 0 0 var(--gold)}
+.dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;margin-top:1px}
+.done .dot{background:var(--ok);border-color:var(--ok);color:#fff}
+main{min-width:0}
+article{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:clamp(20px,4vw,44px)}
+article h2{font:700 clamp(30px,4.4vw,42px)/1.05 var(--display);margin:0 0 6px;text-wrap:balance}
+.kicker{font:600 13px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+article h3{font:700 24px/1.15 var(--display);margin:34px 0 8px;letter-spacing:.01em}
+article p,article li{max-width:68ch}
+article ul,article ol{padding-left:1.3em;display:grid;gap:6px}
+.lead{font-size:18px;color:var(--muted)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:8px}
+.cols > div{border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.cols h4{margin:0 0 6px;font:700 18px/1.2 var(--display);letter-spacing:.03em;text-transform:uppercase}
+.tablewrap{overflow-x:auto;margin-top:10px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.formula{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 16px;font-weight:600}
+.today{margin-top:34px;background:var(--gold-soft);border-radius:10px;padding:16px 20px;display:grid;gap:4px}
+.today b{font:700 15px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.note{font-size:14px;color:var(--muted)}
+.pager{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;margin-top:20px}
+.btn{all:unset;cursor:pointer;padding:11px 18px;border-radius:8px;font-weight:600;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+:root[data-theme="dark"] .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}}
+.btn.complete[aria-pressed="true"]{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+@media (max-width:820px){
+  .wrap{grid-template-columns:1fr;gap:16px}
+  nav.rail{position:static;display:flex;overflow-x:auto;gap:6px;padding-bottom:4px}
+  .rail button{flex:0 0 auto;grid-template-columns:20px auto;white-space:nowrap;background:var(--surface);border:1px solid var(--line)}
+  .rail .full{display:none}
+}
+@media (min-width:821px){.rail .short{display:none}}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+
+<header class="top">
+  <div class="top-in">
+    <div class="eyebrow">Built By You Academy · Real World Business Blueprints</div>
+    <h1>Mobile Pet Spa</h1>
+    <p>Start a mobile dog and cat grooming business from the ground up, from your first van quote to your first five booked clients.</p>
+    <div class="progress"><div class="bar"><i id="barfill"></i></div><span id="ptext">0 of 9 complete</span></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="rail" id="rail" aria-label="Course modules"></nav>
+  <main>
+    <article id="lesson" aria-live="polite"></article>
+    <div class="pager">
+      <button class="btn" id="prev" type="button">← Previous</button>
+      <button class="btn complete" id="done" type="button" aria-pressed="false">Mark complete</button>
+      <button class="btn primary" id="next" type="button">Next module →</button>
+    </div>
+  </main>
+</div>
+
+<template id="t-overview">
+  <div class="kicker">Start here</div>
+  <h2>Course Overview</h2>
+  <p class="lead">By the end of this course you'll have a written plan, a real startup budget, your licenses and insurance lined up, a priced service menu, a booking system and your first clients on the calendar.</p>
+  <div class="cols">
+    <div><h4>Who it's for</h4>Beginners who want to start a mobile dog and cat grooming business, whether or not they've groomed before.</div>
+    <div><h4>How it works</h4>Every module ends with a <strong>Do This Today</strong> task. Finish it before you move on.</div>
+  </div>
+  <h3>How to use this course</h3>
+  <ol>
+    <li>Go in order. Each module builds on the one before.</li>
+    <li>Fill in the worksheet for each module as you go.</li>
+    <li>Post your finished Do This Today task in the BBY community for feedback.</li>
+    <li>Costs and rules change and vary by state and city. Every number here is a starting range, so always confirm with your local offices and real quotes.</li>
+  </ol>
+  <h3>Your downloads</h3>
+  <ul>
+    <li><strong>Mobile Pet Spa Resource Pack (PDF):</strong> competitor worksheet, van checklist, licensing and insurance checklist, pricing template, client forms, partner pitch scripts and the 30-day checklist.</li>
+    <li><strong>Startup Cost Calculator (Excel):</strong> your startup budget and profit-per-groom math.</li>
+  </ul>
+  <p class="note">Both files are attached to the Mobile Pet Spa page in the BBY Classroom, under Resources.</p>
+  <h3>Honest note</h3>
+  <p>This course teaches you how to build the business. It doesn't promise income. What you earn depends on your skill, your market, your prices and how many dogs you can safely groom in a day.</p>
+</template>
+
+<template id="t-1">
+  <div class="kicker">Module 1</div>
+  <h2>Is This Business Right for You?</h2>
+  <p class="lead">Mobile grooming is a physical, hands-on trade. You'll be lifting dogs, standing all day and working alone in a van in all kinds of weather.</p>
+  <h3>1.1 · The honest pros and cons</h3>
+  <div class="cols">
+    <div><h4>Pros</h4><ul><li>Clients pay more for at-home convenience</li><li>One-on-one grooming is calmer for anxious and senior pets</li><li>You set your own schedule and service area</li><li>Clients come back every 4–8 weeks</li><li>Lower overhead than renting a storefront</li></ul></div>
+    <div><h4>Cons</h4><ul><li>Big upfront cost for a van or trailer</li><li>Fewer dogs per day than a salon, because you drive between stops</li><li>Hard on your back, hands and shoulders</li><li>Bites, scratches and difficult dogs come with the job</li><li>If the van breaks down, you can't work</li></ul></div>
+  </div>
+  <h3>1.2 · A real day on the route</h3>
+  <ol>
+    <li>Morning van check: fresh water filled, grey tank empty, generator fueled, tools sanitized.</li>
+    <li>Drive to your first stop, park safely, and plug in or start the generator.</li>
+    <li>Greet the owner, check the pet's coat and temperament, and confirm the service.</li>
+    <li>Groom: bath, dry, cut, nails and ears. Clean and sanitize the table between every pet.</li>
+    <li>Take payment, book the next appointment before you leave, then drive to the next stop.</li>
+    <li>End of day: dump grey water legally, restock, clean the van and confirm tomorrow's clients.</li>
+  </ol>
+  <h3>1.3 · Check your local demand</h3>
+  <p>Before you spend a dollar, find out if your area can support you.</p>
+  <ul>
+    <li>Search Google Maps for "mobile dog grooming near me" and list every competitor within 30 minutes.</li>
+    <li>Write down each one's prices, services, reviews and how far out they're booked.</li>
+    <li>Call 3 of them as a customer and ask how soon they can come out. A 2–3 week wait means demand is high.</li>
+    <li>Join 3 local Facebook groups and search "groomer" to see what people complain about.</li>
+    <li>Write down the neighborhoods where people have money, pets and busy schedules.</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Fill in the Competitor Worksheet (Resource Pack, page 1) with at least 5 local groomers and their prices.</div>
+</template>
+
+<template id="t-2">
+  <div class="kicker">Module 2</div>
+  <h2>Skills &amp; Training</h2>
+  <p class="lead">No US state licenses dog groomers as a profession, so nobody checks your skills before you start. Real training is your job, and it keeps pets safe and clients coming back. (<a href="https://www.theacademyofpetcareers.com/blog/dog-groomer-license/" target="_blank" rel="noopener">source</a>)</p>
+  <h3>2.1 · Two ways to start</h3>
+  <div class="cols">
+    <div><h4>You groom</h4>Learn the trade first, then launch your own van. Best if you're willing to put in months of practice.</div>
+    <div><h4>You own, others groom</h4>Buy the van, hire an experienced groomer and run the business side. Best if you have startup money and you're stronger at sales and operations.</div>
+  </div>
+  <h3>2.2 · How to learn grooming</h3>
+  <ol>
+    <li><strong>Work as a bather at a salon or pet store.</strong> You get paid to learn safe handling, bathing and drying.</li>
+    <li><strong>Take a grooming school program</strong>, in person or online with hands-on practice. Compare total cost, hours on real dogs and job placement help.</li>
+    <li><strong>Practice on friends' and family members' dogs</strong> for free or cheap. Take before-and-after photos for your portfolio.</li>
+    <li><strong>Shadow a mobile groomer for a few days.</strong> Offer to bathe for free in exchange for seeing how they run their route.</li>
+  </ol>
+  <h3>2.3 · Certifications that build trust</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Certification</th><th>Who offers it</th><th>What it proves</th></tr></thead>
+    <tbody>
+      <tr><td><a href="https://nationaldoggroomers.com/ncmgprogram" target="_blank" rel="noopener">National Certified Master Groomer</a></td><td>National Dog Groomers Association of America (AKC-endorsed)</td><td>Written and practical exams by breed group. An 85% average qualifies you for the Master exam.</td></tr>
+      <tr><td>Professional Grooming Credential</td><td>American Kennel Club</td><td>Industry test or formal education</td></tr>
+      <tr><td>Fear Free Certified Groomer</td><td>Fear Free</td><td>Low-stress handling for anxious pets</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Check current fees and requirements on each organization's site before you sign up.</p>
+  <h3>2.4 · Check your state and city</h3>
+  <p>Some places regulate grooming <em>businesses</em>. Connecticut requires a $200 business license that renews every two years. Colorado charges fees to grooming facilities and independent contractors. New York City requires a grooming establishment permit. Search "[your state] pet grooming business license" and "[your city] mobile grooming permit."</p>
+  <div class="today"><b>Do This Today</b>Pick your path from 2.1 and write down your first training step with a start date.</div>
+</template>
+
+<template id="t-3">
+  <div class="kicker">Module 3</div>
+  <h2>Startup Costs &amp; Your Vehicle</h2>
+  <p class="lead">Your vehicle is your biggest cost: about $15,000 for a DIY build on a van you already own, up to $130,000 for a new professional rig. (<a href="https://groomboard.com/blog/dog-grooming-vans-trailers" target="_blank" rel="noopener">source</a>)</p>
+  <h3>3.1 · Pick your rig</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Option</th><th>Typical cost</th><th>Good</th><th>Watch out</th></tr></thead>
+    <tbody>
+      <tr><td>New professional conversion</td><td class="num">$70,000–$130,000</td><td>Engineered plumbing and power, warranty, financing</td><td>Highest cost; build wait can be months</td></tr>
+      <tr><td>Used converted rig</td><td class="num">$25,000–$70,000</td><td>Ready to work now</td><td>Check generator hours, water system, floor rot, service records</td></tr>
+      <tr><td>DIY conversion (Transit, Sprinter, ProMaster)</td><td class="num">$15,000–$40,000 + van</td><td>Cheapest if you have the skills</td><td>Plumbing and wiring mistakes get expensive</td></tr>
+      <tr><td>Trailer + tow vehicle</td><td class="num">Get quotes</td><td>More room per dollar; swap the truck if it breaks</td><td>Towing skill, wide turns, long parking spot</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">2026 ranges from one industry source. Get at least 3 real quotes.</p>
+  <h3>3.2 · Build-out checklist</h3>
+  <ul>
+    <li>Fresh water tank of 50–100 gallons (about 8–15 gallons per dog)</li>
+    <li>Grey water tank at least as big as the fresh tank</li>
+    <li>On-demand water heater (propane or electric)</li>
+    <li>Power: built-in generator, shore power, battery bank with inverter, or a mix. A 3,000–4,000 watt inverter generator can run a dryer, pump and lights.</li>
+    <li>High-velocity dryer with variable speed</li>
+    <li>Electric or hydraulic table with a safety loop</li>
+    <li>Tub with a non-slip mat and a ramp or steps</li>
+    <li>Roof vent or exhaust fan, AC and a safe fixed heater</li>
+    <li>Closed-cell insulation and waterproof flooring with coved edges</li>
+    <li>Clippers, blades, shears, brushes, nail tools and a pet first-aid kit</li>
+  </ul>
+  <h3>3.3 · Build your startup budget</h3>
+  <p>Open the Startup Cost Calculator and enter every cost: vehicle, build-out, tools, first-year insurance, licenses and permits, booking software, branding (logo, van wrap, cards) and 3 months of fuel and supplies. It adds a 10–15% buffer for surprises.</p>
+  <div class="today"><b>Do This Today</b>Decide which rig option fits your budget and find 3 real listings or quotes for it.</div>
+</template>
+
+<template id="t-4">
+  <div class="kicker">Module 4</div>
+  <h2>Legal, Licensing &amp; Insurance</h2>
+  <p class="lead">Before your first paid groom you need a registered business, local permits, a legal way to dump wastewater, and insurance that covers both the pets and the van.</p>
+  <h3>4.1 · Set up the business</h3>
+  <ol>
+    <li>Check your business name with your Secretary of State, as a domain and on social media.</li>
+    <li>Register an LLC or sole proprietorship with your state.</li>
+    <li>Get a free EIN at <a href="https://www.irs.gov/businesses/small-businesses-self-employed/apply-for-an-employer-identification-number-ein-online" target="_blank" rel="noopener">irs.gov</a>.</li>
+    <li>Open a separate business bank account. Never mix personal and business money.</li>
+  </ol>
+  <h3>4.2 · Local permits</h3>
+  <ul>
+    <li>City or county business license</li>
+    <li>State grooming business license, where one exists (Connecticut and Colorado, for example)</li>
+    <li>Sales tax permit, if your state taxes grooming or you sell products</li>
+    <li>HOA and parking rules for commercial vehicles</li>
+  </ul>
+  <h3>4.3 · Wastewater: the rule that gets groomers fined</h3>
+  <p>Grooming wastewater carries soap, fur, bacteria and flea chemicals. Many cities make it illegal to let it reach a storm drain. San Diego lists fines of up to $10,000 per day per incident. (<a href="https://www.sandiego.gov/sites/default/files/mobile_business_fact_sheet.pdf" target="_blank" rel="noopener">source</a>)</p>
+  <ul>
+    <li>Hold all grey water in your tank. Never dump it in the street, a gutter or a storm drain.</li>
+    <li>Dump into a sanitary sewer: an approved dump station, or a client's toilet or cleanout only where local rules allow.</li>
+    <li>Call your city's public works or stormwater office and ask where a mobile pet groomer can legally dispose of wastewater. Write down the answer and who told you.</li>
+  </ul>
+  <h3>4.4 · Insurance you need</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Coverage</th><th>What it covers</th><th>Median quote</th></tr></thead>
+    <tbody>
+      <tr><td>General liability</td><td>Injuries or property damage to clients</td><td class="num">$65/mo · $780/yr</td></tr>
+      <tr><td>Care, custody &amp; control</td><td>A pet injured while in your care. Often not in standard liability.</td><td class="num">Add-on; get a quote</td></tr>
+      <tr><td>Commercial auto</td><td>Your van on the road. Personal auto may not cover business use.</td><td class="num">$245/mo · $2,942/yr</td></tr>
+      <tr><td>Inland marine</td><td>Damage or theft of tools and equipment</td><td class="num">Add-on; get a quote</td></tr>
+      <tr><td>Workers' comp</td><td>Required in most states once you hire</td><td class="num">$97/mo · $1,160/yr</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Median quotes from <a href="https://www.insureon.com/pet-care-business-insurance/mobile-pet-groomers/cost" target="_blank" rel="noopener">Insureon</a>; coverage details from <a href="https://www.petcareins.com/mobile-pet-groomer-insurance" target="_blank" rel="noopener">Pet Care Insurance</a>. Get quotes from at least 3 providers.</p>
+  <div class="today"><b>Do This Today</b>Call your city or county about the business license and the wastewater rules. Write both answers on the Licensing &amp; Insurance Checklist.</div>
+</template>
+
+<template id="t-5">
+  <div class="kicker">Module 5</div>
+  <h2>Services &amp; Pricing</h2>
+  <p class="lead">Set prices from your real costs and your local market. Mobile grooming usually costs more than a salon because you bring the service to the client.</p>
+  <h3>5.1 · Build a simple service menu</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Service</th><th>Includes</th></tr></thead>
+    <tbody>
+      <tr><td>Bath &amp; Tidy</td><td>Bath, blow-dry, brush-out, nails, ears, sanitary trim</td></tr>
+      <tr><td>Full Groom</td><td>Bath &amp; Tidy plus a full haircut</td></tr>
+      <tr><td>Puppy Intro</td><td>Short, gentle first visit for puppies under 6 months</td></tr>
+      <tr><td>Cat Groom</td><td>Bath or brush-out, nails, sanitary trim (only once trained in cat handling)</td></tr>
+      <tr><td>Add-ons</td><td>Teeth, de-shedding, nail grinding, paw balm, de-matting per 15 minutes</td></tr>
+    </tbody>
+  </table></div>
+  <h3>5.2 · Price ranges to compare against</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Dog</th><th>Mobile groom (reported)</th></tr></thead>
+    <tbody>
+      <tr><td>Small (under 25 lb)</td><td class="num">$75–$110</td></tr>
+      <tr><td>Medium to large</td><td class="num">$110–$180</td></tr>
+      <tr><td>Matted or special needs</td><td class="num">$150–$250+</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">From <a href="https://alwaysdobetterllc.com/how-much-does-mobile-pet-grooming-cost/" target="_blank" rel="noopener">one 2026 industry article</a>. MoeGo reports salon full grooms at $75–$125 for small dogs and $175–$200 for large (<a href="https://www.moego.pet/blog/how-much-is-dog-grooming" target="_blank" rel="noopener">Feb 2026</a>). Your own Competitor Worksheet beats any national number.</p>
+  <h3>5.3 · Do the profit math</h3>
+  <p class="formula">Profit per groom = price − (supplies + fuel per stop + card fees + fixed costs per groom)</p>
+  <p class="formula">Daily profit = profit per groom × grooms per day</p>
+  <p>Mobile groomers fit fewer dogs into a day than salons because of driving time. Use the Profit Per Groom tab in the Startup Cost Calculator with honest numbers, not best-case ones.</p>
+  <h3>5.4 · Pricing rules to set from day one</h3>
+  <ul>
+    <li>Travel fee outside your main service area</li>
+    <li>Matting fee, with a signed matted-pet release</li>
+    <li>Late cancellation and no-show fee (for example, 24 hours' notice)</li>
+    <li>Multi-pet discount for the same household</li>
+    <li>A price review every 6–12 months</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Fill in the Service Menu &amp; Pricing Template using your competitor research and the profit math.</div>
+</template>
+
+<template id="t-6">
+  <div class="kicker">Module 6</div>
+  <h2>Booking, Routes &amp; Daily Operations</h2>
+  <p class="lead">Your schedule decides your profit. Less driving means more dogs groomed per day.</p>
+  <h3>6.1 · Booking software</h3>
+  <p>Pick one tool for online booking, reminders, client and pet records, payments and routes. Common choices include <a href="https://www.moego.pet/" target="_blank" rel="noopener">MoeGo</a>, DaySmart Pet and Groomsoft. Compare current pricing on each site and use free trials before you commit.</p>
+  <ul>
+    <li>Online booking with a deposit or card on file</li>
+    <li>Automatic text reminders (they cut no-shows)</li>
+    <li>Pet profiles: breed, weight, vaccines, temperament, cut notes</li>
+    <li>Route or map view for mobile appointments</li>
+    <li>Card payments and tipping</li>
+  </ul>
+  <h3>6.2 · Zone days</h3>
+  <p>Split your service area into 3–5 zones and give each a set day, like Monday North and Tuesday East. Book clients only on their zone's day. You burn less fuel and fit in more appointments.</p>
+  <h3>6.3 · Forms every client signs</h3>
+  <ul>
+    <li>New client intake: owner contact, pet details, vet, emergency contact</li>
+    <li>Rabies vaccination record (check local requirements)</li>
+    <li>Grooming release and liability waiver</li>
+    <li>Matted-pet release</li>
+    <li>Senior or medical-condition pet release</li>
+    <li>Aggressive-pet policy and your right to stop a groom for safety</li>
+    <li>Cancellation and no-show policy</li>
+  </ul>
+  <p class="note">Templates are in the Client Form Pack. Have a lawyer in your state review the waiver before you use it.</p>
+  <h3>6.4 · Safety basics</h3>
+  <ul>
+    <li>Never leave a pet alone on the table, and always use a safety loop.</li>
+    <li>Watch dryer heat and van temperature. Overheating is a serious risk.</li>
+    <li>Keep a pet first-aid kit and your nearest emergency vet's address in the van.</li>
+    <li>Disinfect the table, tub and tools between every pet.</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Start free trials of 2 booking tools and map out your zones.</div>
+</template>
+
+<template id="t-7">
+  <div class="kicker">Module 7</div>
+  <h2>Getting Your First Clients</h2>
+  <p class="lead">Your first 20 clients will come from local visibility and referrals, not paid ads.</p>
+  <h3>7.1 · Google Business Profile</h3>
+  <ol>
+    <li>Create a free profile at <a href="https://business.google.com/" target="_blank" rel="noopener">business.google.com</a> as a service-area business. Hide your home address and list the towns you serve.</li>
+    <li>Add services, prices, hours and at least 10 before-and-after photos.</li>
+    <li>Ask every happy client for a review and send them a direct link.</li>
+  </ol>
+  <h3>7.2 · Partnerships that send repeat clients</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Partner</th><th>What to offer</th></tr></thead>
+    <tbody>
+      <tr><td>Apartment complexes</td><td>A monthly on-site grooming day with a resident discount</td></tr>
+      <tr><td>Senior living communities</td><td>Grooming at the door for residents who can't drive their pets</td></tr>
+      <tr><td>Vet offices</td><td>Referral cards at the front desk</td></tr>
+      <tr><td>Trainers and pet sitters</td><td>Swap referrals</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Word-for-word scripts are in Partner Pitch Scripts.</p>
+  <h3>7.3 · Social media that books appointments</h3>
+  <ul>
+    <li>Post before-and-after videos on TikTok, Instagram and Facebook.</li>
+    <li>Post in local Facebook groups and follow each group's promotion rules.</li>
+    <li>Keep your van wrap simple: name, what you do, phone number, website.</li>
+  </ul>
+  <h3>7.4 · Keep them coming back</h3>
+  <ul>
+    <li>Book the next appointment before you leave every groom.</li>
+    <li>Offer a referral reward, like $10 off for both the client and their friend.</li>
+    <li>Text a reminder when each pet is due, every 4–8 weeks.</li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Set up your Google Business Profile and write your pitch for one apartment complex.</div>
+</template>
+
+<template id="t-8">
+  <div class="kicker">Module 8</div>
+  <h2>Your 30-Day Launch Plan</h2>
+  <p class="lead">Follow this plan and you can be ready to book paying clients by day 30, as long as your vehicle and training are already in place.</p>
+  <div class="cols">
+    <div><h4>Week 1 · Decide</h4><ul><li>Competitor Worksheet done</li><li>Training path and rig chosen</li><li>Startup Cost Calculator filled in</li></ul></div>
+    <div><h4>Week 2 · Make it legal</h4><ul><li>Business registered, EIN received</li><li>Business bank account open</li><li>License applied for, wastewater rules confirmed</li><li>3 insurance quotes; coverage bought</li></ul></div>
+    <div><h4>Week 3 · Set up</h4><ul><li>Menu and prices final</li><li>Booking software, forms and zones set</li><li>Supplies stocked; full practice day in the van</li></ul></div>
+    <div><h4>Week 4 · Launch</h4><ul><li>Google Business Profile live</li><li>5 partners pitched</li><li>Launch offer posted in local groups</li><li>First 5 clients booked</li></ul></div>
+  </div>
+  <h3>Sources used in this course</h3>
+  <ul class="note">
+    <li><a href="https://groomboard.com/blog/dog-grooming-vans-trailers" target="_blank" rel="noopener">Groomboard: Dog Grooming Vans and Trailers</a></li>
+    <li><a href="https://www.insureon.com/pet-care-business-insurance/mobile-pet-groomers/cost" target="_blank" rel="noopener">Insureon: Mobile Pet Groomer Insurance Cost</a></li>
+    <li><a href="https://www.petcareins.com/mobile-pet-groomer-insurance" target="_blank" rel="noopener">Pet Care Insurance: Mobile Pet Groomer Insurance</a></li>
+    <li><a href="https://www.theacademyofpetcareers.com/blog/dog-groomer-license/" target="_blank" rel="noopener">The Academy of Pet Careers: Do Dog Groomers Need to Be Licensed?</a></li>
+    <li><a href="https://nationaldoggroomers.com/ncmgprogram" target="_blank" rel="noopener">NDGAA: NCMG Program</a></li>
+    <li><a href="https://www.sandiego.gov/sites/default/files/mobile_business_fact_sheet.pdf" target="_blank" rel="noopener">City of San Diego: Mobile Businesses Fact Sheet</a></li>
+    <li><a href="https://www.moego.pet/blog/how-much-is-dog-grooming" target="_blank" rel="noopener">MoeGo: How Much Is Dog Grooming?</a></li>
+    <li><a href="https://alwaysdobetterllc.com/how-much-does-mobile-pet-grooming-cost/" target="_blank" rel="noopener">Always Do Better: Mobile Pet Grooming Cost</a></li>
+  </ul>
+  <div class="today"><b>Do This Today</b>Put the 30-Day Launch Checklist on your calendar with a real start date.</div>
+</template>
+
+<script>
+(function(){
+  var mods=[
+    {id:"overview",t:"t-overview",full:"Course Overview",short:"Overview"},
+    {id:"module-1",t:"t-1",full:"1 · Is This Business Right for You?",short:"1 · Fit"},
+    {id:"module-2",t:"t-2",full:"2 · Skills & Training",short:"2 · Skills"},
+    {id:"module-3",t:"t-3",full:"3 · Startup Costs & Your Vehicle",short:"3 · Costs"},
+    {id:"module-4",t:"t-4",full:"4 · Legal, Licensing & Insurance",short:"4 · Legal"},
+    {id:"module-5",t:"t-5",full:"5 · Services & Pricing",short:"5 · Pricing"},
+    {id:"module-6",t:"t-6",full:"6 · Booking, Routes & Operations",short:"6 · Operations"},
+    {id:"module-7",t:"t-7",full:"7 · Getting Your First Clients",short:"7 · Clients"},
+    {id:"module-8",t:"t-8",full:"8 · Your 30-Day Launch Plan",short:"8 · Launch"}
+  ];
+  var KEY="bby-mobile-pet-spa-done", done={};
+  try{done=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){done={}}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}}
+  var rail=document.getElementById("rail"), lesson=document.getElementById("lesson");
+  var cur=0;
+  mods.forEach(function(m,i){
+    var b=document.createElement("button"); b.type="button"; b.id="nav-"+m.id;
+    b.innerHTML='<span class="dot" aria-hidden="true"></span><span><span class="full"></span><span class="short"></span></span>';
+    b.querySelector(".full").textContent=m.full; b.querySelector(".short").textContent=m.short;
+    b.addEventListener("click",function(){go(i,true)}); rail.appendChild(b);
+  });
+  function paint(){
+    var n=0;
+    mods.forEach(function(m,i){
+      var b=document.getElementById("nav-"+m.id);
+      b.classList.toggle("done",!!done[m.id]); b.querySelector(".dot").textContent=done[m.id]?"✓":"";
+      b.setAttribute("aria-current",i===cur?"true":"false"); if(done[m.id])n++;
+    });
+    document.getElementById("barfill").style.width=(n/mods.length*100)+"%";
+    document.getElementById("ptext").textContent=n+" of "+mods.length+" complete";
+    var d=document.getElementById("done"), on=!!done[mods[cur].id];
+    d.setAttribute("aria-pressed",on?"true":"false"); d.textContent=on?"✓ Completed":"Mark complete";
+    document.getElementById("prev").hidden=cur===0;
+    var nx=document.getElementById("next"); nx.hidden=cur===mods.length-1;
+  }
+  function go(i,scroll){
+    cur=Math.max(0,Math.min(mods.length-1,i));
+    lesson.innerHTML=""; lesson.appendChild(document.getElementById(mods[cur].t).content.cloneNode(true));
+    if(location.hash!=="#"+mods[cur].id){try{history.replaceState(null,"","#"+mods[cur].id)}catch(e){location.hash=mods[cur].id}}
+    paint(); if(scroll)window.scrollTo({top:0});
+  }
+  document.getElementById("prev").addEventListener("click",function(){go(cur-1,true)});
+  document.getElementById("next").addEventListener("click",function(){go(cur+1,true)});
+  document.getElementById("done").addEventListener("click",function(){
+    var id=mods[cur].id; if(done[id])delete done[id]; else done[id]=true; save(); paint();
+  });
+  function fromHash(){var h=location.hash.slice(1),i=mods.findIndex(function(m){return m.id===h}); go(i<0?0:i,false)}
+  window.addEventListener("hashchange",fromHash); fromHash();
+})();
+</script>
+
+</body></html>
