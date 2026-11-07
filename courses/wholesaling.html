@@ -1,0 +1,1649 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Wholesale Real Estate Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+/* Same course-player layout as the other BBY blueprints */
+:root{
+--bg:#f5f6f9; --surface:#ffffff; --ink:#141a2b; --muted:#5a6276; --line:#dde1ea;
+--navy:#16213f; --gold:#b8860b; --gold-soft:#f6ecd2; --ok:#1f7a4d; --ok-soft:#e1f2e8; --bad:#b3261e; --bad-soft:#fbe5e3;
+--display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+--body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}}
+:root[data-theme="dark"]{
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--body)}
+[hidden]{display:none!important}
+a{color:var(--gold);text-underline-offset:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.top{background:var(--navy);color:#fff;padding-block:22px 26px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{max-width:1180px;margin:0 auto;display:grid;gap:6px}
+.eyebrow{font:600 13px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:#e3b54a}
+.top h1{font:italic 700 clamp(34px,6vw,56px)/1 var(--display);margin:0;text-wrap:balance;letter-spacing:.01em}
+.top p{margin:0;color:#c9cfdd;max-width:62ch}
+.progress{display:flex;align-items:center;gap:12px;margin-top:10px;font-size:14px;color:#c9cfdd}
+.bar{flex:0 1 260px;height:8px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:#e3b54a;transition:width .3s}
+.wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:270px minmax(0,1fr);gap:32px;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;display:grid;gap:2px}
+.rail button{all:unset;cursor:pointer;display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;padding:10px 12px;border-radius:8px;color:var(--muted);font-size:15px;line-height:1.35}
+.rail button:hover{background:var(--surface);color:var(--ink)}
+.rail button[aria-current="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:inset 3px 0 0 var(--gold)}
+.dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;margin-top:1px}
+.done .dot{background:var(--ok);border-color:var(--ok);color:#fff}
+main{min-width:0}
+article{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:clamp(20px,4vw,44px)}
+article h2{font:700 clamp(30px,4.4vw,42px)/1.05 var(--display);margin:0 0 6px;text-wrap:balance}
+.kicker{font:600 13px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+article h3{font:700 24px/1.15 var(--display);margin:34px 0 8px;letter-spacing:.01em}
+article p,article li{max-width:68ch}
+article ul,article ol{padding-left:1.3em;display:grid;gap:6px}
+.lead{font-size:18px;color:var(--muted)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:8px}
+.cols > div{border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.cols h4{margin:0 0 6px;font:700 18px/1.2 var(--display);letter-spacing:.03em;text-transform:uppercase}
+.cols .pro{border-color:var(--ok);background:var(--ok-soft)} .cols .pro h4{color:var(--ok)}
+.cols .con{border-color:var(--bad);background:var(--bad-soft)} .cols .con h4{color:var(--bad)}
+.tablewrap{overflow-x:auto;margin-top:10px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{font-weight:700;border-top:2px solid var(--ink)}
+.formula{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 16px;font-weight:600}
+.today{margin-top:34px;background:var(--gold-soft);border-radius:10px;padding:16px 20px;display:grid;gap:4px}
+.today b{font:700 15px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.note{font-size:14px;color:var(--muted)}
+.pager{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;margin-top:20px}
+.btn{all:unset;cursor:pointer;padding:11px 18px;border-radius:8px;font-weight:600;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+:root[data-theme="dark"] .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}}
+.btn.complete[aria-pressed="true"]{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+@media (max-width:820px){
+.wrap{grid-template-columns:1fr;gap:16px}
+nav.rail{position:static;display:flex;overflow-x:auto;gap:6px;padding-bottom:4px}
+.rail button{flex:0 0 auto;grid-template-columns:20px auto;white-space:nowrap;background:var(--surface);border:1px solid var(--line)}
+.rail .full{display:none}
+}
+@media (min-width:821px){.rail .short{display:none}}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+
+/* ---- Real estate blueprint extras ---- */
+article h4{font:700 20px/1.2 var(--display);margin:26px 0 6px;letter-spacing:.02em}
+article h5{font:700 17px/1.2 var(--display);margin:20px 0 4px;letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
+.lsub{color:var(--muted);font-style:italic;margin-top:-2px}
+.lesson-block{border-top:1px solid var(--line);margin-top:34px;padding-top:4px}
+.lesson-block:first-of-type{border-top:0}
+.box,.callout,.card,.template,.reality,.math,.scorebox,.calc,.check,.tab-panel,.compare-card,.tool-card,details.faqitem{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:16px 0}
+.box-title,.s-label,.tlabel,.rlabel,.tag{display:block;font:700 14px/1.2 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.box.warn,.warn{border-left:4px solid var(--bad);background:var(--bad-soft)}
+.box.warn .box-title,.warn .box-title{color:var(--bad)}
+.box.template,.template{border-style:dashed;border-color:var(--gold)}
+.box.script,.script{border-left:4px solid var(--gold);background:var(--gold-soft);position:relative}
+.checkstate{border:2px solid var(--gold);background:var(--gold-soft);border-radius:10px;padding:14px 18px;margin:16px 0}
+.checkstate .box-title{color:var(--gold)}
+.callout{border:1px dashed var(--gold);background:var(--gold-soft)}
+.reality{border-left:4px solid var(--gold)}
+.card.gold{border-left:4px solid var(--gold)} .card.teal{border-left:4px solid var(--navy)}
+pre{white-space:pre-wrap;word-break:break-word;font:14px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;margin:0}
+.res-grid,.toolkit-grid,.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:12px 0}
+.res-card{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--bg)}
+.res-card a{font-weight:700}
+.res-desc{font-size:14px;color:var(--muted);margin-top:4px}
+.linkrow{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.lbtn{display:inline-flex;gap:6px;align-items:center;padding:9px 14px;border-radius:8px;background:var(--navy);color:#fff;text-decoration:none;font-weight:600;font-size:14px}
+.lbtn.alt{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+:root[data-theme="dark"] .lbtn{background:var(--gold);color:#141a2b}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lbtn{background:var(--gold);color:#141a2b}}
+:root[data-theme="dark"] .lbtn.alt{background:var(--surface);color:var(--ink)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lbtn.alt{background:var(--surface);color:var(--ink)}}
+.copy-btn{position:absolute;top:12px;right:12px;border:1px solid var(--gold);background:var(--surface);color:var(--ink);border-radius:6px;padding:4px 10px;font:600 12px var(--body);cursor:pointer}
+.math .row,.calc-result .row{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--line)}
+.math .row:last-child{border-bottom:0;font-weight:700}
+.neg{color:var(--bad)} .pos{color:var(--ok)} td.good{color:var(--ok);font-weight:600} td.bad{color:var(--bad);font-weight:600}
+.compare-card.good{border-left:4px solid var(--ok)} .compare-card.bad{border-left:4px solid var(--bad)}
+.compare-card.good .tag{color:var(--ok)} .compare-card.bad .tag{color:var(--bad)}
+.scoreitem{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
+.scoreitem:last-child{border-bottom:0} .pts{font-weight:700;color:var(--gold);white-space:nowrap}
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:4px}
+.field input{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:15px var(--body)}
+.calc-btn{margin-top:14px;padding:10px 18px;border-radius:8px;border:0;background:var(--gold);color:#141a2b;font-weight:700;cursor:pointer}
+.calc-result{display:none;margin-top:16px} .calc-result.show{display:block}
+.calc-result .row.total{font-weight:700}
+.pill{display:inline-block;padding:5px 12px;border-radius:99px;font-weight:700;font-size:13px}
+.pill.pass{background:var(--ok-soft);color:var(--ok)} .pill.fail{background:var(--bad-soft);color:var(--bad)} .pill.caution{background:var(--gold-soft);color:var(--gold)}
+.badge{display:inline-block;font-size:12px;font-weight:700;padding:3px 8px;border-radius:6px;background:var(--gold-soft);color:var(--gold)}
+.check{display:grid;gap:4px} .check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.check input{width:18px;height:18px;margin-top:4px;accent-color:var(--gold);flex-shrink:0}
+.check input:checked+span{text-decoration:line-through;opacity:.6}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tab-btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 14px;border-radius:8px;font:600 14px var(--body);cursor:pointer}
+.tab-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tab-panel{display:none} .tab-panel.active{display:block}
+details.faqitem summary{cursor:pointer;font-weight:700}
+.tline{border-bottom:1px solid var(--line);padding:6px 0}
+ul.plain{padding-left:1.3em}
+.tnum{color:var(--gold);font-weight:700}
+.tool-card h4{margin-top:4px}
+</style></head><body>
+
+<header class="top">
+  <div class="top-in">
+    <div class="eyebrow">Built By You Academy · Real World Business Blueprints</div>
+    <h1>Wholesale Real Estate</h1>
+    <p>Find motivated sellers, run the numbers, put properties under contract, assign or double close to cash buyers, and stay on the right side of your state's wholesaling laws.</p>
+    <p><a href="downloads/wholesaling-startup-workbook.xlsx" download style="color:#e3b54a;font-weight:600">⬇ Download the Startup Workbook (Excel)</a> · <a href="#toolkit" style="color:#e3b54a;font-weight:600">Startup links</a></p>
+    <div class="progress"><div class="bar"><i id="barfill"></i></div><span id="ptext">0 of 11 complete</span></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="rail" id="rail" aria-label="Course modules"></nav>
+  <main>
+    <article id="lesson" aria-live="polite"></article>
+    <div class="pager">
+      <button class="btn" id="prev" type="button">← Previous</button>
+      <button class="btn complete" id="done" type="button" aria-pressed="false">Mark complete</button>
+      <button class="btn primary" id="next" type="button">Next module →</button>
+    </div>
+  </main>
+</div>
+<template id="t-overview">
+  <div class="kicker">Start here</div>
+  <h2>Course Overview</h2>
+  <p class="lead">Wholesaling means putting a property under contract at a discount, then assigning that contract (or double closing) to a cash buyer for a fee. This course takes you from the basics through finding sellers, running the numbers, contracts, closing, building your team and your first 90 days.</p>
+  <div class="cols">
+    <div><h4>Who it's for</h4>Beginners willing to make calls, follow up for months and learn the numbers. You don't need to own property to start.</div>
+    <div><h4>How it works</h4>9 modules, 27 lessons. Scripts and templates are inside the lessons. Every module ends with a <strong>Do This Today</strong> task.</div>
+  </div>
+  <div class="checkstate">
+    <div class="box-title">⚠ Read Lesson 1.2 before you do anything else</div>
+    <p>Many states now require a license, registration or written disclosures to wholesale. Rules differ by state and change often. Check yours first.</p>
+  </div>
+  <h3>Honest note</h3>
+  <p>Wholesaling is a sales and marketing business. Deals take time, many contracts fall through, and marketing costs money before anything closes. This course doesn't promise income and isn't legal or tax advice. Have a local real estate attorney review your contracts.</p>
+</template>
+<template id="t-1">
+  <div class="kicker">Module 1</div>
+  <h2>Welcome to Wholesaling</h2>
+  <section class="lesson-block"><h3>1.1 · What Wholesaling Actually Is (and Isn't)</h3>
+  <p class="lsub">The mechanics, the money, and the misconceptions — before anything else.</p>
+
+  <p>Real estate wholesaling is the practice of getting a property under contract at a discount, then transferring your rights in that contract to another buyer — usually an investor — for a fee. You never own the house. You never list it. You're selling <strong>your contractual right to buy it</strong>, not acting as the owner's agent. Whether you need a license or must give special disclosures depends on your state (Lesson 1.2).</p>
+
+  <h4>The Basic Flow</h4>
+  <ol>
+    <li><strong>Find a motivated seller</strong> — someone who needs to sell fast, often below market value (inherited property, pre-foreclosure, landlord burnout, divorce, major repairs needed, out-of-state owner, etc.)</li>
+    <li><strong>Get the property under contract</strong> at a price that leaves room for your fee and the end buyer's profit margin</li>
+    <li><strong>Market the contract</strong> to your cash buyer list — investors who pay cash and close fast</li>
+    <li><strong>Assign the contract (or double close)</strong> to that buyer for an assignment fee, typically collected at closing</li>
+    <li><strong>Get paid</strong> your assignment fee at closing. The fee is whatever spread you negotiate, it varies widely by market and deal, and many contracts never close</li>
+  </ol>
+
+  <h4>What Wholesaling Is NOT</h4>
+  <table>
+    <tr><th>Wholesaling IS</th><th>Wholesaling is NOT</th></tr>
+    <tr><td>Selling your equitable interest in a contract</td><td>Acting as a licensed agent for someone else's property</td></tr>
+    <tr><td>A short-term position before transfer or assignment</td><td>Owning, rehabbing, and reselling (that's flipping)</td></tr>
+    <tr><td>Marketing YOUR contract rights</td><td>Marketing someone else's house "for sale" without disclosure</td></tr>
+    <tr><td>Getting paid an assignment fee or via double close</td><td>Earning a sales "commission"</td></tr>
+  </table>
+
+  <h4>Why This Model Works</h4>
+  <p>Distressed sellers usually care more about <strong>speed, certainty, and zero hassle</strong> than squeezing out top dollar. They don't want to list with an agent, wait 60-90 days, deal with showings, pay for repairs, or pay 6% commission. You're offering a cash-equivalent, as-is, fast closing — and that convenience is worth a discount to them. The gap between what they'll accept and what an investor will pay (after repairs and profit) is where your fee lives.</p>
+
+  <div class="box">
+    <div class="box-title">✦ Reality Check</div>
+    <p>Wholesaling is a <strong>sales and marketing business</strong> that happens to use real estate as the product. The people who succeed treat lead generation, follow-up, and relationship-building (with sellers AND buyers) like a job — not a lottery ticket. The people who quit treated it like one.</p>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>1.2 · Is This Legal? Licenses, Registration &amp; Disclosures</h3>
+  <p class="lsub">Assigning your own contract is generally legal, but many states now regulate how you do it. Here's how to stay on the right side of your state's rules.</p>
+
+  <p>Assigning <strong>your own contractual rights</strong> in a property is generally legal in every state. What varies is <strong>how</strong> you're allowed to do it: some states require a license or registration, some require written disclosures to the seller and buyer, and many treat marketing a property you don't own to the public as brokering. You are never allowed to market <strong>someone else's property</strong> as if you have the authority to sell it for them.</p>
+  <div class="checkstate">
+    <div class="box-title">⚠ Check your state before you market a single contract</div>
+    <p>Wholesaling rules have changed fast. Several states now require a <strong>real estate license, a registration, or written disclosures</strong> to wholesale. A few examples (not a complete list, and laws keep changing):</p>
+    <ul>
+      <li><strong>Illinois:</strong> a broker license is required once you do 2 or more assignable-contract deals in 12 months (225 ILCS 454).</li>
+      <li><strong>Kentucky:</strong> publicly advertising your equitable interest in a property requires a license (HB 62, 2023; KRS 324.010).</li>
+      <li><strong>Pennsylvania, South Carolina, Delaware, Nebraska, Virginia:</strong> licensing rules for wholesaling or for marketing a contract to the public.</li>
+      <li><strong>Connecticut, Oregon:</strong> registration or license plus written disclosures.</li>
+      <li><strong>Alabama, Arizona, Georgia, Indiana, Iowa, Maryland, North Dakota, Ohio, Oklahoma, Tennessee, Texas, Wisconsin:</strong> required written disclosures, and in some states a seller cancellation right.</li>
+    </ul>
+    <p><strong>What to do:</strong></p>
+    <ol>
+      <li>Search your state's real estate commission website for "wholesale" or "equitable interest." Find yours through the <a href="https://www.arello.org/" target="_blank" rel="noopener">ARELLO regulator directory</a>.</li>
+      <li>Call the commission and ask: "Do I need a license or registration to assign a purchase contract, and what disclosures are required?" Write the answer in your workbook (Licenses tab).</li>
+      <li>Pay a local real estate attorney to review your contract, disclosures and marketing before your first deal.</li>
+    </ol>
+    <p class="note">Sources: state statutes listed above, as summarized by the <a href="https://squatters.io/blog/wholesaling-laws-by-state" target="_blank" rel="noopener">Squatters 50-state wholesaling tracker</a> (checked July 2026). This is education, not legal advice.</p>
+  </div>
+
+  <h4>Best Practices That Keep You Clean</h4>
+  <ul>
+    <li><strong>Use proper assignable language</strong> in your purchase agreement ("Buyer and/or Assigns")</li>
+    <li><strong>Disclose your role</strong> to the seller — that you may assign the contract to another buyer or entity, and that you are not acting as their agent</li>
+    <li><strong>Disclose to your cash buyer</strong> that you hold an equitable interest under a contract, not the deed</li>
+    <li><strong>Don't advertise the property itself</strong> ("3bd/2ba for sale!") — advertise that you have a <strong>property under contract</strong> available for assignment</li>
+    <li><strong>Use a double close</strong> instead of an assignment in states with stricter assignment rules, or any time the seller doesn't want the assignment fee visible</li>
+    <li><strong>Keep your paperwork organized</strong> — purchase agreement, assignment agreement (or two separate closings), and any addenda, all dated and signed</li>
+  </ul>
+
+  <h4>Activities That May Require Disclosure or Licensing</h4>
+  <table>
+    <tr><th>Activity</th><th>License Needed?</th></tr>
+    <tr><td>Putting a property under contract in your own name or LLC, then assigning the contract</td><td>Depends on your state: some require a license, registration or disclosures</td></tr>
+    <tr><td>Marketing a property you don't have under contract, on behalf of the owner, for a fee</td><td>Yes — this is brokering</td></tr>
+    <tr><td>Double closing (you take title, then resell)</td><td>Usually no, because you own it when you sell. Confirm with your state and attorney</td></tr>
+    <tr><td>Taking a fee to "find a buyer" for someone else's listed property</td><td>Yes</td></tr>
+  </table>
+
+  <div class="box template">
+    <div class="box-title">✦ Document Checklist for This Module</div>
+    <p>You'll build these out in Module 5, but start collecting/saving templates for: <strong>Purchase & Sale Agreement (assignable)</strong>, <strong>Assignment of Contract</strong>, <strong>Memorandum of Contract (for recording)</strong>, and a <strong>Seller Disclosure / Acknowledgment</strong> that explains your role plainly.</p>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>1.3 · The Wholesaler's Mindset &amp; Deal Math</h3>
+  <p class="lsub">This is a numbers game with a long memory — here's the math that makes it work.</p>
+
+  <p>Wholesaling rewards volume and follow-up more than charisma. Most deals don't come from the first conversation — they come from the 4th, 7th, or 12th touch with a seller who wasn't ready before. Understanding the funnel math up front keeps you from quitting at lead #40 right before lead #50 would have paid for the whole month.</p>
+
+  <h4>The Funnel (Example Ranges)</h4>
+  <table>
+    <tr><th>Stage</th><th>Typical Conversion</th><th>Example (starting from 100 leads)</th></tr>
+    <tr><td>Leads generated</td><td>—</td><td>100</td></tr>
+    <tr><td>Leads that answer / respond</td><td>20-40%</td><td>20-40</td></tr>
+    <tr><td>Motivated enough for a real conversation</td><td>30-50% of responders</td><td>6-20</td></tr>
+    <tr><td>Get to a signed contract</td><td>10-20% of motivated convos</td><td>1-4 contracts</td></tr>
+    <tr><td>Contract assigns/closes</td><td>50-80% of contracts</td><td>0.5-3 paid deals</td></tr>
+  </table>
+
+  <p>That means roughly <strong>every 100 quality leads</strong> can reasonably produce <strong>1-3 paid deals</strong>. The wholesalers who scale focus on increasing lead volume AND tightening each conversion step — better scripts, faster follow-up, a stronger buyers list.</p>
+
+  <h4>Example Deal Math</h4>
+  <div class="box template">
+    <div class="box-title">✦ Sample Deal</div>
+    <pre>Seller's asking price (motivated, as-is):       $90,000
+After Repair Value (ARV):                       $180,000
+Estimated repairs:                              $35,000
+
+Your contract price with seller:                $95,000
+Your assignment fee:                            $10,000
+End buyer's total all-in (price + fee + repairs): $140,000
+End buyer's projected resale (ARV):             $180,000
+End buyer's margin before holding/selling costs: $40,000
+
+Your payday at closing:                         $10,000</pre>
+  </div>
+
+  <div class="box warn">
+    <div class="box-title">⚠ No income promises</div>
+    <p>The funnel percentages above are rough illustrations, not guaranteed results. Many new wholesalers close zero deals for months. Track your own numbers from day one in your CRM and your workbook, and judge the business by your real data.</p>
+  </div>
+
+  <div class="box">
+    <div class="box-title">✦ The Mindset Shift</div>
+    <p>Treat every "no" as data, not rejection. Every seller who isn't ready today goes into your follow-up system, not the trash. The wholesalers making real money aren't the ones with the best one-liners — they're the ones with the best <strong>follow-up systems</strong> and the thickest buyers lists. We build both starting in Module 3.</p>
+  </div>
+  
+  </section>
+  <div class="today"><b>Do This Today</b>Look up your state's wholesaling rules (Lesson 1.2) and write what you find in the Licenses tab of your workbook.</div>
+</template>
+<template id="t-2">
+  <div class="kicker">Module 2</div>
+  <h2>Real Estate Fundamentals Every Wholesaler Needs</h2>
+  <section class="lesson-block"><h3>2.1 · The Wholesaler's Glossary</h3>
+  <p class="lsub">Speak the language fluently — sellers, buyers, and lenders will all test you on it without realizing it.</p>
+
+  <p>You don't need a real estate degree, but you do need to be fluent in these terms. Sellers will mention some of these without explaining them, and cash buyers will use ALL of them when evaluating your deals. Knowing this cold builds instant credibility.</p>
+
+  <h4>Core Terms</h4>
+  <table>
+    <tr><th>Term</th><th>What It Means</th></tr>
+    <tr><td><strong>ARV</strong> (After Repair Value)</td><td>What the property will be worth once fully renovated and sold at market value</td></tr>
+    <tr><td><strong>MAO</strong> (Maximum Allowable Offer)</td><td>The highest price you can pay a seller and still leave room for repairs, your fee, and the buyer's profit</td></tr>
+    <tr><td><strong>Comps</strong> (Comparable Sales)</td><td>Recently sold properties similar in size, condition, age, and location — used to estimate ARV</td></tr>
+    <tr><td><strong>Equity</strong></td><td>The difference between what's owed on a property and what it's worth</td></tr>
+    <tr><td><strong>Equitable Interest</strong></td><td>Your legal right to purchase a property once you have a signed contract — this is what you're "selling" when you assign</td></tr>
+    <tr><td><strong>Assignment Fee</strong></td><td>The amount your end buyer pays you to take over your contract position</td></tr>
+    <tr><td><strong>Double Close</strong></td><td>You actually purchase the property (briefly) and immediately resell it in a second, back-to-back closing</td></tr>
+    <tr><td><strong>Subject-To</strong></td><td>Buying a property "subject to" the existing mortgage staying in place — the loan isn't paid off, ownership transfers via deed</td></tr>
+    <tr><td><strong>BRRRR</strong></td><td>Buy, Rehab, Rent, Refinance, Repeat — a buy-and-hold strategy covered in Module 8</td></tr>
+    <tr><td><strong>Lien</strong></td><td>A legal claim against a property for unpaid debt (mortgage, taxes, contractor, HOA, etc.)</td></tr>
+    <tr><td><strong>Title</strong></td><td>Legal ownership of the property — must be "clear" (free of unresolved liens) to close</td></tr>
+    <tr><td><strong>Earnest Money Deposit (EMD)</strong></td><td>Good-faith money you (or your buyer) put down to show you're serious — held by title/escrow</td></tr>
+    <tr><td><strong>Memorandum of Contract</strong></td><td>A short document recorded at the courthouse that puts the public on notice you have a contract on the property — protects your position</td></tr>
+    <tr><td><strong>Motivated Seller</strong></td><td>An owner with a strong reason to sell fast and at a discount (the lifeblood of this business)</td></tr>
+    <tr><td><strong>Days on Market (DOM)</strong></td><td>How long a comparable property sat before selling — affects how reliable that comp is</td></tr>
+    <tr><td><strong>Hard Money</strong></td><td>Short-term, asset-based loans from private lending companies, used by investors to fund purchases + rehab</td></tr>
+    <tr><td><strong>Skip Tracing</strong></td><td>The process of finding current contact info (phone/email) for a property owner using their name and address</td></tr>
+  </table>
+
+  <div class="box">
+    <div class="box-title">✦ Why This Matters</div>
+    <p>When a cash buyer asks "what's your ARV and what's the repair number based on?" — and you can answer confidently — you get treated like a professional and your deals get looked at first. When you can't, you get ignored. This module makes sure that never happens to you.</p>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>2.2 · How to Calculate ARV Like a Pro</h3>
+  <p class="lsub">The single most important number in any deal — get this wrong and everything downstream is wrong too.</p>
+
+  <p>ARV (After Repair Value) is what a fully renovated version of the subject property would sell for in today's market. Every offer, every repair budget, and every buyer's decision flows from this number. Get it within 5% and you'll be trusted. Get it wrong by 15% and you'll either lose deals (overestimated repairs needed because ARV too low) or burn buyers (ARV too high, deal doesn't appraise or resell).</p>
+
+  <h4>Step-by-Step ARV Process</h4>
+  <ol>
+    <li><strong>Pull 3-6 recent sold comps</strong> within 0.5-1 mile, sold in the last 3-6 months, similar square footage (within 10-15%), same bed/bath count, same property type (don't compare a ranch to a 2-story)</li>
+    <li><strong>Match condition</strong> — your comps should be FULLY RENOVATED if you're estimating the ARV of a property that will also be fully renovated. Don't compare to other distressed sales.</li>
+    <li><strong>Calculate price per square foot</strong> for each comp (sold price ÷ square footage)</li>
+    <li><strong>Average the price/sqft</strong> of your best 3-4 comps (throw out outliers)</li>
+    <li><strong>Multiply</strong> by the subject property's square footage</li>
+    <li><strong>Adjust</strong> for major differences: extra bathroom (+), no garage (-), bigger lot (+), busy road (-), etc.</li>
+  </ol>
+
+  <div class="box template">
+    <div class="box-title">✦ Worked Example</div>
+    <pre>Subject property: 1,400 sqft, 3bd/2ba, ranch
+
+Comp 1: 1,350 sqft, sold $172,000 → $127.41/sqft
+Comp 2: 1,450 sqft, sold $184,000 → $126.90/sqft
+Comp 3: 1,380 sqft, sold $175,000 → $126.81/sqft
+Comp 4 (outlier, corner lot, busy road): 1,420 sqft, sold $158,000 → $111.27/sqft (excluded)
+
+Average price/sqft (Comps 1-3): $127.04/sqft
+ARV = 1,400 sqft × $127.04 = $177,856 → round to $178,000</pre>
+  </div>
+
+  <h4>Where to Pull Comps</h4>
+  <div class="res-grid">
+    <div class="res-card"><a href="https://www.zillow.com" target="_blank">Zillow — Recently Sold Filter</a><div class="res-desc">Free, fast, decent starting point. Filter by "Sold" and last 6 months.</div></div>
+    <div class="res-card"><a href="https://www.redfin.com" target="_blank">Redfin — Sold Homes</a><div class="res-desc">Often more accurate sold data and better map filtering.</div></div>
+    <div class="res-card"><a href="https://www.realtor.com" target="_blank">Realtor.com</a><div class="res-desc">Good secondary source to cross-check Zillow/Redfin numbers.</div></div>
+    <div class="res-card">Local Realtor / MLS Access</div><div class="res-desc">Your Module 7 realtor relationship will get you the most accurate, real-time comps via MLS — the gold standard.</div></div>
+  </div>
+
+  <div class="box warn">
+    <div class="box-title">⚠ Common ARV Mistakes</div>
+    <ul>
+      <li>Using <strong>active listings</strong> instead of <strong>sold</strong> comps (asking price ≠ sold price)</li>
+      <li>Comparing a distressed/unrenovated property's price/sqft as your ARV comp</li>
+      <li>Ignoring lot size, school district, or street differences that swing value significantly</li>
+      <li>Using comps that are too old (more than 6 months in a fast-moving market)</li>
+    </ul>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>2.3 · The MAO Formula & Repair Cost Estimating</h3>
+  <p class="lsub">How to turn ARV into a real number you can offer a seller — with confidence.</p>
+
+  <p>MAO (Maximum Allowable Offer) is the highest price you can pay for a property and still have room for repairs, your assignment fee, and your buyer's profit margin. This is the formula that protects you from overpaying — and it's the formula your cash buyers are running on every deal you send them, so you need to run it first.</p>
+
+  <div class="box template">
+    <div class="box-title">✦ The MAO Formula</div>
+    <pre>MAO = (ARV × Investor Margin %) − Estimated Repairs − Your Assignment Fee
+
+Common Investor Margin: 70% of ARV (the "70% Rule")
+Some markets/strategies use 65-75% depending on price point and demand</pre>
+  </div>
+
+  <h4>Worked Example</h4>
+  <div class="box template">
+    <div class="box-title">✦ Using the Example From Lesson 2.2 (ARV = $178,000)</div>
+    <pre>ARV:                          $178,000
+× 70%:                         $124,600
+− Estimated Repairs ($35,000): $89,600
+− Your Assignment Fee ($10,000): $79,600
+
+MAO (what you can offer the seller): $79,600</pre>
+    <p>This means you can offer the seller up to roughly $79,600 and still hand your buyer a deal at $89,600 all-in (their target), leaving room for their $35,000 in repairs against a $178,000 ARV — a healthy margin for them, and a guaranteed $10,000 for you.</p>
+  </div>
+
+  <h4>Repair Cost Estimating — The Quick Method</h4>
+  <p>You won't always have a contractor on-site before making an offer. Use rough per-square-foot ranges to get in the ballpark, then refine with your contractor/inspector team (Module 7) before you lock in a price with your buyer.</p>
+
+  <table>
+    <tr><th>Rehab Level</th><th>Typical Cost/SqFt</th><th>What's Included</th></tr>
+    <tr><td><strong>Light (Cosmetic)</strong></td><td>$15-$25/sqft</td><td>Paint, flooring, fixtures, landscaping, minor repairs</td></tr>
+    <tr><td><strong>Medium</strong></td><td>$25-$40/sqft</td><td>Kitchen & bath updates, some systems work, windows</td></tr>
+    <tr><td><strong>Heavy (Full Gut)</strong></td><td>$40-$70+/sqft</td><td>Roof, HVAC, electrical, plumbing, structural, full kitchen/baths</td></tr>
+  </table>
+
+  <h4>Big-Ticket Items to Always Check</h4>
+  <ul>
+    <li><strong>Roof</strong> — age, visible sagging, missing shingles ($6,000-$15,000+ to replace)</li>
+    <li><strong>HVAC</strong> — age, does it run, any visible rust/leaks ($4,000-$9,000 to replace)</li>
+    <li><strong>Water heater & plumbing</strong> — active leaks, galvanized pipe, polybutylene</li>
+    <li><strong>Electrical panel</strong> — fuse box vs breaker, knob-and-tube wiring, federal pacific panels</li>
+    <li><strong>Foundation</strong> — cracks, doors/windows that don't close right, uneven floors</li>
+    <li><strong>Mold/water damage</strong> — staining, musty smell, basement water lines</li>
+  </ul>
+
+  <div class="box">
+    <div class="box-title">✦ Pro Tip</div>
+    <p>Build a simple spreadsheet "deal analyzer" with these formulas pre-built so you can plug in ARV, repair estimate, and fee, and get your MAO instantly while you're standing in the driveway. We'll set this up in Module 3 alongside your CRM and call tracking.</p>
+  </div>
+  
+  </section>
+  <div class="today"><b>Do This Today</b>Run ARV and MAO on 3 recently sold houses in your target zip code for practice.</div>
+</template>
+<template id="t-3">
+  <div class="kicker">Module 3</div>
+  <h2>Building Your Wholesale Business Framework</h2>
+  <section class="lesson-block"><h3>3.1 · Setting Up Your Business: LLC, EIN, Banking & Tools</h3>
+  <p class="lsub">The boring stuff that protects you and makes you look like a real company on day one.</p>
+
+  <p>You can technically start finding leads before any of this is set up — but you should have it done before you sign your first contract or take your first deposit. None of this is expensive, and most of it can be done in an afternoon.</p>
+
+  <h4>The Setup Checklist</h4>
+  <ol>
+    <li><strong>Form an LLC</strong> in your state — protects your personal assets and lets you sign contracts as "[Your Company], LLC and/or Assigns." File through your state's Secretary of State website, typically $50-$200.</li>
+    <li><strong>Get an EIN</strong> (Employer ID Number) — free, instant, directly from the IRS. Needed to open a business bank account.</li>
+    <li><strong>Open a business bank account</strong> — keeps your deal money separate from personal funds, looks professional to title companies and lenders.</li>
+    <li><strong>Get a dedicated business phone number</strong> — this is also your first call-tracking number (more in the next lesson). Never give sellers/buyers your personal cell as your only line.</li>
+    <li><strong>Set up e-signature</strong> — for sending and signing purchase agreements and assignment contracts remotely, same-day.</li>
+    <li><strong>Get a Google Voice or Google Workspace email</strong> on your domain — "yourname@yourcompany.com" beats a Gmail address when emailing title companies and buyers.</li>
+  </ol>
+
+  <div class="res-grid">
+    <div class="res-card"><a href="https://www.irs.gov/businesses/small-businesses-self-employed/apply-for-an-employer-identification-number-ein-online" target="_blank">IRS — Apply for EIN (Free)</a><div class="res-desc">Official, free, takes about 10 minutes online.</div></div>
+    <div class="res-card"><a href="https://www.sba.gov/business-guide/launch-your-business/choose-business-structure" target="_blank">SBA — Business Structure Guide</a><div class="res-desc">Compare LLC vs other structures before filing.</div></div>
+    <div class="res-card">Your State's Secretary of State Website<div class="res-desc">Search "[your state] Secretary of State business filing" — file your LLC directly, no middleman needed.</div></div>
+    <div class="res-card"><a href="https://www.docusign.com" target="_blank">DocuSign</a> or <a href="https://www.hellosign.com" target="_blank">Dropbox Sign</a><div class="res-desc">E-signature for contracts — both have free tiers sufficient to start.</div></div>
+  </div>
+
+  <div class="box warn">
+    <div class="box-title">⚠ Don't Over-Engineer This</div>
+    <p>Some new wholesalers spend three weeks "setting up the business" and never make a single call. LLC, EIN, and bank account can realistically be done in one day. Get it done, then move to lead generation — the LLC doesn't make you money, the phone does.</p>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>3.2 · Your Tech Stack: CRM, Deal Analyzer & Call Tracking (CallRail)</h3>
+  <p class="lsub">The systems that turn leads into a pipeline instead of a pile of sticky notes — and tell you which marketing actually works.</p>
+
+  <p>Once leads start coming in from multiple sources — bandit signs, direct mail, cold calls, online ads — you need two things: a place to organize and follow up with every lead (CRM), and a way to know which lead source is actually making you money (call tracking). Skipping this is the #1 reason wholesalers feel "busy" but can't tell what's working.</p>
+
+  <h4>1. CRM — Your Lead Command Center</h4>
+  <p>A CRM (Customer Relationship Management system) tracks every seller lead from first contact through closing, with notes, follow-up reminders, and status tags (New → Contacted → Negotiating → Under Contract → Assigned/Closed → Dead).</p>
+  <div class="res-grid">
+    <div class="res-card"><a href="https://www.podio.com" target="_blank">Podio</a><div class="res-desc">Highly customizable, popular free option for wholesalers building pipelines from scratch.</div></div>
+    <div class="res-card"><a href="https://www.followupboss.com" target="_blank">Follow Up Boss</a><div class="res-desc">Built for real estate, strong automated follow-up sequences.</div></div>
+    <div class="res-card"><a href="https://www.gohighlevel.com" target="_blank">GoHighLevel</a><div class="res-desc">All-in-one: CRM + texting + call tracking + pipelines in one platform — many wholesalers consolidate here.</div></div>
+    <div class="res-card">Spreadsheet (to start)<div class="res-desc">Google Sheets with columns: Name, Address, Phone, Source, Status, Last Contact, Next Follow-Up, Notes. Free and fine for your first 50 leads.</div></div>
+  </div>
+
+  <h4>2. Call Tracking — Know What's Actually Working</h4>
+  <p>This is the piece most new wholesalers skip — and it's the difference between guessing and knowing. <strong>CallRail</strong> (and similar services) lets you get multiple phone numbers, assign a different number to each marketing channel, and forward all of them to your real cell. Every call gets logged and recorded automatically.</p>
+
+  <div class="box template">
+    <div class="box-title">✦ How to Set It Up</div>
+    <ol>
+      <li>Sign up for <a href="https://www.callrail.com" target="_blank">CallRail</a> (or a similar tracking number service)</li>
+      <li>Get a separate tracking number for EACH channel: one for bandit signs, one for direct mail, one for cold-call callbacks/voicemail, one for online ads (Facebook/TikTok)</li>
+      <li>Forward all tracking numbers to your main business cell</li>
+      <li>Print/write a different number on each bandit sign batch, each mailer batch, each ad's call-to-action</li>
+      <li>Check your CallRail dashboard weekly: calls per source, call duration, and (if you tag deals) cost-per-lead and cost-per-deal by channel</li>
+    </ol>
+  </div>
+
+  <table>
+    <tr><th>Channel</th><th>What to Track</th><th>Why It Matters</th></tr>
+    <tr><td>Bandit Signs</td><td>Calls per sign, per location, per week</td><td>Tells you which neighborhoods/intersections actually produce calls — double down there, pull dead spots</td></tr>
+    <tr><td>Direct Mail</td><td>Calls per 1,000 mailers, by list type</td><td>Reveals which lists (pre-foreclosure, tax delinquent, absentee owner, etc.) respond best</td></tr>
+    <tr><td>Cold Calling</td><td>Connect rate, callback rate on voicemail number</td><td>Shows if your script or call times need adjusting</td></tr>
+    <tr><td>Online Ads</td><td>Cost per call, cost per lead</td><td>Lets you calculate true cost-per-deal and scale the winners</td></tr>
+  </table>
+
+  <div class="box">
+    <div class="box-title">✦ The Goal</div>
+    <p>After 60-90 days of tracking, you should be able to say "my bandit signs cost me $40/month and generate 3 calls, but my direct mail to absentee owners costs me $400/month and generates 12 calls and my last 2 deals." That sentence is the entire difference between a hobbyist and an operator — and it's only possible with call tracking in place from day one.</p>
+  </div>
+
+  <h4>3. Deal Analyzer Spreadsheet</h4>
+  <p>Build (or download a template for) a simple spreadsheet with these inputs: Address, ARV, Repair Estimate, Investor Margin %, Desired Assignment Fee → Output: MAO (from Lesson 2.3). Keep one tab per active lead so you can quickly compare offers across your pipeline.</p>
+  
+  </section>
+  <section class="lesson-block"><h3>3.3 · Scripts That Work: Seller Calls & Objection Handling</h3>
+  <p class="lsub">What to actually say when the phone rings — word for word, plus how to handle the pushback.</p>
+
+  <p>Your script's job is NOT to sound like a salesperson reading lines — it's to sound like someone who genuinely wants to understand the seller's situation and see if there's a fit. Read these scripts out loud a dozen times until they sound like you, then adjust the wording to your own voice.</p>
+
+  <h4>Inbound Call Script (Seller Calling You From a Sign/Mailer)</h4>
+  <div class="box script">
+    <div class="box-title">☎ Inbound Call</div>
+    <pre>"Hey, this is [Your Name] — thanks for calling about the property. 
+Before anything else, can I get the address so I can pull it up?
+
+[Get address]
+
+Got it. So tell me a little about the situation — 
+what's going on with the property that's got you thinking about selling?"
+
+[LISTEN. Let them talk. Don't interrupt.]
+
+"Okay, that makes sense. A couple quick questions so I can 
+see what makes sense:
+
+- How long have you owned it?
+- Any idea what you still owe on it, if anything?
+- What's the condition like — anything major that needs work?
+- If everything lined up right, what would you need to walk 
+  away feeling good about this?
+- What's your timeline looking like — is this something you'd 
+  want to be done with in the next couple weeks, or no rush?"
+
+"Great — here's what happens next: I (or someone on my team) will 
+take a look at the numbers, and if it looks like a fit, I'll either 
+give you a number on this call or get back to you within 24 hours 
+with an offer. Sound good?"</pre>
+  </div>
+
+  <h4>Outbound Cold Call Script</h4>
+  <div class="box script">
+    <div class="box-title">☎ Cold Call (You Calling Them)</div>
+    <pre>"Hi, is this [Owner Name]? 
+
+Hey [Name], my name's [Your Name] — I'm a local real estate investor. 
+I'm reaching out because I buy houses in [area], and your property 
+on [Street] came up on my list. 
+
+I know this is out of the blue — would you be open to selling it, 
+or is that something you've thought about at all?"
+
+[If YES or MAYBE → move into the same questions from the inbound 
+script above: condition, owe-amount, timeline, motivation]
+
+[If NO → "Totally understand — would it be okay if I checked back 
+in down the road in case anything changes? No pressure either way."]</pre>
+  </div>
+
+  <h4>Objection Handling</h4>
+  <table>
+    <tr><th>Objection</th><th>Response</th></tr>
+    <tr><td>"That's way too low."</td><td>"I hear you — and I want to be upfront, our offer reflects that we're buying as-is, covering all repairs ourselves, and can close in [X] days with no commissions or fees on your end. If you sold on the market, by the time you factor in repairs, agent commission, and the time it sits — what would you actually walk away with? I'm happy to walk through those numbers with you."</td></tr>
+    <tr><td>"I need to think about it."</td><td>"Of course — take your time. Would it help if I followed up [in 2-3 days / next week]? And just so I'm not bugging you, what's the best way to reach you — text or call?"</td></tr>
+    <tr><td>"I want to talk to a realtor first."</td><td>"That's smart — actually, getting a second opinion is a great idea. If you do list it, just remember the realtor route usually takes 60-90 days plus repairs plus 6% commission. If at any point that timeline doesn't work for you, or it doesn't sell, I'm still here. Mind if I check back in a few weeks?"</td></tr>
+    <tr><td>"How do I know you're legit?"</td><td>"Great question — I'd actually recommend that. Happy to send you my LLC info, and everything closes through a licensed title company / attorney, not directly with me — they handle the funds and make sure everything's done properly. That's there to protect you too."</td></tr>
+    <tr><td>"Are you going to flip this for way more?"</td><td>"Possibly — I might fix it up and resell, or I might pass the contract to another investor who will. Either way, my offer to you reflects what makes sense for me to take on that risk and cost. I'm always upfront that I'm an investor, not a buyer who'll live in it."</td></tr>
+  </table>
+
+  <div class="box">
+    <div class="box-title">✦ The Follow-Up Rule</div>
+    <p>Every lead that isn't a flat "never call me again" goes into your CRM with a follow-up date — 3 days, 1 week, 2 weeks, 30 days, 90 days. Set a recurring task. Sellers' situations change. The deal that says no in March often says yes in July.</p>
+  </div>
+  
+  </section>
+  <div class="today"><b>Do This Today</b>Pick your business name, check it with your state, and request your free EIN.</div>
+</template>
+<template id="t-4">
+  <div class="kicker">Module 4</div>
+  <h2>Finding & Evaluating Motivated Seller Leads</h2>
+  <section class="lesson-block"><h3>4.1 · Lead Generation Arsenal: Driving for Dollars, Bandit Signs & Direct Mail</h3>
+  <p class="lsub">The core lead channels — what they cost, how to run them, and what to track.</p>
+
+  <p>You don't need 10 lead sources. You need 2-3 run consistently, with tracking numbers on each so you know what's actually producing. Here's the full toolkit, broken down by cost and effort.</p>
+
+  <h4>1. Driving for Dollars</h4>
+  <p>Physically (or virtually, via Google Street View / satellite) driving target neighborhoods looking for distress signals: overgrown lawns, boarded windows, code violation notices, piled-up mail, visible roof damage, fire damage, "for sale by owner" signs that have been up for months.</p>
+  <ol>
+    <li>Pick a target area — start with neighborhoods with older housing stock (built pre-1990) and a mix of owner-occupant and rental properties</li>
+    <li>Use a driving-for-dollars app (or just your phone's notes/camera) to log addresses with distress signs</li>
+    <li>Skip trace each address (Lesson 4.2) to get owner contact info</li>
+    <li>Add to your CRM and start your follow-up sequence (mail + call)</li>
+  </ol>
+  <div class="res-grid">
+    <div class="res-card"><a href="https://www.dealmachine.com" target="_blank">DealMachine</a><div class="res-desc">Popular driving-for-dollars app — snap a photo, it pulls owner info and lets you send mail directly from the app.</div></div>
+    <div class="res-card"><a href="https://www.google.com/maps" target="_blank">Google Maps / Street View</a><div class="res-desc">Free way to "drive" neighborhoods virtually before committing gas money to a physical route.</div></div>
+  </div>
+  <div class="box"><div class="box-title">✦ Cost</div><p>Free (your time + gas) to ~$30-$60/mo for an app subscription. Best for: building a personal target list in your farm area.</p></div>
+
+  <h4>2. Bandit Signs</h4>
+  <p>The small yard signs at intersections that say "We Buy Houses Cash — Any Condition" with a phone number. Still one of the cheapest ways to generate inbound calls from motivated sellers who are actively searching.</p>
+  <div class="box template">
+    <div class="box-title">✦ Bandit Sign Best Practices</div>
+    <ul>
+      <li>Place at high-traffic intersections, near exits, and in/near the neighborhoods you're targeting</li>
+      <li><strong>Put a unique CallRail tracking number on each batch/area</strong> so you know which corners produce calls</li>
+      <li>Simple message: "WE BUY HOUSES — CASH — ANY CONDITION" + your tracking number, large font, high contrast (e.g., black text on bright yellow or white)</li>
+      <li>Check local code enforcement rules — many cities have ordinances on sign placement and will fine you or remove signs; place on private property with permission when possible, and expect to replace signs regularly</li>
+      <li>Order in batches of 25-50 from a local print shop or online sign vendor — $1.50-$4 per sign depending on quantity</li>
+      <li>Rotate locations every few weeks and track which intersections produce — kill the dead ones, double down on producers</li>
+    </ul>
+  </div>
+
+  <h4>3. Direct Mail</h4>
+  <p>Postcards or letters sent to targeted owner lists (Lesson 4.2 covers where these lists come from). Direct mail has a longer feedback loop than signs/calls but consistently produces some of the most motivated, highest-equity deals because it reaches people who aren't actively searching for "we buy houses" signs.</p>
+  <ol>
+    <li>Pick a list type (absentee owners, pre-foreclosure, tax delinquent, vacant, inherited/probate — see Lesson 4.2)</li>
+    <li>Design a simple, handwritten-style postcard or yellow letter — these consistently outperform glossy corporate-looking mail</li>
+    <li><strong>Use a dedicated CallRail tracking number for each list type</strong> so you can compare response rates between, say, "tax delinquent" vs. "absentee owner" lists</li>
+    <li>Mail consistently — 1x/month to the same list is far more effective than one-time blasts. Motivated sellers often respond on the 3rd-5th touch.</li>
+  </ol>
+  <div class="res-grid">
+    <div class="res-card"><a href="https://www.yellowletters.com" target="_blank">Yellow Letters / Yellowletters.com</a><div class="res-desc">Handwritten-style direct mail printing & mailing service built for investors.</div></div>
+    <div class="res-card"><a href="https://www.everyactioncrm.com" target="_blank">PostcardMania / similar</a><div class="res-desc">Bulk postcard printing & mailing — good for larger list volumes.</div></div>
+  </div>
+
+  <h4>4. Cold Calling</h4>
+  <p>Covered in scripts (Module 3) — pairs with batch lists (next lesson). A dedicated cold-calling tracking number lets you measure connect rates and callback rates separately from your sign/mail numbers.</p>
+
+  <h4>5. Online Ads (Facebook / TikTok)</h4>
+  <p>Short, simple "We Buy Houses" or "Sell Your House Fast for Cash" ads targeting your service area, driving to a simple landing page or directly to a call/text tracking number. Lower volume but can produce well-qualified leads when paired with retargeting.</p>
+
+  <table>
+    <tr><th>Channel</th><th>Typical Monthly Cost</th><th>Speed to First Lead</th><th>Best For</th></tr>
+    <tr><td>Driving for Dollars</td><td>$0-$60</td><td>Slow (weeks)</td><td>Building a free, personal pipeline</td></tr>
+    <tr><td>Bandit Signs</td><td>$50-$300</td><td>Fast (days)</td><td>Cheap inbound calls, motivated sellers actively searching</td></tr>
+    <tr><td>Direct Mail</td><td>$300-$1,500+</td><td>Medium (1-4 weeks)</td><td>High-equity, off-market sellers not actively searching</td></tr>
+    <tr><td>Cold Calling</td><td>$0-$200 (dialer/data)</td><td>Fast (same day)</td><td>High volume, immediate conversations</td></tr>
+    <tr><td>Online Ads</td><td>$10-$50/day</td><td>Medium</td><td>Scaling once you have buyers list + systems in place</td></tr>
+  </table>
+
+  <div class="box">
+    <div class="box-title">✦ The 90-Day Test</div>
+    <p>Run 2 channels consistently for 90 days with separate CallRail numbers on each. At the end, you'll have real cost-per-lead and cost-per-deal numbers — not guesses. Kill or scale based on that data, not vibes.</p>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>4.2 · Batch Leads, Skip Tracing & List Building</h3>
+  <p class="lsub">Where to get the lists that feed your cold calling and direct mail — and how to turn an address into a phone number.</p>
+
+  <p>"Batch leads" refers to buying or pulling a list of property records that match a specific motivated-seller criteria — then skip tracing that list to get phone numbers and emails for cold calling, texting, and direct mail.</p>
+
+  <h4>The Best List Types (and Why They Work)</h4>
+  <table>
+    <tr><th>List Type</th><th>Why They're Motivated</th></tr>
+    <tr><td><strong>Absentee Owners</strong> (mailing address ≠ property address)</td><td>Landlords, often tired of managing a property they don't live near — frequently open to selling, especially with vacancy or tenant issues</td></tr>
+    <tr><td><strong>Tax Delinquent</strong></td><td>Owner is behind on property taxes — financial distress, risk of tax sale creates urgency</td></tr>
+    <tr><td><strong>Pre-Foreclosure / Notice of Default</strong></td><td>Owner is behind on mortgage payments — time-sensitive, high motivation</td></tr>
+    <tr><td><strong>Vacant Properties</strong></td><td>No one living there = no resistance to selling, often inherited or abandoned</td></tr>
+    <tr><td><strong>Probate / Inherited</strong></td><td>New owner (heir) often lives elsewhere, didn't want the property, and just wants to settle the estate</td></tr>
+    <tr><td><strong>High Equity + Long-Term Ownership</strong> (15+ years, low/no mortgage)</td><td>Owner has room to sell at a discount and still walk away with significant cash</td></tr>
+    <tr><td><strong>Expired/Withdrawn MLS Listings</strong></td><td>Tried to sell traditionally, didn't work — may be open to a cash offer now</td></tr>
+    <tr><td><strong>Code Violations</strong></td><td>Property in poor condition, owner may not have funds/desire to fix it up</td></tr>
+  </table>
+
+  <h4>Where to Get the Lists</h4>
+  <div class="res-grid">
+    <div class="res-card"><a href="https://www.propstream.com" target="_blank">PropStream</a><div class="res-desc">The industry standard — pull and filter lists (absentee, tax delinquent, vacant, high equity, etc.) directly, with built-in skip tracing add-on.</div></div>
+    <div class="res-card"><a href="https://www.batchleads.io" target="_blank">BatchLeads / BatchData</a><div class="res-desc">List building + built-in skip tracing + direct mail + dialer in one platform — popular with active wholesalers.</div></div>
+    <div class="res-card">County Assessor / Recorder Websites<div class="res-desc">Free, public records for tax delinquent lists, ownership records, and probate filings — more manual but $0 cost.</div></div>
+    <div class="res-card"><a href="https://www.listsource.com" target="_blank">ListSource</a><div class="res-desc">Pay-per-record list pulls with detailed filtering by ownership, equity, and property characteristics.</div></div>
+  </div>
+
+  <h4>Skip Tracing — Turning an Address Into a Phone Number</h4>
+  <p>Skip tracing takes an owner's name + last known address and returns current phone numbers, email addresses, and sometimes relatives' contact info. Most list-building platforms (PropStream, BatchLeads) include this as a bulk add-on, typically $0.05-$0.25 per record.</p>
+  <ol>
+    <li>Pull your raw list (e.g., 500 absentee owner records in your target zip codes)</li>
+    <li>Run the list through skip tracing — returns phone numbers for most records (typical hit rate 60-85%)</li>
+    <li>Load results into your dialer or CRM for cold calling, and/or export addresses for direct mail</li>
+    <li>Tag each batch by list type and date pulled so you can track response rates by list (Lesson 4.1)</li>
+  </ol>
+
+  <div class="box">
+    <div class="box-title">✦ Building a Repeatable Pipeline</div>
+    <p>Pick ONE list type to start (absentee owners is a strong first choice — large volume, decent motivation, easy to pull). Pull 200-500 records monthly, skip trace, split between cold calling (this week) and direct mail (ongoing monthly drip to the same list). Track everything with separate CallRail numbers per list type and per channel.</p>
+  </div>
+
+  <div class="box warn">
+    <div class="box-title">⚠ Do Not Call Registry</div>
+    <p>Be aware of <a href="https://www.donotcall.gov" target="_blank">National Do Not Call Registry</a> rules and your state's telemarketing laws when cold calling. Many investors operate under exemptions for real estate transactions, but rules vary — when in doubt, check with your attorney, and always honor "do not call" requests immediately.</p>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>4.3 · Running Comps and Making the Offer</h3>
+  <p class="lsub">Connecting everything — from first contact to a real number you can put in front of a seller.</p>
+
+  <p>By this point you have a lead in your CRM, a phone conversation logged, and a tracking number that told you where they came from. Now it's time to turn that into a number.</p>
+
+  <h4>The Pre-Offer Checklist</h4>
+  <ol>
+    <li><strong>Confirm the address</strong> and pull the property up on the county assessor site (square footage, bed/bath, lot size, year built)</li>
+    <li><strong>Pull ARV comps</strong> using the process from Lesson 2.2 (3-6 recent solds, similar size/condition/location)</li>
+    <li><strong>Estimate repairs</strong> using the rough per-sqft method from Lesson 2.3, adjusted by what the seller told you about condition</li>
+    <li><strong>Run the MAO formula</strong> (Lesson 2.3) to get your ceiling</li>
+    <li><strong>Decide your starting offer</strong> — often 5-15% below MAO to leave room for negotiation, unless the seller is highly motivated and the deal is tight</li>
+  </ol>
+
+  <h4>Delivering the Offer</h4>
+  <div class="box script">
+    <div class="box-title">☎ Presenting Your Number</div>
+    <pre>"Okay [Name], based on everything you told me about the condition, 
+and looking at what similar houses have sold for in the area after 
+being fixed up, here's where I land:
+
+I can offer [$XX,XXX] cash, as-is — meaning you don't have to fix, 
+clean, or change anything. We'd cover closing costs, and we can 
+close as fast as [X-X weeks] or on whatever timeline works for you.
+
+I know that might be lower than you were hoping for — how does 
+that sit with you?"</pre>
+  </div>
+
+  <h4>If They Counter</h4>
+  <ul>
+    <li>Ask what number WOULD work for them, and why — sometimes there's a specific debt or need behind their number that you can solve creatively (e.g., paying off a specific lien, a moving timeline)</li>
+    <li>If their number still leaves room for your fee + buyer's margin, you can move toward it</li>
+    <li>If it doesn't, be honest: "I want to make this work — at [their number], I'm not sure I can make the numbers work on my end, but let me run it again and get back to you by [tomorrow]."</li>
+    <li>Never be afraid to walk away from a deal that doesn't work — a bad deal you can't assign is worse than no deal</li>
+  </ul>
+
+  <h4>Getting It Under Contract</h4>
+  <p>Once you have verbal agreement on price and terms, move immediately to a written purchase agreement (Module 5) — verbal agreements fall apart. Send via e-signature same day if possible. Time kills deals; momentum closes them.</p>
+
+  <div class="box">
+    <div class="box-title">✦ Quick Reference: The Whole Funnel</div>
+    <pre>Lead Source (tracked w/ CallRail) 
+   → CRM entry + first call (script) 
+   → Follow-up sequence if not ready 
+   → Comps + repair estimate 
+   → MAO calculation 
+   → Offer delivered 
+   → Purchase agreement signed (Module 5) 
+   → Marketed to buyers list (Module 7) 
+   → Assigned or double-closed (Module 6) 
+   → Paid</pre>
+  </div>
+  
+  </section>
+  <div class="today"><b>Do This Today</b>Pick one lead channel and set a weekly target (for example, 50 driving-for-dollars addresses).</div>
+</template>
+<template id="t-5">
+  <div class="kicker">Module 5</div>
+  <h2>Contracts & Assignment Techniques</h2>
+  <section class="lesson-block"><h3>5.1 · The Purchase Agreement: What Makes It Assignable</h3>
+  <p class="lsub">The single most important document in your business — and the small phrases that make it work.</p>
+
+  <p>Your Purchase & Sale Agreement (PSA) is the contract between you and the seller. Everything downstream — your assignment, your fee, your protection — depends on this document being written correctly. This lesson covers the structure; always have a real estate attorney in your state review your actual template before using it (one-time cost, lifetime use).</p>
+
+  <div class="box warn">
+    <div class="box-title">⚠ Educational Template — Not Legal Advice</div>
+    <p>The structure below is for understanding what these agreements contain. State-specific requirements (disclosures, required forms, attorney-review periods) vary widely. Have a local real estate attorney review or provide your actual contract template — this is the most important document in your business.</p>
+  </div>
+
+  <h4>The Key Elements</h4>
+  <table>
+    <tr><th>Section</th><th>What It Does</th></tr>
+    <tr><td>Parties</td><td>Names the Seller and the Buyer — Buyer should be listed as "[Your LLC] and/or Assigns"</td></tr>
+    <tr><td>Property Description</td><td>Full legal address and/or legal description (from county records)</td></tr>
+    <tr><td>Purchase Price</td><td>The agreed price you're paying the seller</td></tr>
+    <tr><td>Earnest Money</td><td>Deposit amount, held by title/escrow, shows good faith</td></tr>
+    <tr><td>Closing Date / Timeline</td><td>When the deal must close — give yourself enough time to find a buyer (typically 30-45 days, with extension options)</td></tr>
+    <tr><td>Inspection Period / Due Diligence</td><td>A window (often 7-15 days) where you can cancel for any reason — gives you time to market the deal before fully committing</td></tr>
+    <tr><td>Assignability Clause</td><td>States the Buyer may assign this agreement to another party</td></tr>
+    <tr><td>As-Is Clause</td><td>Property is sold in its current condition, no repairs by Seller</td></tr>
+    <tr><td>Title / Closing Agent</td><td>Names the title company or attorney who will handle closing</td></tr>
+    <tr><td>Disclosures & Signatures</td><td>Required state disclosures, signed and dated by all parties</td></tr>
+  </table>
+
+  <h4>The Phrase That Makes It Assignable</h4>
+  <div class="box template">
+    <div class="box-title">✦ Buyer Name Format</div>
+    <pre>BUYER: [Your LLC Name], LLC, and/or Assigns</pre>
+    <p>This single phrase is what allows you to legally transfer your position in the contract to another buyer (Lesson 5.2). Without it, some title companies and sellers may push back on an assignment.</p>
+  </div>
+
+  <h4>Why the Inspection/Due Diligence Period Matters</h4>
+  <p>This window (often called "Due Diligence Period" or "Inspection Period") gives you time AFTER signing to confirm condition, finalize your repair estimate, and — critically — market the contract to your buyers list. If you can't find a buyer or the numbers don't work once you dig in, this period typically allows you to cancel and get your earnest money back, depending on how it's written. This is your safety valve — never sign a contract without one.</p>
+
+  <h4>Recording a Memorandum of Contract</h4>
+  <p>In some situations (longer timelines, or to protect your position), wholesalers record a short "Memorandum of Contract" at the county recorder's office. This puts the public on notice that the property is under contract, without disclosing your purchase price. Ask your title company/attorney whether this makes sense for a given deal.</p>
+  
+  </section>
+  <section class="lesson-block"><h3>5.2 · Assignment of Contract: Paperwork & Process</h3>
+  <p class="lsub">How your contract rights become someone else's — and your check.</p>
+
+  <p>An Assignment of Contract is a short document where you ("Assignor") transfer your rights and obligations under the Purchase Agreement to your cash buyer ("Assignee") in exchange for an assignment fee. The original seller doesn't sign this document (in most cases) — but title/escrow needs a copy to process closing correctly.</p>
+
+  <h4>The Process, Step by Step</h4>
+  <ol>
+    <li>You have a signed Purchase Agreement with the seller (Lesson 5.1)</li>
+    <li>You market the deal to your cash buyers list (Module 7) with key numbers: address, ARV, repair estimate, your assignment price/fee</li>
+    <li>A buyer agrees to take the deal — you sign an Assignment of Contract with them</li>
+    <li>Buyer typically pays an assignment deposit directly to you (varies by market — some pay at closing only)</li>
+    <li>Send the Purchase Agreement + Assignment Agreement to the title company/closing attorney</li>
+    <li>Title company prepares closing — seller gets their agreed price, you get your assignment fee, buyer gets the deed — often all in one closing</li>
+  </ol>
+
+  <h4>Sample Assignment of Contract Structure</h4>
+  <div class="box template">
+    <div class="box-title">✦ Educational Template — Have an Attorney Customize for Your State</div>
+    <pre>ASSIGNMENT OF REAL ESTATE PURCHASE AGREEMENT
+
+This Assignment is made between:
+ASSIGNOR: [Your LLC Name], LLC
+ASSIGNEE: [Cash Buyer Name/Entity]
+
+RE: Purchase Agreement dated [date], between Assignor and 
+[Seller Name] for the property located at [Property Address] 
+("the Property").
+
+1. Assignor hereby assigns all rights, title, and interest in 
+   the above-referenced Purchase Agreement to Assignee.
+2. Assignee accepts the assignment and agrees to assume all 
+   obligations of Assignor under the Purchase Agreement.
+3. In consideration of this Assignment, Assignee agrees to pay 
+   Assignor an assignment fee of $[Amount], payable [at closing 
+   / as a non-refundable deposit of $X due within X days plus 
+   balance at closing].
+4. This Assignment shall be provided to the title company/closing 
+   agent handling the transaction referenced above.
+
+Signed: _______________________  Date: _______
+Assignor
+
+Signed: _______________________  Date: _______
+Assignee</pre>
+  </div>
+
+  <h4>Assignment Fee Collection Methods</h4>
+  <table>
+    <tr><th>Method</th><th>How It Works</th><th>Pros / Cons</th></tr>
+    <tr><td>Paid at Closing (via title)</td><td>Title company includes your fee as a line item on the settlement statement, cuts you a check at closing</td><td>Cleanest, most professional, fully documented — preferred method</td></tr>
+    <tr><td>Deposit + Balance at Closing</td><td>Buyer pays a non-refundable deposit (e.g., $2,000-$5,000) directly to you upon signing the assignment, remainder at closing</td><td>Protects you if buyer backs out before closing</td></tr>
+    <tr><td>Double Close (no visible assignment fee)</td><td>Covered in Module 6 — used when seller doesn't want the fee visible, or state rules limit assignment marketing</td><td>More moving parts, requires transactional funding</td></tr>
+  </table>
+
+  <div class="box">
+    <div class="box-title">✦ Always Loop in Title Early</div>
+    <p>Call your title company/closing attorney as soon as you sign the original Purchase Agreement — let them know you intend to assign. They'll tell you exactly what they need and how they want it documented. A good title company that regularly works with investors makes this entire process painless. Building that relationship is covered in Module 7.</p>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>5.3 · Subject-To Deals: Structure, Risk & Paperwork</h3>
+  <p class="lsub">A powerful, more advanced strategy — buying a property while leaving the existing mortgage in place.</p>
+
+  <p>"Subject-To" (short for "subject to the existing mortgage") means you take title (ownership/deed) to a property while the seller's existing mortgage stays in place, in the seller's name. You (or your end buyer) take over making the payments, but the loan is never formally assumed or paid off at closing.</p>
+
+  <h4>Why Sellers Agree to This</h4>
+  <ul>
+    <li>They're behind on payments and facing foreclosure — subject-to can stop the bleeding immediately</li>
+    <li>They have little to no equity, so a traditional sale wouldn't net them anything anyway</li>
+    <li>They need to relocate quickly and can't wait for a traditional sale/payoff process</li>
+    <li>The home needs repairs they can't afford, and they just want out from under the payment</li>
+  </ul>
+
+  <h4>Why Investors Want These Deals</h4>
+  <ul>
+    <li>Often little to no money down — you're not paying off the loan, just taking over payments</li>
+    <li>Existing loan may have a better interest rate than what's available today</li>
+    <li>Faster closings — no new mortgage underwriting required</li>
+  </ul>
+
+  <h4>The Core Risk: The Due-on-Sale Clause</h4>
+  <div class="box warn">
+    <div class="box-title">⚠ Critical Risk to Understand</div>
+    <p>Nearly all mortgages contain a "due-on-sale" clause, giving the lender the right to call the full loan balance due if ownership transfers without their approval. In practice, lenders rarely exercise this when payments are being made on time — but it is a real, disclosed risk. Sellers MUST be told this clearly and in writing. This is a strategy where attorney involvement isn't optional — get a real estate attorney experienced in subject-to transactions in your state involved before your first deal.</p>
+  </div>
+
+  <h4>How a Subject-To Deal Is Structured</h4>
+  <ol>
+    <li><strong>Deed transfers</strong> from seller to buyer (you or your end investor) via a standard warranty or quitclaim deed, recorded at the county</li>
+    <li><strong>The existing mortgage stays in the seller's name</strong> — it is not paid off, refinanced, or formally assumed</li>
+    <li><strong>Buyer takes over payments</strong> going forward, typically directly to the lender or through a third-party loan servicing/payment processing company for documentation</li>
+    <li><strong>A written agreement</strong> between seller and buyer documents the arrangement, the due-on-sale risk disclosure, and what happens if the buyer fails to make payments</li>
+    <li><strong>Often paired with a Land Trust</strong> in some strategies, to hold title — this adds complexity and is a topic for attorney guidance, not a DIY structure</li>
+  </ol>
+
+  <h4>Where Subject-To Fits in YOUR Business</h4>
+  <p>As a wholesaler, you generally won't be the one holding a subject-to property long-term. Your role is to:</p>
+  <ul>
+    <li><strong>Recognize</strong> when a seller's situation (behind on payments, low/no equity, needs out fast) is a subject-to candidate rather than a standard cash-offer candidate</li>
+    <li><strong>Get the property under a purchase agreement</strong> that allows for subject-to terms (your attorney can provide language for this)</li>
+    <li><strong>Assign or wholesale this deal</strong> to an investor in your buyers list who specializes in subject-to / creative finance acquisitions — these buyers often pay HIGHER assignment fees because the deal structure solves a problem cash buyers can't</li>
+  </ul>
+
+  <div class="box template">
+    <div class="box-title">✦ Documents Involved in a Subject-To Deal</div>
+    <ul>
+      <li>Purchase Agreement with subject-to terms and disclosures</li>
+      <li>Disclosure of Due-on-Sale Risk (signed separately by seller, plain language)</li>
+      <li>Deed (Warranty or Quitclaim) — prepared and recorded by title/attorney</li>
+      <li>Mortgage/Loan statement from seller (to confirm balance, payment, lender)</li>
+      <li>Servicing or payment authorization agreement (how payments will be made going forward)</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <div class="box-title">✦ Bottom Line</div>
+    <p>Subject-to can unlock deals that have no other exit — but it carries real legal and financial complexity. Learn to <strong>spot</strong> these situations, document them properly with attorney-provided paperwork, and either bring in an experienced subject-to investor from your buyers list or partner with one until you've done several alongside someone experienced.</p>
+  </div>
+  
+  </section>
+  <div class="today"><b>Do This Today</b>Have a local real estate attorney review your purchase agreement and assignment agreement.</div>
+</template>
+<template id="t-6">
+  <div class="kicker">Module 6</div>
+  <h2>Closing the Deal</h2>
+  <section class="lesson-block"><h3>6.1 · Double Closing vs. Assignment: When to Use Each</h3>
+  <p class="lsub">Two ways to get paid — and how to decide which one fits a given deal.</p>
+
+  <p>You've already met both of these (Module 5). Here's how to decide which to use on any given deal.</p>
+
+  <h4>Side-by-Side Comparison</h4>
+  <table>
+    <tr><th></th><th>Assignment</th><th>Double Close</th></tr>
+    <tr><td>What happens</td><td>You transfer your contract rights to a buyer; one closing occurs between seller and end buyer</td><td>You actually purchase from the seller (Closing A), then immediately resell to your buyer (Closing B) — two closings, often same day</td></tr>
+    <tr><td>Your fee visibility</td><td>Often appears as a line item ("Assignment Fee") on the closing statement — seller may see it</td><td>Your profit is the difference between Closing A and Closing B prices — not separately disclosed as a "fee"</td></tr>
+    <tr><td>Funds needed</td><td>None — you're not buying the property</td><td>You (or transactional funding, Lesson 6.2) need funds to actually close on Closing A, even briefly</td></tr>
+    <tr><td>Speed/complexity</td><td>Simpler, one closing</td><td>More moving parts — needs a title company experienced in back-to-back closings</td></tr>
+    <tr><td>Best used when</td><td>Straightforward deal, buyer comfortable with assignment, state allows it cleanly</td><td>Seller is uncomfortable with an "assignment fee" being visible, your fee is large relative to purchase price, or your state has restrictions on assignment marketing</td></tr>
+  </table>
+
+  <h4>Decision Framework</h4>
+  <ol>
+    <li><strong>Is the assignment fee a small % of the deal, and is everyone comfortable?</strong> → Assignment. Simpler, cheaper, faster.</li>
+    <li><strong>Is the fee large relative to the purchase price, or does the seller seem like they'd be upset seeing it on paper?</strong> → Double close.</li>
+    <li><strong>Does your state restrict assignment marketing or require specific disclosures you'd rather avoid?</strong> → Double close.</li>
+    <li><strong>Do you have access to transactional funding</strong> (Lesson 6.2) to cover Closing A briefly? → Double close becomes easy. If not, lean toward assignment until you have a funding source lined up.</li>
+  </ol>
+
+  <div class="box">
+    <div class="box-title">✦ Most New Wholesalers Start With Assignment</div>
+    <p>It's simpler, requires no funds, and most title companies are very used to processing them. Add double closing to your toolkit once you have a transactional funding source (next lesson) and a title company comfortable running back-to-back closings.</p>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>6.2 · Transactional Funding Explained</h3>
+  <p class="lsub">How to 'buy' a house with no money of your own, for a few hours, to make a double close possible.</p>
+
+  <p>Transactional funding is a same-day loan, used ONLY for double closes, that provides the funds needed for Closing A (you buying from the seller) which are then immediately repaid from the proceeds of Closing B (you selling to your end buyer) — often within hours, sometimes the same day or next business day.</p>
+
+  <h4>How It Works</h4>
+  <ol>
+    <li>You have Closing A (seller → you) and Closing B (you → end buyer) scheduled back-to-back, same day or next day, with the SAME title company handling both</li>
+    <li>You apply with a transactional funding company, providing both contracts and proof that Closing B is funded and ready (your end buyer's proof of funds)</li>
+    <li>The transactional lender wires funds to title for Closing A</li>
+    <li>Closing A completes — you now own the property (briefly)</li>
+    <li>Closing B completes immediately after — your end buyer's funds come in</li>
+    <li>Title pays back the transactional lender (plus their fee) from Closing B proceeds, and you receive your profit (the spread between A and B)</li>
+  </ol>
+
+  <h4>Typical Costs</h4>
+  <table>
+    <tr><th>Fee Type</th><th>Typical Range</th></tr>
+    <tr><td>Transactional funding fee</td><td>1-2.5% of the loan amount, or a flat fee ($1,000-$3,000) depending on the lender and deal size</td></tr>
+    <tr><td>Title/closing fees (doubled — two closings)</td><td>Varies by state/title company; ask for an estimate on both closings up front</td></tr>
+  </table>
+
+  <h4>Requirements to Qualify</h4>
+  <ul>
+    <li>Both contracts (A and B) must be lined up, with Closing B's price higher than Closing A's by enough to cover the funding fee and your profit</li>
+    <li>End buyer (Closing B) must have verified proof of funds or their own financing in place</li>
+    <li>Same title company/closing agent typically handles both closings, same day or next day</li>
+    <li>No credit check or income verification needed — this is asset-based, same-day lending tied entirely to the transaction</li>
+  </ul>
+
+  <div class="res-grid">
+    <div class="res-card">Search "transactional funding for wholesalers"<div class="res-desc">Several companies specialize in this — your title company (Lesson 6.3) likely has relationships with 1-2 they can refer you to directly.</div></div>
+  </div>
+
+  <div class="box">
+    <div class="box-title">✦ Real Talk</div>
+    <p>You won't need this for every deal — many wholesalers do dozens of assignments before ever needing a double close. But knowing this exists, and having one transactional funding relationship lined up, means a tricky deal that needs a double close doesn't have to be a deal you walk away from.</p>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>6.3 · Working With Title Companies & Closing Attorneys</h3>
+  <p class="lsub">Your most important business relationship outside of your buyers list — find one that knows investor deals.</p>
+
+  <p>Not all title companies and closing attorneys are comfortable with assignments and double closes — some have never seen one and will slow-walk or refuse your deal. Finding ONE that regularly works with investors and wholesalers is one of the highest-leverage relationships you can build.</p>
+
+  <h4>What to Look For</h4>
+  <ul>
+    <li>They've closed assignment deals before and know what an "Assignment of Contract" is without you having to explain it</li>
+    <li>They're comfortable with — or have done — double closings/transactional funding</li>
+    <li>They're responsive: investors need fast answers, not "let me check and call you back next week"</li>
+    <li>They can give you a same-day or next-day estimated settlement statement so you can confidently present numbers to buyers</li>
+  </ul>
+
+  <h4>How to Find One</h4>
+  <ol>
+    <li><strong>Ask other local investors</strong> — at REIA (Real Estate Investor Association) meetups, online local investor Facebook groups, or BiggerPockets local forums, ask "who do you use for assignments/double closes?"</li>
+    <li><strong>Call title companies directly</strong> and ask: "Do you handle assignment of contract closings, and are you comfortable with double closings using transactional funding?" — their response (confident vs. confused) tells you everything</li>
+    <li><strong>Ask your transactional funding contact</strong> (Lesson 6.2) — they work with title companies that handle this regularly and can refer you</li>
+  </ol>
+
+  <h4>The Script for Your First Call</h4>
+  <div class="box script">
+    <div class="box-title">☎ Calling a Title Company</div>
+    <pre>"Hi, I'm a local real estate investor and I wanted to ask a 
+couple quick questions before I send my first file your way.
+
+1. Do you regularly handle assignment of contract closings?
+2. Are you set up to handle a same-day double close with 
+   transactional funding if it came up?
+3. What do you typically need from me to get a file started — 
+   purchase agreement, assignment, anything else?
+4. How fast can you typically turn a closing once everything's 
+   in place?"</pre>
+  </div>
+
+  <h4>Build the Relationship</h4>
+  <ul>
+    <li>Send your first deal even if it's small — building trust matters more than the size of the first file</li>
+    <li>Be organized: send complete paperwork (Purchase Agreement, Assignment, IDs, EMD confirmation) in one packet, not piecemeal</li>
+    <li>Once they know you're organized and your deals are real, they'll start fast-tracking your files and even flagging issues (liens, title problems) earlier in the process</li>
+    <li>A great title contact will also become a referral source — they see distressed sellers and investors constantly</li>
+  </ul>
+
+  <div class="box">
+    <div class="box-title">✦ Module Wrap-Up</div>
+    <p>You now have the full closing-side toolkit: assignment vs. double close, transactional funding, and a title company that won't blink at either. Module 7 builds the team that feeds deals INTO this pipeline — buyers, realtors, contractors, inspectors, and lenders.</p>
+  </div>
+  
+  </section>
+  <div class="today"><b>Do This Today</b>Call 2 investor-friendly title companies or closing attorneys and ask how they handle assignments and double closes.</div>
+</template>
+<template id="t-7">
+  <div class="kicker">Module 7</div>
+  <h2>Building Your Power Team</h2>
+  <section class="lesson-block"><h3>7.1 · Cash Buyers: Building & Managing Your Buyers List</h3>
+  <p class="lsub">The asset that turns your contracts into checks — build this before you need it.</p>
+<div class="checkstate">
+    <div class="box-title">⚠ Check your state before you blast a deal</div>
+    <p>In some states, publicly advertising a property you only have under contract (social posts, websites, mass texts to the public) counts as brokering and needs a license. Send deals only to your private buyers list unless your state's rules (Lesson 1.2) say public marketing is allowed, and always describe it as a <strong>contract available for assignment</strong>.</p>
+  </div>
+
+  <p>Your buyers list is a database of active cash investors in your market — people who buy distressed properties, know their numbers, and can close fast. The bigger and more organized this list, the faster every future deal moves and the higher fees you can command (more buyers = more competition = better offers for your contracts).</p>
+
+  <h4>Where to Find Cash Buyers</h4>
+  <div class="res-grid">
+    <div class="res-card">Local REIA Meetups<div class="res-desc">Real Estate Investor Association meetings — search "[your city] REIA" or "[your city] real estate investor meetup" on Facebook/Meetup. Bring business cards, collect contacts.</div></div>
+    <div class="res-card"><a href="https://www.biggerpockets.com" target="_blank">BiggerPockets — Local Forums</a><div class="res-desc">Search your city/state forum for active investors posting about buying.</div></div>
+    <div class="res-card">County Records — Cash Sales<div class="res-desc">Pull recent cash sales (no mortgage recorded) in your target areas — these buyers are actively investing. Skip trace and reach out.</div></div>
+    <div class="res-card">"We Buy Houses" Competitors<div class="res-desc">Other investor marketing (signs, ads, mailers) in your area — call them. Many of YOUR competitors are also potential BUYERS for deals that don't fit their box.</div></div>
+    <div class="res-card">Landlord / Property Manager Networks<div class="res-desc">Local landlord associations and property management companies often have members looking for rental-ready or rehab properties.</div></div>
+    <div class="res-card">Facebook Groups<div class="res-desc">Search "[your city] real estate investors" — many active local groups where investors post buy criteria.</div></div>
+  </div>
+
+  <h4>What to Collect From Each Buyer</h4>
+  <table>
+    <tr><th>Field</th><th>Why It Matters</th></tr>
+    <tr><td>Name, phone, email</td><td>Basic contact</td></tr>
+    <tr><td>Buy box (areas, price range, property types)</td><td>So you only send relevant deals — keeps buyers engaged instead of annoyed</td></tr>
+    <tr><td>Proof of funds / financing type</td><td>Cash vs. hard money vs. needs financing — affects how fast they can close</td></tr>
+    <tr><td>Strategy (flip, BRRRR, rental)</td><td>Helps you match the deal to the right buyer (a heavy-rehab deal suits a flipper; a turnkey rental suits a buy-and-hold buyer)</td></tr>
+    <tr><td>Past deals closed with you</td><td>Track reliability — prioritize buyers who actually close</td></tr>
+  </table>
+
+  <h4>Marketing a New Deal to Your List</h4>
+  <div class="box template">
+    <div class="box-title">✦ Deal Blast Template (Text/Email)</div>
+    <pre>🔑 NEW DEAL — [City], [State]
+
+📍 Address: [Address or "DM for address"]
+🏠 3bd / 2ba | 1,400 sqft | Built 1978
+💰 ARV: $178,000
+🔨 Estimated Repairs: $35,000
+💵 Assignment Price: $89,600 + my fee of $10,000 = $99,600 total
+⏱ Closing: [timeframe]
+📸 Photos attached
+
+This one's priced to move — first come, first funded. 
+Reply "INTERESTED" and I'll send the contract.</pre>
+  </div>
+
+  <div class="box">
+    <div class="box-title">✦ Building It Before You Need It</div>
+    <p>Don't wait until you have a deal to start your buyers list. Spend your first 2-3 weeks (alongside lead gen) collecting 20-50 buyer contacts with buy boxes. When your first contract is signed, you'll have somewhere to send it the same hour — instead of scrambling.</p>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>7.2 · Realtors, Title Companies & Closing Attorneys: Your Legal Backbone</h3>
+  <p class="lsub">The licensed professionals who make every deal legitimate, bankable, and closeable.</p>
+
+  <p>You covered title companies in Module 6 for closing mechanics — here's how realtors fit into your team, plus how to think about this whole "legal backbone" layer of your business.</p>
+
+  <h4>Realtors — Why You Want One (Even Though You're Not One)</h4>
+  <ul>
+    <li><strong>MLS comps</strong> — a realtor relationship gives you access to the most accurate, real-time sold comps for ARV (better than Zillow/Redfin in many markets)</li>
+    <li><strong>Off-market deal flow</strong> — realtors often know about listings about to expire, pocket listings, or sellers who've mentioned wanting a fast cash sale</li>
+    <li><strong>Referral exchange</strong> — when a seller's situation is actually better suited to listing on the MLS (decent condition, some equity, no rush), refer them to your realtor. When your realtor has a listing that's sat too long or a seller who wants cash, they refer it to you. Everyone wins.</li>
+    <li><strong>Credibility check</strong> — a realtor can quickly sanity-check your numbers on a deal before you commit</li>
+  </ul>
+
+  <h4>Finding the Right Realtor</h4>
+  <div class="box script">
+    <div class="box-title">☎ The Pitch to a Realtor</div>
+    <pre>"Hi, I'm a local real estate investor — I buy distressed and 
+off-market properties for cash. I'm reaching out because I'd 
+love to build a relationship where: 
+
+if you come across sellers who want a fast, as-is cash sale 
+that doesn't make sense to list, I can make them an offer — 
+and if I come across leads where listing on the MLS would 
+actually net the seller more, I'd send those your way. 
+
+Would that be something you'd be open to?"</pre>
+  </div>
+  <p>Look for investor-friendly realtors specifically — search "investor friendly realtor [your city]" or ask at REIA meetups. Many agents specialize in working with investors and understand assignments, as-is sales, and quick closings.</p>
+
+  <h4>Closing Attorneys (in Attorney-Closing States)</h4>
+  <p>Some states require an attorney (not just a title company) to handle real estate closings. If you're in one of these states, your "title company" relationship from Module 6 IS your closing attorney — find one experienced with investor transactions the same way.</p>
+
+  <h4>Your Legal Backbone Roster</h4>
+  <table>
+    <tr><th>Role</th><th>What They Do For You</th><th>Find Them Via</th></tr>
+    <tr><td>Title Company / Closing Attorney</td><td>Process closings, assignments, double closes</td><td>Module 6 — REIA referrals, direct calls</td></tr>
+    <tr><td>Investor-Friendly Realtor</td><td>MLS comps, referral exchange, off-market leads</td><td>REIA meetups, "investor friendly realtor [city]" search</td></tr>
+    <tr><td>Real Estate Attorney (general)</td><td>Reviews/customizes your contracts, subject-to deals, complex situations</td><td>Local bar association referral service, REIA referrals</td></tr>
+  </table>
+
+  <div class="box">
+    <div class="box-title">✦ One Relationship Often Leads to the Next</div>
+    <p>A good title company knows good attorneys. A good attorney knows good realtors. A good realtor knows cash buyers. REIA meetups are the single highest-leverage hour you can spend each month — that's where this entire web gets built.</p>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>7.3 · Contractors, Inspectors & Handymen: Fast, Accurate Repair Estimates</h3>
+  <p class="lsub">The boots-on-the-ground team that turns 'I think it needs about $35k' into a real number.</p>
+
+  <p>Your repair estimates (Lesson 2.3) start as educated guesses based on per-sqft ranges. Over time, a small bench of contractors, a go-to inspector, and a couple of reliable handymen turn those guesses into fast, accurate numbers — which makes your offers more competitive and your buyers more confident.</p>
+
+  <h4>Building Your Bench</h4>
+  <table>
+    <tr><th>Role</th><th>What They're For</th><th>How to Find Them</th></tr>
+    <tr><td><strong>General Contractor (1-2)</strong></td><td>Full rehab bids on heavier properties — gives you (and your buyers) a real number for big-ticket items</td><td>Ask local investors at REIA who they use; check reviews on Google for "general contractor [city]" with focus on renovation/flip experience</td></tr>
+    <tr><td><strong>Home Inspector (1)</strong></td><td>Pre-offer or pre-closing walkthroughs on properties where you need a professional opinion on roof, foundation, systems before locking in a number</td><td>Search "<a href="https://www.google.com/search?q=ASHI+certified+home+inspector" target="_blank">ASHI certified home inspector [city]</a>" — look for investor experience, not just buyer-side inspections</td></tr>
+    <tr><td><strong>Handymen (2-3)</strong></td><td>Quick walk-throughs for lighter properties, minor repair bids, and quick turnaround work once you/your buyer owns a property</td><td>Local Facebook groups, Thumbtack, Angi, word of mouth from other investors</td></tr>
+  </table>
+
+  <h4>The "Walk With Me" Strategy</h4>
+  <p>Early on, the fastest way to learn real repair costs is to bring a contractor or experienced handyman with you on property walkthroughs — even informally. You point at things, they give you ballpark numbers out loud. Over a dozen walkthroughs, your own eye for repair costs sharpens dramatically, and you'll start trusting your own quick estimates more.</p>
+
+  <h4>Quick Repair Walkthrough Checklist</h4>
+  <div class="box template">
+    <div class="box-title">✦ Bring This Checklist to Every Walkthrough</div>
+    <ul>
+      <li><strong>Roof</strong> — age, sagging, missing/curling shingles, signs of leaks in attic</li>
+      <li><strong>HVAC</strong> — age (check unit label), does it run, rust/leaks</li>
+      <li><strong>Water heater</strong> — age, leaks, rust at base</li>
+      <li><strong>Plumbing</strong> — pipe material (copper/PEX good, galvanized/polybutylene = red flag), water pressure, visible leaks under sinks</li>
+      <li><strong>Electrical</strong> — panel type (breaker vs. fuse), any visible knob-and-tube wiring, GFCI outlets in kitchen/bath</li>
+      <li><strong>Foundation</strong> — visible cracks, doors/windows sticking, sloped floors</li>
+      <li><strong>Windows</strong> — single vs. double pane, broken seals (fogging), rot</li>
+      <li><strong>Kitchen/Baths</strong> — age and condition of cabinets, counters, fixtures</li>
+      <li><strong>Flooring</strong> — what's under carpet (often hardwood worth refinishing), water damage</li>
+      <li><strong>Mold/Water Damage</strong> — staining on ceilings/walls, musty smell, basement water lines</li>
+      <li><strong>Pest/Structural</strong> — termite damage, sagging beams, rotted sill plates</li>
+    </ul>
+  </div>
+
+  <h4>Getting Bids Fast</h4>
+  <ul>
+    <li>Send photos/video walkthrough to your contractor bench — many can give a rough range without an in-person visit for early-stage deals</li>
+    <li>For deals that get serious (you're close to assigning), schedule an in-person walkthrough with your top contractor for a real number you can hand to your buyer</li>
+    <li>Keep a running log of "estimated vs. actual" repair costs on closed deals — this is how your per-sqft ranges (Lesson 2.3) get more accurate to YOUR market over time</li>
+  </ul>
+
+  <div class="box">
+    <div class="box-title">✦ Module Wrap-Up: Your Full Team</div>
+    <p>Cash buyers (get paid), realtors/title/attorneys (legal backbone), contractors/inspectors/handymen (accurate numbers). With this team in place, every new lead has somewhere to go — fast.</p>
+  </div>
+  
+  </section>
+  <div class="today"><b>Do This Today</b>Add your first 10 cash buyers to your buyers list.</div>
+</template>
+<template id="t-8">
+  <div class="kicker">Module 8</div>
+  <h2>Hard Money, Private Money & The BRRRR Method</h2>
+  <section class="lesson-block"><h3>8.1 · Hard Money Lenders: How They Work & What They Want</h3>
+  <p class="lsub">The financing your cash buyers use — and how this opens doors for you too.</p>
+
+  <p>Hard money lenders are private companies that make short-term, asset-based loans to real estate investors — typically covering most of the purchase price plus rehab costs, secured by the property itself rather than the borrower's income/credit. Most of your "cash buyers" are actually using hard money. Understanding how it works lets you speak their language and eventually use it yourself if you move into flips (Course 2).</p>
+
+  <h4>How Hard Money Loans Are Structured</h4>
+  <table>
+    <tr><th>Term</th><th>Typical Range</th></tr>
+    <tr><td>Loan-to-Cost (LTC) — % of purchase + rehab covered</td><td>80-90% of total project cost</td></tr>
+    <tr><td>Loan-to-ARV (LTV) — % of after-repair value</td><td>Typically capped around 65-75% of ARV</td></tr>
+    <tr><td>Interest Rate</td><td>9-14% (varies by lender, market, borrower experience)</td></tr>
+    <tr><td>Points (origination fee)</td><td>1-3 points (1 point = 1% of loan amount), paid at closing</td></tr>
+    <tr><td>Term Length</td><td>6-18 months, often with extension options</td></tr>
+    <tr><td>Draw Schedule</td><td>Rehab funds released in stages as work is completed and inspected</td></tr>
+  </table>
+
+  <h4>What Hard Money Lenders Evaluate</h4>
+  <ol>
+    <li><strong>The deal itself</strong> — ARV, purchase price, repair budget, and the resulting loan-to-ARV ratio matter more than your personal income</li>
+    <li><strong>Your experience level</strong> — first-timers may get slightly lower leverage or higher rates; track record improves terms over time</li>
+    <li><strong>Exit strategy</strong> — refinance (BRRRR, next lesson), resale (flip), or other — lenders want to know how they'll get repaid</li>
+    <li><strong>Proof of funds for the gap</strong> — even at 85-90% LTC, you'll need some cash for the remaining 10-15% plus closing costs and reserves</li>
+  </ol>
+
+  <div class="res-grid">
+    <div class="res-card">Search "hard money lender [your state]"<div class="res-desc">Most hard money lenders operate regionally or nationally — get quotes from 2-3 to compare rates, points, and draw processes.</div></div>
+    <div class="res-card"><a href="https://www.biggerpockets.com/lender-finder" target="_blank">BiggerPockets Lender Finder</a><div class="res-desc">Directory of hard money and private lenders by state/market.</div></div>
+  </div>
+
+  <div class="box">
+    <div class="box-title">✦ Why This Matters to a Wholesaler</div>
+    <p>When you understand hard money terms, you can pre-qualify your buyers list better ("are you using hard money or cash? what's your max LTV?") and speak credibly when a buyer asks about the deal's numbers. If you eventually move into fix & flip (Course 2), this is the financing model you'll use yourself.</p>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>8.2 · Private Money: Finding & Pitching Individual Lenders</h3>
+  <p class="lsub">Real people with capital, looking for better returns than a savings account — and a relationship that can fund your deals.</p>
+
+  <p>Private money comes from individuals — not companies — who lend their own capital (often from retirement accounts, savings, or equity in their own properties) to investors in exchange for a fixed return, secured by a mortgage/deed of trust against the property. Private lenders are often more flexible and faster than hard money companies, especially once you've built trust.</p>
+
+  <h4>Who Becomes a Private Lender</h4>
+  <ul>
+    <li>Retirees or near-retirees with savings sitting in low-yield accounts, looking for better returns</li>
+    <li>People with self-directed IRAs looking for real-estate-backed investments</li>
+    <li>Other investors who've decided lending is less work than actively flipping</li>
+    <li>Family, friends, and professional contacts (doctors, business owners) with idle capital</li>
+  </ul>
+
+  <h4>The Basic Pitch</h4>
+  <div class="box script">
+    <div class="box-title">☎ Private Money Conversation Starter</div>
+    <pre>"I work with real estate deals — buying distressed properties, 
+sometimes renovating them, and either reselling or refinancing. 
+
+I'm always looking to connect with people who might have capital 
+sitting in a savings account or low-yield investment and would 
+be interested in earning a better return — secured by real 
+estate, with a mortgage recorded in their favor, just like a bank.
+
+Would that be something you'd ever want to learn more about?"</pre>
+  </div>
+
+  <h4>How a Private Money Deal Is Typically Structured</h4>
+  <table>
+    <tr><th>Element</th><th>Typical Structure</th></tr>
+    <tr><td>Interest Rate</td><td>8-12%, often interest-only payments during the loan term</td></tr>
+    <tr><td>Term</td><td>6-24 months, matched to your project timeline</td></tr>
+    <tr><td>Security</td><td>Mortgage/Deed of Trust recorded against the property — lender has the same protection a bank would have</td></tr>
+    <tr><td>Loan-to-Value</td><td>Often more flexible than hard money — negotiated based on the relationship and deal</td></tr>
+    <tr><td>Documentation</td><td>Promissory Note (the IOU) + Mortgage/Deed of Trust (the security instrument), prepared by your closing attorney</td></tr>
+  </table>
+
+  <div class="box warn">
+    <div class="box-title">⚠ Get It Documented Properly</div>
+    <p>Even when the lender is a friend or family member, treat it like a business transaction: a Promissory Note and recorded Mortgage/Deed of Trust prepared by a real estate attorney protects BOTH parties and is what separates "private lending" from "a personal loan gone wrong." Never skip this paperwork, regardless of the relationship.</p>
+  </div>
+
+  <h4>Where to Find Private Lenders</h4>
+  <div class="res-grid">
+    <div class="res-card">Your Existing Network<div class="res-desc">Often the first and best source — people who already know and trust you (family, former coworkers, local business owners).</div></div>
+    <div class="res-card">REIA Meetups<div class="res-desc">Some attendees are there specifically to lend, not to actively invest.</div></div>
+    <div class="res-card">Self-Directed IRA Custodians<div class="res-desc">Companies that administer self-directed retirement accounts often have networks of account holders looking for real-estate-secured lending opportunities.</div></div>
+  </div>
+
+  <div class="box">
+    <div class="box-title">✦ Why This Matters to a Wholesaler</div>
+    <p>Private money can fund earnest money deposits, transactional funding gaps, or — if you ever move into flips — your entire rehab. Even if you never personally use it, knowing how it works lets you connect sellers in subject-to or creative-finance situations (Lesson 5.3) with buyers who use private money to structure deals cash buyers can't touch.</p>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>8.3 · The BRRRR Method: Buy, Rehab, Rent, Refinance, Repeat</h3>
+  <p class="lsub">The strategy that turns a single deal into a long-term asset AND your next down payment — covered fully in our Fix & Flip course, here's the wholesaler's view.</p>
+
+  <p>BRRRR is a buy-and-hold strategy: Buy a distressed property below market, Rehab it, Rent it to a tenant, Refinance into a long-term loan (pulling most or all of your initial cash back out), and Repeat with the same capital. As a wholesaler, you won't typically execute BRRRR yourself on every deal — but you'll constantly find deals that are PERFECT for BRRRR buyers, and recognizing that makes those deals more valuable to market.</p>
+
+  <h4>The Five Steps</h4>
+  <ol>
+    <li><strong>Buy</strong> — Acquire a property below market value (this is where YOUR deal comes in) with enough of a discount to make the math work after rehab</li>
+    <li><strong>Rehab</strong> — Renovate to a rentable (and appraisal-friendly) standard — doesn't need to be flip-quality finishes, but needs to be solid and code-compliant</li>
+    <li><strong>Rent</strong> — Place a tenant, establishing rental income and occupancy history</li>
+    <li><strong>Refinance</strong> — Take out a long-term mortgage (typically conventional or DSCR loan) based on the NEW appraised value (post-rehab), ideally pulling out most/all of the cash originally put in</li>
+    <li><strong>Repeat</strong> — Use the cash pulled out via refinance to fund the next BRRRR purchase</li>
+  </ol>
+
+  <h4>The Math That Makes BRRRR Work</h4>
+  <div class="box template">
+    <div class="box-title">✦ Simplified BRRRR Example</div>
+    <pre>Purchase Price:                    $80,000
+Rehab Costs:                       $30,000
+Total Cash Invested (all-in):      $110,000
+
+Post-Rehab Appraised Value (ARV):  $160,000
+Refinance at 75% of ARV:           $120,000
+
+Cash Pulled Out at Refinance:      $120,000
+Total Cash Invested:               $110,000
+NET CASH LEFT IN DEAL:             -$10,000 (i.e., investor gets 
+                                   ALL their cash back plus $10k extra)
+
+Result: Investor now owns a rental property with positive cash 
+flow, with $0 (or less) of their original capital still tied up.</pre>
+  </div>
+
+  <h4>What Makes a Deal "BRRRR-able"</h4>
+  <ul>
+    <li><strong>Significant spread between purchase price + rehab and post-rehab ARV</strong> — the 75% refinance needs to cover (or nearly cover) the all-in cost</li>
+    <li><strong>Property type suitable for rental</strong> — typically single-family or small multi-family in a stable rental market</li>
+    <li><strong>Rentable after-rehab condition</strong> — doesn't need granite countertops, but needs to pass appraisal and rent at a level supporting the new mortgage payment</li>
+    <li><strong>Decent rent-to-value ratio</strong> in the area — some markets are better suited to BRRRR than others</li>
+  </ul>
+
+  <h4>Why This Matters to a Wholesaler</h4>
+  <p>When you identify a deal with a big spread, in a strong rental area, in solid (not gutted) bones — flag it as a "BRRRR candidate" when marketing to your buyers list. Buy-and-hold investors actively looking for BRRRR deals often move faster and pay competitive assignment fees, because the deal solves a specific need for them (cash-out potential) that a typical flipper might not value the same way.</p>
+
+  <div class="box">
+    <div class="box-title">✦ Going Deeper</div>
+    <p>Our companion course, <strong>Fix & Flip</strong>, covers BRRRR execution in full — rehab management, refinance qualification (DSCR loans), property management basics, and the long-term wealth-building math of holding rentals. If you find yourself drawn to BRRRR deals as a wholesaler, that course is your natural next step.</p>
+  </div>
+  
+  </section>
+  <div class="today"><b>Do This Today</b>Ask 2 hard money lenders for their current terms so you know what your buyers are paying.</div>
+</template>
+<template id="t-9">
+  <div class="kicker">Module 9</div>
+  <h2>Case Studies, Scaling & Your Action Plan</h2>
+  <section class="lesson-block"><h3>9.1 · Real Deal Walkthroughs (Case Studies)</h3>
+  <p class="lsub">Three example deals, start to finish — different sources, different structures, same fundamentals.</p>
+
+  <p>These composite case studies walk through realistic deals end-to-end, applying everything from Modules 1-8. Use them as templates for thinking through your own deals.</p>
+
+  <h4>Case Study 1: The Bandit Sign Lead → Assignment</h4>
+  <div class="box template">
+    <div class="box-title">✦ Case 1</div>
+    <pre>SOURCE: Bandit sign at a busy intersection, tracking number 
+shows 4 calls this month from this sign location.
+
+LEAD: Owner inherited a property from a parent, lives 2 hours 
+away, doesn't want to manage it or drive back and forth for 
+repairs.
+
+NUMBERS:
+- Property: 3bd/1ba, 1,200 sqft
+- ARV (from 4 comps): $145,000
+- Repairs (medium rehab, walked with handyman): $28,000
+- MAO at 70%: ($145,000 × 0.70) - $28,000 = $73,500
+- Contract price negotiated: $68,000 (leaves room for fee)
+- Marketed to buyers list same week — 3 buyers interested
+- Assigned for $7,500 fee
+- Closed via assignment, title handled everything in 21 days
+
+LESSON: Inherited property + out-of-area owner + bandit sign 
+tracking = a textbook combination. The owner wanted speed and 
+simplicity more than top dollar.</pre>
+  </div>
+
+  <h4>Case Study 2: The Direct Mail (Tax Delinquent List) → Double Close</h4>
+  <div class="box template">
+    <div class="box-title">✦ Case 2</div>
+    <pre>SOURCE: Direct mail to a tax-delinquent list, 3rd mailing 
+(seller responded on touch #3, not #1).
+
+LEAD: Owner behind on property taxes, also has some deferred 
+maintenance, embarrassed about the condition and the back 
+taxes — didn't want neighbors or buyers to know details.
+
+NUMBERS:
+- Property: 4bd/2ba, 1,800 sqft, needs heavy rehab
+- ARV: $210,000
+- Repairs (contractor bid after photos + walkthrough): $55,000
+- MAO at 70%: ($210,000 × 0.70) - $55,000 = $92,000
+- Contract price: $85,000
+- Buyer (flipper from buyers list) agreed to $98,000
+- Spread: $13,000 — large relative to price, seller sensitive 
+  about visibility → DOUBLE CLOSE used
+- Transactional funding covered Closing A ($85,000), repaid 
+  from Closing B proceeds same day
+- Net to wholesaler: $13,000 minus ~$1,500 transactional 
+  funding fee = $11,500
+
+LESSON: When the spread is large and the seller is sensitive, 
+double close keeps things clean — and the math still worked 
+even after the funding fee.</pre>
+  </div>
+
+  <h4>Case Study 3: The Cold Call → Subject-To → Specialist Buyer</h4>
+  <div class="box template">
+    <div class="box-title">✦ Case 3</div>
+    <pre>SOURCE: Cold call from a pre-foreclosure (Notice of Default) 
+batch list.
+
+LEAD: Owner 4 months behind on mortgage payments, low equity 
+(owes nearly what it's worth), needs to stop the foreclosure 
+process and move in with family within 3 weeks.
+
+SITUATION: A cash offer at 70% of ARV wouldn't even cover the 
+loan balance — a traditional wholesale deal doesn't work here.
+
+STRUCTURE: Subject-to. Buyer (an investor from the buyers list 
+who specializes in subject-to) takes title, brings the loan 
+current, takes over payments going forward. Seller is fully 
+disclosed on the due-on-sale risk in writing (Lesson 5.3), 
+signs, and moves out within their timeline — foreclosure 
+stopped.
+
+PAYDAY: Wholesaler's assignment fee on this type of deal: 
+$12,000 — higher than the cash-offer cases, because this deal 
+structure solved a problem that NO cash buyer could.
+
+LESSON: Recognizing when a deal is a subject-to candidate 
+(not a cash-offer candidate) — and having ONE specialist buyer 
+in your list — turned a "no equity, can't work" lead into the 
+biggest fee of the three case studies.</pre>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>9.2 · Scaling Your Pipeline & Going Virtual</h3>
+  <p class="lsub">Once one channel works, here's how to do more of it — including markets you've never set foot in.</p>
+
+  <p>Scaling isn't about adding 5 new lead sources at once. It's about taking what's working (per your CallRail data) and turning up the volume — then adding people/systems to handle the increased flow.</p>
+
+  <h4>Scaling Levers</h4>
+  <table>
+    <tr><th>Lever</th><th>How It Scales</th></tr>
+    <tr><td>Increase mail volume on winning lists</td><td>If absentee owner mail produces deals at a known cost-per-deal, doubling volume roughly doubles deal flow (with diminishing returns over time as you saturate a list)</td></tr>
+    <tr><td>Add a second cold caller / VA</td><td>A virtual assistant can run cold-calling scripts on batch lists — your job shifts to managing leads they hand off, not dialing every number yourself</td></tr>
+    <tr><td>Add more bandit sign locations</td><td>Once you know which intersections/areas produce, add more signs in similar high-traffic areas (within local rules)</td></tr>
+    <tr><td>Expand to adjacent zip codes/counties</td><td>If your model works in one area, the same playbook (lists, mail, tracking) often transfers to demographically similar nearby areas</td></tr>
+    <tr><td>Hire an acquisitions person</td><td>Once deal flow is consistent, a dedicated person to run seller calls and negotiations frees you up for buyer relationships and overall operations</td></tr>
+  </table>
+
+  <h4>Virtual Wholesaling</h4>
+  <p>"Virtual" wholesaling means working markets outside your local area — common once you've proven your systems locally. Everything in this course transfers:</p>
+  <ul>
+    <li><strong>Lead generation</strong> — direct mail, online ads, and cold calling don't require physical presence; batch lists/skip tracing work anywhere</li>
+    <li><strong>Driving for dollars</strong> — replaced with virtual driving (Google Street View) or a local driver/VA</li>
+    <li><strong>Comps & repair estimates</strong> — build a relationship with a local realtor and contractor/inspector in the new market (Module 7), same process, different zip code</li>
+    <li><strong>Closing</strong> — title companies and attorneys handle this remotely via mobile notary/e-signing constantly — you don't need to be present</li>
+    <li><strong>Buyers list</strong> — build a separate buyers list for each new market the same way you built your first</li>
+  </ul>
+
+  <div class="box warn">
+    <div class="box-title">⚠ Don't Go Virtual Before You're Profitable Locally</div>
+    <p>Every system in this course is easier to debug when you can physically drive to the property if something's confusing. Prove your process locally first — then virtual expansion is just "repeat the playbook with new local relationships," not "figure out the entire business from scratch in an unfamiliar market."</p>
+  </div>
+
+  <h4>The Systems That Let You Scale</h4>
+  <ul>
+    <li><strong>CRM</strong> with automated follow-up sequences (Module 3) so leads don't fall through cracks as volume grows</li>
+    <li><strong>CallRail tracking</strong> on every channel and market so you know exactly where new spending should go</li>
+    <li><strong>Documented scripts and SOPs</strong> so a VA or new hire can run calls/follow-ups consistently</li>
+    <li><strong>A growing buyers list</strong> in every market you operate, so new deals move fast regardless of where they come from</li>
+  </ul>
+  
+  </section>
+  <section class="lesson-block"><h3>9.3 · Your 30-60-90 Day Action Plan</h3>
+  <p class="lsub">Stop studying. Here's exactly what to do this week, this month, and this quarter.</p>
+
+  <p>This course gave you the full picture. This lesson turns it into a checklist. Print this page or save it — and check items off as you go.</p>
+
+  <h4>Days 1-7: Foundation</h4>
+  <ol>
+    <li>Form your LLC, get your EIN, open your business bank account (Module 3)</li>
+    <li>Set up your business phone number and CallRail account — get your first 2-3 tracking numbers</li>
+    <li>Set up your CRM (spreadsheet is fine to start) and your deal analyzer (ARV/MAO formulas from Module 2)</li>
+    <li>Have a real estate attorney review or provide your Purchase Agreement and Assignment of Contract templates (Module 5)</li>
+    <li>Pick your first 1-2 lead channels (recommended: bandit signs + one batch list for direct mail or cold calling)</li>
+  </ol>
+
+  <h4>Days 8-30: First Leads, First Calls</h4>
+  <ol>
+    <li>Order and place your first batch of bandit signs with a unique tracking number</li>
+    <li>Pull your first batch list (absentee owners is a strong start) and run skip tracing</li>
+    <li>Start cold calling with your script (Module 3), logging every call in your CRM with follow-up dates</li>
+    <li>Send your first round of direct mail to your batch list, with its own tracking number</li>
+    <li>Start building your buyers list — attend at least one REIA meetup or local investor group, aim for 10-15 buyer contacts</li>
+    <li>Call 3-5 title companies using the script from Module 6 — pick one investor-friendly title company/attorney</li>
+    <li>Start your contractor/inspector bench — at least one contractor and one inspector contact</li>
+  </ol>
+
+  <h4>Days 31-60: First Contract</h4>
+  <ol>
+    <li>Continue lead gen consistently — don't stop a channel after one slow week</li>
+    <li>On your first motivated seller conversation, run full ARV + MAO analysis (Module 2) before making an offer</li>
+    <li>Get your first property under contract using your reviewed Purchase Agreement</li>
+    <li>Walk the property with your contractor/inspector for an accurate repair number</li>
+    <li>Market the deal to your buyers list same week (Module 7 template)</li>
+    <li>Decide: assignment or double close (Module 6) based on the deal's structure</li>
+    <li>Loop in your title company early — send complete paperwork</li>
+  </ol>
+
+  <h4>Days 61-90: First Close & Review</h4>
+  <ol>
+    <li>Close your first deal — get paid</li>
+    <li>Review your CallRail data: which channel(s) produced this lead? What's your cost-per-lead so far on each channel?</li>
+    <li>Identify your best-performing channel and increase volume there (Module 9, scaling levers)</li>
+    <li>Continue building your buyers list — every closed deal is a chance to ask buyers "what else are you looking for?"</li>
+    <li>Review your repair estimates vs. actuals from this deal — refine your per-sqft numbers (Module 2) for your specific market</li>
+    <li>Set your next 90-day goals: target number of leads, contracts, and closings based on the funnel math from Module 1</li>
+  </ol>
+
+  <div class="box">
+    <div class="box-title">✦ Final Word</div>
+    <p>Every section of this course connects back to this checklist. When you get stuck on any step, go back to that module — the scripts, formulas, and templates are all there. The only thing standing between you and your first check is consistent action on this list. ✦</p>
+  </div>
+  
+  </section>
+  <div class="today"><b>Do This Today</b>Write your own 30-day plan with real dates in the Launch Checklist tab.</div>
+</template>
+<template id="t-toolkit">
+  <div class="kicker">Startup Toolkit</div>
+  <h2>Startup Toolkit &amp; Downloads</h2>
+  <p class="lead">Everything you need to actually start: your workbook to download, and direct links to register, get set up and get free help.</p>
+  <h3>Download your startup workbook</h3>
+  <p><a class="btn primary" href="downloads/wholesaling-startup-workbook.xlsx" download>Download the Wholesale Real Estate Startup Workbook (Excel)</a></p>
+  <ul>
+    <li><strong>Startup Costs:</strong> enter your real quotes and get your total budget, with a buffer for surprises.</li>
+    <li><strong>Price Research:</strong> a ready list of who to call and what to ask, so you can find your real local numbers.</li>
+    <li><strong>Licenses &amp; Insurance:</strong> a tracker for every license, registration and policy, with links.</li>
+    <li><strong>Launch Checklist:</strong> every step with a date and a done column.</li>
+  </ul>
+  <p class="note">Opens in Excel, Google Sheets (File → Import) or Numbers.</p>
+  <h3>Step-by-step: start the business</h3>
+  <ol>
+    <li><a href="https://www.sba.gov/counseling/plan-your-business/#business-plan" target="_blank" rel="noopener">Write your business plan</a> (SBA)</li>
+    <li><a href="https://www.sba.gov/counseling/plan-your-business/#startup-costs" target="_blank" rel="noopener">Calculate your startup costs</a> (SBA), then fill in your workbook</li>
+    <li><a href="https://www.sba.gov/counseling/plan-your-business/#fund-business" target="_blank" rel="noopener">Fund your business</a> (SBA)</li>
+    <li><a href="https://www.sba.gov/counseling/launch-your-business/#register-business" target="_blank" rel="noopener">Register your business</a>, then use the <a href="https://www.sba.gov/counseling/launch-your-business/state-registration-lookup/" target="_blank" rel="noopener">state registration lookup</a> to find your state's office</li>
+    <li><a href="https://www.irs.gov/businesses/small-businesses-self-employed/get-an-employer-identification-number" target="_blank" rel="noopener">Get your free EIN</a> (IRS)</li>
+    <li><a href="https://www.sba.gov/counseling/launch-your-business/#licenses-permits" target="_blank" rel="noopener">Apply for licenses and permits</a> (SBA)</li>
+    <li><a href="https://www.sba.gov/counseling/launch-your-business/#business-insurance" target="_blank" rel="noopener">Get business insurance</a> (SBA)</li>
+    <li><a href="https://www.sba.gov/counseling/launch-your-business/#bank-account" target="_blank" rel="noopener">Open a business bank account</a> (SBA)</li>
+  </ol>
+  <h3>Links for this business</h3>
+  <ul>
+    <li><a href="https://www.arello.org/" target="_blank" rel="noopener">ARELLO</a>: find your state's real estate commission</li>
+    <li><a href="https://www.donotcall.gov/" target="_blank" rel="noopener">National Do Not Call Registry</a>: rules for cold calling</li>
+    <li><a href="https://www.consumerfinance.gov/" target="_blank" rel="noopener">CFPB</a>: consumer protection info for sellers you work with</li>
+  </ul>
+  <h3>Free help</h3>
+  <ul>
+    <li><a href="https://www.sba.gov/counseling/local-assistance/" target="_blank" rel="noopener">SBA local assistance</a>: free counseling near you</li>
+    <li><a href="https://www.score.org/" target="_blank" rel="noopener">SCORE</a>: free mentoring from experienced business owners</li>
+    <li><a href="https://www.irs.gov/businesses/small-businesses-self-employed" target="_blank" rel="noopener">IRS small business tax center</a></li>
+  </ul>
+  <div class="checkstate" id="resell-rights">
+    <div class="box-title">✦ Your resell rights</div>
+    <p>As a Built By You Academy member, <strong>this course is yours to use however you want.</strong> You can:</p>
+    <ul>
+      <li><strong>Resell it</strong> at any price you choose by sharing this course link with your buyers</li>
+      <li><strong>Give it away</strong> for free, as a bonus or a gift</li>
+      <li><strong>Bundle it</strong> with your own products, services or memberships</li>
+      <li>Keep <strong>100% of what you make</strong>. It's up to you.</li>
+    </ul>
+    <p class="note">If you resell, don't promise your buyers income or results. The course doesn't, and you shouldn't either.</p>
+  </div>
+  <div class="today"><b>Do This Today</b>Download your workbook, look up your state's wholesaling rules, and write them in the Licenses tab.</div>
+</template>
+
+<script>
+function copyScript(btn){var p=btn.parentElement.querySelector('p')||btn.parentElement.querySelector('pre');var text=p?p.innerText:'';
+function ok(){btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy'},1600)}
+if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(ok,function(){})}else{var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(ta);ok()}}
+function switchTab(id,idx,btn){var c=document.getElementById(id);c.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});btn.classList.add('active');
+c.querySelectorAll('.tab-panel').forEach(function(p){p.classList.toggle('active',Number(p.getAttribute('data-idx'))===idx)})}
+function $v(id){return parseFloat(document.getElementById(id).value)||0}
+function money(n){return '$'+n.toLocaleString(undefined,{maximumFractionDigits:0})}
+function calcStartup(){var ids=['su-rent','su-deposit','su-furnish','su-photo','su-insurance','su-permits','su-reserve'],t=0;ids.forEach(function(i){t+=$v(i)});
+document.getElementById('su-total').textContent=money(t);document.getElementById('su-result').classList.add('show')}
+function calcDeal(){var rent=$v('da-rent'),rev=$v('da-adr')*30*($v('da-occ')/100),exp=rent+$v('da-util')+$v('da-ins')+$v('da-soft')+$v('da-cleancost')*$v('da-turnovers'),prof=rev-exp,mult=rent>0?rev/rent:0,score=Math.max(0,Math.min(100,Math.round(mult/3*100)));
+var c='fail',t='FAIL: below 1.5x, skip this deal';if(mult>=2){c='pass';t='PASS: clears the 2X rule'}else if(mult>=1.5){c='caution';t='CAUTION: marginal, negotiate harder'}
+document.getElementById('da-revenue').textContent=money(rev);document.getElementById('da-expenses').textContent=money(exp);document.getElementById('da-profit').textContent=money(prof);
+document.getElementById('da-multiple').textContent=mult.toFixed(2)+'x';document.getElementById('da-score').textContent=score+' / 100';
+var p=document.getElementById('da-pill');p.className='pill '+c;p.textContent=t;document.getElementById('da-result').classList.add('show')}
+</script>
+<script>
+(function(){
+var mods=[
+{id:"overview",t:"t-overview",full:"Course Overview",short:"Overview"},
+{id:"module-1",t:"t-1",full:"1 · Welcome to Wholesaling",short:"1 · Basics"},
+{id:"module-2",t:"t-2",full:"2 · Real Estate Fundamentals Every Wholesaler Needs",short:"2 · Fundamentals"},
+{id:"module-3",t:"t-3",full:"3 · Building Your Wholesale Business Framework",short:"3 · Setup"},
+{id:"module-4",t:"t-4",full:"4 · Finding & Evaluating Motivated Seller Leads",short:"4 · Leads"},
+{id:"module-5",t:"t-5",full:"5 · Contracts & Assignment Techniques",short:"5 · Contracts"},
+{id:"module-6",t:"t-6",full:"6 · Closing the Deal",short:"6 · Closing"},
+{id:"module-7",t:"t-7",full:"7 · Building Your Power Team",short:"7 · Team"},
+{id:"module-8",t:"t-8",full:"8 · Hard Money, Private Money & The BRRRR Method",short:"8 · Funding"},
+{id:"module-9",t:"t-9",full:"9 · Case Studies, Scaling & Your Action Plan",short:"9 · Action Plan"},
+{id:"toolkit",t:"t-toolkit",full:"Startup Toolkit & Downloads",short:"Toolkit"}
+];
+var KEY="bby-wholesaling-done", done={};
+try{done=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){done={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}}
+var rail=document.getElementById("rail"), lesson=document.getElementById("lesson");
+var cur=0;
+mods.forEach(function(m,i){
+var b=document.createElement("button"); b.type="button"; b.id="nav-"+m.id;
+b.innerHTML='<span class="dot" aria-hidden="true"></span><span><span class="full"></span><span class="short"></span></span>';
+b.querySelector(".full").textContent=m.full; b.querySelector(".short").textContent=m.short;
+b.addEventListener("click",function(){go(i,true)}); rail.appendChild(b);
+});
+function paint(){
+var n=0;
+mods.forEach(function(m,i){
+var b=document.getElementById("nav-"+m.id);
+b.classList.toggle("done",!!done[m.id]); b.querySelector(".dot").textContent=done[m.id]?"✓":"";
+b.setAttribute("aria-current",i===cur?"true":"false"); if(done[m.id])n++;
+});
+document.getElementById("barfill").style.width=(n/mods.length*100)+"%";
+document.getElementById("ptext").textContent=n+" of "+mods.length+" complete";
+var d=document.getElementById("done"), on=!!done[mods[cur].id];
+d.setAttribute("aria-pressed",on?"true":"false"); d.textContent=on?"✓ Completed":"Mark complete";
+document.getElementById("prev").hidden=cur===0;
+document.getElementById("next").hidden=cur===mods.length-1;
+}
+function go(i,scroll){
+cur=Math.max(0,Math.min(mods.length-1,i));
+lesson.innerHTML=""; lesson.appendChild(document.getElementById(mods[cur].t).content.cloneNode(true));
+if(location.hash!=="#"+mods[cur].id){try{history.replaceState(null,"","#"+mods[cur].id)}catch(e){location.hash=mods[cur].id}}
+paint(); if(scroll)window.scrollTo({top:0});
+}
+document.getElementById("prev").addEventListener("click",function(){go(cur-1,true)});
+document.getElementById("next").addEventListener("click",function(){go(cur+1,true)});
+document.getElementById("done").addEventListener("click",function(){
+var id=mods[cur].id; if(done[id])delete done[id]; else done[id]=true; save(); paint();
+});
+function fromHash(){var h=location.hash.slice(1),i=mods.findIndex(function(m){return m.id===h}); go(i<0?0:i,false)}
+window.addEventListener("hashchange",fromHash); fromHash();
+})();
+</script>
+</body></html>

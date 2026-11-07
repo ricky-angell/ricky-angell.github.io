@@ -1,0 +1,1617 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Fix and Flip Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+/* Same course-player layout as the other BBY blueprints */
+:root{
+--bg:#f5f6f9; --surface:#ffffff; --ink:#141a2b; --muted:#5a6276; --line:#dde1ea;
+--navy:#16213f; --gold:#b8860b; --gold-soft:#f6ecd2; --ok:#1f7a4d; --ok-soft:#e1f2e8; --bad:#b3261e; --bad-soft:#fbe5e3;
+--display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+--body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}}
+:root[data-theme="dark"]{
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--body)}
+[hidden]{display:none!important}
+a{color:var(--gold);text-underline-offset:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.top{background:var(--navy);color:#fff;padding-block:22px 26px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{max-width:1180px;margin:0 auto;display:grid;gap:6px}
+.eyebrow{font:600 13px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:#e3b54a}
+.top h1{font:italic 700 clamp(34px,6vw,56px)/1 var(--display);margin:0;text-wrap:balance;letter-spacing:.01em}
+.top p{margin:0;color:#c9cfdd;max-width:62ch}
+.progress{display:flex;align-items:center;gap:12px;margin-top:10px;font-size:14px;color:#c9cfdd}
+.bar{flex:0 1 260px;height:8px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:#e3b54a;transition:width .3s}
+.wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:270px minmax(0,1fr);gap:32px;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;display:grid;gap:2px}
+.rail button{all:unset;cursor:pointer;display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;padding:10px 12px;border-radius:8px;color:var(--muted);font-size:15px;line-height:1.35}
+.rail button:hover{background:var(--surface);color:var(--ink)}
+.rail button[aria-current="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:inset 3px 0 0 var(--gold)}
+.dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;margin-top:1px}
+.done .dot{background:var(--ok);border-color:var(--ok);color:#fff}
+main{min-width:0}
+article{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:clamp(20px,4vw,44px)}
+article h2{font:700 clamp(30px,4.4vw,42px)/1.05 var(--display);margin:0 0 6px;text-wrap:balance}
+.kicker{font:600 13px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+article h3{font:700 24px/1.15 var(--display);margin:34px 0 8px;letter-spacing:.01em}
+article p,article li{max-width:68ch}
+article ul,article ol{padding-left:1.3em;display:grid;gap:6px}
+.lead{font-size:18px;color:var(--muted)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:8px}
+.cols > div{border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.cols h4{margin:0 0 6px;font:700 18px/1.2 var(--display);letter-spacing:.03em;text-transform:uppercase}
+.cols .pro{border-color:var(--ok);background:var(--ok-soft)} .cols .pro h4{color:var(--ok)}
+.cols .con{border-color:var(--bad);background:var(--bad-soft)} .cols .con h4{color:var(--bad)}
+.tablewrap{overflow-x:auto;margin-top:10px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{font-weight:700;border-top:2px solid var(--ink)}
+.formula{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 16px;font-weight:600}
+.today{margin-top:34px;background:var(--gold-soft);border-radius:10px;padding:16px 20px;display:grid;gap:4px}
+.today b{font:700 15px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.note{font-size:14px;color:var(--muted)}
+.pager{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;margin-top:20px}
+.btn{all:unset;cursor:pointer;padding:11px 18px;border-radius:8px;font-weight:600;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+:root[data-theme="dark"] .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}}
+.btn.complete[aria-pressed="true"]{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+@media (max-width:820px){
+.wrap{grid-template-columns:1fr;gap:16px}
+nav.rail{position:static;display:flex;overflow-x:auto;gap:6px;padding-bottom:4px}
+.rail button{flex:0 0 auto;grid-template-columns:20px auto;white-space:nowrap;background:var(--surface);border:1px solid var(--line)}
+.rail .full{display:none}
+}
+@media (min-width:821px){.rail .short{display:none}}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+
+/* ---- Real estate blueprint extras ---- */
+article h4{font:700 20px/1.2 var(--display);margin:26px 0 6px;letter-spacing:.02em}
+article h5{font:700 17px/1.2 var(--display);margin:20px 0 4px;letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
+.lsub{color:var(--muted);font-style:italic;margin-top:-2px}
+.lesson-block{border-top:1px solid var(--line);margin-top:34px;padding-top:4px}
+.lesson-block:first-of-type{border-top:0}
+.box,.callout,.card,.template,.reality,.math,.scorebox,.calc,.check,.tab-panel,.compare-card,.tool-card,details.faqitem{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:16px 0}
+.box-title,.s-label,.tlabel,.rlabel,.tag{display:block;font:700 14px/1.2 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.box.warn,.warn{border-left:4px solid var(--bad);background:var(--bad-soft)}
+.box.warn .box-title,.warn .box-title{color:var(--bad)}
+.box.template,.template{border-style:dashed;border-color:var(--gold)}
+.box.script,.script{border-left:4px solid var(--gold);background:var(--gold-soft);position:relative}
+.checkstate{border:2px solid var(--gold);background:var(--gold-soft);border-radius:10px;padding:14px 18px;margin:16px 0}
+.checkstate .box-title{color:var(--gold)}
+.callout{border:1px dashed var(--gold);background:var(--gold-soft)}
+.reality{border-left:4px solid var(--gold)}
+.card.gold{border-left:4px solid var(--gold)} .card.teal{border-left:4px solid var(--navy)}
+pre{white-space:pre-wrap;word-break:break-word;font:14px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;margin:0}
+.res-grid,.toolkit-grid,.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:12px 0}
+.res-card{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--bg)}
+.res-card a{font-weight:700}
+.res-desc{font-size:14px;color:var(--muted);margin-top:4px}
+.linkrow{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.lbtn{display:inline-flex;gap:6px;align-items:center;padding:9px 14px;border-radius:8px;background:var(--navy);color:#fff;text-decoration:none;font-weight:600;font-size:14px}
+.lbtn.alt{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+:root[data-theme="dark"] .lbtn{background:var(--gold);color:#141a2b}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lbtn{background:var(--gold);color:#141a2b}}
+:root[data-theme="dark"] .lbtn.alt{background:var(--surface);color:var(--ink)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lbtn.alt{background:var(--surface);color:var(--ink)}}
+.copy-btn{position:absolute;top:12px;right:12px;border:1px solid var(--gold);background:var(--surface);color:var(--ink);border-radius:6px;padding:4px 10px;font:600 12px var(--body);cursor:pointer}
+.math .row,.calc-result .row{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--line)}
+.math .row:last-child{border-bottom:0;font-weight:700}
+.neg{color:var(--bad)} .pos{color:var(--ok)} td.good{color:var(--ok);font-weight:600} td.bad{color:var(--bad);font-weight:600}
+.compare-card.good{border-left:4px solid var(--ok)} .compare-card.bad{border-left:4px solid var(--bad)}
+.compare-card.good .tag{color:var(--ok)} .compare-card.bad .tag{color:var(--bad)}
+.scoreitem{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
+.scoreitem:last-child{border-bottom:0} .pts{font-weight:700;color:var(--gold);white-space:nowrap}
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:4px}
+.field input{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:15px var(--body)}
+.calc-btn{margin-top:14px;padding:10px 18px;border-radius:8px;border:0;background:var(--gold);color:#141a2b;font-weight:700;cursor:pointer}
+.calc-result{display:none;margin-top:16px} .calc-result.show{display:block}
+.calc-result .row.total{font-weight:700}
+.pill{display:inline-block;padding:5px 12px;border-radius:99px;font-weight:700;font-size:13px}
+.pill.pass{background:var(--ok-soft);color:var(--ok)} .pill.fail{background:var(--bad-soft);color:var(--bad)} .pill.caution{background:var(--gold-soft);color:var(--gold)}
+.badge{display:inline-block;font-size:12px;font-weight:700;padding:3px 8px;border-radius:6px;background:var(--gold-soft);color:var(--gold)}
+.check{display:grid;gap:4px} .check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.check input{width:18px;height:18px;margin-top:4px;accent-color:var(--gold);flex-shrink:0}
+.check input:checked+span{text-decoration:line-through;opacity:.6}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tab-btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 14px;border-radius:8px;font:600 14px var(--body);cursor:pointer}
+.tab-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tab-panel{display:none} .tab-panel.active{display:block}
+details.faqitem summary{cursor:pointer;font-weight:700}
+.tline{border-bottom:1px solid var(--line);padding:6px 0}
+ul.plain{padding-left:1.3em}
+.tnum{color:var(--gold);font-weight:700}
+.tool-card h4{margin-top:4px}
+</style></head><body>
+
+<header class="top">
+  <div class="top-in">
+    <div class="eyebrow">Built By You Academy · Real World Business Blueprints</div>
+    <h1>Fix &amp; Flip Houses</h1>
+    <p>Find undervalued houses, run the numbers, finance the deal, manage the renovation, sell for a profit, and handle permits, lead-safe rules and taxes the right way.</p>
+    <p><a href="downloads/fix-and-flip-startup-workbook.xlsx" download style="color:#e3b54a;font-weight:600">⬇ Download the Startup Workbook (Excel)</a> · <a href="#toolkit" style="color:#e3b54a;font-weight:600">Startup links</a></p>
+    <div class="progress"><div class="bar"><i id="barfill"></i></div><span id="ptext">0 of 11 complete</span></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="rail" id="rail" aria-label="Course modules"></nav>
+  <main>
+    <article id="lesson" aria-live="polite"></article>
+    <div class="pager">
+      <button class="btn" id="prev" type="button">← Previous</button>
+      <button class="btn complete" id="done" type="button" aria-pressed="false">Mark complete</button>
+      <button class="btn primary" id="next" type="button">Next module →</button>
+    </div>
+  </main>
+</div>
+<template id="t-overview">
+  <div class="kicker">Start here</div>
+  <h2>Course Overview</h2>
+  <p class="lead">Fix and flip means buying a house below market, renovating it and selling it for more than your total costs. This course covers finding deals, running the numbers, financing, managing the renovation, selling, taxes, legal rules and building your team.</p>
+  <div class="cols">
+    <div><h4>Who it's for</h4>People ready to manage a real project and real money, with access to cash, credit or a lending partner.</div>
+    <div><h4>How it works</h4>9 modules, 27 lessons with formulas, examples and templates. Every module ends with a <strong>Do This Today</strong> task.</div>
+  </div>
+  <h3>Honest note</h3>
+  <p>Flipping carries real financial risk. Renovations run over budget, timelines slip and markets shift. The examples in this course show the math, not typical results. This course doesn't promise income and isn't legal, tax or financial advice. Work with a CPA, a real estate attorney and licensed contractors.</p>
+</template>
+<template id="t-1">
+  <div class="kicker">Module 1</div>
+  <h2>Welcome to Fix & Flip</h2>
+  <section class="lesson-block"><h3>1.1 · The Fix & Flip Business Model</h3>
+  <p class="lsub">Buy distressed, renovate with purpose, sell at top dollar — here's the loop, start to finish.</p>
+
+  <p>Fix & Flip is exactly what it sounds like: you buy a property below market value (usually because it needs work), renovate it strategically, and resell it at or near its After Repair Value (ARV) to a retail buyer. Your profit is the spread between your total investment (purchase + rehab + holding + selling costs) and your final sale price.</p>
+
+  <h4>The Flip Loop</h4>
+  <ol>
+    <li><strong>Find a distressed property</strong> below market value — often the same sources you'd use for wholesaling (Module 2)</li>
+    <li><strong>Evaluate the deal</strong> — ARV, repair scope, all-in costs, projected profit (Module 3)</li>
+    <li><strong>Finance the purchase + rehab</strong> — hard money, private money, cash, or a combination (Module 4)</li>
+    <li><strong>Renovate</strong> — manage contractors, timeline, and budget toward a buyer-focused finished product (Module 5)</li>
+    <li><strong>List and sell</strong> — price, stage, market, and close with a retail buyer (Module 6)</li>
+    <li><strong>Track every dollar</strong> — budget vs. actual, holding costs, and tax treatment (Module 7)</li>
+    <li><strong>Repeat</strong> — with lessons learned, a stronger team, and (ideally) more capital available</li>
+  </ol>
+
+  <h4>Where Your Profit Comes From</h4>
+  <div class="box template">
+    <div class="box-title">✦ The Flip Profit Formula</div>
+    <pre>Sale Price (at or near ARV)
+− Purchase Price
+− Rehab Costs
+− Holding Costs (loan interest, utilities, insurance, taxes during the project)
+− Selling Costs (agent commission, closing costs, staging)
+= NET PROFIT</pre>
+  </div>
+
+  <h4>Why Flipping Is Different From Wholesaling</h4>
+  <table>
+    <tr><th></th><th>Wholesaling</th><th>Fix & Flip</th></tr>
+    <tr><td>You take ownership?</td><td>No (or briefly, in a double close)</td><td>Yes — you hold title through the entire renovation and sale</td></tr>
+    <tr><td>Capital required</td><td>Minimal — assignment fee paid at closing</td><td>Significant — purchase + rehab + holding costs, even with financing</td></tr>
+    <tr><td>Time to payday</td><td>Days to weeks</td><td>Months (typically 3-9 months per project)</td></tr>
+    <tr><td>Profit potential per deal</td><td>$5,000-$15,000 typical</td><td>$15,000-$60,000+ typical, but with more risk and capital tied up</td></tr>
+    <tr><td>Skills emphasized</td><td>Marketing, negotiation, deal flow</td><td>Project management, budgeting, design/market sense</td></tr>
+  </table>
+
+  <div class="box">
+    <div class="box-title">✦ Reality Check</div>
+    <p>Flipping is a <strong>project management business</strong> wrapped around a real estate transaction. The math (Module 3) tells you whether a deal is worth doing. The execution — staying on budget, on timeline, and renovating toward what buyers actually want — is what determines whether that "paper profit" survives to closing.</p>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>1.2 · Flipper vs. Wholesaler vs. Landlord: Choosing Your Path</h3>
+  <p class="lsub">Same deals, three very different businesses — and most successful investors eventually do all three.</p>
+
+  <p>The same distressed property can become a wholesale assignment, a flip, or a BRRRR rental — depending on the numbers and what YOU want out of the deal. Understanding all three paths (even if this course focuses on flipping) makes you a sharper investor and lets you choose the right exit for each deal you find.</p>
+
+  <h4>Side-by-Side</h4>
+  <table>
+    <tr><th></th><th>Wholesale</th><th>Fix & Flip</th><th>BRRRR (Buy-and-Hold)</th></tr>
+    <tr><td>Capital needed</td><td>Very low</td><td>Moderate-high (often financed)</td><td>Moderate-high (often financed, partially recovered via refi)</td></tr>
+    <tr><td>Time commitment</td><td>Days-weeks</td><td>3-9 months per deal</td><td>Months to refinance, then ongoing (light) management</td></tr>
+    <tr><td>Income type</td><td>One-time fee</td><td>One-time profit (lump sum)</td><td>Long-term cash flow + equity growth + eventual cash-out</td></tr>
+    <tr><td>Tax treatment</td><td>Ordinary income</td><td>Often ordinary income (if classified as a "dealer") — discussed in Module 7</td><td>Rental income + depreciation benefits; long-term capital gains if/when sold</td></tr>
+    <tr><td>Risk profile</td><td>Low capital at risk</td><td>Market risk during hold period (renovation delays, market shifts)</td><td>Long-term market and tenant risk, but less time pressure</td></tr>
+    <tr><td>Best for</td><td>Building capital fast with little money</td><td>Investors with access to financing wanting larger paydays per deal</td><td>Investors prioritizing long-term wealth and cash flow over immediate paydays</td></tr>
+  </table>
+
+  <h4>How to Decide Which Exit Fits a Given Deal</h4>
+  <ul>
+    <li><strong>Tight numbers, small spread?</strong> → Wholesale it. The margin may not support a flip's holding costs and risk.</li>
+    <li><strong>Big spread, good neighborhood, strong retail demand?</strong> → Flip it for the larger payday, if you have access to financing and project management bandwidth.</li>
+    <li><strong>Big spread, but in a strong RENTAL market with good rent-to-value?</strong> → Consider BRRRR — especially if you're trying to build a long-term portfolio rather than just generate cash now.</li>
+    <li><strong>Limited bandwidth for project management right now?</strong> → Wholesale or partner with an experienced flipper/contractor on your first few deals.</li>
+  </ul>
+
+  <div class="box">
+    <div class="box-title">✦ Most Successful Investors Do All Three</div>
+    <p>Many investors wholesale deals that don't fit their flip criteria, flip the ones with strong retail upside, and BRRRR the ones that make great long-term rentals — all from the SAME lead generation pipeline. This course focuses on flipping, but everything from Module 2 (lead generation) applies whichever exit you choose for a given property.</p>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>1.3 · Realistic Numbers &amp; Deal Math</h3>
+  <p class="lsub">What a flip actually pays — and how many you'd realistically need to hit your income goals.</p>
+
+  <p>Flipping headlines often show huge profit numbers without showing the months of holding costs, the financing fees, or the deals that went sideways. Here's a grounded look at the math.</p>
+
+  <h4>A Realistic Single-Flip Example</h4>
+  <div class="box template">
+    <div class="box-title">✦ Sample Flip — Full Breakdown</div>
+    <pre>Purchase Price:                       $120,000
+Rehab Budget:                         $45,000
+Closing Costs (purchase):             $2,500
+
+HARD MONEY LOAN (85% of purchase+rehab):
+Loan Amount:                          $140,250
+Interest (9 months @ 11%, interest-only): ~$11,570
+Points (2 points on loan amount):     $2,805
+
+Holding Costs (9 months):
+  Utilities, insurance, taxes:        $4,500
+
+ARV (Sale Price):                     $230,000
+Selling Costs (6% commission + 
+  closing costs, ~7% total):          $16,100
+
+— — — — — — — — — — — — — — — — — —
+TOTAL ALL-IN COSTS:
+Purchase + Rehab + Purchase Closing:  $167,500
++ Loan Interest + Points:             $14,375
++ Holding Costs:                      $4,500
++ Selling Costs:                      $16,100
+TOTAL COSTS:                          $202,475
+
+Sale Price:                           $230,000
+NET PROFIT:                           $27,525</pre>
+  </div>
+
+  <div class="box warn">
+    <div class="box-title">⚠ No income promises</div>
+    <p>The deal above is an example to show the math, not a typical or guaranteed result. Flips can and do lose money when repairs, timelines or sale prices go wrong. Run every deal through the Flip Formula in Module 3 and plan for surprises.</p>
+  </div>
+
+  <h4>What Eats Into Profit (and How to Protect It)</h4>
+  <ul>
+    <li><strong>Timeline overruns</strong> — every extra month adds another month of loan interest and holding costs. A 6-month projected flip that takes 10 months can erase thousands in profit. Module 5 covers project management to prevent this.</li>
+    <li><strong>Scope creep</strong> — "while we're at it, let's also..." additions to the rehab budget without re-running the numbers. Module 5 covers controlling scope.</li>
+    <li><strong>Overestimating ARV</strong> — if the market shifts or your comps were too optimistic, your sale price comes in below projection. Module 3 covers conservative ARV estimating.</li>
+    <li><strong>Underestimating selling costs</strong> — commissions, concessions, and closing costs commonly total 7-10% of sale price — always build this into your numbers up front.</li>
+  </ul>
+
+  <div class="box">
+    <div class="box-title">✦ The Margin of Safety</div>
+    <p>Before committing to a flip, your projected profit should be large enough to absorb a reasonable surprise — a $5,000 unexpected repair, a 2-month timeline slip, or a sale price 3-5% below ARV. If your "profit" disappears under any one of those scenarios, the deal is too thin. Module 3 builds this safety margin directly into your offer formula.</p>
+  </div>
+  
+  </section>
+  <div class="today"><b>Do This Today</b>Decide which path fits you (flip, wholesale or rent) and write down how much cash and time you can put in.</div>
+</template>
+<template id="t-2">
+  <div class="kicker">Module 2</div>
+  <h2>Finding Flip-Worthy Properties</h2>
+  <section class="lesson-block"><h3>2.1 · Lead Generation for Flippers: Driving for Dollars, Bandit Signs, Direct Mail & MLS</h3>
+  <p class="lsub">Flippers compete for inventory through every channel a wholesaler uses — plus a few extra.</p>
+
+  <p>Every lead generation channel from a wholesaling business works for a flipping business too — you're both looking for the same thing: motivated sellers with properties priced below their post-repair value. As a flipper, you'll ALSO compete directly on the MLS for distressed listings, since you have the capital to close on financed deals that cash-only wholesalers might pass on.</p>
+
+  <h4>Off-Market Channels</h4>
+  <h5>Driving for Dollars</h5>
+  <p>Physically (or virtually via Street View) scouting target neighborhoods for distress signals — overgrown lawns, boarded windows, visible damage, code violation notices. Log addresses, then skip trace (next lesson) to get owner contact info.</p>
+  <div class="res-grid">
+    <div class="res-card"><a href="https://www.dealmachine.com" target="_blank">DealMachine</a><div class="res-desc">Snap a photo of a distressed property, get owner info and send mail directly from the app.</div></div>
+  </div>
+
+  <h5>Bandit Signs</h5>
+  <div class="box template">
+    <div class="box-title">✦ Bandit Sign Best Practices for Flippers</div>
+    <ul>
+      <li>"WE BUY HOUSES — CASH — ANY CONDITION" at high-traffic intersections near your target neighborhoods</li>
+      <li><strong>Assign a unique CallRail tracking number to each sign batch/location</strong> so you know which intersections produce calls (full setup in Lesson 2.3)</li>
+      <li>Check local code enforcement rules before placing — many areas regulate or remove these signs</li>
+      <li>Rotate locations based on tracking data — kill dead spots, double down on producers</li>
+    </ul>
+  </div>
+
+  <h5>Direct Mail</h5>
+  <p>Postcards/letters to targeted owner lists (Lesson 2.2 covers list sourcing). As a flipper, you can mail higher-equity, better-condition properties than a pure wholesaler might target — you have the capital to take on a real rehab, so a "decent bones, dated finishes" property is often a perfect flip candidate even if the equity position alone wouldn't make a thin wholesale deal work.</p>
+  <ul>
+    <li><strong>Give each list type its own CallRail tracking number</strong> — absentee owner, tax delinquent, expired listing, etc. — so you can compare response rates</li>
+    <li>Mail consistently (monthly) to the same list — motivated sellers often respond on the 3rd-5th touch</li>
+  </ul>
+
+  <h4>On-Market Channel: MLS</h4>
+  <p>Unlike a cash-only wholesaler, you can make offers on MLS-listed properties — especially those that have sat for a while, are listed "as-is," or are explicitly marketed to investors (fixer-uppers, estate sales, foreclosures). Your investor-friendly realtor (Module 9) should set up automated MLS searches for:</p>
+  <ul>
+    <li>Properties listed "as-is" or with "investor special," "TLC needed," "cash only" language</li>
+    <li>Properties with 60+ days on market (price reductions often follow)</li>
+    <li>Bank-owned (REO) and foreclosure auction listings</li>
+    <li>Estate sales / probate listings</li>
+  </ul>
+
+  <h4>Cold Calling</h4>
+  <p>Pairs with batch lists (next lesson) — scripts from the wholesaling course's Module 3 apply directly; the only difference is your offer range can be higher since you're not assigning for a fee, you're financing the full purchase.</p>
+
+  <table>
+    <tr><th>Channel</th><th>Best For Flippers Because...</th></tr>
+    <tr><td>MLS (as-is/investor listings)</td><td>You can use financing — opens up inventory cash-only wholesalers can't touch</td></tr>
+    <tr><td>Driving for Dollars</td><td>Free, builds a personal pipeline of off-market opportunities</td></tr>
+    <tr><td>Bandit Signs / Direct Mail</td><td>Cheap inbound leads from motivated sellers, same as wholesaling</td></tr>
+    <tr><td>Cold Calling</td><td>High volume, immediate conversations, works with batch lists</td></tr>
+  </table>
+  
+  </section>
+  <section class="lesson-block"><h3>2.2 · Batch Leads, Skip Tracing & Building Your Acquisition Pipeline</h3>
+  <p class="lsub">The list types that produce flip-worthy inventory — and how to turn an address into a phone number.</p>
+
+  <p>The same list types that produce wholesale leads produce flip leads — the difference is which ones you prioritize. As a flipper, you can take on MORE rehab than a thin-margin wholesale deal allows, so don't shy away from properties with real work needed, as long as the ARV spread supports it (Module 3).</p>
+
+  <h4>Best List Types for Flippers</h4>
+  <table>
+    <tr><th>List Type</th><th>Why It's a Good Flip Source</th></tr>
+    <tr><td><strong>Absentee Owners</strong></td><td>Often deferred maintenance from being managed remotely — solid flip candidates with cosmetic-to-medium rehab needs</td></tr>
+    <tr><td><strong>Inherited / Probate</strong></td><td>Frequently dated but structurally sound — heirs often want a fast, hassle-free sale, even at a discount, leaving room for your rehab margin</td></tr>
+    <tr><td><strong>Expired/Withdrawn MLS Listings</strong></td><td>Already tried to sell — may have inspection issues or pricing problems you can solve with the right rehab and re-pricing</td></tr>
+    <tr><td><strong>Tax Delinquent</strong></td><td>Financial distress often correlates with deferred maintenance — good rehab opportunity if structure is sound</td></tr>
+    <tr><td><strong>Pre-Foreclosure</strong></td><td>Time-sensitive sellers, often willing to negotiate on price for certainty and speed</td></tr>
+    <tr><td><strong>Vacant Properties</strong></td><td>No tenant to work around during your rehab — can sometimes start work faster post-closing</td></tr>
+  </table>
+
+  <h4>Where to Pull Lists & Skip Trace</h4>
+  <div class="res-grid">
+    <div class="res-card"><a href="https://www.propstream.com" target="_blank">PropStream</a><div class="res-desc">Pull and filter lists by ownership, equity, condition indicators, with built-in skip tracing.</div></div>
+    <div class="res-card"><a href="https://www.batchleads.io" target="_blank">BatchLeads / BatchData</a><div class="res-desc">List building + skip tracing + dialer + direct mail in one platform.</div></div>
+    <div class="res-card"><a href="https://www.listsource.com" target="_blank">ListSource</a><div class="res-desc">Pay-per-record list pulls with detailed property and ownership filtering.</div></div>
+    <div class="res-card">County Assessor/Recorder Sites<div class="res-desc">Free public records for tax delinquent and ownership data — manual but $0 cost.</div></div>
+  </div>
+
+  <h4>The Pipeline Process</h4>
+  <ol>
+    <li>Pick a list type and pull 200-500 records in your target area</li>
+    <li>Skip trace for phone numbers/emails (typically $0.05-$0.25/record, 60-85% hit rate)</li>
+    <li>Load into your CRM, tagged by list type and pull date</li>
+    <li>Split between cold calling (this week) and direct mail (ongoing monthly drip)</li>
+    <li>Track response rates by list type and channel using CallRail (next lesson)</li>
+  </ol>
+
+  <div class="box warn">
+    <div class="box-title">⚠ Do Not Call Registry</div>
+    <p>Be aware of <a href="https://www.donotcall.gov" target="_blank">National Do Not Call Registry</a> rules and your state's telemarketing laws when cold calling. Honor "do not call" requests immediately, and consult your attorney on applicable exemptions for real estate transactions in your state.</p>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>2.3 · Call Tracking with CallRail: Measuring Cost-Per-Deal Across Channels</h3>
+  <p class="lsub">The system that turns 'I think direct mail is working' into 'direct mail costs me $X per deal — here's the proof.'</p>
+
+  <p>As a flipper, your acquisition costs are a real line item against your profit margin (Module 3). Knowing exactly which marketing channel produced each deal — and at what cost — is how you decide where to spend your next acquisition dollar.</p>
+
+  <h4>Setting Up CallRail</h4>
+  <ol>
+    <li>Sign up for <a href="https://www.callrail.com" target="_blank">CallRail</a> (or a similar call tracking service)</li>
+    <li>Get a separate tracking number for EACH channel: bandit signs, direct mail (per list type), cold-call callback line, MLS inquiries, online ads</li>
+    <li>Forward all tracking numbers to your business cell</li>
+    <li>Put the correct number on each piece of marketing — every sign, every mailer batch, every ad</li>
+    <li>Review your CallRail dashboard weekly/monthly: calls per source, call duration, and — critically — which calls turned into acquired properties</li>
+  </ol>
+
+  <h4>Building Cost-Per-Deal by Channel</h4>
+  <div class="box template">
+    <div class="box-title">✦ Example Tracking Sheet (Monthly)</div>
+    <pre>Channel          | Spend  | Calls | Leads | Deals | Cost/Deal
+Bandit Signs     | $120   | 14    | 5     | 0     | —
+Direct Mail (TD) | $450   | 9     | 4     | 1     | $450
+Direct Mail (AO) | $600   | 18    | 8     | 1     | $600
+Cold Call (Batch)| $180   | 22*   | 6     | 1     | $180
+MLS (Realtor)    | $0     | —     | 3     | 1     | $0 (time only)
+
+*Calls made, not received</pre>
+    <p>With this view, cold calling and MLS are your most cost-efficient channels this month, while bandit signs produced calls but no deals — worth another month of data before deciding whether to adjust locations or pull the channel.</p>
+  </div>
+
+  <h4>What to Track Per Channel</h4>
+  <table>
+    <tr><th>Channel</th><th>What CallRail Tells You</th></tr>
+    <tr><td>Bandit Signs</td><td>Calls per sign location — identify which intersections/areas actually produce</td></tr>
+    <tr><td>Direct Mail</td><td>Response rate per 1,000 mailers, by list type — which lists are worth repeating</td></tr>
+    <tr><td>Cold Calling</td><td>Connect rate, callback rate — script/timing effectiveness</td></tr>
+    <tr><td>Online Ads</td><td>Cost per call, cost per qualified lead — scale winners, cut losers</td></tr>
+  </table>
+
+  <div class="box">
+    <div class="box-title">✦ The 90-Day Review</div>
+    <p>After 90 days of tracking, you'll have real cost-per-lead AND cost-per-deal numbers for every channel. This is the data that tells you whether to put your next $500 into more direct mail, more signs, or a realtor relationship — instead of guessing. This same tracking discipline carries forward into Module 6 when you market the FINISHED flip for sale.</p>
+  </div>
+  
+  </section>
+  <div class="today"><b>Do This Today</b>Pick one lead channel and a target neighborhood, and set a weekly goal.</div>
+</template>
+<template id="t-3">
+  <div class="kicker">Module 3</div>
+  <h2>Evaluating Deals: ARV, Repairs & The Flip Formula</h2>
+  <section class="lesson-block"><h3>3.1 · ARV for Flippers: Setting Your Target Sale Price</h3>
+  <p class="lsub">Your ARV is the destination — everything else in the deal is reverse-engineered from it.</p>
+
+  <p>ARV (After Repair Value) is what your finished flip will sell for. Unlike a wholesaler who just needs ARV to be "in the ballpark" for marketing to buyers, your ARV estimate IS your projected sale price — every dollar of your budget, financing, and profit depends on getting this right.</p>
+
+  <h4>Step-by-Step ARV Process</h4>
+  <ol>
+    <li><strong>Pull 4-6 recent sold comps</strong> within 0.5 mile, sold in the last 3-6 months, similar square footage (within 10-15%), same bed/bath count and property type</li>
+    <li><strong>Match FINISHED condition</strong> — your comps should be fully renovated/updated, matching the FINISH LEVEL you plan to deliver (don't compare your mid-grade flip to a luxury renovation comp)</li>
+    <li><strong>Calculate price per square foot</strong> for each comp, average your best 3-4 (exclude outliers)</li>
+    <li><strong>Multiply</strong> by your subject property's square footage</li>
+    <li><strong>Adjust for differences</strong> — extra bathroom, garage, lot size, school district, busy road</li>
+    <li><strong>Have your realtor (Module 9) sanity-check the number</strong> against current MLS data and pending sales — pending sales often reflect more current market conditions than closed sales from 3-6 months ago</li>
+  </ol>
+
+  <div class="box template">
+    <div class="box-title">✦ Worked Example</div>
+    <pre>Subject property: 1,500 sqft, 3bd/2ba, planned mid-grade renovation
+
+Comp 1 (renovated, mid-grade): 1,480 sqft, sold $245,000 → $165.54/sqft
+Comp 2 (renovated, mid-grade): 1,520 sqft, sold $252,000 → $165.79/sqft
+Comp 3 (renovated, mid-grade): 1,460 sqft, sold $241,000 → $165.07/sqft
+Comp 4 (luxury renovation, excluded — different finish level): 
+  1,500 sqft, sold $295,000 → $196.67/sqft
+
+Average price/sqft (Comps 1-3): $165.47/sqft
+ARV = 1,500 sqft × $165.47 = $248,205 → round to $248,000</pre>
+  </div>
+
+  <h4>Match Your Renovation Level to Your ARV Comps</h4>
+  <table>
+    <tr><th>Finish Level</th><th>What It Looks Like</th><th>Use Comps That Match</th></tr>
+    <tr><td>Budget/Cosmetic</td><td>Paint, flooring, basic fixtures, minimal layout changes</td><td>Other budget flips/updated rentals in the area</td></tr>
+    <tr><td>Mid-Grade</td><td>New kitchen/baths, updated finishes, some layout improvements</td><td>Standard "flip" comps — the most common comparison</td></tr>
+    <tr><td>High-End/Luxury</td><td>Premium finishes, custom features, major layout changes</td><td>Only the top tier of recent sales — much smaller, riskier pool of buyers</td></tr>
+  </table>
+
+  <div class="box warn">
+    <div class="box-title">⚠ Don't Over-Improve for the Neighborhood</div>
+    <p>A $400,000 renovation in a neighborhood where comps top out at $280,000 won't appraise or sell at $400,000 — you'll have over-improved past what the MARKET (not your taste) will pay. Always renovate to match (or slightly exceed) the best comps in the immediate area, not your personal preferences.</p>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>3.2 · Repair Cost Estimating & Scope of Work</h3>
+  <p class="lsub">Turning 'this needs work' into a real, biddable scope of work your contractors can price accurately.</p>
+
+  <p>As a flipper, your repair estimate isn't just a number for an offer — it becomes your actual renovation budget. The more detailed your Scope of Work (SOW) before you close, the fewer surprises (and budget overruns) during the project.</p>
+
+  <h4>Quick-Estimate Ranges (Pre-Offer)</h4>
+  <table>
+    <tr><th>Rehab Level</th><th>Typical Cost/SqFt</th><th>What's Included</th></tr>
+    <tr><td><strong>Light (Cosmetic)</strong></td><td>$15-$25/sqft</td><td>Paint, flooring, fixtures, landscaping, minor repairs</td></tr>
+    <tr><td><strong>Medium</strong></td><td>$25-$40/sqft</td><td>Kitchen & bath updates, some systems work, windows</td></tr>
+    <tr><td><strong>Heavy (Full Gut)</strong></td><td>$40-$70+/sqft</td><td>Roof, HVAC, electrical, plumbing, structural, full kitchen/baths</td></tr>
+  </table>
+
+  <h4>Building a Detailed Scope of Work</h4>
+  <p>Once a property is under contract, walk it with your General Contractor (Module 9) and build a line-item SOW covering every area:</p>
+  <div class="box template">
+    <div class="box-title">✦ Sample Scope of Work Categories</div>
+    <ul>
+      <li><strong>Exterior:</strong> Roof, siding/paint, gutters, windows, doors, landscaping, driveway/walkways</li>
+      <li><strong>Structural/Systems:</strong> Foundation repairs, framing, HVAC, electrical panel/wiring, plumbing</li>
+      <li><strong>Kitchen:</strong> Cabinets, countertops, appliances, backsplash, flooring, lighting, plumbing fixtures</li>
+      <li><strong>Bathrooms:</strong> Vanities, tile, tub/shower, toilet, fixtures, flooring, lighting, ventilation</li>
+      <li><strong>Flooring (whole house):</strong> Type by room, including subfloor repairs if needed</li>
+      <li><strong>Interior:</strong> Paint, trim/doors, drywall repairs, lighting fixtures</li>
+      <li><strong>Permits & Fees:</strong> Any required permits for electrical, plumbing, structural work</li>
+      <li><strong>Contingency:</strong> 10-15% of total budget for unknowns — ALWAYS include this</li>
+    </ul>
+  </div>
+
+  <h4>The Inspection Period Is Your Friend</h4>
+  <p>Use the due diligence/inspection period in your purchase agreement to get your contractor and (if warranted) a professional inspector through the property BEFORE you're fully committed. This is when you find out about the things that turn a $35,000 rehab into a $55,000 rehab — foundation issues, hidden water damage, outdated electrical that needs a full panel upgrade, etc.</p>
+
+  <h4>Common Big-Ticket Surprises</h4>
+  <ul>
+    <li><strong>Roof</strong> — what looked "fine" from the ground has soft spots or multiple layers needing tear-off ($8,000-$18,000)</li>
+    <li><strong>Foundation</strong> — cosmetic cracks that turn out to be structural ($5,000-$25,000+)</li>
+    <li><strong>Electrical</strong> — knob-and-tube or aluminum wiring requiring a full rewire ($8,000-$15,000)</li>
+    <li><strong>Plumbing</strong> — galvanized or polybutylene pipe throughout requiring full replacement ($6,000-$15,000)</li>
+    <li><strong>Mold/Water damage</strong> — hidden behind walls/under flooring, found during demo</li>
+  </ul>
+
+  <div class="box">
+    <div class="box-title">✦ Building in Contingency</div>
+    <p>Even with a thorough walkthrough, things get found during demo. A 10-15% contingency on your rehab budget isn't pessimism — it's how experienced flippers protect their profit margin from the surprises that come with EVERY older property. Build it in from the start, not as an afterthought when something goes wrong.</p>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>3.3 · The Flip Formula: MAO, Holding Costs & Profit Margins</h3>
+  <p class="lsub">The complete formula — from ARV down to your maximum offer, with every real cost included.</p>
+
+  <p>This is the formula that ties everything together: ARV (Lesson 3.1), repair estimate (Lesson 3.2), financing costs (Module 4), holding costs, and selling costs — all working backward to your Maximum Allowable Offer (MAO) and target profit margin.</p>
+
+  <h4>The Full Flip Formula</h4>
+  <div class="box template">
+    <div class="box-title">✦ The Formula</div>
+    <pre>MAO = ARV − Repair Costs − Holding Costs − Selling Costs 
+            − Financing Costs − Target Profit
+
+A common shortcut version (the "70% Rule" adapted for flippers):
+MAO ≈ (ARV × 70%) − Repair Costs
+
+The 70% figure already builds in a rough allowance for holding, 
+selling, and financing costs PLUS profit — but running the FULL 
+formula (below) gives you a much more accurate, deal-specific 
+number.</pre>
+  </div>
+
+  <h4>Full Worked Example</h4>
+  <div class="box template">
+    <div class="box-title">✦ Full Flip Formula in Action</div>
+    <pre>ARV:                                  $248,000
+
+Estimated Repairs (Lesson 3.2):       $42,000
+
+Holding Costs (6 months projected):
+  Loan interest (~11% on est. loan):  ~$7,500
+  Insurance, utilities, taxes:        $2,400
+  Total holding:                      $9,900
+
+Selling Costs (7% of ARV):            $17,360
+
+Financing Points (2 points on loan):  ~$1,900
+
+Target Profit (your minimum 
+  acceptable for this deal):          $30,000
+
+— — — — — — — — — — — — — — — — — — —
+MAO = $248,000 − $42,000 − $9,900 − $17,360 − $1,900 − $30,000
+MAO = $146,840 → round down to $145,000 for negotiation room</pre>
+  </div>
+
+  <h4>Setting Your Target Profit Threshold</h4>
+  <p>Before you start making offers, decide your MINIMUM acceptable profit per deal — and don't make offers that fall below it, even if "the deal feels close." Most flippers target a minimum profit that's both a dollar floor AND a percentage of total costs:</p>
+  <table>
+    <tr><th>Guideline</th><th>Typical Range</th></tr>
+    <tr><td>Minimum dollar profit</td><td>$20,000-$30,000+ (varies by market and deal size)</td></tr>
+    <tr><td>Minimum profit as % of total costs (ROI)</td><td>15-20%+ on total cash invested</td></tr>
+    <tr><td>Minimum profit as % of ARV</td><td>10-15% of ARV</td></tr>
+  </table>
+
+  <h4>Sensitivity Check: What If You're Off?</h4>
+  <p>Before locking in an offer, stress-test your numbers:</p>
+  <ul>
+    <li><strong>What if ARV comes in 5% lower</strong> than projected? Does the deal still profit?</li>
+    <li><strong>What if the rehab runs 15% over budget</strong> (contingency gets used)? Still profitable?</li>
+    <li><strong>What if the project takes 2 extra months</strong> (additional holding costs)? Still profitable?</li>
+  </ul>
+  <p>If the answer to any of these is "no, I'd lose money" — your margin is too thin. Either negotiate a lower purchase price, scope down the rehab, or pass on the deal.</p>
+
+  <div class="box">
+    <div class="box-title">✦ This Number Goes Into Module 4</div>
+    <p>Your MAO from this formula becomes the maximum purchase price you bring to your lender (Module 4) — hard money lenders will run their OWN version of this formula to decide how much they'll lend, so having your numbers tight and documented makes financing conversations faster and builds your credibility as a borrower.</p>
+  </div>
+  
+  </section>
+  <div class="today"><b>Do This Today</b>Run the Flip Formula on 3 recently sold, renovated houses in your area for practice.</div>
+</template>
+<template id="t-4">
+  <div class="kicker">Module 4</div>
+  <h2>Financing Your Flip</h2>
+  <section class="lesson-block"><h3>4.1 · Hard Money for Flips: Draws, Inspections & Qualifying</h3>
+  <p class="lsub">How most flips actually get funded — and how the draw process works once you're under construction.</p>
+
+  <p>Hard money lenders are the most common financing source for flips — short-term, asset-based loans covering most of your purchase price plus rehab budget, secured by the property. Unlike a wholesaler who just needs to understand these terms, you'll be the one applying, qualifying, and managing draws throughout your project.</p>
+
+  <h4>Typical Loan Structure</h4>
+  <table>
+    <tr><th>Term</th><th>Typical Range</th></tr>
+    <tr><td>Loan-to-Cost (LTC)</td><td>80-90% of purchase price + rehab budget</td></tr>
+    <tr><td>Loan-to-ARV (LTV cap)</td><td>Typically capped around 65-75% of ARV</td></tr>
+    <tr><td>Interest Rate</td><td>9-14%, interest-only payments during the term</td></tr>
+    <tr><td>Points (origination)</td><td>1-3 points, paid at closing</td></tr>
+    <tr><td>Term Length</td><td>6-18 months, often with extension options (extension fees apply)</td></tr>
+  </table>
+
+  <h4>What You'll Need to Qualify</h4>
+  <ul>
+    <li><strong>The deal itself</strong> — purchase price, ARV, repair budget, and your full numbers from Module 3 (lenders run their own version of the flip formula)</li>
+    <li><strong>Proof of funds for your portion</strong> — even at 85-90% LTC, you need cash for the remaining 10-15% plus closing costs and reserves</li>
+    <li><strong>Experience/track record</strong> — first flips may get slightly lower leverage or higher rates; each completed project improves your terms</li>
+    <li><strong>Exit strategy</strong> — for a flip, this is simply "sell on the MLS at ARV within [timeline]"</li>
+  </ul>
+
+  <h4>How the Draw Process Works</h4>
+  <p>The rehab portion of your loan isn't handed to you upfront — it's released in <strong>draws</strong> as work is completed and verified:</p>
+  <ol>
+    <li>Your SOW (Lesson 3.2) is broken into draw stages (e.g., demo/rough-in, drywall/paint, finishes/final)</li>
+    <li>Your contractor completes a stage of work</li>
+    <li>The lender (or a third-party inspector they hire) verifies the work is complete</li>
+    <li>The lender releases that draw's funds — typically to you, who then pays your contractor</li>
+    <li>Process repeats for each stage until rehab is complete</li>
+  </ol>
+
+  <div class="box warn">
+    <div class="box-title">⚠ Draw Delays Are a Real Risk</div>
+    <p>Draw inspections and fund releases can take days to a couple weeks depending on the lender. If your contractor needs payment to buy materials for the NEXT stage, a slow draw can stall your project — costing you holding costs (Module 3) every day. Build draw turnaround time into your project timeline, and have a financial buffer so a slow draw doesn't stop work entirely.</p>
+  </div>
+
+  <div class="res-grid">
+    <div class="res-card">Search "hard money lender [your state]"<div class="res-desc">Get quotes from 2-3 lenders to compare rates, points, leverage, and draw processes before your first deal.</div></div>
+    <div class="res-card"><a href="https://www.biggerpockets.com/lender-finder" target="_blank">BiggerPockets Lender Finder</a><div class="res-desc">Directory of hard money and private lenders by state/market.</div></div>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>4.2 · Private Money & Partnerships</h3>
+  <p class="lsub">Sometimes the best financing source is a person, not a company — and sometimes the best capital is a partner's.</p>
+
+  <p>Private money (individual lenders) and equity partnerships are two ways to fund flips outside of institutional hard money — each with different tradeoffs around cost, control, and profit sharing.</p>
+
+  <h4>Private Money Lenders</h4>
+  <p>Individuals — retirees, professionals, other investors with idle capital — who lend their own money secured by a mortgage/deed of trust against the property, in exchange for a fixed interest rate. Often more flexible than hard money companies, especially once you've built a track record.</p>
+
+  <div class="box script">
+    <div class="box-title">☎ Private Money Conversation Starter</div>
+    <pre>"I renovate and resell distressed properties — buying, fixing 
+them up, and selling to retail buyers. I'm always looking to 
+connect with people who might have capital sitting in a savings 
+account or low-yield investment and would be interested in 
+earning a better return — secured by real estate, with a 
+mortgage recorded in their favor, just like a bank.
+
+Would that be something you'd ever want to learn more about?"</pre>
+  </div>
+
+  <table>
+    <tr><th>Element</th><th>Typical Structure</th></tr>
+    <tr><td>Interest Rate</td><td>8-12%, often interest-only during the project</td></tr>
+    <tr><td>Term</td><td>6-12 months, matched to your projected flip timeline</td></tr>
+    <tr><td>Security</td><td>Mortgage/Deed of Trust recorded against the property</td></tr>
+    <tr><td>Documentation</td><td>Promissory Note + Mortgage/Deed of Trust, prepared by a real estate attorney</td></tr>
+  </table>
+
+  <div class="box warn">
+    <div class="box-title">⚠ Document It Properly, Every Time</div>
+    <p>Even with family or friends as lenders, use a Promissory Note and recorded Mortgage/Deed of Trust prepared by an attorney. This protects both parties and is what separates "private lending" from "a personal loan that damages a relationship if the project runs long."</p>
+  </div>
+
+  <h4>Equity Partnerships</h4>
+  <p>Instead of borrowing money, you bring in a partner who contributes capital in exchange for a SHARE of the profit (rather than interest). Common when you have the deal, the time, and the project management skills — but not the capital.</p>
+
+  <h4>Common Partnership Structures</h4>
+  <table>
+    <tr><th>Structure</th><th>How It Works</th></tr>
+    <tr><td>50/50 Capital Partner</td><td>Partner funds the deal, you manage everything (sourcing, contractors, sale); profit split 50/50 after costs</td></tr>
+    <tr><td>Preferred Return + Split</td><td>Partner gets their capital back PLUS a fixed return (e.g., 8-10%) first, then remaining profit splits (e.g., 70/30 in your favor for finding/managing the deal)</td></tr>
+    <tr><td>Fee + Smaller Split</td><td>You take a project management fee upfront (covers some of your time/costs) plus a smaller profit share (e.g., 20-30%)</td></tr>
+  </table>
+
+  <div class="box">
+    <div class="box-title">✦ Get It in Writing — Always</div>
+    <p>Every partnership needs a written agreement (a simple Joint Venture Agreement, attorney-prepared) covering: capital contributions, profit split, decision-making authority (who decides on budget changes, listing price, etc.), and what happens if the project goes over budget or runs long. Handshake partnerships on five-figure projects are how friendships and businesses end badly — paperwork protects the relationship as much as the money.</p>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>4.3 · Subject-To and Creative Acquisition for Flippers</h3>
+  <p class="lsub">When the seller's situation — not just the price — opens the door to a deal a traditional offer never would.</p>
+
+  <p>Sometimes the BEST flip opportunities come from sellers whose situation makes a traditional cash-financed purchase impossible to negotiate down to a workable price — but a creative structure makes the deal work for everyone.</p>
+
+  <h4>Subject-To Acquisition</h4>
+  <p>"Subject-To" means taking title to a property while the seller's existing mortgage stays in place — you (or your project) take over payments, but the loan isn't paid off at closing. This was covered in detail in our Wholesale course (Module 5) — here's how it applies to a flip specifically.</p>
+
+  <div class="box warn">
+    <div class="box-title">⚠ The Due-on-Sale Clause Still Applies</div>
+    <p>Nearly all mortgages allow the lender to call the loan due if ownership transfers without approval. This risk must be disclosed to the seller in writing, and a real estate attorney experienced in subject-to transactions should be involved before closing — this is not a DIY structure.</p>
+  </div>
+
+  <h4>Why Subject-To Can Work Well for a Flip</h4>
+  <ul>
+    <li><strong>Little to no cash needed at purchase</strong> — your capital can go straight into the rehab budget instead of the purchase price</li>
+    <li><strong>Existing loan may carry a lower interest rate</strong> than current hard money rates — reducing your holding costs during the rehab</li>
+    <li><strong>Works for sellers with little/no equity</strong> who couldn't otherwise sell for a price that supports a profitable flip — the deal becomes possible BECAUSE of the creative structure, not despite it</li>
+  </ul>
+
+  <h4>The Tradeoff</h4>
+  <p>When you sell the finished flip, the existing loan must be paid off at closing (typically from your sale proceeds) — and you've been making payments on someone else's loan throughout the project. Your exit timeline matters even more here, since you're carrying that underlying loan's payment (which may or may not match your hard-money-equivalent holding cost) the whole time.</p>
+
+  <h4>Other Creative Acquisition Tools</h4>
+  <table>
+    <tr><th>Tool</th><th>How It Helps a Flip</th></tr>
+    <tr><td>Seller Financing</td><td>Seller acts as the lender — you make payments to them instead of a bank/hard money lender, often with more flexible terms and lower/no points</td></tr>
+    <tr><td>Master Lease with Option</td><td>Control the property (and start some improvements) before formally closing — useful when timing or financing isn't ready yet</td></tr>
+    <tr><td>Land Trust (with attorney guidance)</td><td>Holds title in a way that can simplify certain subject-to structures — requires attorney setup</td></tr>
+  </table>
+
+  <h4>When to Reach for These Tools</h4>
+  <ul>
+    <li>The seller's situation (low/no equity, behind on payments, needs to move fast) makes a traditional cash offer impossible at a price that supports your flip formula (Module 3)</li>
+    <li>You have an attorney experienced in these structures available for your market</li>
+    <li>You've run the FULL numbers including the underlying loan payment as part of your holding costs, and the deal still profits with margin to spare</li>
+  </ul>
+
+  <div class="box">
+    <div class="box-title">✦ Module Wrap-Up</div>
+    <p>You now have your full financing toolkit: hard money for straightforward deals, private money/partnerships when you need flexible capital or want to scale beyond your own cash, and creative structures for the deals that wouldn't otherwise work. Module 5 takes the financed, acquired property and turns it into a finished product buyers want.</p>
+  </div>
+  
+  </section>
+  <div class="today"><b>Do This Today</b>Call 2 hard money lenders and 1 local bank. Ask their rates, points, down payment and draw process, and write the answers in your workbook.</div>
+</template>
+<template id="t-5">
+  <div class="kicker">Module 5</div>
+  <h2>Renovation & Project Management</h2>
+  <section class="lesson-block"><h3>5.1 · Finalizing Your Scope of Work & Pulling Permits</h3>
+  <p class="lsub">Turn your pre-offer estimate into a real, biddable, permit-ready project plan.</p>
+
+  <p>Within days of closing, your detailed Scope of Work (started in Lesson 3.2) needs to become the document every contractor bids against and every permit application references. A vague SOW produces vague bids — and vague bids produce budget overruns.</p>
+
+  <h4>From Estimate to Final SOW</h4>
+  <ol>
+    <li><strong>Walk the property again, post-closing</strong>, with your GC — confirm everything from the inspection period walkthrough, and check for anything missed</li>
+    <li><strong>Write line items by trade/room</strong> — specific enough that two different contractors bidding the same SOW would price it similarly</li>
+    <li><strong>Specify materials/finish level</strong> for each line item (e.g., "LVP flooring throughout, mid-grade, approx. $3/sqft material") so bids are apples-to-apples</li>
+    <li><strong>Identify what requires permits</strong> (next section) and build permit timelines into your project schedule</li>
+  </ol>
+
+  <h4>What Typically Requires a Permit</h4>
+  <table>
+    <tr><th>Work Type</th><th>Permit Usually Required?</th></tr>
+    <tr><td>Cosmetic (paint, flooring, cabinets — no structural/systems changes)</td><td>Often no</td></tr>
+    <tr><td>Electrical work (panel upgrades, rewiring, new circuits)</td><td>Yes</td></tr>
+    <tr><td>Plumbing (repiping, water heater replacement, new fixtures requiring new lines)</td><td>Yes</td></tr>
+    <tr><td>HVAC replacement</td><td>Yes (often)</td></tr>
+    <tr><td>Structural changes (removing/altering load-bearing walls, additions)</td><td>Yes — often requires engineering plans</td></tr>
+    <tr><td>Roof replacement</td><td>Often yes (varies by jurisdiction)</td></tr>
+    <tr><td>Window replacement (same size/opening)</td><td>Varies — check locally</td></tr>
+  </table>
+
+  <div class="box warn">
+    <div class="box-title">⚠ Don't Skip Permits</div>
+    <p>Unpermitted electrical, plumbing, or structural work is one of the most common issues that surfaces during a BUYER'S inspection or appraisal — and can kill your sale, force you to "open up the walls" to inspect/re-permit after the fact, or create disclosure issues at closing. Pulling permits adds time and cost upfront, but protects your exit. Your GC (Module 9) should know your local permitting office and typical turnaround times.</p>
+  </div>
+
+  <h4>Building the Project Timeline</h4>
+  <p>Sequence your SOW into phases, accounting for permit lead times and draw inspection turnaround (Module 4):</p>
+  <div class="box template">
+    <div class="box-title">✦ Typical Flip Timeline (Example: Medium Rehab)</div>
+    <pre>Week 1:    Permits submitted, demo begins
+Week 2-3:  Rough-in (electrical, plumbing, HVAC) — Draw 1 inspection
+Week 4-5:  Drywall, paint, flooring — Draw 2 inspection
+Week 6-7:  Kitchen/bath installs, fixtures, trim
+Week 8:    Final touches, cleaning, photos — Draw 3 (final) inspection
+Week 9:    List for sale (Module 6)
+Week 9-12+: Under contract, closing</pre>
+  </div>
+
+  <div class="box">
+    <div class="box-title">✦ The SOW Is Your Contract With Reality</div>
+    <p>Every line item in your SOW should map to a budget line (Module 7) and a timeline slot. When something comes up mid-project that's NOT on the SOW, that's the moment to stop and re-run your numbers (Lesson 3.3) before saying yes — not after the work is done.</p>
+  </div>
+  <div class="checkstate">
+    <div class="box-title">⚠ Built before 1978? Lead-safe rules apply</div>
+    <p>Under the EPA's Renovation, Repair and Painting (RRP) Rule, firms paid to do work that disturbs paint in homes built before 1978 must be <strong>EPA lead-safe certified</strong> and use lead-safe work practices. This includes sole proprietors. Small jobs (6 sq ft or less per room inside, 20 sq ft or less outside) are exempt, but <strong>window replacement and demolition are always covered</strong>.</p>
+    <ol>
+      <li>Check the year built on every deal (county records or the listing).</li>
+      <li>If it's pre-1978, hire an <a href="https://cdxocsppapps.epa.gov/ocspp-oppt-lead/firm-location-search" target="_blank" rel="noopener">EPA-certified renovation firm</a> and get their certification in writing.</li>
+      <li>Some states run their own lead program with extra rules. Check yours.</li>
+      <li>When you sell, federal law requires a lead-based paint disclosure for pre-1978 homes.</li>
+    </ol>
+    <p class="note">Source: <a href="https://www.epa.gov/lead/renovation-repair-and-painting-program-contractors" target="_blank" rel="noopener">EPA RRP Program for Contractors</a> (updated March 2026).</p>
+  </div>
+
+  </section>
+  <section class="lesson-block"><h3>5.2 · Managing Contractors & Subs: Bids, Timelines & Draws</h3>
+  <p class="lsub">The project management skills that protect your budget and your timeline — both of which protect your profit.</p>
+
+  <p>Once your SOW is finalized, getting accurate bids and then MANAGING the work to that bid and timeline is the core skill of flipping. This is where "paper profit" either survives or evaporates.</p>
+
+  <h4>Getting Bids</h4>
+  <ol>
+    <li><strong>Send your written SOW</strong> to 2-3 contractors (Module 9) for each major trade, or to your GC for a whole-project bid</li>
+    <li><strong>Require itemized bids</strong> — line-item pricing matching your SOW, not just one lump number, so you can compare apples-to-apples and identify scope gaps</li>
+    <li><strong>Confirm timeline estimates</strong> from each bidder — and ask about their current workload (an overbooked contractor is a timeline risk)</li>
+    <li><strong>Check references/past work</strong> — especially for your GC and any trade doing permitted work</li>
+  </ol>
+
+  <h4>Structuring the Contract with Your GC/Subs</h4>
+  <table>
+    <tr><th>Element</th><th>Why It Matters</th></tr>
+    <tr><td>Written contract with itemized SOW + price</td><td>Prevents scope disputes — everyone agreed on exactly what's included</td></tr>
+    <tr><td>Payment schedule tied to milestones</td><td>Aligns with your lender's draw schedule (Module 4) — never pay significantly ahead of completed work</td></tr>
+    <tr><td>Timeline with milestones/deadlines</td><td>Gives you an early warning system — if Milestone 1 is late, Milestone 4 will be too</td></tr>
+    <tr><td>Lien waiver requirements</td><td>Each payment should come with a lien waiver from the contractor/sub for that portion of work — protects your title at sale (Module 8)</td></tr>
+    <tr><td>Change order process</td><td>Any scope changes get documented IN WRITING with updated pricing BEFORE work proceeds — prevents "surprise" invoices</td></tr>
+  </table>
+
+  <h4>Managing the Project Week to Week</h4>
+  <ul>
+    <li><strong>Set a recurring check-in</strong> (weekly walkthrough or video call) — don't wait for "done" to find out something's wrong</li>
+    <li><strong>Track budget vs. actual in real time</strong> (Module 7) — every invoice gets logged immediately against its SOW line item</li>
+    <li><strong>Address issues immediately</strong> — a small disagreement about a finish or a delay, addressed in week 2, is manageable. The same issue discovered in week 8 can blow your timeline.</li>
+    <li><strong>Keep photo documentation</strong> of progress at each stage — useful for draw inspections, disputes, and even marketing ("before/after" for your listing)</li>
+  </ul>
+
+  <h4>Handling Delays & Overruns</h4>
+  <div class="box warn">
+    <div class="box-title">⚠ When Things Go Sideways</div>
+    <p>If a draw inspection finds an issue, a sub doesn't show up, or demo reveals unexpected damage — the worst response is to do nothing and hope it resolves itself. Immediately: (1) assess the real impact on budget and timeline, (2) re-run your flip formula (Module 3) with the new numbers — is the deal still profitable?, (3) communicate with your lender if the timeline/budget materially changes, and (4) make the decision (absorb the cost, find a cheaper solution, or in extreme cases consider an earlier exit) based on updated numbers, not emotion.</p>
+  </div>
+
+  <div class="box">
+    <div class="box-title">✦ The GC Relationship Is Everything</div>
+    <p>A General Contractor who communicates proactively, manages subs reliably, and respects your budget is worth paying a fair price for — even if a cheaper bid exists elsewhere. The cheapest bid that runs 6 weeks over timeline costs you far more in holding costs (Module 3, 7) than the "expensive" GC who finishes on schedule.</p>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>5.3 · Design Choices That Sell: Buyer-Focused Renovation</h3>
+  <p class="lsub">Renovate for the buyer who will write the check — not for your own taste.</p>
+
+  <p>Every design decision in a flip should be filtered through one question: "Will this help (or hurt) the property sell at or above ARV, to the TYPE OF BUYER who shops in this neighborhood and price range?" Personal taste, trendy-but-polarizing choices, and over-customization are common ways flippers quietly erode their margin.</p>
+
+  <h4>Design Principles for Resale</h4>
+  <ul>
+    <li><strong>Broad appeal over personal style</strong> — neutral colors, classic finishes that photograph well and don't alienate buyers with strong opinions about, say, bold accent walls</li>
+    <li><strong>Match (or slightly exceed) the best comps</strong> in the immediate area — both in finish quality and in feature set (Lesson 3.1)</li>
+    <li><strong>Open concept where structurally feasible</strong> — consistently appeals to modern buyers, but verify load-bearing implications with your GC/engineer before committing</li>
+    <li><strong>Curb appeal matters disproportionately</strong> — it's the first impression and drives showing traffic; landscaping, exterior paint, and a updated front door are high-ROI</li>
+    <li><strong>Kitchens and bathrooms sell houses</strong> — these rooms get disproportionate attention from buyers; allocate budget accordingly</li>
+    <li><strong>Light and bright</strong> — lighter paint colors, good lighting fixtures, and maximizing natural light (clean windows, removing heavy window treatments) make spaces feel larger</li>
+  </ul>
+
+  <h4>High-ROI vs. Low-ROI Choices</h4>
+  <table>
+    <tr><th>Generally High-ROI</th><th>Generally Low-ROI / Risky</th></tr>
+    <tr><td>Fresh paint (neutral, throughout)</td><td>Bold/trendy paint colors in main living spaces</td></tr>
+    <tr><td>New flooring (consistent throughout main living areas)</td><td>Mixing many different flooring types room to room</td></tr>
+    <tr><td>Updated kitchen (cabinets, counters, appliances)</td><td>Ultra-high-end appliances in a mid-range neighborhood</td></tr>
+    <tr><td>Updated bathroom fixtures and tile</td><td>Heavily customized/themed bathrooms</td></tr>
+    <tr><td>Curb appeal (landscaping, exterior paint, front door)</td><td>Pools, elaborate outdoor kitchens (high cost, narrow buyer appeal, maintenance concerns)</td></tr>
+    <tr><td>Updated lighting fixtures throughout</td><td>Removing bedrooms/bathrooms to create "open concept" if it drops the bed/bath count below neighborhood norms</td></tr>
+  </table>
+
+  <h4>Matching the Market Tier</h4>
+  <p>Walk through 3-5 of your ARV comps (or recently sold listings with photos) before finalizing finish selections. If every comp in your price range has white shaker cabinets and quartz counters, that's your baseline — not a suggestion to "stand out" with something different. Standing out in the WRONG direction (more expensive than what the market expects, OR cheaper-looking than what the market expects) both hurt your sale price and time on market.</p>
+
+  <div class="box">
+    <div class="box-title">✦ The Bed/Bath Count Rule</div>
+    <p>Never decrease the bedroom or bathroom count during a renovation unless there's a compelling reason backed by comps — bed/bath count is one of the primary filters buyers (and their agents) use to even SEE your listing. A 3bd/2ba that becomes a 2bd/2ba with a "bonus room" may show beautifully but gets filtered out of searches by buyers looking for 3 bedrooms.</p>
+  </div>
+
+  <div class="box">
+    <div class="box-title">✦ Module Wrap-Up</div>
+    <p>You've taken the property from acquisition (Module 2) through evaluation (Module 3), financing (Module 4), and now a finished, buyer-focused renovation. Module 6 covers getting it sold — pricing, staging, marketing, and working with your realtor to close out the project.</p>
+  </div>
+  
+  </section>
+  <div class="today"><b>Do This Today</b>Call your local permits office and ask what permits a typical kitchen, bath and roof job needs.</div>
+</template>
+<template id="t-6">
+  <div class="kicker">Module 6</div>
+  <h2>Marketing & Selling the Finished Flip</h2>
+  <section class="lesson-block"><h3>6.1 · Listing Strategy: Pricing, Staging & Photos</h3>
+  <p class="lsub">First impressions happen online — before anyone steps through the front door.</p>
+
+  <p>After months of work, how you present and price the finished property determines how fast it sells and how close to (or above) ARV your final sale price lands. This is where your project either captures the value you created — or leaves it on the table.</p>
+
+  <h4>Pricing Strategy</h4>
+  <ul>
+    <li><strong>Re-pull comps right before listing</strong> — market conditions can shift over your 2-4 month project; your ARV from Module 3 was an estimate at the START of the project</li>
+    <li><strong>Price at or slightly below true market value</strong> for the finish level — pricing AT market often generates more showings and can spark competing offers; pricing ABOVE market (hoping to "leave room to negotiate") often just extends days on market, which costs you holding costs (Module 7) every week</li>
+    <li><strong>Watch days-on-market data</strong> for similar recent listings — if comparable homes are selling in under 2 weeks, price competitively from day one rather than testing a higher number first</li>
+  </ul>
+
+  <h4>Staging</h4>
+  <table>
+    <tr><th>Staging Level</th><th>What It Involves</th><th>Best For</th></tr>
+    <tr><td>Vacant + Clean</td><td>Professional deep clean, no furniture, all systems on and functioning</td><td>Lower price points, buyers focused on value/space over "feel"</td></tr>
+    <tr><td>Partial Staging</td><td>Key rooms (living room, primary bedroom, kitchen table) furnished to show scale and lifestyle</td><td>Mid-range homes — helps buyers visualize use of space without full staging cost</td></tr>
+    <tr><td>Full Staging</td><td>Every room furnished and styled</td><td>Higher price points where presentation significantly impacts perceived value</td></tr>
+  </table>
+  <p>Even at the "vacant + clean" level: stage at minimum with clean smell (no construction odors), all lights on for showings, lawn mowed, and any clutter/tools/materials completely removed before photos and showings.</p>
+
+  <h4>Photography</h4>
+  <ul>
+    <li><strong>Professional photography is non-negotiable</strong> — this is the highest-leverage marketing dollar you'll spend; phone photos on a finished flip undersell months of work</li>
+    <li><strong>Shoot during daylight</strong> with all interior lights on, blinds open</li>
+    <li><strong>Capture every renovated feature</strong> — new kitchen, bathrooms, flooring, exterior/curb appeal, and any standout features (fireplace, view, yard)</li>
+    <li><strong>Consider a short video walkthrough</strong> or 3D tour for online listings — significantly increases engagement on platforms where buyers browse before requesting a showing</li>
+  </ul>
+
+  <div class="box">
+    <div class="box-title">✦ The First 7 Days Matter Most</div>
+    <p>New listings get the most online views and showing requests in their first week. Make sure photos, pricing, and the property itself (final cleaning, landscaping, all systems tested) are 100% ready BEFORE going live — don't list "soon" with a placeholder price or incomplete photos hoping to "update later." First impressions on listing portals are difficult to undo.</p>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>6.2 · Working With Realtors to Sell Fast</h3>
+  <p class="lsub">The MLS is still where most retail buyers shop — here's how to use it well.</p>
+
+  <p>Most flips sell fastest and for the highest price through the MLS, where the largest pool of retail buyers and their agents are searching. Your realtor relationship (built in Module 2 for sourcing deals) pays off again here on the sell side.</p>
+
+  <h4>What a Good Listing Agent Does for a Flip</h4>
+  <ul>
+    <li><strong>Pricing strategy</strong> grounded in current comps and pending sales — not just historical solds</li>
+    <li><strong>Professional photography coordination</strong> and MLS listing optimization (description, feature highlights)</li>
+    <li><strong>Showing management</strong> — scheduling, lockbox/access, feedback collection from showing agents</li>
+    <li><strong>Offer negotiation</strong> — comparing multiple offers on price, financing type, contingencies, and closing timeline</li>
+    <li><strong>Managing the contract-to-close process</strong> — buyer inspections, appraisal, any negotiations on repair requests</li>
+  </ul>
+
+  <h4>Commission Considerations</h4>
+  <p>Realtor commissions (typically totaling around 5-6% combined for both sides, though structures vary and are negotiable) are one of your largest selling costs (Module 3, 7) — but the MLS exposure and negotiation expertise usually more than pays for itself in a faster sale and stronger final price compared to limited-exposure alternatives.</p>
+
+  <h4>Handling Buyer Inspections & Appraisal</h4>
+  <table>
+    <tr><th>Stage</th><th>What to Expect</th><th>How to Prepare</th></tr>
+    <tr><td>Buyer's Inspection</td><td>A professional inspector reviews the property — on a quality flip, this should turn up few major issues</td><td>Address any known issues BEFORE listing; keep records of permits (Module 5) and any warranties on new systems/appliances</td></tr>
+    <tr><td>Appraisal</td><td>Required for financed buyers — appraiser compares to recent sold comps to confirm value supports the loan amount</td><td>Provide your realtor with a packet of comps and renovation details (permits, before/after photos) to support the appraiser's value conclusion if needed</td></tr>
+  </table>
+
+  <div class="box warn">
+    <div class="box-title">⚠ Repair Requests After Inspection</div>
+    <p>Even on a fully renovated flip, buyer inspectors sometimes flag minor items (a loose handrail, a missing GFCI outlet). Address legitimate, inexpensive items quickly to keep the deal moving — a $200 fix that prevents a deal from falling apart over a $400,000+ sale is an easy decision. Save pushback for requests that are unreasonable relative to the issue.</p>
+  </div>
+
+  <h4>Closing the Sale</h4>
+  <p>Same title company/closing process as your purchase (Module 8 covers the legal/closing details specific to selling, including lien releases for any work done during your project). Once closed, your loan (Module 4) is paid off from proceeds, and your remaining profit is realized.</p>
+
+  <div class="box">
+    <div class="box-title">✦ Don't Skip the "Why" Behind the Numbers</div>
+    <p>When you give your realtor (or buyers, via listing description) the story of the renovation — what was updated, when permits were pulled, any warranties on new systems — it builds buyer confidence and can support a stronger appraisal and fewer inspection objections. Quality documentation from Module 5 pays off here too.</p>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>6.3 · For Sale By Owner & Direct-to-Buyer Marketing (with CallRail Tracking)</h3>
+  <p class="lsub">When — and how — to sell without the MLS, and how to know if it's actually working.</p>
+
+  <p>While the MLS reaches the largest buyer pool, some flippers also run direct-to-buyer marketing — especially in markets with strong investor/cash-buyer activity, or for properties that might appeal to a specific niche (e.g., an updated duplex that's attractive to landlord-buyers as much as owner-occupants).</p>
+
+  <h4>When FSBO/Direct Marketing Makes Sense</h4>
+  <ul>
+    <li>You have an existing network of retail buyers, agents, or investors who buy-and-hold (from your buyers list, Module 2/9) who might want a finished, turnkey property</li>
+    <li>You want to test a higher price point with a targeted audience BEFORE listing on the open market</li>
+    <li>The property has features that appeal strongly to a specific niche (small multifamily, accessory dwelling unit, etc.)</li>
+  </ul>
+  <div class="box warn">
+    <div class="box-title">⚠ Don't Use FSBO to Avoid the MLS Entirely</div>
+    <p>The MLS remains the largest source of qualified retail buyers in most markets. Direct marketing works best as a SUPPLEMENT (e.g., a short pre-marketing window to your network) rather than a replacement — going fully FSBO on a retail flip often means fewer eyes, longer days on market, and ultimately a lower sale price than MLS exposure would have produced.</p>
+  </div>
+
+  <h4>Direct Marketing Channels (With Tracking)</h4>
+  <table>
+    <tr><th>Channel</th><th>How to Use It</th><th>CallRail Tracking</th></tr>
+    <tr><td>Yard sign / "For Sale" sign</td><td>Simple sign with a phone number for inquiries — useful even alongside an MLS listing for drive-by traffic</td><td>Dedicated tracking number on the sign — measures local drive-by interest</td></tr>
+    <tr><td>Social media / local groups</td><td>Post the finished property with photos to local buy/sell or real estate groups</td><td>Dedicated tracking number in the post — measures social-driven inquiries</td></tr>
+    <tr><td>Email/text to buyers list</td><td>Announce the finished property to your investor/buyer network (Module 9) before or alongside MLS listing</td><td>Dedicated tracking number/link — measures response from your existing network</td></tr>
+    <tr><td>Online ads</td><td>Targeted ads to your service area, especially for properties with rental/investment appeal</td><td>Dedicated tracking number — cost-per-inquiry comparison vs. other channels</td></tr>
+  </table>
+
+  <h4>Measuring What Works for SELLING (Not Just Buying)</h4>
+  <p>The same CallRail discipline from Module 2 (tracking acquisition channels) applies to your SELL side: if you run a yard sign AND social posts AND your buyers list email simultaneously, separate tracking numbers tell you which channel actually generated the buyer who closes — informing how you market your NEXT flip's sale.</p>
+
+  <div class="box template">
+    <div class="box-title">✦ Example Sell-Side Tracking</div>
+    <pre>Channel              | Inquiries | Showings | Offer?
+MLS (via realtor)    | 14        | 6        | Yes (accepted)
+Yard Sign            | 3         | 1        | No
+Buyers List Email    | 5         | 2        | Yes (backup offer)
+Social Media Post    | 2         | 0        | No
+
+Result: MLS produced the accepted offer, buyers list produced 
+a solid backup. Yard sign and social media added minimal value 
+this time — but cost little to run alongside the MLS listing.</pre>
+  </div>
+
+  <div class="box">
+    <div class="box-title">✦ Module Wrap-Up</div>
+    <p>You've now closed the loop: acquire (Module 2) → evaluate (Module 3) → finance (Module 4) → renovate (Module 5) → sell (Module 6). Module 7 covers tracking the financials throughout this process and understanding the tax treatment of your profit — critical for knowing what you ACTUALLY made.</p>
+  </div>
+  
+  </section>
+  <div class="today"><b>Do This Today</b>Interview 2 investor-friendly real estate agents about what renovated homes sell for in your area.</div>
+</template>
+<template id="t-7">
+  <div class="kicker">Module 7</div>
+  <h2>Financial Management & Taxes</h2>
+  <section class="lesson-block"><h3>7.1 · Tracking Costs: Budget vs. Actual</h3>
+  <p class="lsub">The spreadsheet that tells you, in real time, whether your profit is still there.</p>
+
+  <p>Your flip formula (Module 3) produced a projected profit before you closed. From day one of the project, you need a living budget-vs-actual tracker that tells you, at any point, where you stand against that projection.</p>
+
+  <h4>The Budget-vs-Actual Tracker</h4>
+  <div class="box template">
+    <div class="box-title">✦ Core Columns</div>
+    <pre>Line Item       | Budgeted | Actual | Variance | Notes
+Purchase Price  | $145,000 | $145,000 | $0     | 
+Closing Costs   | $2,500   | $2,650   | -$150  | 
+Rehab - Roof    | $9,000   | $9,000   | $0     | 
+Rehab - Kitchen | $14,000  | $16,200  | -$2,200| Upgraded counters
+Rehab - Baths   | $7,500   | $7,500   | $0     | 
+... (every SOW line item)
+Holding (per mo)| $1,100   | $1,150   | -$50   | Utility increase
+Financing/Points| $1,900   | $1,900   | $0     | 
+Selling Costs   | $17,360  | TBD      | —      | Pending sale
+
+RUNNING TOTAL VARIANCE: tracks whether you're trending over 
+or under your original profit projection</pre>
+  </div>
+
+  <h4>Update It Weekly</h4>
+  <ul>
+    <li>Every invoice, receipt, and draw gets logged against its SOW line item the same week it's incurred</li>
+    <li>Variance column shows immediately if a category is running over — giving you time to adjust elsewhere before it compounds</li>
+    <li>At each draw request (Module 4), this tracker should match what you're requesting from your lender</li>
+  </ul>
+
+  <h4>What to Do When You See a Variance</h4>
+  <table>
+    <tr><th>Variance Type</th><th>Response</th></tr>
+    <tr><td>Small overage in one category (e.g., $200 over on paint)</td><td>Note it, move on — small variances are normal and often offset elsewhere</td></tr>
+    <tr><td>Significant overage tied to scope change (e.g., upgraded finishes)</td><td>Re-confirm: was this a deliberate decision to support a higher ARV (Lesson 3.1), or scope creep? Document the decision either way</td></tr>
+    <tr><td>Significant overage tied to unforeseen issue (e.g., foundation repair found during demo)</td><td>Re-run the full flip formula (Lesson 3.3) with updated numbers — is the deal still profitable? Communicate with your lender if material</td></tr>
+    <tr><td>Multiple small overages compounding</td><td>Stop and recalculate your projected final profit against actuals-to-date plus remaining budget — don't wait until the end to discover the margin is gone</td></tr>
+  </table>
+
+  <div class="box">
+    <div class="box-title">✦ Keep Every Receipt</div>
+    <p>Beyond budget tracking, every receipt and invoice is also a tax record (Lesson 7.3). A simple system — photograph receipts immediately, log into your tracker, file digitally by project — saves enormous time at tax season and protects every deduction you're entitled to.</p>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>7.2 · Holding Costs, Carrying Costs & Timeline Risk</h3>
+  <p class="lsub">The cost of TIME — the most underestimated expense in flipping.</p>
+
+  <p>Holding costs (also called carrying costs) are everything you pay simply because the project is taking time — and they're the most common reason a profitable-on-paper flip ends up with a smaller-than-expected check at closing.</p>
+
+  <h4>What Counts as a Holding Cost</h4>
+  <table>
+    <tr><th>Cost</th><th>Notes</th></tr>
+    <tr><td>Loan interest (hard/private money)</td><td>Accrues daily/monthly on your loan balance — the single largest holding cost on most flips</td></tr>
+    <tr><td>Property taxes (prorated for holding period)</td><td>Often overlooked in quick estimates</td></tr>
+    <tr><td>Insurance (vacant property / builder's risk policy)</td><td>Required by most lenders; rates differ from standard homeowner's insurance</td></tr>
+    <tr><td>Utilities (electric, water, gas)</td><td>Needed for contractors to work (lights, power tools, running water for testing plumbing)</td></tr>
+    <tr><td>HOA fees (if applicable)</td><td>Continue accruing during your ownership</td></tr>
+    <tr><td>Loan extension fees (if project runs past original term)</td><td>Additional points/fees charged by lender for extending the loan term</td></tr>
+  </table>
+
+  <h4>The Compounding Effect of Delays</h4>
+  <div class="box template">
+    <div class="box-title">✦ How a 2-Month Delay Affects Your Bottom Line</div>
+    <pre>Original projection: 6-month project
+Monthly holding cost: ~$1,650 (loan interest + taxes/insurance/utilities)
+
+6-month holding cost (projected): $9,900
+8-month holding cost (actual, 2-month delay): $13,200
+
+Additional cost from delay alone: $3,300
+
+Plus: if the loan term was 6 months and you need an extension, 
+add extension fees (often 0.5-1 point, e.g., $700-$1,400 on a 
+$140,000 loan)
+
+TOTAL IMPACT OF A 2-MONTH DELAY: ~$4,000-$4,700 directly off 
+your bottom-line profit — before considering any market shift 
+in ARV during those extra months.</pre>
+  </div>
+
+  <h4>Sources of Timeline Risk</h4>
+  <ul>
+    <li><strong>Permit delays</strong> — varies widely by jurisdiction; build realistic lead times into your schedule (Module 5)</li>
+    <li><strong>Contractor/sub availability</strong> — an overbooked GC or specialty sub (electrician, HVAC) can stall a project for weeks</li>
+    <li><strong>Material lead times</strong> — custom cabinets, certain windows/doors, and specialty materials can have multi-week lead times — order early</li>
+    <li><strong>Draw inspection turnaround</strong> (Module 4) — slow draws delay payment to contractors, which delays the next phase</li>
+    <li><strong>Weather</strong> — exterior work (roofing, siding, foundation) can be weather-dependent</li>
+    <li><strong>Discovered issues during demo</strong> — the unknowns that contingency budgets and timeline buffers exist for</li>
+  </ul>
+
+  <h4>Protecting Against Timeline Risk</h4>
+  <ul>
+    <li>Build a timeline buffer (typically 10-20% of projected duration) into your holding cost projections from the start — don't assume the "best case" timeline in your numbers</li>
+    <li>Order long-lead-time materials as early as possible (often at the start of demo, once measurements are confirmed)</li>
+    <li>Maintain a strong relationship with your GC (Module 5/9) — communication and proactive problem-solving shrink delays</li>
+    <li>Track actual vs. projected timeline weekly, the same way you track budget — early warning lets you adjust before small delays compound</li>
+  </ul>
+  
+  </section>
+  <section class="lesson-block"><h3>7.3 · Taxes: Flip vs. Investment, Working With a CPA</h3>
+  <p class="lsub">What you actually keep depends heavily on how your flips are taxed — get this set up correctly from the start.</p>
+
+  <p>This lesson is educational, not tax advice — every investor's situation is different, and tax law changes. The goal here is to understand the KEY DISTINCTIONS so you can have an informed conversation with a CPA who works with real estate investors, ideally before your first flip closes.</p>
+
+  <div class="box warn">
+    <div class="box-title">⚠ Work With a CPA From Day One</div>
+    <p>Real estate tax treatment is genuinely complex and has major financial implications. A CPA experienced with real estate investors/flippers is one of the highest-value professionals on your team — the cost of NOT having one (missed deductions, incorrect entity structure, surprise tax bills) typically far exceeds their fee.</p>
+  </div>
+
+  <h4>The Core Distinction: "Dealer" vs. "Investor" Status</h4>
+  <table>
+    <tr><th></th><th>Real Estate "Dealer" (typical for flippers)</th><th>Real Estate "Investor" (typical for buy-and-hold)</th></tr>
+    <tr><td>How profit is generally treated</td><td>Often treated as ordinary income (and potentially subject to self-employment tax), similar to running a business that sells inventory</td><td>Properties held for investment/rental may qualify for different treatment, including potential long-term capital gains rates if held over a year</td></tr>
+    <tr><td>Why it matters</td><td>Flip profits are frequently taxed at ordinary income rates, which can be significantly higher than long-term capital gains rates</td><td>This is part of why some investors blend strategies (flip some properties, hold others as rentals/BRRRR)</td></tr>
+  </table>
+  <p>Whether YOU are classified as a "dealer" depends on factors like frequency of flips, intent at purchase, and how properties are held/used — this is exactly the kind of determination a CPA evaluates based on your specific activity and entity structure.</p>
+
+  <h4>Common Deductible Expenses (Confirm With Your CPA)</h4>
+  <ul>
+    <li>Rehab/renovation costs (often added to your "cost basis" — reducing taxable profit when you sell, rather than deducted immediately)</li>
+    <li>Loan interest and points</li>
+    <li>Holding costs — property taxes, insurance, utilities during the project</li>
+    <li>Selling costs — commissions, closing costs, staging</li>
+    <li>Business expenses — mileage, software/subscriptions (CRM, CallRail), marketing costs (Module 2/6), professional fees</li>
+  </ul>
+
+  <h4>Entity Structure Considerations</h4>
+  <p>Many flippers operate through an LLC, S-Corp, or other entity structure — the right choice depends on your overall tax situation, number of flips per year, and whether you're also holding rentals. This is squarely a CPA + attorney conversation, ideally BEFORE you start (or before you scale beyond 1-2 flips per year), since restructuring later can have its own tax consequences.</p>
+
+  <h4>Recordkeeping That Makes Tax Time Painless</h4>
+  <ul>
+    <li>Your budget-vs-actual tracker (Lesson 7.1) IS your tax documentation — every cost, organized by project</li>
+    <li>Separate business bank account and credit card for ALL project expenses — never mix personal and project funds</li>
+    <li>Digital receipt storage, organized by project/property</li>
+    <li>Closing statements (HUD-1/Settlement Statements) for BOTH the purchase and the sale of each flip — these documents summarize most of the key tax-relevant numbers in one place</li>
+  </ul>
+
+  <div class="box">
+    <div class="box-title">✦ Bring Your CPA In Early, Not at Tax Time</div>
+    <p>A quick conversation BEFORE your first flip — covering entity structure, expected dealer/investor classification, and what records to keep — sets up your whole business correctly. Module 8 covers the legal side (contracts, permits, insurance) that works hand-in-hand with this financial foundation.</p>
+  </div>
+  <p class="note">Learn more: <a href="https://www.irs.gov/taxtopics/tc409" target="_blank" rel="noopener">IRS Topic 409, Capital gains and losses</a> and the <a href="https://www.irs.gov/businesses/small-businesses-self-employed" target="_blank" rel="noopener">IRS small business tax center</a>. Whether your flips are taxed as a dealer or an investor depends on your facts. Ask a CPA.</p>
+
+  </section>
+  <div class="today"><b>Do This Today</b>Set up a separate bank account and a simple budget-vs-actual tracker for your first project.</div>
+</template>
+<template id="t-8">
+  <div class="kicker">Module 8</div>
+  <h2>Legal & Compliance for Flippers</h2>
+  <section class="lesson-block"><h3>8.1 · Contracts: Purchase Agreements, Disclosures & Lien Waivers</h3>
+  <p class="lsub">The paperwork that protects your purchase, your project, and your sale.</p>
+
+  <p>Flipping involves contracts on BOTH ends — buying the distressed property, and selling the finished one — plus contracts with everyone who touches the project in between. This lesson covers the key documents specific to a flip's lifecycle.</p>
+
+  <div class="box warn">
+    <div class="box-title">⚠ Educational Overview — Not Legal Advice</div>
+    <p>As with our Wholesale course, have a real estate attorney in your state review or provide your actual contract templates. Requirements vary significantly by state.</p>
+  </div>
+
+  <h4>Purchase-Side Documents</h4>
+  <table>
+    <tr><th>Document</th><th>Purpose</th></tr>
+    <tr><td>Purchase & Sale Agreement</td><td>Your contract to buy the property — price, closing timeline, inspection/due diligence period, contingencies (e.g., financing contingency for hard money loan approval)</td></tr>
+    <tr><td>Seller Disclosures</td><td>Required disclosures about the property's known condition/history — varies by state, often required even for as-is sales</td></tr>
+    <tr><td>Title Commitment / Title Search</td><td>Confirms the seller can convey clear title — identifies any existing liens that must be resolved at closing</td></tr>
+  </table>
+
+  <h4>Contractor & Sub Agreements (During the Project)</h4>
+  <table>
+    <tr><th>Document</th><th>Purpose</th></tr>
+    <tr><td>Written contract with itemized SOW (Module 5)</td><td>Defines exactly what work is being done, for what price, on what timeline</td></tr>
+    <tr><td>Lien Waivers</td><td>Signed by each contractor/sub when paid, confirming they waive any right to file a mechanic's lien against the property for that payment — critical before your sale closes</td></tr>
+  </table>
+
+  <div class="box warn">
+    <div class="box-title">⚠ Mechanic's Liens Can Stop Your Sale</div>
+    <p>If a contractor or supplier isn't paid (even if YOU paid your GC, but the GC didn't pay a sub), they may be legally entitled to file a lien against the property — which must be resolved before you can deliver clear title to your buyer. Collecting lien waivers with every payment throughout the project (Module 5) prevents this from becoming a closing-day emergency. Your title company/closing attorney will typically require lien waivers (or a contractor's affidavit) as part of the sale closing.</p>
+  </div>
+
+  <h4>Sale-Side Documents</h4>
+  <table>
+    <tr><th>Document</th><th>Purpose</th></tr>
+    <tr><td>Listing Agreement (with your realtor)</td><td>Defines commission, listing terms, marketing authorization</td></tr>
+    <tr><td>Purchase & Sale Agreement (as Seller)</td><td>Your contract to sell to the retail buyer — price, closing timeline, contingencies (buyer's financing, inspection, appraisal)</td></tr>
+    <tr><td>Seller Disclosures</td><td>What you must disclose about the renovation/property — varies by state; some require disclosure of known prior issues even after repair</td></tr>
+    <tr><td>Closing Statement (Settlement Statement)</td><td>Final accounting of the sale — payoff of your loan, selling costs, your net proceeds</td></tr>
+  </table>
+
+  <div class="box">
+    <div class="box-title">✦ A Clean Paper Trail Is a Sellable Property</div>
+    <p>Permits (next lesson), lien waivers, contractor licenses, and disclosures form the documentation that lets your buyer's lender, inspector, and attorney move quickly and confidently — directly supporting a faster, smoother closing on your sale.</p>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>8.2 · Permits, Licensing & Code Compliance</h3>
+  <p class="lsub">Doing it right the first time is cheaper than doing it twice — with an inspector standing in the doorway.</p>
+
+  <p>Module 5 covered when permits are typically required for your renovation work. This lesson focuses on the broader compliance picture — licensing of the people doing the work, and how code compliance protects your sale.</p>
+
+  <h4>Licensed Trades</h4>
+  <p>Most jurisdictions require licensed professionals for electrical, plumbing, and HVAC work — and often require that PERMITS for this work be pulled by (or associated with) a licensed contractor, not a property owner (with some exceptions for owner-occupants, which doesn't apply to a flip).</p>
+  <table>
+    <tr><th>Trade</th><th>Why Licensing Matters</th></tr>
+    <tr><td>Electrical</td><td>Safety-critical, fire risk if done improperly — licensed electricians carry liability insurance and their work is inspectable/permittable</td></tr>
+    <tr><td>Plumbing</td><td>Code compliance for drainage, venting, water supply — improperly done work can cause water damage long after your sale (and potential liability)</td></tr>
+    <tr><td>HVAC</td><td>Often requires licensed installation for warranty validity on new equipment, plus permit/inspection in most areas</td></tr>
+    <tr><td>General Contracting</td><td>Many states require a GC license for projects above a certain dollar threshold or scope — verify your GC's license status directly with your state's licensing board</td></tr>
+  </table>
+
+  <h4>Verifying Contractor Licenses & Insurance</h4>
+  <ul>
+    <li><strong>Verify license status</strong> directly through your state's contractor licensing board website (search "[your state] contractor license lookup")</li>
+    <li><strong>Confirm general liability insurance</strong> — request a Certificate of Insurance (COI) listing you/your LLC as an additional insured for the duration of the project</li>
+    <li><strong>Confirm workers' compensation coverage</strong> for any employees the contractor brings on-site — protects you if a worker is injured on YOUR property</li>
+  </ul>
+
+  <h4>Inspections & Certificates of Occupancy/Completion</h4>
+  <p>Permitted work typically requires inspection(s) by the local building department before being "closed out." For larger projects, a final Certificate of Occupancy or Certificate of Completion may be required before the property can be legally sold/occupied. Your GC (Module 9) should manage scheduling these inspections as part of the project timeline (Module 5).</p>
+
+  <div class="box warn">
+    <div class="box-title">⚠ Unpermitted Work Discovered at Sale</div>
+    <p>If a buyer's inspector or appraiser identifies work that appears to have been done without required permits (a new electrical panel, a finished basement with new plumbing, etc.), it can trigger requirements to retroactively permit the work — sometimes requiring opening up finished areas for inspection. This can derail a closing timeline significantly. Pulling permits correctly during the project (Module 5) avoids this entirely.</p>
+  </div>
+
+  <h4>Building Code Differences by Jurisdiction</h4>
+  <p>Building codes and permit requirements vary not just by state but often by county and city. Your GC and local permitting office are your best sources for what specifically applies to YOUR project's location — don't assume requirements from a previous flip in a different jurisdiction automatically apply.</p>
+
+  <div class="box">
+    <div class="box-title">✦ The ROI of Doing It Right</div>
+    <p>Permits and licensed trades add cost and time to a project upfront. But the alternative — discovering compliance issues during your buyer's inspection, with a closing date and your hard money clock both ticking — costs far more in both money and stress. Build compliance into your timeline (Module 5) from the start.</p>
+  </div>
+  <div class="checkstate">
+    <div class="box-title">⚠ Check your state and city</div>
+    <p>Contractor licensing, permit rules and code requirements differ by state, county and city. Call your local building or permits office and ask: "What permits do I need for this scope of work, and does my contractor need a state or local license?" Write the answers in the Licenses tab of your workbook. For pre-1978 homes, see the lead-safe rules in Lesson 5.1.</p>
+  </div>
+
+  </section>
+  <section class="lesson-block"><h3>8.3 · Insurance & Liability Protection</h3>
+  <p class="lsub">Covering the property, the work, and yourself — from acquisition through sale.</p>
+
+  <p>A flip carries unique insurance needs different from a standard homeowner's policy — the property is vacant, under construction, and changes hands twice (purchase and sale) within months. Getting this right protects your investment and limits your personal liability.</p>
+
+  <h4>Types of Coverage to Have in Place</h4>
+  <table>
+    <tr><th>Coverage</th><th>What It Covers</th><th>When You Need It</th></tr>
+    <tr><td>Vacant Property / Builder's Risk Insurance</td><td>Covers the structure during renovation — including risks specific to vacant/under-construction properties (standard homeowner's policies often exclude vacant properties)</td><td>From the day you close on purchase through the day you sell — most hard money lenders require this and may be named as a loss payee</td></tr>
+    <tr><td>General Liability Insurance (yours, as the property owner/LLC)</td><td>Covers claims if someone is injured on the property (e.g., a visitor, an inspector) — separate from your contractors' insurance</td><td>Throughout the project — your LLC (Module 1's wholesale course covers LLC setup, applies here too) should carry its own policy</td></tr>
+    <tr><td>Contractor's General Liability & Workers' Comp</td><td>Covers injuries to contractor's workers and damage they cause — confirmed via Certificate of Insurance (Lesson 8.2)</td><td>Required from EVERY contractor/sub working on the property — verify before work begins</td></tr>
+  </table>
+
+  <h4>Lender Requirements</h4>
+  <p>Hard money and private lenders (Module 4) typically REQUIRE proof of adequate insurance — often with the lender named as "mortgagee" or "loss payee" on the policy — as a condition of funding and keeping the loan in good standing. Get your insurance in place BEFORE closing on the purchase, and provide proof to your lender immediately.</p>
+
+  <h4>Transitioning Coverage at Sale</h4>
+  <ul>
+    <li>Your vacant property/builder's risk policy typically gets canceled at closing of the SALE (your buyer will have their own homeowner's policy starting at their closing)</li>
+    <li>Confirm with your insurance agent/broker the exact cancellation timing to avoid gaps OR overlapping/wasted premium</li>
+  </ul>
+
+  <h4>Liability Protection Through Entity Structure</h4>
+  <p>Holding the property in an LLC (rather than your personal name) is a foundational liability protection — it helps separate your personal assets from claims related to the property/project. This works ALONGSIDE insurance, not instead of it: insurance covers the FINANCIAL cost of a claim, while the LLC structure helps limit which of YOUR assets are exposed if a claim exceeds insurance limits or falls outside coverage. Discuss the right structure for your situation with your attorney and CPA (Module 7).</p>
+
+  <div class="box warn">
+    <div class="box-title">⚠ Don't Let the Property Sit Uninsured — Even Briefly</div>
+    <p>A gap in coverage — even for a few days between closing on the purchase and binding your vacant property policy — leaves your entire investment exposed to fire, storm damage, vandalism, or theft with no recourse. Have your insurance BOUND and active at the moment your purchase closes, not "applied for."</p>
+  </div>
+
+  <div class="box">
+    <div class="box-title">✦ Module Wrap-Up</div>
+    <p>You now have the legal and protective framework around your project: contracts that protect your purchase and sale, permits/licensing that protect your closing, and insurance/entity structure that protects YOU. Module 9 brings together your full team and covers running multiple flips and your action plan.</p>
+  </div>
+  
+  </section>
+  <div class="today"><b>Do This Today</b>Get quotes for builder's risk and general liability insurance and check your state's contractor rules.</div>
+</template>
+<template id="t-9">
+  <div class="kicker">Module 9</div>
+  <h2>Building Your Power Team & Scaling</h2>
+  <section class="lesson-block"><h3>9.1 · Your Flip Team: GC, Subs, Realtor, Lender & Title</h3>
+  <p class="lsub">The roster of relationships that turns 'one flip' into 'a flipping business.'</p>
+
+  <p>Every module of this course has referenced members of your team — here they are gathered into one roster, with what to look for in each.</p>
+
+  <h4>Core Team Roster</h4>
+  <table>
+    <tr><th>Role</th><th>What They Do</th><th>What to Look For</th></tr>
+    <tr><td><strong>General Contractor</strong></td><td>Manages the renovation — subs, scheduling, quality, draw inspections (Module 5)</td><td>Licensed/insured, references from past flip projects (not just remodels for homeowners), clear communication, realistic timelines</td></tr>
+    <tr><td><strong>Key Subs</strong> (electrician, plumber, HVAC)</td><td>Licensed trade work, often coordinated through your GC but worth knowing directly</td><td>Licensed in your state, available on your project's timeline, comfortable with permit/inspection process</td></tr>
+    <tr><td><strong>Home Inspector</strong></td><td>Pre-purchase due diligence walkthroughs (Module 3)</td><td>Investor-experience preferred, thorough on big-ticket systems (roof, foundation, electrical, plumbing, HVAC)</td></tr>
+    <tr><td><strong>Investor-Friendly Realtor</strong></td><td>MLS comps and sourcing (Module 2), listing and selling the finished flip (Module 6)</td><td>Track record with investor clients, understands as-is/renovation properties, responsive</td></tr>
+    <tr><td><strong>Hard Money / Private Lender</strong></td><td>Financing (Module 4) — purchase + rehab funding, draw process</td><td>Clear terms, reasonable draw turnaround, comfortable with your project type and area</td></tr>
+    <tr><td><strong>Title Company / Closing Attorney</strong></td><td>Handles both purchase and sale closings, lien waiver collection (Module 8)</td><td>Experienced with investor transactions, responsive, can provide estimated settlement statements quickly</td></tr>
+    <tr><td><strong>Real Estate Attorney</strong></td><td>Contract review, any creative acquisition structures (Module 4), entity setup</td><td>Real estate transaction experience in your state</td></tr>
+    <tr><td><strong>CPA</strong></td><td>Tax planning, entity structure, recordkeeping guidance (Module 7)</td><td>Experience with real estate investors/flippers specifically</td></tr>
+    <tr><td><strong>Insurance Agent/Broker</strong></td><td>Vacant property/builder's risk and liability coverage (Module 8)</td><td>Familiar with investor/flip-specific policies, fast to bind coverage</td></tr>
+  </table>
+
+  <h4>Where to Find Them</h4>
+  <div class="res-grid">
+    <div class="res-card">Local REIA Meetups<div class="res-desc">Search "[your city] REIA" or "[your city] real estate investor meetup" — the fastest way to get warm referrals to every role above from people already using them.</div></div>
+    <div class="res-card"><a href="https://www.biggerpockets.com" target="_blank">BiggerPockets Local Forums</a><div class="res-desc">Search your city/state forum for recommendations on contractors, lenders, and agents from active investors.</div></div>
+    <div class="res-card">State Licensing Boards<div class="res-desc">Verify contractor licenses directly — search "[your state] contractor license lookup."</div></div>
+  </div>
+
+  <h4>Building the Relationships</h4>
+  <ul>
+    <li><strong>Start with your highest-stakes relationships first</strong> — lender and GC, since financing and renovation are your biggest cost and timeline drivers</li>
+    <li><strong>Send your first project even if it's small</strong> — building trust with each team member compounds across future projects</li>
+    <li><strong>Communicate proactively</strong> — a team that hears from you regularly (not just when something's wrong) becomes a team that prioritizes your projects</li>
+  </ul>
+  
+  </section>
+  <section class="lesson-block"><h3>9.2 · Running Multiple Flips at Once</h3>
+  <p class="lsub">From one project at a time to a pipeline — what changes, and what breaks if you're not ready.</p>
+
+  <p>Running two or three flips simultaneously isn't just "doing the same thing more" — it multiplies the complexity of scheduling, cash flow, and attention. Here's what changes as you scale.</p>
+
+  <h4>What Scaling Requires</h4>
+  <table>
+    <tr><th>Area</th><th>One Flip at a Time</th><th>Multiple Flips</th></tr>
+    <tr><td>GC/Subs</td><td>One project gets full attention</td><td>Need a GC (or multiple GCs) with capacity to run parallel projects — confirm capacity BEFORE scaling, not after</td></tr>
+    <tr><td>Cash Flow / Financing</td><td>One loan, one set of draws</td><td>Multiple loans/draws running simultaneously — need enough capital reserves to cover your portion across ALL active projects plus overruns on any of them</td></tr>
+    <tr><td>Project Management</td><td>You personally walk every project weekly</td><td>Either you systemize check-ins across projects, or bring in a project manager/dedicated GC relationship who reports to you</td></tr>
+    <tr><td>Buyers/Selling</td><td>One listing at a time</td><td>Multiple listings may compete for the same buyer pool in the same area — stagger completion timelines where possible</td></tr>
+    <tr><td>Acquisition Pipeline (Module 2)</td><td>Find one deal, work it</td><td>Need consistent deal flow to keep the pipeline full — your lead generation channels need to scale alongside your project capacity</td></tr>
+  </table>
+
+  <h4>The Cash Flow Trap</h4>
+  <div class="box warn">
+    <div class="box-title">⚠ The Most Common Scaling Mistake</div>
+    <p>An investor with enough capital/reserves for ONE flip's "cash portion" (the 10-15% not covered by hard money, plus reserves for overruns) takes on a SECOND flip before the first is sold — now both projects need reserves simultaneously. If Flip #1 runs long (Module 7's timeline risk) while Flip #2 needs its next draw match, cash gets stretched thin across both. Before taking on Project #2, confirm you have reserves for BOTH projects' worst-case scenarios, not just the best case.</p>
+  </div>
+
+  <h4>Staggering Projects</h4>
+  <p>Many flippers stagger projects so that draw schedules, GC attention, and listing timelines don't all collide simultaneously — for example, starting Project #2's acquisition/financing process partway through Project #1's renovation, so Project #2's rehab begins roughly when Project #1 is listing for sale. This smooths cash flow and keeps your GC's workload manageable.</p>
+
+  <h4>Systems That Make Scaling Possible</h4>
+  <ul>
+    <li><strong>Standardized SOW templates</strong> by property type/size — speeds up bidding and budgeting for each new project</li>
+    <li><strong>A budget-vs-actual tracker</strong> (Module 7) per project, plus a master view of cash position across ALL active projects</li>
+    <li><strong>A GC relationship with proven capacity</strong> for parallel projects — or a second GC vetted and ready</li>
+    <li><strong>A consistent lead generation pipeline</strong> (Module 2) sized to your project capacity — don't let acquisition outpace your ability to execute, or vice versa</li>
+  </ul>
+
+  <div class="box">
+    <div class="box-title">✦ Scale at the Pace of Your Weakest Link</div>
+    <p>Whether that's your cash reserves, your GC's capacity, or your own attention — your business can only run as many simultaneous flips as your most constrained resource allows. Identify that constraint honestly before taking on the next project, and address it (more capital, a second GC, delegating project management) before — not after — you're overextended.</p>
+  </div>
+  
+  </section>
+  <section class="lesson-block"><h3>9.3 · Case Studies & Your 90-Day Action Plan</h3>
+  <p class="lsub">Two example flips, start to finish — then your roadmap to get your first one started.</p>
+
+  <p>These composite case studies apply the full course, start to finish. Use them as templates for thinking through your own deals.</p>
+
+  <h4>Case Study 1: The MLS "As-Is" Listing → Mid-Grade Flip</h4>
+  <div class="box template">
+    <div class="box-title">✦ Case 1</div>
+    <pre>SOURCE: Realtor's automated MLS search flagged a listing marked 
+"investor special, as-is, TLC needed" — 45 days on market, one 
+price reduction already.
+
+PROPERTY: 3bd/2ba, 1,500 sqft, dated 1990s finishes, functional 
+systems but needs full cosmetic + kitchen/bath update.
+
+NUMBERS:
+- List price: $165,000 → offered $152,000, accepted
+- ARV (from mid-grade comps): $248,000
+- Repair estimate (Scope of Work + GC bid): $42,000
+- Financing: Hard money, 85% LTC, 10.5% interest, 2 points
+- Projected timeline: 7 weeks rehab + 6 weeks to sell
+
+EXECUTION:
+- Permits pulled for electrical panel upgrade and plumbing 
+  fixture updates (Module 8)
+- GC ran rehab on schedule — 1 minor overrun on kitchen 
+  counters (+$1,200, deliberate upgrade decision to match 
+  top-tier comps)
+- Listed via realtor at $249,900, professional photos, 
+  light staging
+
+RESULT: Sold in 11 days for $251,000 (above asking, multiple 
+offers). After all costs (purchase, rehab, financing, holding, 
+selling): NET PROFIT ≈ $31,000
+
+LESSON: A clean MLS as-is listing + realistic ARV + on-schedule 
+execution = the "textbook" flip. The minor budget overrun on 
+kitchen counters paid for itself by hitting the top of the 
+comp range.</pre>
+  </div>
+
+  <h4>Case Study 2: The Probate Lead (Direct Mail) → Subject-To Acquisition → Heavier Rehab</h4>
+  <div class="box template">
+    <div class="box-title">✦ Case 2</div>
+    <pre>SOURCE: Direct mail to a probate/inherited property list 
+(Module 2), 4th mailing (response on touch #4).
+
+LEAD: Heir living out of state, inherited a property with 
+an existing mortgage and little equity — needed to settle 
+the estate but a traditional sale wouldn't net enough to be 
+worth the hassle for them.
+
+STRUCTURE: Subject-to acquisition (Module 4) — attorney-prepared 
+documents, due-on-sale risk disclosed in writing, heir signed 
+off, existing loan (4.5% rate — well below current hard money 
+rates) stayed in place.
+
+NUMBERS:
+- Existing loan balance (now your obligation): $98,000 
+  at 4.5%
+- Repair estimate (heavier rehab — roof, full kitchen, 
+  both baths): $58,000, financed via private money 
+  (Module 4) at 9%, since hard money lender's LTV cap 
+  didn't fit this structure cleanly
+- ARV: $235,000
+- Timeline: 10 weeks rehab (longer due to roof + structural 
+  sister-joist repair found during demo — contingency 
+  budget covered it)
+
+RESULT: Sold for $232,000 after 14 days on market. After 
+paying off the existing loan ($98,000) and private money 
+loan + interest, plus all rehab/holding/selling costs: 
+NET PROFIT ≈ $34,000
+
+LESSON: A deal that didn't work as a traditional cash 
+purchase (low equity) became one of the most profitable 
+projects of the year — because the SELLER'S situation (an 
+out-of-state heir who just wanted it handled) was solved 
+by a structure that fit, not by squeezing a cash price the 
+numbers couldn't support.</pre>
+  </div>
+
+  <h4>Your 90-Day Action Plan</h4>
+  <h5>Days 1-7: Foundation</h5>
+  <ol>
+    <li>Confirm/set up your LLC, business banking, and CRM (covered fully in the Wholesale course's Module 3 — applies here too)</li>
+    <li>Set up CallRail tracking numbers for your initial lead channels (Module 2)</li>
+    <li>Get a quote from 2-3 hard money lenders (Module 4) — understand their LTC/LTV terms and draw process</li>
+    <li>Start building your team roster (Lesson 9.1): GC, realtor, title company, attorney, CPA, insurance agent — at minimum, have ONE solid contact in each</li>
+  </ol>
+
+  <h5>Days 8-30: First Leads & Numbers</h5>
+  <ol>
+    <li>Launch 1-2 lead channels (Module 2) — driving for dollars + one batch list is a strong start</li>
+    <li>Set up your realtor's automated MLS search for as-is/investor listings in your target areas</li>
+    <li>Practice running the full flip formula (Module 3) on 5-10 properties — even ones you don't end up buying — to build speed and confidence</li>
+  </ol>
+
+  <h5>Days 31-60: First Property Under Contract</h5>
+  <ol>
+    <li>Make offers using your MAO from the flip formula — don't skip the sensitivity check</li>
+    <li>Once under contract, use the inspection period to finalize your Scope of Work with your GC (Module 5)</li>
+    <li>Submit your loan application with full numbers and SOW (Module 4)</li>
+    <li>Verify insurance is bound to be active at closing (Module 8)</li>
+  </ol>
+
+  <h5>Days 61-90: Renovation Begins, Plan the Sale</h5>
+  <ol>
+    <li>Permits pulled, demo begins, budget-vs-actual tracker (Module 7) updated weekly</li>
+    <li>Re-pull comps roughly halfway through the project to confirm ARV is still accurate</li>
+    <li>Begin coordinating with your realtor on listing timeline, photography, and pricing strategy (Module 6)</li>
+    <li>Review your CallRail data from Module 2 — which channel produced this deal, and at what cost? Use that to plan your NEXT acquisition while this project finishes</li>
+  </ol>
+
+  <div class="box">
+    <div class="box-title">✦ Final Word</div>
+    <p>Every section of this course connects back to this checklist. The math (Module 3) tells you if a deal is worth doing. The team (this module) and the systems (Modules 5-8) determine whether that paper profit survives to closing. Run the numbers, build the relationships, protect the timeline — and the rest follows. ✦</p>
+  </div>
+  
+  </section>
+  <div class="today"><b>Do This Today</b>Write your own 90-day plan with real dates in the Launch Checklist tab.</div>
+</template>
+<template id="t-toolkit">
+  <div class="kicker">Startup Toolkit</div>
+  <h2>Startup Toolkit &amp; Downloads</h2>
+  <p class="lead">Everything you need to actually start: your workbook to download, and direct links to register, get set up and get free help.</p>
+  <h3>Download your startup workbook</h3>
+  <p><a class="btn primary" href="downloads/fix-and-flip-startup-workbook.xlsx" download>Download the Fix &amp; Flip Startup Workbook (Excel)</a></p>
+  <ul>
+    <li><strong>Startup Costs:</strong> enter your real quotes and get your total budget, with a buffer for surprises.</li>
+    <li><strong>Price Research:</strong> a ready list of who to call and what to ask, so you can find your real local numbers.</li>
+    <li><strong>Licenses &amp; Insurance:</strong> a tracker for every license, registration and policy, with links.</li>
+    <li><strong>Launch Checklist:</strong> every step with a date and a done column.</li>
+  </ul>
+  <p class="note">Opens in Excel, Google Sheets (File → Import) or Numbers.</p>
+  <h3>Step-by-step: start the business</h3>
+  <ol>
+    <li><a href="https://www.sba.gov/counseling/plan-your-business/#business-plan" target="_blank" rel="noopener">Write your business plan</a> (SBA)</li>
+    <li><a href="https://www.sba.gov/counseling/plan-your-business/#startup-costs" target="_blank" rel="noopener">Calculate your startup costs</a> (SBA), then fill in your workbook</li>
+    <li><a href="https://www.sba.gov/counseling/plan-your-business/#fund-business" target="_blank" rel="noopener">Fund your business</a> (SBA)</li>
+    <li><a href="https://www.sba.gov/counseling/launch-your-business/#register-business" target="_blank" rel="noopener">Register your business</a>, then use the <a href="https://www.sba.gov/counseling/launch-your-business/state-registration-lookup/" target="_blank" rel="noopener">state registration lookup</a> to find your state's office</li>
+    <li><a href="https://www.irs.gov/businesses/small-businesses-self-employed/get-an-employer-identification-number" target="_blank" rel="noopener">Get your free EIN</a> (IRS)</li>
+    <li><a href="https://www.sba.gov/counseling/launch-your-business/#licenses-permits" target="_blank" rel="noopener">Apply for licenses and permits</a> (SBA)</li>
+    <li><a href="https://www.sba.gov/counseling/launch-your-business/#business-insurance" target="_blank" rel="noopener">Get business insurance</a> (SBA)</li>
+    <li><a href="https://www.sba.gov/counseling/launch-your-business/#bank-account" target="_blank" rel="noopener">Open a business bank account</a> (SBA)</li>
+  </ol>
+  <h3>Links for this business</h3>
+  <ul>
+    <li><a href="https://www.epa.gov/lead/renovation-repair-and-painting-program-contractors" target="_blank" rel="noopener">EPA RRP lead-safe rule</a>: required for paid paint-disturbing work on pre-1978 homes</li>
+    <li><a href="https://cdxocsppapps.epa.gov/ocspp-oppt-lead/firm-location-search" target="_blank" rel="noopener">Find an EPA lead-safe certified firm</a>: search by location</li>
+    <li><a href="https://www.irs.gov/taxtopics/tc409" target="_blank" rel="noopener">IRS Topic 409</a>: capital gains and losses</li>
+  </ul>
+  <h3>Free help</h3>
+  <ul>
+    <li><a href="https://www.sba.gov/counseling/local-assistance/" target="_blank" rel="noopener">SBA local assistance</a>: free counseling near you</li>
+    <li><a href="https://www.score.org/" target="_blank" rel="noopener">SCORE</a>: free mentoring from experienced business owners</li>
+    <li><a href="https://www.irs.gov/businesses/small-businesses-self-employed" target="_blank" rel="noopener">IRS small business tax center</a></li>
+  </ul>
+  <div class="checkstate" id="resell-rights">
+    <div class="box-title">✦ Your resell rights</div>
+    <p>As a Built By You Academy member, <strong>this course is yours to use however you want.</strong> You can:</p>
+    <ul>
+      <li><strong>Resell it</strong> at any price you choose by sharing this course link with your buyers</li>
+      <li><strong>Give it away</strong> for free, as a bonus or a gift</li>
+      <li><strong>Bundle it</strong> with your own products, services or memberships</li>
+      <li>Keep <strong>100% of what you make</strong>. It's up to you.</li>
+    </ul>
+    <p class="note">If you resell, don't promise your buyers income or results. The course doesn't, and you shouldn't either.</p>
+  </div>
+  <div class="today"><b>Do This Today</b>Download your workbook, open the Price Research tab, and call 2 lenders and 1 contractor.</div>
+</template>
+
+<script>
+function copyScript(btn){var p=btn.parentElement.querySelector('p')||btn.parentElement.querySelector('pre');var text=p?p.innerText:'';
+function ok(){btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy'},1600)}
+if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(ok,function(){})}else{var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(ta);ok()}}
+function switchTab(id,idx,btn){var c=document.getElementById(id);c.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});btn.classList.add('active');
+c.querySelectorAll('.tab-panel').forEach(function(p){p.classList.toggle('active',Number(p.getAttribute('data-idx'))===idx)})}
+function $v(id){return parseFloat(document.getElementById(id).value)||0}
+function money(n){return '$'+n.toLocaleString(undefined,{maximumFractionDigits:0})}
+function calcStartup(){var ids=['su-rent','su-deposit','su-furnish','su-photo','su-insurance','su-permits','su-reserve'],t=0;ids.forEach(function(i){t+=$v(i)});
+document.getElementById('su-total').textContent=money(t);document.getElementById('su-result').classList.add('show')}
+function calcDeal(){var rent=$v('da-rent'),rev=$v('da-adr')*30*($v('da-occ')/100),exp=rent+$v('da-util')+$v('da-ins')+$v('da-soft')+$v('da-cleancost')*$v('da-turnovers'),prof=rev-exp,mult=rent>0?rev/rent:0,score=Math.max(0,Math.min(100,Math.round(mult/3*100)));
+var c='fail',t='FAIL: below 1.5x, skip this deal';if(mult>=2){c='pass';t='PASS: clears the 2X rule'}else if(mult>=1.5){c='caution';t='CAUTION: marginal, negotiate harder'}
+document.getElementById('da-revenue').textContent=money(rev);document.getElementById('da-expenses').textContent=money(exp);document.getElementById('da-profit').textContent=money(prof);
+document.getElementById('da-multiple').textContent=mult.toFixed(2)+'x';document.getElementById('da-score').textContent=score+' / 100';
+var p=document.getElementById('da-pill');p.className='pill '+c;p.textContent=t;document.getElementById('da-result').classList.add('show')}
+</script>
+<script>
+(function(){
+var mods=[
+{id:"overview",t:"t-overview",full:"Course Overview",short:"Overview"},
+{id:"module-1",t:"t-1",full:"1 · Welcome to Fix & Flip",short:"1 · Basics"},
+{id:"module-2",t:"t-2",full:"2 · Finding Flip-Worthy Properties",short:"2 · Finding Deals"},
+{id:"module-3",t:"t-3",full:"3 · Evaluating Deals: ARV, Repairs & The Flip Formula",short:"3 · Evaluating"},
+{id:"module-4",t:"t-4",full:"4 · Financing Your Flip",short:"4 · Financing"},
+{id:"module-5",t:"t-5",full:"5 · Renovation & Project Management",short:"5 · Renovation"},
+{id:"module-6",t:"t-6",full:"6 · Marketing & Selling the Finished Flip",short:"6 · Selling"},
+{id:"module-7",t:"t-7",full:"7 · Financial Management & Taxes",short:"7 · Money & Taxes"},
+{id:"module-8",t:"t-8",full:"8 · Legal & Compliance for Flippers",short:"8 · Legal"},
+{id:"module-9",t:"t-9",full:"9 · Building Your Power Team & Scaling",short:"9 · Team & Scale"},
+{id:"toolkit",t:"t-toolkit",full:"Startup Toolkit & Downloads",short:"Toolkit"}
+];
+var KEY="bby-fix-and-flip-done", done={};
+try{done=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){done={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}}
+var rail=document.getElementById("rail"), lesson=document.getElementById("lesson");
+var cur=0;
+mods.forEach(function(m,i){
+var b=document.createElement("button"); b.type="button"; b.id="nav-"+m.id;
+b.innerHTML='<span class="dot" aria-hidden="true"></span><span><span class="full"></span><span class="short"></span></span>';
+b.querySelector(".full").textContent=m.full; b.querySelector(".short").textContent=m.short;
+b.addEventListener("click",function(){go(i,true)}); rail.appendChild(b);
+});
+function paint(){
+var n=0;
+mods.forEach(function(m,i){
+var b=document.getElementById("nav-"+m.id);
+b.classList.toggle("done",!!done[m.id]); b.querySelector(".dot").textContent=done[m.id]?"✓":"";
+b.setAttribute("aria-current",i===cur?"true":"false"); if(done[m.id])n++;
+});
+document.getElementById("barfill").style.width=(n/mods.length*100)+"%";
+document.getElementById("ptext").textContent=n+" of "+mods.length+" complete";
+var d=document.getElementById("done"), on=!!done[mods[cur].id];
+d.setAttribute("aria-pressed",on?"true":"false"); d.textContent=on?"✓ Completed":"Mark complete";
+document.getElementById("prev").hidden=cur===0;
+document.getElementById("next").hidden=cur===mods.length-1;
+}
+function go(i,scroll){
+cur=Math.max(0,Math.min(mods.length-1,i));
+lesson.innerHTML=""; lesson.appendChild(document.getElementById(mods[cur].t).content.cloneNode(true));
+if(location.hash!=="#"+mods[cur].id){try{history.replaceState(null,"","#"+mods[cur].id)}catch(e){location.hash=mods[cur].id}}
+paint(); if(scroll)window.scrollTo({top:0});
+}
+document.getElementById("prev").addEventListener("click",function(){go(cur-1,true)});
+document.getElementById("next").addEventListener("click",function(){go(cur+1,true)});
+document.getElementById("done").addEventListener("click",function(){
+var id=mods[cur].id; if(done[id])delete done[id]; else done[id]=true; save(); paint();
+});
+function fromHash(){var h=location.hash.slice(1),i=mods.findIndex(function(m){return m.id===h}); go(i<0?0:i,false)}
+window.addEventListener("hashchange",fromHash); fromHash();
+})();
+</script>
+</body></html>
