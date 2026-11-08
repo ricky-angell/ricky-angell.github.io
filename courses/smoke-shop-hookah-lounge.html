@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smoke Shop & Hookah Lounge Blueprint</title>
+<meta name="description" content="Built By You Academy · Real World Business Blueprints: Smoke Shop & Hookah Lounge.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* Same course-player layout as the other BBY blueprints */
+:root{
+--bg:#f5f6f9; --surface:#ffffff; --ink:#141a2b; --muted:#5a6276; --line:#dde1ea;
+--navy:#16213f; --gold:#b8860b; --gold-soft:#f6ecd2; --ok:#1f7a4d; --ok-soft:#e1f2e8; --bad:#b3261e; --bad-soft:#fbe5e3;
+--display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+--body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}}
+:root[data-theme="dark"]{
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--body)}
+[hidden]{display:none!important}
+a{color:var(--gold);text-underline-offset:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.top{background:var(--navy);color:#fff;padding-block:22px 26px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{max-width:1180px;margin:0 auto;display:grid;gap:6px}
+.eyebrow{font:600 13px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:#e3b54a}
+.top h1{font:italic 700 clamp(34px,6vw,56px)/1 var(--display);margin:0;text-wrap:balance;letter-spacing:.01em}
+.top p{margin:0;color:#c9cfdd;max-width:62ch}
+.progress{display:flex;align-items:center;gap:12px;margin-top:10px;font-size:14px;color:#c9cfdd}
+.bar{flex:0 1 260px;height:8px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:#e3b54a;transition:width .3s}
+.wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:270px minmax(0,1fr);gap:32px;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;display:grid;gap:2px}
+.rail button{all:unset;cursor:pointer;display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;padding:10px 12px;border-radius:8px;color:var(--muted);font-size:15px;line-height:1.35}
+.rail button:hover{background:var(--surface);color:var(--ink)}
+.rail button[aria-current="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:inset 3px 0 0 var(--gold)}
+.dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;margin-top:1px}
+.done .dot{background:var(--ok);border-color:var(--ok);color:#fff}
+main{min-width:0}
+article{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:clamp(20px,4vw,44px)}
+article h2{font:700 clamp(30px,4.4vw,42px)/1.05 var(--display);margin:0 0 6px;text-wrap:balance}
+.kicker{font:600 13px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+article h3{font:700 24px/1.15 var(--display);margin:34px 0 8px;letter-spacing:.01em}
+article h4{font:700 20px/1.2 var(--display);margin:26px 0 6px;letter-spacing:.02em}
+article p,article li{max-width:68ch}
+article ul,article ol{padding-left:1.3em;display:grid;gap:6px}
+.lead{font-size:18px;color:var(--muted)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:8px}
+.cols > div{border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.cols h4{margin:0 0 6px;font:700 18px/1.2 var(--display);letter-spacing:.03em;text-transform:uppercase}
+.cols .pro{border-color:var(--ok);background:var(--ok-soft)} .cols .pro h4{color:var(--ok)}
+.cols .con{border-color:var(--bad);background:var(--bad-soft)} .cols .con h4{color:var(--bad)}
+.tablewrap{overflow-x:auto;margin-top:10px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{font-weight:700;border-top:2px solid var(--ink)}
+.formula{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 16px;font-weight:600}
+.today{margin-top:34px;background:var(--gold-soft);border-radius:10px;padding:16px 20px;display:grid;gap:4px}
+.today b{font:700 15px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.note{font-size:14px;color:var(--muted)}
+.pager{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;margin-top:20px}
+.btn{all:unset;cursor:pointer;padding:11px 18px;border-radius:8px;font-weight:600;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+:root[data-theme="dark"] .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}}
+.btn.complete[aria-pressed="true"]{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+@media (max-width:820px){
+.wrap{grid-template-columns:1fr;gap:16px}
+nav.rail{position:static;display:flex;overflow-x:auto;gap:6px;padding-bottom:4px}
+.rail button{flex:0 0 auto;grid-template-columns:20px auto;white-space:nowrap;background:var(--surface);border:1px solid var(--line)}
+.rail .full{display:none}
+}
+@media (min-width:821px){.rail .short{display:none}}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+.box,.calc,.check{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:16px 0}
+.box-title{display:block;font:700 14px/1.2 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.box.warn{border-left:4px solid var(--bad);background:var(--bad-soft)}
+.box.warn .box-title{color:var(--bad)}
+.checkstate{border:2px solid var(--gold);background:var(--gold-soft);border-radius:10px;padding:14px 18px;margin:16px 0}
+.res-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:12px 0}
+.res-card{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--bg)}
+.res-card a{font-weight:700}
+.res-desc{font-size:14px;color:var(--muted);margin-top:4px}
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:4px}
+.field input{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:15px var(--body)}
+.calc-btn{margin-top:14px;padding:10px 18px;border-radius:8px;border:0;background:var(--gold);color:#141a2b;font-weight:700;cursor:pointer}
+.calc-result{display:none;margin-top:16px} .calc-result.show{display:block}
+.calc-result .row{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--line)}
+.calc-result .row.total{font-weight:700;border-bottom:0}
+.check{display:grid;gap:4px} .check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.check input{width:18px;height:18px;margin-top:4px;accent-color:var(--gold);flex-shrink:0}
+.check input:checked+span{text-decoration:line-through;opacity:.6}
+</style>
+</head>
+<body>
+<header class="top">
+<div class="top-in">
+<div class="eyebrow">Built By You Academy · Real World Business Blueprints</div>
+<h1>Smoke Shop &amp; Hookah Lounge</h1>
+<p>Open a smoke shop or hookah lounge the legal way: Tobacco 21 and ID rules, state retailer licenses, indoor smoking bans, paraphernalia and hemp rules, suppliers, location and security, banking, pricing, marketing limits and profit math.</p>
+<p><a href="downloads/smoke-shop-hookah-startup-workbook.xlsx" download style="color:#e3b54a;font-weight:600">⬇ Download the Startup Workbook (Excel)</a> · <a href="#toolkit" style="color:#e3b54a;font-weight:600">Startup links</a></p>
+<div class="progress"><div class="bar"><i id="barfill"></i></div><span id="ptext">0 of 15 complete</span></div>
+</div>
+</header>
+
+<div class="wrap">
+<nav class="rail" id="rail" aria-label="Course modules"></nav>
+<main>
+<article id="lesson" aria-live="polite"></article>
+<div class="pager">
+<button class="btn" id="prev" type="button" hidden>← Previous</button>
+<button class="btn complete" id="done" type="button" aria-pressed="false">Mark complete</button>
+<button class="btn primary" id="next" type="button">Next module →</button>
+</div>
+</main>
+</div>
+
+<template id="t-overview">
+<div class="kicker">Start here</div>
+<h2>Course Overview</h2>
+<p class="lead">This course shows you how to open a smoke shop (tobacco, vape and accessories) and how to check whether a hookah lounge is even legal where you want to open one. It covers licensing, age rules, smoking bans, product rules, suppliers, pricing, setup and profit math.</p>
+<div class="cols">
+<div><h4>Who it's for</h4>Adults with retail experience who want a regulated retail business and are willing to follow the rules to the letter.</div>
+<div><h4>How it works</h4>12 modules, each ending with a <strong>Do This Today</strong> task. A shop profit calculator is built in. Your workbook and startup links are in the Toolkit.</div>
+</div>
+<div class="box warn"><div class="box-title">This is a heavily regulated business</div><p>Tobacco, vape and hemp rules changed a lot in 2025–2026 and are still changing. Every rule in this course was checked in November 2026, but you must confirm current law with your state agency before you buy inventory or sign a lease.</p></div>
+<div class="checkstate"><div class="box-title">Your resell rights</div><p>You own this course as a Built By You Academy member. You may resell it, give it away or bundle it with your own products as you choose.</p></div>
+<h3>Honest note</h3>
+<p>This course doesn't promise income and isn't legal advice. It doesn't encourage tobacco or nicotine use; it teaches how to run a legal adult retail business.</p>
+</template>
+
+<template id="t-1">
+<div class="kicker">Module 1</div>
+<h2>Smoke Shop vs. Hookah Lounge</h2>
+<div class="tablewrap"><table>
+<thead><tr><th>Business</th><th>What you sell</th><th>Biggest hurdle</th></tr></thead>
+<tbody>
+<tr><td><strong>Smoke shop</strong></td><td>Cigars, cigarettes, pipe and hookah tobacco, vapes, rolling papers, lighters, pipes, glass, hookahs and accessories</td><td>Licensing and product rules</td></tr>
+<tr><td><strong>Hookah lounge</strong></td><td>Hookah sessions (people smoke flavored tobacco on site), plus non-alcoholic drinks and snacks</td><td>Indoor smoking bans; in many places it's not allowed at all</td></tr>
+</tbody></table></div>
+<div class="cols">
+<div class="pro"><h4>Pros</h4><ul><li>Steady repeat customers</li><li>Accessories and glass can carry strong margins</li><li>Lounges can become a social hangout with loyal regulars</li></ul></div>
+<div class="con"><h4>Cons</h4><ul><li>Many licenses, fast-changing rules, big fines</li><li>Card processors and banks often treat smoke shops as high-risk</li><li>Advertising limits; theft risk</li></ul></div>
+</div>
+<div class="today"><b>Do this today</b>Decide: smoke shop, lounge, or both, and the city where you'd open.</div>
+</template>
+
+<template id="t-2">
+<div class="kicker">Module 2</div>
+<h2>Age Rules: Tobacco 21</h2>
+<ul>
+<li>The federal minimum age to buy any tobacco product, including hookah tobacco, cigars and e-cigarettes, is <strong>21</strong>, with no exceptions (including military)</li>
+<li>You must check a <strong>photo ID for anyone under 30</strong> buying cigarettes, smokeless tobacco or covered tobacco products (FDA rule in effect since September 30, 2024)</li>
+<li>Train every employee; use an ID scanner; post age signs</li>
+<li>FDA and state inspectors run undercover compliance checks. Sales to minors bring fines and can cost you your license</li>
+</ul>
+<p class="note">Source: FDA Tobacco 21 page (2025).</p>
+<div class="today"><b>Do this today</b>Write your ID policy: check every ID under 30, no exceptions.</div>
+</template>
+
+<template id="t-3">
+<div class="kicker">Module 3</div>
+<h2>State Licenses</h2>
+<div class="tablewrap"><table>
+<thead><tr><th>State</th><th>What's required</th></tr></thead>
+<tbody>
+<tr><td><strong>Kentucky</strong></td><td>Under SB 100 (2025), every retailer of tobacco, nicotine and vapor products must be licensed by the <strong>Kentucky ABC</strong> (applications began January 1, 2026). Under HB 11 (effective January 1, 2025), vapor products may only be sold if FDA-authorized or holding a certificate of safe harbor; ABC lists noncompliant retailers</td></tr>
+<tr><td><strong>Ohio</strong></td><td>A retail dealer license for cigarettes and other tobacco/vapor products, issued by the <strong>county auditor</strong>, one per location, renewed every year (by the fourth Monday in May). Some cities, like Cleveland, require their own tobacco retail license too</td></tr>
+<tr><td><strong>West Virginia</strong></td><td>The Vape and Smoke Retailer Location and Operating Requirements Act (effective July 1, 2026) requires a license from the <strong>WV ABCA</strong> (reported $1,200 fee) and background screening for owners and operators. Bans candy/cartoon-style marketing terms from March 1, 2027 and sets signage rules by July 1, 2027</td></tr>
+</tbody></table></div>
+<p class="note">Sources: Kentucky ABC HB 11 FAQ; WKYT (Jan. 2026); Ohio R.C. 5743.59 and AHA tobacco licensure tracker; WDTV (July 2026). Also check: state tax registration (tobacco taxes), sales tax permit and local business license.</p>
+<div class="today"><b>Do this today</b>Download your state's tobacco/vape retailer application and fill in the workbook's <strong>Licensing Checklist</strong>.</div>
+</template>
+
+<template id="t-4">
+<div class="kicker">Module 4</div>
+<h2>Hookah Lounges &amp; Smoking Bans</h2>
+<p class="lead">Before anything else, find out if indoor smoking is legal at your address.</p>
+<ul>
+<li><strong>Ohio</strong>: the Smoke-Free Workplace Act bans smoking in enclosed public places and workplaces. Retail tobacco stores (over 80% of revenue from tobacco) are exempt only if they opened before December 7, 2006, or if they're in a freestanding building where smoke doesn't escape, and they must file a yearly affidavit. Places with a liquor permit or that are restaurants can't use the exemption. Read Ohio Revised Code Chapter 3794 before you plan a lounge</li>
+<li><strong>Cabell County / Huntington, WV</strong>: the county clean indoor air regulation bans smoking (including pipes) in all enclosed public places, including bars and retail stores, with no hookah lounge exemption, and a later rule adds vapes</li>
+<li><strong>Kentucky</strong>: no statewide indoor smoking ban; many cities and counties have their own (call your local health department)</li>
+<li>If indoor smoking isn't allowed, consider a smoke shop that sells hookahs and tobacco for home use, or a licensed private club where the law allows it</li>
+</ul>
+<p class="note">Sources: Ohio R.C. 3794.01 and 3794.03; Cabell County Clean Indoor Air Regulation. Rules change; confirm with your local health department.</p>
+<div class="today"><b>Do this today</b>Call your local health department and ask: "Can a new hookah lounge allow indoor smoking at this address?"</div>
+</template>
+
+<template id="t-5">
+<div class="kicker">Module 5</div>
+<h2>Paraphernalia &amp; Hemp: What You Can't Sell</h2>
+<h3>Drug paraphernalia law</h3>
+<ul>
+<li>Federal law (21 U.S.C. 863) makes it illegal to sell items primarily intended for use with illegal drugs</li>
+<li>It exempts items traditionally intended for use with tobacco, including pipes, papers and accessories, sold in the normal lawful course of business</li>
+<li>That's why legal shops sell glass and pipes for tobacco use only. Never let staff talk about using products with illegal drugs; one comment can turn a legal sale into a crime. States have their own paraphernalia laws too</li>
+</ul>
+<h3>Hemp, delta-8 and THC products</h3>
+<div class="box warn"><div class="box-title">Federal change: intoxicating hemp products</div><p>A federal law signed November 12, 2025 (Public Law 119-37) redefines hemp using <strong>total THC</strong> (including THCa and delta-8). Finished products with more than <strong>0.4 mg total THC per container</strong> fall outside the hemp definition, as do synthetic cannabinoids. Most of these limits take effect <strong>December 11, 2026</strong> (cannabinoids the plant can't naturally produce, November 12, 2026). Bills to delay or change it were pending as of October 2026. Get a lawyer's advice before selling any THC or hemp-derived product.</p></div>
+<p class="note">Source: Hemp Law Group (Oct. 2026). State laws on hemp products also differ.</p>
+<div class="today"><b>Do this today</b>Write your staff rule: "We sell tobacco products and accessories only. We don't discuss illegal drug use."</div>
+</template>
+
+<template id="t-6">
+<div class="kicker">Module 6</div>
+<h2>Products &amp; Suppliers</h2>
+<ul>
+<li>Buy only from licensed tobacco distributors and wholesalers in your state (tobacco taxes are often collected through them)</li>
+<li>Vapes: confirm each product is allowed in your state (FDA authorization or state directory/safe harbor rules)</li>
+<li>Accessories: lighters, papers, cases, hookahs, coals, hoses, cleaning supplies, glass for tobacco use</li>
+<li>Keep invoices for every product; inspectors may ask</li>
+<li>Don't sell flavored or youth-styled products where they're banned</li>
+</ul>
+<div class="today"><b>Do this today</b>List 3 licensed distributors in your state and request their price lists.</div>
+</template>
+
+<template id="t-7">
+<div class="kicker">Module 7</div>
+<h2>Location, Setup &amp; Security</h2>
+<ul>
+<li>Zoning: many cities limit smoke and vape shops near schools, parks or other shops (West Virginia's new law also sets location requirements)</li>
+<li>Locked display cases; tobacco behind the counter</li>
+<li>Cameras, alarm, safe; good lighting</li>
+<li>ID scanner at the register</li>
+<li>Lounge: ventilation system, seating, coal station, hookah cleaning area, fire safety plan; ventilation alone can run $15,000–$50,000 in planning estimates</li>
+</ul>
+<div class="today"><b>Do this today</b>Check zoning for 2 possible locations.</div>
+</template>
+
+<template id="t-8">
+<div class="kicker">Module 8</div>
+<h2>Banking, Payments &amp; Insurance</h2>
+<ul>
+<li>Many card processors treat smoke and vape shops as high-risk; ask before you sign up, and have a backup processor</li>
+<li>Open a business bank account and explain your products up front</li>
+<li>Insurance: general liability, product liability, property and theft; lounges need coverage for fire risk and on-site use</li>
+<li>Keep sales and tax records carefully; tobacco taxes are audited</li>
+</ul>
+<div class="today"><b>Do this today</b>Ask 2 card processors and 2 insurance agents if they work with smoke shops.</div>
+</template>
+
+<template id="t-9">
+<div class="kicker">Module 9</div>
+<h2>Pricing</h2>
+<ul>
+<li>Check local competitor prices for your top 50 items; tobacco prices are very competitive</li>
+<li>Accessories and glass usually carry higher margins than tobacco itself</li>
+<li>Hookah lounges: a guide from a hookah retailer reports about <strong>$25–$40 per hookah</strong>, usually shared by 2–3 people</li>
+<li>Add drinks (non-alcoholic unless you're properly licensed), snacks, memberships and private events</li>
+</ul>
+<p class="note">Source: Hookah Vault lounge guide (Jan. 2026). Check lounges near you.</p>
+<div class="today"><b>Do this today</b>Build your price list in the workbook.</div>
+</template>
+
+<template id="t-10">
+<div class="kicker">Module 10</div>
+<h2>Marketing Within the Rules</h2>
+<ul>
+<li>Never market to minors; no cartoon, candy or youth-style messaging (now banned by law in West Virginia from March 2027)</li>
+<li>Social media platforms restrict tobacco and vape ads; focus on your Google Business Profile, signage and word of mouth</li>
+<li>Loyalty programs for adult customers (21+, verified)</li>
+<li>Lounge: events, music nights, student-free "21 and up" policy</li>
+</ul>
+<div class="today"><b>Do this today</b>Set up your Google Business Profile with "21+ only" in the description.</div>
+</template>
+
+<template id="t-11">
+<div class="kicker">Module 11</div>
+<h2>Profit Calculator</h2>
+<div class="calc">
+<div class="calc-grid">
+<div class="field"><label for="ss-sales">Monthly retail sales ($)</label><input id="ss-sales" type="number" value="40000"></div>
+<div class="field"><label for="ss-margin">Average gross margin (%)</label><input id="ss-margin" type="number" value="30"></div>
+<div class="field"><label for="ss-hookahs">Lounge hookahs sold per month</label><input id="ss-hookahs" type="number" value="0"></div>
+<div class="field"><label for="ss-hprice">Price per hookah ($)</label><input id="ss-hprice" type="number" value="30"></div>
+<div class="field"><label for="ss-hcost">Tobacco, coal &amp; supplies per hookah ($)</label><input id="ss-hcost" type="number" value="6"></div>
+<div class="field"><label for="ss-rent">Rent ($/mo)</label><input id="ss-rent" type="number" value="2500"></div>
+<div class="field"><label for="ss-pay">Payroll ($/mo)</label><input id="ss-pay" type="number" value="5000"></div>
+<div class="field"><label for="ss-other">Utilities, insurance, licenses, fees ($/mo)</label><input id="ss-other" type="number" value="1500"></div>
+</div>
+<button class="calc-btn" type="button" onclick="calcSmoke()">Calculate</button>
+<div class="calc-result" id="ss-result">
+<div class="row"><span>Retail gross profit</span><span id="ss-retail"></span></div>
+<div class="row"><span>Lounge gross profit</span><span id="ss-lounge"></span></div>
+<div class="row"><span>Monthly expenses</span><span id="ss-exp"></span></div>
+<div class="row total"><span>Monthly profit before taxes</span><span id="ss-profit"></span></div>
+</div>
+</div>
+<p class="note">Example numbers only. Use real supplier costs and your local rent.</p>
+<div class="today"><b>Do this today</b>Run the calculator with your real rent.</div>
+</template>
+
+<template id="t-12">
+<div class="kicker">Module 12</div>
+<h2>Your Launch Plan</h2>
+<div class="check">
+<label><input type="checkbox"><span>Week 1: check smoking ban (lounge), zoning and state retailer license rules</span></label>
+<label><input type="checkbox"><span>Week 2: LLC, EIN, bank account, card processor, insurance</span></label>
+<label><input type="checkbox"><span>Week 3: apply for state and local licenses; tax registrations</span></label>
+<label><input type="checkbox"><span>Week 4: distributor accounts; product list checked against state rules</span></label>
+<label><input type="checkbox"><span>Before opening: security, ID scanner, staff training on age and paraphernalia rules</span></label>
+</div>
+<div class="today"><b>Do this today</b>Put your weekly goals on a calendar.</div>
+</template>
+
+<template id="t-toolkit">
+<div class="kicker">Toolkit</div>
+<h2>Startup Toolkit &amp; Downloads</h2>
+<div class="checkstate"><div class="box-title">Download your workbook</div><p><a href="downloads/smoke-shop-hookah-startup-workbook.xlsx" download><strong>Smoke Shop &amp; Hookah Lounge Startup Workbook (Excel)</strong></a>: Startup Costs, Licensing Checklist, Price List, Supplier List and Monthly Profit tabs.</p></div>
+<div class="res-grid">
+<div class="res-card"><a href="https://www.fda.gov/tobacco-products/retail-sales-tobacco-products/tobacco-21" target="_blank" rel="noopener">FDA Tobacco 21</a><div class="res-desc">Age 21 and ID rules</div></div>
+<div class="res-card"><a href="https://www.fda.gov/tobacco-products/retail-sales-tobacco-products" target="_blank" rel="noopener">FDA retailer resources</a><div class="res-desc">Free retailer training</div></div>
+<div class="res-card"><a href="https://abc.ky.gov" target="_blank" rel="noopener">Kentucky ABC</a><div class="res-desc">KY tobacco/vapor retailer license</div></div>
+<div class="res-card"><a href="https://codes.ohio.gov/orc/3794" target="_blank" rel="noopener">Ohio R.C. Chapter 3794</a><div class="res-desc">Ohio smoking ban</div></div>
+<div class="res-card"><a href="https://abca.wv.gov" target="_blank" rel="noopener">WV ABCA</a><div class="res-desc">WV vape/smoke retailer license</div></div>
+<div class="res-card"><a href="https://law.justia.com/codes/us/2015/title-21/chapter-13/subchapter-i/part-d/sec.-863" target="_blank" rel="noopener">21 U.S.C. 863</a><div class="res-desc">Federal paraphernalia law</div></div>
+<div class="res-card"><a href="https://www.hemplawgroup.com/news/federal-hemp-ban-2026-where-things-stand" target="_blank" rel="noopener">Federal hemp change (2026)</a><div class="res-desc">Hemp/THC product status</div></div>
+<div class="res-card"><a href="https://www.sba.gov/business-guide" target="_blank" rel="noopener">SBA Business Guide</a><div class="res-desc">Plan and launch</div></div>
+</div>
+<h3>Your resell rights</h3>
+<p>This course is yours as a Built By You Academy member. You may resell it, give it away or bundle it with your own products as you choose.</p>
+</template>
+
+<script>
+function $v(id){return parseFloat(document.getElementById(id).value)||0}
+function money(n){var s=n<0?'-':'';return s+'$'+Math.abs(n).toLocaleString(undefined,{maximumFractionDigits:0})}
+function setTxt(id,t){document.getElementById(id).textContent=t}
+function calcSmoke(){var r=$v('ss-sales')*$v('ss-margin')/100,l=$v('ss-hookahs')*($v('ss-hprice')-$v('ss-hcost')),e=$v('ss-rent')+$v('ss-pay')+$v('ss-other');
+setTxt('ss-retail',money(r));setTxt('ss-lounge',money(l));setTxt('ss-exp',money(e));setTxt('ss-profit',money(r+l-e));document.getElementById('ss-result').classList.add('show')}
+</script>
+<script>
+(function(){
+var mods=[
+{id:"overview",t:"t-overview",full:"Course Overview",short:"Overview"},
+{id:"module-1",t:"t-1",full:"1 \u00b7 Smoke Shop vs. Hookah Lounge",short:"1 \u00b7 Model"},
+{id:"module-2",t:"t-2",full:"2 \u00b7 Age Rules: Tobacco 21",short:"2 \u00b7 Age 21"},
+{id:"module-3",t:"t-3",full:"3 \u00b7 State Licenses",short:"3 \u00b7 Licenses"},
+{id:"module-4",t:"t-4",full:"4 \u00b7 Hookah Lounges & Smoking Bans",short:"4 \u00b7 Smoking Bans"},
+{id:"module-5",t:"t-5",full:"5 \u00b7 Paraphernalia & Hemp: What You Can't Sell",short:"5 \u00b7 What Not to Sell"},
+{id:"module-6",t:"t-6",full:"6 \u00b7 Products & Suppliers",short:"6 \u00b7 Suppliers"},
+{id:"module-7",t:"t-7",full:"7 \u00b7 Location, Setup & Security",short:"7 \u00b7 Setup"},
+{id:"module-8",t:"t-8",full:"8 \u00b7 Banking, Payments & Insurance",short:"8 \u00b7 Banking"},
+{id:"module-9",t:"t-9",full:"9 \u00b7 Pricing",short:"9 \u00b7 Pricing"},
+{id:"module-10",t:"t-10",full:"10 \u00b7 Marketing Within the Rules",short:"10 \u00b7 Marketing"},
+{id:"module-11",t:"t-11",full:"11 \u00b7 Profit Calculator",short:"11 \u00b7 Profit"},
+{id:"module-12",t:"t-12",full:"12 \u00b7 Your Launch Plan",short:"12 \u00b7 Launch"},
+{id:"toolkit",t:"t-toolkit",full:"Startup Toolkit & Downloads",short:"Toolkit"}
+];
+var KEY="bby-smoke-shop-hookah-done", done={};
+try{done=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){done={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}}
+var rail=document.getElementById("rail"), lesson=document.getElementById("lesson");
+var cur=0;
+mods.forEach(function(m,i){
+var b=document.createElement("button"); b.type="button"; b.id="nav-"+m.id;
+b.innerHTML='<span class="dot" aria-hidden="true"></span><span><span class="full"></span><span class="short"></span></span>';
+b.querySelector(".full").textContent=m.full; b.querySelector(".short").textContent=m.short;
+b.addEventListener("click",function(){go(i,true)}); rail.appendChild(b);
+});
+function paint(){
+var n=0;
+mods.forEach(function(m,i){
+var b=document.getElementById("nav-"+m.id);
+b.classList.toggle("done",!!done[m.id]); b.querySelector(".dot").textContent=done[m.id]?"✓":"";
+b.setAttribute("aria-current",i===cur?"true":"false"); if(done[m.id])n++;
+});
+document.getElementById("barfill").style.width=(n/mods.length*100)+"%";
+document.getElementById("ptext").textContent=n+" of "+mods.length+" complete";
+var d=document.getElementById("done"), on=!!done[mods[cur].id];
+d.setAttribute("aria-pressed",on?"true":"false"); d.textContent=on?"✓ Completed":"Mark complete";
+document.getElementById("prev").hidden=cur===0;
+document.getElementById("next").hidden=cur===mods.length-1;
+}
+function go(i,scroll){
+cur=Math.max(0,Math.min(mods.length-1,i));
+lesson.innerHTML=""; lesson.appendChild(document.getElementById(mods[cur].t).content.cloneNode(true));
+if(location.hash!=="#"+mods[cur].id){try{history.replaceState(null,"","#"+mods[cur].id)}catch(e){location.hash=mods[cur].id}}
+paint(); if(scroll)window.scrollTo({top:0});
+}
+document.getElementById("prev").addEventListener("click",function(){go(cur-1,true)});
+document.getElementById("next").addEventListener("click",function(){go(cur+1,true)});
+document.getElementById("done").addEventListener("click",function(){
+var id=mods[cur].id; if(done[id])delete done[id]; else done[id]=true; save(); paint();
+});
+function fromHash(){var h=location.hash.slice(1),i=mods.findIndex(function(m){return m.id===h}); go(i<0?0:i,false)}
+window.addEventListener("hashchange",fromHash); fromHash();
+})();
+</script>
+</body>
+</html>
