@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Handyman & Home Rehab Contractor Blueprint</title>
+<meta name="description" content="Built By You Academy · Real World Business Blueprints: Handyman & Home Rehab Contractor.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* Same course-player layout as the other BBY blueprints */
+:root{
+--bg:#f5f6f9; --surface:#ffffff; --ink:#141a2b; --muted:#5a6276; --line:#dde1ea;
+--navy:#16213f; --gold:#b8860b; --gold-soft:#f6ecd2; --ok:#1f7a4d; --ok-soft:#e1f2e8; --bad:#b3261e; --bad-soft:#fbe5e3;
+--display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+--body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}}
+:root[data-theme="dark"]{
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--body)}
+[hidden]{display:none!important}
+a{color:var(--gold);text-underline-offset:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.top{background:var(--navy);color:#fff;padding-block:22px 26px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{max-width:1180px;margin:0 auto;display:grid;gap:6px}
+.eyebrow{font:600 13px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:#e3b54a}
+.top h1{font:italic 700 clamp(34px,6vw,56px)/1 var(--display);margin:0;text-wrap:balance;letter-spacing:.01em}
+.top p{margin:0;color:#c9cfdd;max-width:62ch}
+.progress{display:flex;align-items:center;gap:12px;margin-top:10px;font-size:14px;color:#c9cfdd}
+.bar{flex:0 1 260px;height:8px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:#e3b54a;transition:width .3s}
+.wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:270px minmax(0,1fr);gap:32px;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;display:grid;gap:2px}
+.rail button{all:unset;cursor:pointer;display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;padding:10px 12px;border-radius:8px;color:var(--muted);font-size:15px;line-height:1.35}
+.rail button:hover{background:var(--surface);color:var(--ink)}
+.rail button[aria-current="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:inset 3px 0 0 var(--gold)}
+.dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;margin-top:1px}
+.done .dot{background:var(--ok);border-color:var(--ok);color:#fff}
+main{min-width:0}
+article{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:clamp(20px,4vw,44px)}
+article h2{font:700 clamp(30px,4.4vw,42px)/1.05 var(--display);margin:0 0 6px;text-wrap:balance}
+.kicker{font:600 13px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+article h3{font:700 24px/1.15 var(--display);margin:34px 0 8px;letter-spacing:.01em}
+article h4{font:700 20px/1.2 var(--display);margin:26px 0 6px;letter-spacing:.02em}
+article p,article li{max-width:68ch}
+article ul,article ol{padding-left:1.3em;display:grid;gap:6px}
+.lead{font-size:18px;color:var(--muted)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:8px}
+.cols > div{border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.cols h4{margin:0 0 6px;font:700 18px/1.2 var(--display);letter-spacing:.03em;text-transform:uppercase}
+.cols .pro{border-color:var(--ok);background:var(--ok-soft)} .cols .pro h4{color:var(--ok)}
+.cols .con{border-color:var(--bad);background:var(--bad-soft)} .cols .con h4{color:var(--bad)}
+.tablewrap{overflow-x:auto;margin-top:10px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{font-weight:700;border-top:2px solid var(--ink)}
+.formula{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 16px;font-weight:600}
+.today{margin-top:34px;background:var(--gold-soft);border-radius:10px;padding:16px 20px;display:grid;gap:4px}
+.today b{font:700 15px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.note{font-size:14px;color:var(--muted)}
+.pager{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;margin-top:20px}
+.btn{all:unset;cursor:pointer;padding:11px 18px;border-radius:8px;font-weight:600;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+:root[data-theme="dark"] .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}}
+.btn.complete[aria-pressed="true"]{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+@media (max-width:820px){
+.wrap{grid-template-columns:1fr;gap:16px}
+nav.rail{position:static;display:flex;overflow-x:auto;gap:6px;padding-bottom:4px}
+.rail button{flex:0 0 auto;grid-template-columns:20px auto;white-space:nowrap;background:var(--surface);border:1px solid var(--line)}
+.rail .full{display:none}
+}
+@media (min-width:821px){.rail .short{display:none}}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+.box,.calc,.check{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:16px 0}
+.box-title{display:block;font:700 14px/1.2 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.box.warn{border-left:4px solid var(--bad);background:var(--bad-soft)}
+.box.warn .box-title{color:var(--bad)}
+.checkstate{border:2px solid var(--gold);background:var(--gold-soft);border-radius:10px;padding:14px 18px;margin:16px 0}
+.res-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:12px 0}
+.res-card{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--bg)}
+.res-card a{font-weight:700}
+.res-desc{font-size:14px;color:var(--muted);margin-top:4px}
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:4px}
+.field input{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:15px var(--body)}
+.calc-btn{margin-top:14px;padding:10px 18px;border-radius:8px;border:0;background:var(--gold);color:#141a2b;font-weight:700;cursor:pointer}
+.calc-result{display:none;margin-top:16px} .calc-result.show{display:block}
+.calc-result .row{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--line)}
+.calc-result .row.total{font-weight:700;border-bottom:0}
+.check{display:grid;gap:4px} .check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.check input{width:18px;height:18px;margin-top:4px;accent-color:var(--gold);flex-shrink:0}
+.check input:checked+span{text-decoration:line-through;opacity:.6}
+</style>
+</head>
+<body>
+<header class="top">
+<div class="top-in">
+<div class="eyebrow">Built By You Academy · Real World Business Blueprints</div>
+<h1>Handyman &amp; Home Rehab</h1>
+<p>Start a handyman and home rehab company: picking your lane, state and city licensing, EPA lead-safe rules, insurance, tools, real pricing, bidding rehabs, contracts, subcontractors, getting work and running jobs.</p>
+<p><a href="downloads/handyman-rehab-startup-workbook.xlsx" download style="color:#e3b54a;font-weight:600">⬇ Download the Startup Workbook (Excel)</a> · <a href="#toolkit" style="color:#e3b54a;font-weight:600">Startup links</a></p>
+<div class="progress"><div class="bar"><i id="barfill"></i></div><span id="ptext">0 of 15 complete</span></div>
+</div>
+</header>
+
+<div class="wrap">
+<nav class="rail" id="rail" aria-label="Course modules"></nav>
+<main>
+<article id="lesson" aria-live="polite"></article>
+<div class="pager">
+<button class="btn" id="prev" type="button" hidden>← Previous</button>
+<button class="btn complete" id="done" type="button" aria-pressed="false">Mark complete</button>
+<button class="btn primary" id="next" type="button">Next module →</button>
+</div>
+</main>
+</div>
+
+<template id="t-overview">
+<div class="kicker">Start here</div>
+<h2>Course Overview</h2>
+<p class="lead">This course shows you how to start a handyman and home rehab company: small repairs for homeowners, make-ready work for landlords, and full rehabs for house flippers and investors.</p>
+<div class="cols">
+<div><h4>Who it's for</h4>People who are good with tools and want to run a real business, from a one-truck handyman to a crew that rehabs whole houses.</div>
+<div><h4>How it works</h4>12 modules, each ending with a <strong>Do This Today</strong> task. A job bid calculator is built in. Your workbook and startup links are in the Toolkit.</div>
+</div>
+<div class="box"><div class="box-title">Pairs with Fix &amp; Flip Houses</div><p>The Fix &amp; Flip Houses course in this classroom teaches the investor side. This course teaches the contractor side: getting paid to do the work.</p></div>
+<div class="checkstate"><div class="box-title">Your resell rights</div><p>You own this course as a Built By You Academy member. You may resell it, give it away or bundle it with your own products as you choose.</p></div>
+<h3>Honest note</h3>
+<p>This course doesn't teach construction skills, and licensing rules vary by state and city. It shows you where to confirm your own rules. It doesn't promise income and isn't legal advice. Facts were checked in November 2026.</p>
+</template>
+
+<template id="t-1">
+<div class="kicker">Module 1</div>
+<h2>Pick Your Lane</h2>
+<div class="tablewrap"><table>
+<thead><tr><th>Lane</th><th>Typical work</th><th>Customers</th></tr></thead>
+<tbody>
+<tr><td><strong>Handyman</strong></td><td>Small repairs, installs, drywall patches, doors, fixtures, assembly, TV mounting</td><td>Homeowners, seniors, busy families</td></tr>
+<tr><td><strong>Make-ready / turnover</strong></td><td>Paint, patch, flooring, cleaning, fixes between tenants</td><td>Landlords, property managers</td></tr>
+<tr><td><strong>Full rehab</strong></td><td>Kitchens, baths, flooring, roofing, siding, with licensed trades for electrical, plumbing and HVAC</td><td>Flippers, investors, homeowners</td></tr>
+<tr><td><strong>Punch-out &amp; inspection repairs</strong></td><td>Fixing items from home inspections before closing</td><td>Real estate agents, sellers</td></tr>
+</tbody></table></div>
+<div class="cols">
+<div class="pro"><h4>Pros</h4><ul><li>Endless demand: houses always need work</li><li>Can start with tools you own</li><li>Investors and landlords send repeat work</li></ul></div>
+<div class="con"><h4>Cons</h4><ul><li>Physical work; injuries happen</li><li>Licensing limits on job size and trade work</li><li>Bidding wrong can wipe out profit</li></ul></div>
+</div>
+<div class="today"><b>Do this today</b>Pick your starting lane and list the jobs you can do well today.</div>
+</template>
+
+<template id="t-2">
+<div class="kicker">Module 2</div>
+<h2>Licenses: What You Can and Can't Do</h2>
+<div class="tablewrap"><table>
+<thead><tr><th>State</th><th>General contractor / handyman</th><th>Trade licenses</th></tr></thead>
+<tbody>
+<tr><td><strong>Kentucky</strong></td><td>No statewide general contractor or handyman license; some cities (like Louisville Metro) require a local license</td><td>Electrical, plumbing and HVAC are state-licensed (Dept. of Housing, Buildings and Construction)</td></tr>
+<tr><td><strong>Ohio</strong></td><td>No statewide general contractor license; many cities require local registration. A new statewide registration for residential home improvement contractors is reported to be phasing in starting 2026; confirm its status</td><td>Ohio Construction Industry Licensing Board licenses electrical, HVAC, plumbing, hydronics and refrigeration</td></tr>
+<tr><td><strong>West Virginia</strong></td><td>State contractor license from the WV Contractor Licensing Board for jobs above the dollar limit (guides cite $2,500 total cost; one cites higher). Exam, $90 fee, yearly renewal and a wage bond affidavit</td><td>Trade licenses through the state</td></tr>
+</tbody></table></div>
+<p class="note">Sources: Housecall Pro state licensing guides (2026) and NEXT Insurance (Ohio). These are business guides, not the law itself; confirm with your state board and city before you bid.</p>
+<div class="box warn"><div class="box-title">Hire licensed trades</div><p>Unless you hold the license, sub out electrical, plumbing, HVAC and other licensed work to licensed contractors, and pull permits where required. Unlicensed work can void insurance and get you fined.</p></div>
+<div class="today"><b>Do this today</b>Look up your state contractor board and your city's building department. Fill in the workbook's <strong>Licensing Checklist</strong>.</div>
+</template>
+
+<template id="t-3">
+<div class="kicker">Module 3</div>
+<h2>Lead-Safe Rules (EPA RRP)</h2>
+<p class="lead">If you disturb paint in homes or child care facilities built before 1978, federal law requires lead-safe certification.</p>
+<ul>
+<li><strong>Firm certification</strong>: your business (even a one-person business) must be EPA-certified. Fee: <strong>$300</strong>; good for <strong>5 years</strong></li>
+<li><strong>Certified renovator</strong>: at least one person must complete an <strong>8-hour</strong> course (2 hours hands-on). Refresher is 4 hours</li>
+<li><strong>Minor repair exemption</strong>: disturbing less than 6 sq. ft. inside or 20 sq. ft. outside per room. Window replacement is always covered</li>
+<li>Give owners the EPA <strong>"Renovate Right"</strong> pamphlet before work; use lead-safe work practices; keep job records for <strong>3 years</strong></li>
+<li>Kentucky, Ohio and West Virginia use the federal EPA program; some states run their own</li>
+</ul>
+<p class="note">Source: EPA Renovation, Repair and Painting Program pages (2025–2026). Fines for violations can be serious.</p>
+<div class="today"><b>Do this today</b>Find an EPA-accredited renovator course near you and start your firm certification online.</div>
+</template>
+
+<template id="t-4">
+<div class="kicker">Module 4</div>
+<h2>Insurance &amp; Business Setup</h2>
+<ul>
+<li>LLC, EIN, business bank account</li>
+<li><strong>General liability</strong>: required by most property managers, investors and many cities</li>
+<li><strong>Workers' comp</strong>: required when you hire in most states. Ohio uses a state fund through the Bureau of Workers' Compensation</li>
+<li><strong>Commercial auto</strong> for your work truck</li>
+<li><strong>Tools and equipment coverage</strong> (inland marine)</li>
+<li>Ask each sub for a certificate of insurance before they start</li>
+</ul>
+<div class="today"><b>Do this today</b>Get 3 quotes for general liability and tool coverage.</div>
+</template>
+
+<template id="t-5">
+<div class="kicker">Module 5</div>
+<h2>Tools, Truck &amp; Materials</h2>
+<ul>
+<li>Start with what you own; buy tools as jobs pay for them</li>
+<li>Core kit: drill/driver set, saws, levels, stud finder, ladders, shop vac, drywall and paint tools, safety gear</li>
+<li>A truck or van with shelving and a trailer for rehab hauls and dump runs</li>
+<li>Open a pro account at Home Depot Pro or Lowe's Pro and local suppliers for pricing and delivery</li>
+<li>Track materials per job; keep receipts for taxes and billing</li>
+</ul>
+<div class="today"><b>Do this today</b>List the tools you have and the 5 you need next in the workbook.</div>
+</template>
+
+<template id="t-6">
+<div class="kicker">Module 6</div>
+<h2>Pricing Your Work</h2>
+<ul>
+<li><strong>Hourly</strong>: self-employed handymen often charge $50–$80/hr; companies $75–$125/hr; national range about $50–$150/hr</li>
+<li><strong>Minimum service fee</strong>: $125–$200 so small trips are worth it</li>
+<li><strong>Flat-rate jobs</strong>: examples like TV mounting $120–$250, ceiling fan install $150–$300</li>
+<li><strong>Materials markup</strong>: 10–30% to cover your time buying, hauling and warranty</li>
+<li><strong>Rehab bids</strong>: price room by room and trade by trade, with a contingency (10–15%) for hidden damage</li>
+</ul>
+<p class="note">Source: Housecall Pro handyman pricing guide (Oct. 2026). Check local rates and your real costs.</p>
+<div class="today"><b>Do this today</b>Build your price list for your 10 most common jobs in the workbook.</div>
+</template>
+
+<template id="t-7">
+<div class="kicker">Module 7</div>
+<h2>Bidding a Rehab Job</h2>
+<ol>
+<li>Walk the property with the owner; take photos and measurements of every room</li>
+<li>Write a scope of work: room, task, materials, quantities</li>
+<li>Get quotes from licensed subs (electrical, plumbing, HVAC, roofing)</li>
+<li>Add labor, materials, permits, dumpsters and cleanup</li>
+<li>Add overhead, profit and a contingency</li>
+<li>Send a written bid with a timeline and payment schedule</li>
+</ol>
+<h3>Job Bid Calculator</h3>
+<div class="calc">
+<div class="calc-grid">
+<div class="field"><label for="hb-hours">Your labor hours</label><input id="hb-hours" type="number" value="40"></div>
+<div class="field"><label for="hb-rate">Your labor rate ($/hr)</label><input id="hb-rate" type="number" value="65"></div>
+<div class="field"><label for="hb-mat">Materials cost ($)</label><input id="hb-mat" type="number" value="3000"></div>
+<div class="field"><label for="hb-markup">Materials markup (%)</label><input id="hb-markup" type="number" value="15"></div>
+<div class="field"><label for="hb-subs">Subcontractors ($)</label><input id="hb-subs" type="number" value="2500"></div>
+<div class="field"><label for="hb-other">Permits, dumpster, disposal ($)</label><input id="hb-other" type="number" value="600"></div>
+<div class="field"><label for="hb-cont">Contingency (%)</label><input id="hb-cont" type="number" value="10"></div>
+</div>
+<button class="calc-btn" type="button" onclick="calcBid()">Calculate</button>
+<div class="calc-result" id="hb-result">
+<div class="row"><span>Labor</span><span id="hb-labor"></span></div>
+<div class="row"><span>Materials with markup</span><span id="hb-matt"></span></div>
+<div class="row"><span>Subs and other costs</span><span id="hb-so"></span></div>
+<div class="row"><span>Contingency</span><span id="hb-c"></span></div>
+<div class="row total"><span>Bid price</span><span id="hb-bid"></span></div>
+</div>
+</div>
+<div class="today"><b>Do this today</b>Run the calculator on a real job you've done or seen.</div>
+</template>
+
+<template id="t-8">
+<div class="kicker">Module 8</div>
+<h2>Contracts, Deposits &amp; Change Orders</h2>
+<div class="check">
+<label><input type="checkbox"><span>Written contract for every job: scope, price, start and finish dates, who pulls permits</span></label>
+<label><input type="checkbox"><span>Deposit and payment schedule tied to completed stages (follow any state limits on deposits)</span></label>
+<label><input type="checkbox"><span>Written change orders signed before extra work starts</span></label>
+<label><input type="checkbox"><span>Warranty terms and what's excluded</span></label>
+<label><input type="checkbox"><span>Lien waivers from subs and suppliers when you pay them</span></label>
+<label><input type="checkbox"><span>Any notices your state requires for home improvement contracts</span></label>
+</div>
+<p class="note">Have a local attorney review your contract template once. It's cheaper than one lawsuit.</p>
+<div class="today"><b>Do this today</b>Draft your contract and change order template.</div>
+</template>
+
+<template id="t-9">
+<div class="kicker">Module 9</div>
+<h2>Working with Subs &amp; Crews</h2>
+<ul>
+<li>Build a bench of licensed electricians, plumbers, HVAC techs and roofers</li>
+<li>Get their license numbers and insurance certificates on file</li>
+<li>Pay on completed work, not up front</li>
+<li>Employee or contractor? Read the <a href="https://www.irs.gov/businesses/small-businesses-self-employed/independent-contractor-self-employed-or-employee" target="_blank" rel="noopener">IRS guide</a>; misclassifying crew members is costly</li>
+<li>Follow <a href="https://www.osha.gov/construction" target="_blank" rel="noopener">OSHA construction safety</a> rules: ladders, fall protection, power tools</li>
+</ul>
+<div class="today"><b>Do this today</b>List 2 licensed contacts in each trade in the workbook's <strong>Sub List</strong>.</div>
+</template>
+
+<template id="t-10">
+<div class="kicker">Module 10</div>
+<h2>Getting Work</h2>
+<ul>
+<li>Free <a href="https://www.google.com/business/" target="_blank" rel="noopener">Google Business Profile</a> with job photos and reviews</li>
+<li>Landlords and property managers: offer fast make-ready turnarounds</li>
+<li>House flippers and investors: local real estate investor meetups and Facebook groups</li>
+<li>Real estate agents: inspection repair lists before closing</li>
+<li>Before-and-after videos on TikTok, Reels and Facebook</li>
+<li>Lead sites like Angi, Thumbtack and Nextdoor (know the lead fees)</li>
+<li>Truck signs and yard signs at every job (with permission)</li>
+</ul>
+<div class="today"><b>Do this today</b>Call 5 local property managers and ask how they handle repairs and turnovers.</div>
+</template>
+
+<template id="t-11">
+<div class="kicker">Module 11</div>
+<h2>Running Jobs</h2>
+<ul>
+<li>Schedule in a job app or calendar; confirm the day before</li>
+<li>Photos before, during and after every job</li>
+<li>Protect floors, clean up daily, leave the site better than you found it</li>
+<li>Invoice the same day; take card payments</li>
+<li>Track job profit: was the bid right? Adjust your price list</li>
+<li>Ask for a review on every finished job</li>
+</ul>
+<div class="today"><b>Do this today</b>Set up your job tracker in the workbook.</div>
+</template>
+
+<template id="t-12">
+<div class="kicker">Module 12</div>
+<h2>Your Launch Plan</h2>
+<div class="check">
+<label><input type="checkbox"><span>Week 1: pick your lane; check state and city licensing; LLC and EIN</span></label>
+<label><input type="checkbox"><span>Week 2: insurance; EPA RRP firm certification and renovator course</span></label>
+<label><input type="checkbox"><span>Week 3: price list, contract, change order and invoice templates</span></label>
+<label><input type="checkbox"><span>Week 4: Google profile, truck sign, outreach to landlords, agents and investors</span></label>
+<label><input type="checkbox"><span>Month 2–3: build your sub bench; take bigger rehab jobs as you get reviews</span></label>
+</div>
+<div class="today"><b>Do this today</b>Put your weekly goals on a calendar.</div>
+</template>
+
+<template id="t-toolkit">
+<div class="kicker">Toolkit</div>
+<h2>Startup Toolkit &amp; Downloads</h2>
+<div class="checkstate"><div class="box-title">Download your workbook</div><p><a href="downloads/handyman-rehab-startup-workbook.xlsx" download><strong>Handyman &amp; Home Rehab Startup Workbook (Excel)</strong></a>: Startup Costs, Licensing Checklist, Price List, Rehab Bid Sheet, Sub List and Job Tracker tabs.</p></div>
+<div class="res-grid">
+<div class="res-card"><a href="https://www.epa.gov/lead/renovation-repair-and-painting-program-contractors" target="_blank" rel="noopener">EPA RRP for contractors</a><div class="res-desc">Lead-safe rules</div></div>
+<div class="res-card"><a href="https://www.epa.gov/lead/renovation-repair-and-painting-program-firm-certification" target="_blank" rel="noopener">EPA firm certification</a><div class="res-desc">$300, 5 years</div></div>
+<div class="res-card"><a href="https://www.osha.gov/construction" target="_blank" rel="noopener">OSHA construction</a><div class="res-desc">Job site safety</div></div>
+<div class="res-card"><a href="https://dhbc.ky.gov" target="_blank" rel="noopener">KY Housing, Buildings &amp; Construction</a><div class="res-desc">KY trade licenses</div></div>
+<div class="res-card"><a href="https://com.ohio.gov/divisions-and-programs/industrial-compliance/boards/ohio-construction-industry-licensing-board" target="_blank" rel="noopener">Ohio OCILB</a><div class="res-desc">Ohio trade licenses</div></div>
+<div class="res-card"><a href="https://labor.wv.gov" target="_blank" rel="noopener">WV Division of Labor</a><div class="res-desc">WV contractor licensing</div></div>
+<div class="res-card"><a href="https://www.irs.gov/businesses/small-businesses-self-employed/independent-contractor-self-employed-or-employee" target="_blank" rel="noopener">IRS: employee or contractor?</a><div class="res-desc">Hiring crew</div></div>
+<div class="res-card"><a href="https://www.sba.gov/business-guide" target="_blank" rel="noopener">SBA Business Guide</a><div class="res-desc">Plan and launch</div></div>
+<div class="res-card"><a href="https://www.housecallpro.com/resources/how-to-price-handyman-jobs/" target="_blank" rel="noopener">Handyman pricing guide</a><div class="res-desc">Rates and methods</div></div>
+</div>
+<h3>Your resell rights</h3>
+<p>This course is yours as a Built By You Academy member. You may resell it, give it away or bundle it with your own products as you choose.</p>
+</template>
+
+<script>
+function $v(id){return parseFloat(document.getElementById(id).value)||0}
+function money(n){var s=n<0?'-':'';return s+'$'+Math.abs(n).toLocaleString(undefined,{maximumFractionDigits:0})}
+function setTxt(id,t){document.getElementById(id).textContent=t}
+function calcBid(){var l=$v('hb-hours')*$v('hb-rate'),m=$v('hb-mat')*(1+$v('hb-markup')/100),so=$v('hb-subs')+$v('hb-other'),c=(l+m+so)*$v('hb-cont')/100;
+setTxt('hb-labor',money(l));setTxt('hb-matt',money(m));setTxt('hb-so',money(so));setTxt('hb-c',money(c));setTxt('hb-bid',money(l+m+so+c));document.getElementById('hb-result').classList.add('show')}
+</script>
+<script>
+(function(){
+var mods=[
+{id:"overview",t:"t-overview",full:"Course Overview",short:"Overview"},
+{id:"module-1",t:"t-1",full:"1 \u00b7 Pick Your Lane",short:"1 \u00b7 Lane"},
+{id:"module-2",t:"t-2",full:"2 \u00b7 Licenses: What You Can and Can't Do",short:"2 \u00b7 Licenses"},
+{id:"module-3",t:"t-3",full:"3 \u00b7 Lead-Safe Rules (EPA RRP)",short:"3 \u00b7 Lead-Safe"},
+{id:"module-4",t:"t-4",full:"4 \u00b7 Insurance & Business Setup",short:"4 \u00b7 Insurance"},
+{id:"module-5",t:"t-5",full:"5 \u00b7 Tools, Truck & Materials",short:"5 \u00b7 Tools"},
+{id:"module-6",t:"t-6",full:"6 \u00b7 Pricing Your Work",short:"6 \u00b7 Pricing"},
+{id:"module-7",t:"t-7",full:"7 \u00b7 Bidding a Rehab Job",short:"7 \u00b7 Bidding"},
+{id:"module-8",t:"t-8",full:"8 \u00b7 Contracts, Deposits & Change Orders",short:"8 \u00b7 Contracts"},
+{id:"module-9",t:"t-9",full:"9 \u00b7 Working with Subs & Crews",short:"9 \u00b7 Subs"},
+{id:"module-10",t:"t-10",full:"10 \u00b7 Getting Work",short:"10 \u00b7 Marketing"},
+{id:"module-11",t:"t-11",full:"11 \u00b7 Running Jobs",short:"11 \u00b7 Operations"},
+{id:"module-12",t:"t-12",full:"12 \u00b7 Your Launch Plan",short:"12 \u00b7 Launch"},
+{id:"toolkit",t:"t-toolkit",full:"Startup Toolkit & Downloads",short:"Toolkit"}
+];
+var KEY="bby-handyman-rehab-done", done={};
+try{done=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){done={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}}
+var rail=document.getElementById("rail"), lesson=document.getElementById("lesson");
+var cur=0;
+mods.forEach(function(m,i){
+var b=document.createElement("button"); b.type="button"; b.id="nav-"+m.id;
+b.innerHTML='<span class="dot" aria-hidden="true"></span><span><span class="full"></span><span class="short"></span></span>';
+b.querySelector(".full").textContent=m.full; b.querySelector(".short").textContent=m.short;
+b.addEventListener("click",function(){go(i,true)}); rail.appendChild(b);
+});
+function paint(){
+var n=0;
+mods.forEach(function(m,i){
+var b=document.getElementById("nav-"+m.id);
+b.classList.toggle("done",!!done[m.id]); b.querySelector(".dot").textContent=done[m.id]?"✓":"";
+b.setAttribute("aria-current",i===cur?"true":"false"); if(done[m.id])n++;
+});
+document.getElementById("barfill").style.width=(n/mods.length*100)+"%";
+document.getElementById("ptext").textContent=n+" of "+mods.length+" complete";
+var d=document.getElementById("done"), on=!!done[mods[cur].id];
+d.setAttribute("aria-pressed",on?"true":"false"); d.textContent=on?"✓ Completed":"Mark complete";
+document.getElementById("prev").hidden=cur===0;
+document.getElementById("next").hidden=cur===mods.length-1;
+}
+function go(i,scroll){
+cur=Math.max(0,Math.min(mods.length-1,i));
+lesson.innerHTML=""; lesson.appendChild(document.getElementById(mods[cur].t).content.cloneNode(true));
+if(location.hash!=="#"+mods[cur].id){try{history.replaceState(null,"","#"+mods[cur].id)}catch(e){location.hash=mods[cur].id}}
+paint(); if(scroll)window.scrollTo({top:0});
+}
+document.getElementById("prev").addEventListener("click",function(){go(cur-1,true)});
+document.getElementById("next").addEventListener("click",function(){go(cur+1,true)});
+document.getElementById("done").addEventListener("click",function(){
+var id=mods[cur].id; if(done[id])delete done[id]; else done[id]=true; save(); paint();
+});
+function fromHash(){var h=location.hash.slice(1),i=mods.findIndex(function(m){return m.id===h}); go(i<0?0:i,false)}
+window.addEventListener("hashchange",fromHash); fromHash();
+})();
+</script>
+</body>
+</html>
