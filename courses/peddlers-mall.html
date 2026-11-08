@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Peddler's Mall Blueprint</title>
+<meta name="description" content="Built By You Academy · Real World Business Blueprints: open a peddler's mall (vendor booth mall).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* Same course-player layout as the other BBY blueprints */
+:root{
+--bg:#f5f6f9; --surface:#ffffff; --ink:#141a2b; --muted:#5a6276; --line:#dde1ea;
+--navy:#16213f; --gold:#b8860b; --gold-soft:#f6ecd2; --ok:#1f7a4d; --ok-soft:#e1f2e8; --bad:#b3261e; --bad-soft:#fbe5e3;
+--display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+--body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}}
+:root[data-theme="dark"]{
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--body)}
+[hidden]{display:none!important}
+a{color:var(--gold);text-underline-offset:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.top{background:var(--navy);color:#fff;padding-block:22px 26px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{max-width:1180px;margin:0 auto;display:grid;gap:6px}
+.eyebrow{font:600 13px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:#e3b54a}
+.top h1{font:italic 700 clamp(34px,6vw,56px)/1 var(--display);margin:0;text-wrap:balance;letter-spacing:.01em}
+.top p{margin:0;color:#c9cfdd;max-width:62ch}
+.progress{display:flex;align-items:center;gap:12px;margin-top:10px;font-size:14px;color:#c9cfdd}
+.bar{flex:0 1 260px;height:8px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:#e3b54a;transition:width .3s}
+.wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:270px minmax(0,1fr);gap:32px;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;display:grid;gap:2px}
+.rail button{all:unset;cursor:pointer;display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;padding:10px 12px;border-radius:8px;color:var(--muted);font-size:15px;line-height:1.35}
+.rail button:hover{background:var(--surface);color:var(--ink)}
+.rail button[aria-current="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:inset 3px 0 0 var(--gold)}
+.dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;margin-top:1px}
+.done .dot{background:var(--ok);border-color:var(--ok);color:#fff}
+main{min-width:0}
+article{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:clamp(20px,4vw,44px)}
+article h2{font:700 clamp(30px,4.4vw,42px)/1.05 var(--display);margin:0 0 6px;text-wrap:balance}
+.kicker{font:600 13px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+article h3{font:700 24px/1.15 var(--display);margin:34px 0 8px;letter-spacing:.01em}
+article h4{font:700 20px/1.2 var(--display);margin:26px 0 6px;letter-spacing:.02em}
+article p,article li{max-width:68ch}
+article ul,article ol{padding-left:1.3em;display:grid;gap:6px}
+.lead{font-size:18px;color:var(--muted)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:8px}
+.cols > div{border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.cols h4{margin:0 0 6px;font:700 18px/1.2 var(--display);letter-spacing:.03em;text-transform:uppercase}
+.cols .pro{border-color:var(--ok);background:var(--ok-soft)} .cols .pro h4{color:var(--ok)}
+.cols .con{border-color:var(--bad);background:var(--bad-soft)} .cols .con h4{color:var(--bad)}
+.tablewrap{overflow-x:auto;margin-top:10px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{font-weight:700;border-top:2px solid var(--ink)}
+.formula{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 16px;font-weight:600}
+.today{margin-top:34px;background:var(--gold-soft);border-radius:10px;padding:16px 20px;display:grid;gap:4px}
+.today b{font:700 15px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.note{font-size:14px;color:var(--muted)}
+.pager{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;margin-top:20px}
+.btn{all:unset;cursor:pointer;padding:11px 18px;border-radius:8px;font-weight:600;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+:root[data-theme="dark"] .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}}
+.btn.complete[aria-pressed="true"]{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+@media (max-width:820px){
+.wrap{grid-template-columns:1fr;gap:16px}
+nav.rail{position:static;display:flex;overflow-x:auto;gap:6px;padding-bottom:4px}
+.rail button{flex:0 0 auto;grid-template-columns:20px auto;white-space:nowrap;background:var(--surface);border:1px solid var(--line)}
+.rail .full{display:none}
+}
+@media (min-width:821px){.rail .short{display:none}}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+.box,.calc,.check{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:16px 0}
+.box-title{display:block;font:700 14px/1.2 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.box.warn{border-left:4px solid var(--bad);background:var(--bad-soft)}
+.box.warn .box-title{color:var(--bad)}
+.checkstate{border:2px solid var(--gold);background:var(--gold-soft);border-radius:10px;padding:14px 18px;margin:16px 0}
+.res-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:12px 0}
+.res-card{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--bg)}
+.res-card a{font-weight:700}
+.res-desc{font-size:14px;color:var(--muted);margin-top:4px}
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:4px}
+.field input{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:15px var(--body)}
+.calc-btn{margin-top:14px;padding:10px 18px;border-radius:8px;border:0;background:var(--gold);color:#141a2b;font-weight:700;cursor:pointer}
+.calc-result{display:none;margin-top:16px} .calc-result.show{display:block}
+.calc-result .row{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--line)}
+.calc-result .row.total{font-weight:700;border-bottom:0}
+.check{display:grid;gap:4px} .check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.check input{width:18px;height:18px;margin-top:4px;accent-color:var(--gold);flex-shrink:0}
+.check input:checked+span{text-decoration:line-through;opacity:.6}
+</style>
+</head>
+<body>
+<header class="top">
+<div class="top-in">
+<div class="eyebrow">Built By You Academy · Real World Business Blueprints</div>
+<h1>Peddler's Mall</h1>
+<p>Open a peddler's mall (vendor booth mall): picking a building, booth layout, real booth rent and commission rates, sales tax, insurance, vendor agreements, software, paying vendors on time, filling booths and bringing in shoppers.</p>
+<p><a href="downloads/peddlers-mall-startup-workbook.xlsx" download style="color:#e3b54a;font-weight:600">⬇ Download the Startup Workbook (Excel)</a> · <a href="#toolkit" style="color:#e3b54a;font-weight:600">Startup links</a></p>
+<div class="progress"><div class="bar"><i id="barfill"></i></div><span id="ptext">0 of 15 complete</span></div>
+</div>
+</header>
+
+<div class="wrap">
+<nav class="rail" id="rail" aria-label="Course modules"></nav>
+<main>
+<article id="lesson" aria-live="polite"></article>
+<div class="pager">
+<button class="btn" id="prev" type="button" hidden>← Previous</button>
+<button class="btn complete" id="done" type="button" aria-pressed="false">Mark complete</button>
+<button class="btn primary" id="next" type="button">Next module →</button>
+</div>
+</main>
+</div>
+
+<template id="t-overview">
+<div class="kicker">Start here</div>
+<h2>Course Overview</h2>
+<p class="lead">A peddler's mall (also called a vendor mall, booth mall or antique mall) is a big store split into booths. Vendors rent booths and stock them; you run the building, the checkout and the marketing. You earn booth rent plus a small cut of every sale.</p>
+<div class="cols">
+<div><h4>Who it's for</h4>People who love thrifting, flea markets, antiques or resale and want a steady-income retail business without buying all the inventory themselves.</div>
+<div><h4>How it works</h4>13 modules, each ending with a <strong>Do This Today</strong> task. A mall profit calculator is built in. Your workbook and startup links are in the Toolkit.</div>
+</div>
+<div class="box"><div class="box-title">Pick your own name</div><p>"Peddlers Mall" is also the name of an existing chain of vendor malls. Choose your own business name and check it isn't already in use or trademarked in your area.</p></div>
+<div class="checkstate"><div class="box-title">Your resell rights</div><p>You own this course as a Built By You Academy member. You may resell it, give it away or bundle it with your own products as you choose.</p></div>
+<h3>Honest note</h3>
+<p>Rents, commissions, tax rules and lease terms vary by area. This course gives you real examples from operating malls and shows you exactly where to look up your own rules. It doesn't promise income and isn't legal or tax advice. Facts were checked in November 2026.</p>
+</template>
+
+<template id="t-1">
+<div class="kicker">Module 1</div>
+<h2>How a Vendor Mall Makes Money</h2>
+<div class="tablewrap"><table>
+<thead><tr><th>Income</th><th>How it works</th></tr></thead>
+<tbody>
+<tr><td><strong>Booth rent</strong></td><td>Each vendor pays monthly rent for their space. This is your steady base income</td></tr>
+<tr><td><strong>Commission</strong></td><td>You keep a percentage of each vendor's sales (often 10%)</td></tr>
+<tr><td><strong>Card processing fee</strong></td><td>Many malls pass card fees to vendors (for example 2.6%–4% of card sales)</td></tr>
+<tr><td><strong>Showcases</strong></td><td>Locked glass cases rented separately for small, valuable items</td></tr>
+<tr><td><strong>Your own booths</strong></td><td>Many owners stock a few booths themselves</td></tr>
+</tbody></table></div>
+<div class="cols">
+<div class="pro"><h4>Pros</h4><ul><li>You don't buy most of the inventory; vendors do</li><li>Steady monthly rent from many vendors</li><li>A full mall is its own advertising: vendors bring their own customers</li><li>Easier rules than food, finance or health businesses</li></ul></div>
+<div class="con"><h4>Cons</h4><ul><li>A big building lease is a big long-term commitment</li><li>Empty booths cost you money every month</li><li>You handle other people's money and must pay vendors on time, every time</li><li>Long open hours and shoplifting risk</li></ul></div>
+</div>
+<div class="today"><b>Do this today</b>Visit 2 vendor or antique malls near you (or within driving distance). Count the booths, note how full the mall is, and ask the front desk for their vendor rent sheet.</div>
+</template>
+
+<template id="t-2">
+<div class="kicker">Module 2</div>
+<h2>Picking Your Building</h2>
+<ul>
+<li><strong>Size</strong>: vendor malls often use old big-box stores, grocery stores or warehouses. More floor space means more booths, but also more rent, heat and cooling</li>
+<li><strong>Zoning</strong>: confirm retail use is allowed before you sign</li>
+<li><strong>Fire marshal and building code</strong>: ask about occupancy limits, exits and aisle widths before you draw your floor plan</li>
+<li><strong>Parking and visibility</strong>: a busy road with easy in and out; shoppers stay a long time</li>
+<li><strong>Loading area</strong>: vendors bring furniture in and out every week</li>
+<li><strong>Restrooms, lighting, HVAC</strong>: shoppers browse for hours, so comfort matters</li>
+</ul>
+<h3>Lease tips</h3>
+<ul>
+<li>Ask for a few months free rent while you build out and fill booths</li>
+<li>Know who pays taxes, insurance and repairs (triple net leases put these on you)</li>
+<li>Get an option to renew, and avoid a personal guarantee if you can</li>
+<li>Have a local real estate attorney review the lease before you sign</li>
+</ul>
+<div class="formula">Rough booth count = sellable floor space ÷ (booth size + share of aisles)</div>
+<p class="note">Aisles, checkout, restrooms and storage take up a large part of the floor. Draw it out before you promise anyone a booth count.</p>
+<div class="today"><b>Do this today</b>Find 3 empty retail buildings for lease near you and write down square footage, monthly rent and lease terms in the workbook.</div>
+</template>
+
+<template id="t-3">
+<div class="kicker">Module 3</div>
+<h2>Licenses, Sales Tax &amp; Insurance</h2>
+<h3>Licenses</h3>
+<ul>
+<li>LLC, EIN and state business registration</li>
+<li>City or county business license and certificate of occupancy</li>
+<li>State sales tax permit</li>
+<li>Some cities require a secondhand dealer license for used goods; ask your city clerk</li>
+</ul>
+<h3>Sales tax: decide who collects</h3>
+<p>In most vendor malls, every sale goes through one central checkout. In that setup, many states treat the mall as the seller that collects and pays the sales tax on all vendor sales. In other setups, each vendor collects and reports their own. The rules differ by state, so:</p>
+<ol>
+<li>Call your state Department of Revenue and ask: "I'm opening a vendor mall with a central register. Who collects and reports sales tax on vendor sales?"</li>
+<li>Get the answer in writing if you can.</li>
+<li>Make sure your software collects tax at checkout and gives you reports you can file from.</li>
+</ol>
+<div class="box warn"><div class="box-title">Recalled products</div><p>It's illegal to sell products that have been recalled by the Consumer Product Safety Commission, including used cribs, car seats and children's items. Put this in your vendor rules and check <a href="https://www.cpsc.gov/Recalls" target="_blank" rel="noopener">CPSC recalls</a> when in doubt.</p></div>
+<h3>Insurance</h3>
+<ul>
+<li><strong>General liability</strong>: shoppers get hurt on furniture, stairs, wet floors</li>
+<li><strong>Property</strong>: your building contents, fixtures, register</li>
+<li><strong>Workers' comp</strong>: once you hire</li>
+<li>Make clear in your vendor agreement whether vendors' own inventory is covered by your policy (it usually isn't). Many malls tell vendors to carry their own</li>
+</ul>
+<div class="today"><b>Do this today</b>Call your state Department of Revenue with the sales tax question above, and request 3 insurance quotes.</div>
+</template>
+
+<template id="t-4">
+<div class="kicker">Module 4</div>
+<h2>Floor Plan &amp; Booth Design</h2>
+<ul>
+<li>Offer a few sizes. A common size is about 10' × 10'. One Ontario mall offers booths from 7' × 13' to 15' × 13', averaging 10' × 12'</li>
+<li>Booths with walls or pegboard rent for more than open floor spots</li>
+<li>Locked glass showcases near checkout for jewelry, coins and collectibles</li>
+<li>Wide, clear aisles in a loop so shoppers see every booth</li>
+<li>Checkout near the exit, with a view of the floor</li>
+<li>Number every booth and showcase so items can be tagged by booth number</li>
+<li>Back storage for incoming vendor inventory and holds</li>
+</ul>
+<div class="today"><b>Do this today</b>Sketch a floor plan for one building from Module 2: booth sizes, aisles, checkout and showcases. Count your booths.</div>
+</template>
+
+<template id="t-5">
+<div class="kicker">Module 5</div>
+<h2>Setting Rent &amp; Commission</h2>
+<h3>Real benchmarks</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Source</th><th>Booth rent</th><th>Commission</th><th>Card fee</th><th>Term</th></tr></thead>
+<tbody>
+<tr><td>Survey of 35 US antique malls (Underpriced, 2026)</td><td class="num">Median $275/mo for about 10×10; range $100–$500</td><td>Mostly 7%–15%; many a flat 10%</td><td>Some charge 3%–4%</td><td>Varies</td></tr>
+<tr><td>B&amp;L Antiques, Elgin SC</td><td>Not published</td><td class="num">15%</td><td class="num">2.6% of card sales</td><td>3-month minimum, then month to month</td></tr>
+<tr><td>Market Road Antiques, St. Jacobs, Ontario</td><td class="num">$3.98 per sq. ft. (showcases $10.77/sq. ft.)</td><td class="num">10% (sliding scale for big-ticket items)</td><td>Not published</td><td>Not published</td></tr>
+<tr><td>Ben's Antiques &amp; Market, Douglasville GA</td><td>Not published</td><td class="num">10%</td><td>Not published</td><td>Not published</td></tr>
+<tr><td>Peddlers Mall (chain)</td><td>Varies by location</td><td>Varies</td><td>Varies</td><td>Month to month, 7 days' notice to move out</td></tr>
+</tbody></table></div>
+<p class="note">Showcases in the survey rented for $39–$200 per month. Call the malls nearest you for local numbers: rent depends on your area, foot traffic and booth size.</p>
+<h3>How to set yours</h3>
+<ul>
+<li>Price booths by size and location (front and corner booths rent higher)</li>
+<li>Keep commission simple (one percentage, written in the agreement)</li>
+<li>Decide if you pass card fees to vendors, and say so up front</li>
+<li>Offer an opening special to fill the mall fast (for example, first month half off for a 3-month commitment)</li>
+</ul>
+<div class="today"><b>Do this today</b>Call 3 malls and ask for their booth rent, commission, card fee and minimum term. Enter them in the workbook's <strong>Competitor Rates</strong> tab.</div>
+</template>
+
+<template id="t-6">
+<div class="kicker">Module 6</div>
+<h2>Software &amp; Checkout</h2>
+<p>Vendor mall software tracks every item by vendor and booth, rings up sales, collects tax, charges rent, takes commission and fees, and calculates each vendor's monthly payout. Vendors can log in to see their own sales.</p>
+<div class="tablewrap"><table>
+<thead><tr><th>Software</th><th>Listed price</th></tr></thead>
+<tbody>
+<tr><td><a href="https://www.simpleconsign.com" target="_blank" rel="noopener">SimpleConsign</a></td><td>Professional plan $359/mo (with a launch discount offer). Used by the Peddlers Mall chain</td></tr>
+<tr><td><a href="https://www.ricoconsign.com" target="_blank" rel="noopener">Ricochet</a></td><td>RicochetGO about $129/mo or $1,199/yr; ecommerce add-on +$59/mo</td></tr>
+<tr><td><a href="https://puppetvendors.com/solutions/antique-mall-software" target="_blank" rel="noopener">PuppetVendors</a></td><td>From $49/mo (works with Shopify)</td></tr>
+</tbody></table></div>
+<p class="note">Prices as listed on vendor sites in 2026; confirm before you sign up.</p>
+<h3>Checkout setup</h3>
+<ul>
+<li>Barcode price tags printed by vendors from the software (or handwritten tags with booth number and price)</li>
+<li>Card reader, receipt printer, cash drawer and barcode scanner</li>
+<li>Bags, tissue paper and a furniture hold/pickup system</li>
+</ul>
+<div class="today"><b>Do this today</b>Sign up for a free demo or trial of two vendor mall software options.</div>
+</template>
+
+<template id="t-7">
+<div class="kicker">Module 7</div>
+<h2>Vendor Agreement &amp; Rules</h2>
+<p>Every vendor signs a written agreement before moving in. Have a local attorney review your template. Include:</p>
+<div class="check">
+<label><input type="checkbox"><span>Booth number, size and monthly rent; due date; late fee</span></label>
+<label><input type="checkbox"><span>Commission %, card fee and any other fees</span></label>
+<label><input type="checkbox"><span>Minimum term and move-out notice</span></label>
+<label><input type="checkbox"><span>When and how vendors get paid</span></label>
+<label><input type="checkbox"><span>Tagging rules (booth number on every tag)</span></label>
+<label><input type="checkbox"><span>Discount policy: can staff give a discount, and how much?</span></label>
+<label><input type="checkbox"><span>Booth upkeep: keep it stocked, clean and safe</span></label>
+<label><input type="checkbox"><span>Prohibited items: stolen goods, recalled products, counterfeits, and anything your state or your policy bans</span></label>
+<label><input type="checkbox"><span>Loss and theft: who is responsible for vendor inventory</span></label>
+<label><input type="checkbox"><span>Sales tax: who collects (from Module 3)</span></label>
+</div>
+<div class="today"><b>Do this today</b>Write the first draft of your vendor agreement using this checklist.</div>
+</template>
+
+<template id="t-8">
+<div class="kicker">Module 8</div>
+<h2>Paying Vendors &amp; Keeping Trust</h2>
+<p class="lead">Your whole business depends on vendors trusting you with their money.</p>
+<ul>
+<li>Pay on the same day every month. Example: Peddlers Mall pays vendors at the start of each month for the previous month's sales, minus fees and the current month's rent, usually by direct deposit around the 3rd–5th</li>
+<li>Keep vendor sales money in a separate bank account from your operating money</li>
+<li>Give every vendor a monthly statement: sales, commission, fees, rent and payout</li>
+<li>Let vendors see their sales anytime through your software</li>
+</ul>
+<div class="box warn"><div class="box-title">What happens when it goes wrong</div><p>When Ben's Antiques &amp; Market in Douglasville, Georgia closed in 2025, vendors told local news they were still waiting for March sales payments and partial rent refunds. The owner said final checks were coming and that he'd never missed a payment in 10 years, but the story spread fast. Plan your cash so vendor money is always there, even if you close.</p></div>
+<div class="today"><b>Do this today</b>Open a separate business account (or plan one) just for vendor payouts, and pick your monthly payout date.</div>
+</template>
+
+<template id="t-9">
+<div class="kicker">Module 9</div>
+<h2>Recruiting Vendors</h2>
+<p>Fill booths before you open. A half-empty mall on opening day hurts every vendor.</p>
+<ul>
+<li>Post in local Facebook groups for resellers, flea markets, crafters, antiques and yard sales</li>
+<li>Visit flea markets, craft fairs and yard sales; hand out a flyer with your rates and opening special</li>
+<li>Talk to vendors at other malls who want a better location or rate</li>
+<li>Invite crafters, collectors (cards, coins, toys), furniture flippers, vintage clothing sellers and small local brands</li>
+<li>Hold a "pre-leasing open house" inside the building before opening</li>
+<li>Keep a waitlist for the best booths</li>
+</ul>
+<div class="today"><b>Do this today</b>Write a vendor recruiting post with your booth sizes, rent, commission and opening special, ready to post when you have a building.</div>
+</template>
+
+<template id="t-10">
+<div class="kicker">Module 10</div>
+<h2>Bringing in Shoppers</h2>
+<ul>
+<li>Free <a href="https://www.google.com/business/" target="_blank" rel="noopener">Google Business Profile</a> with hours, lots of photos and reviews</li>
+<li>Daily "new arrivals" videos on TikTok, Reels and Facebook: walk the aisles and show finds</li>
+<li>Ask vendors to share your posts and tag the mall</li>
+<li>Monthly events: sidewalk sale, holiday open house, local food truck day</li>
+<li>Big road signage and banners; "OPEN" flags on weekends</li>
+<li>A simple email or text list for sales and events (get permission first)</li>
+</ul>
+<div class="today"><b>Do this today</b>Create your mall's social media accounts with your chosen name.</div>
+</template>
+
+<template id="t-11">
+<div class="kicker">Module 11</div>
+<h2>Daily Operations</h2>
+<ul>
+<li><strong>Hours</strong>: many vendor malls open 7 days a week; shoppers come weekends the most</li>
+<li><strong>Staff</strong>: at least one cashier and one person on the floor during busy hours</li>
+<li><strong>Theft prevention</strong>: cameras on aisles and showcases, locked cases, bag check signs, and a clear policy for what happens when items go missing</li>
+<li><strong>Cleaning</strong>: floors, restrooms and entry daily</li>
+<li><strong>Vendor communication</strong>: a private Facebook group or text list for news, events and rules</li>
+<li><strong>Monthly</strong>: run payouts, collect rent, review empty booths and late payers</li>
+</ul>
+<div class="today"><b>Do this today</b>Write your daily opening and closing checklist.</div>
+</template>
+
+<template id="t-12">
+<div class="kicker">Module 12</div>
+<h2>Startup Costs &amp; Profit Math</h2>
+<h3>What you'll pay for</h3>
+<ul>
+<li>Building lease: deposit and first month, plus build-out (booth walls, pegboard, lighting)</li>
+<li>Showcases, checkout counter, signage</li>
+<li>Software, card reader, scanners and printers</li>
+<li>Insurance, licenses and permits</li>
+<li>Marketing for vendor recruiting and the grand opening</li>
+<li>Payroll and a cash reserve of 3–6 months of expenses</li>
+</ul>
+<h3>Mall Profit Calculator (per month)</h3>
+<div class="calc">
+<div class="calc-grid">
+<div class="field"><label for="vm-booths">Number of booths</label><input id="vm-booths" type="number" value="80"></div>
+<div class="field"><label for="vm-occ">Percent rented (%)</label><input id="vm-occ" type="number" value="85"></div>
+<div class="field"><label for="vm-rent">Average booth rent ($/mo)</label><input id="vm-rent" type="number" value="275"></div>
+<div class="field"><label for="vm-sales">Total vendor sales ($/mo)</label><input id="vm-sales" type="number" value="60000"></div>
+<div class="field"><label for="vm-comm">Commission (%)</label><input id="vm-comm" type="number" value="10"></div>
+<div class="field"><label for="vm-cases">Showcase rent income ($/mo)</label><input id="vm-cases" type="number" value="1000"></div>
+<div class="field"><label for="vm-lease">Building rent ($/mo)</label><input id="vm-lease" type="number" value="9000"></div>
+<div class="field"><label for="vm-pay">Payroll ($/mo)</label><input id="vm-pay" type="number" value="8000"></div>
+<div class="field"><label for="vm-other">Utilities, insurance, software, marketing ($/mo)</label><input id="vm-other" type="number" value="4000"></div>
+</div>
+<button class="calc-btn" type="button" onclick="calcMall()">Calculate</button>
+<div class="calc-result" id="vm-result">
+<div class="row"><span>Booth rent income</span><span id="vm-rentinc"></span></div>
+<div class="row"><span>Commission income</span><span id="vm-comminc"></span></div>
+<div class="row"><span>Total income</span><span id="vm-total"></span></div>
+<div class="row"><span>Total expenses</span><span id="vm-exp"></span></div>
+<div class="row"><span>Booths needed to break even (rent only)</span><span id="vm-be"></span></div>
+<div class="row total"><span>Monthly profit before taxes</span><span id="vm-profit"></span></div>
+</div>
+</div>
+<p class="note">Example numbers only. Use your real lease, payroll and local rent rates. Card fees you pass through to vendors only cover your processing cost; they aren't profit.</p>
+<div class="today"><b>Do this today</b>Run the calculator with a real building from Module 2 and real rates from Module 5.</div>
+</template>
+
+<template id="t-13">
+<div class="kicker">Module 13</div>
+<h2>Your Launch Plan</h2>
+<h3>Days 1–30: Research</h3>
+<div class="check">
+<label><input type="checkbox"><span>Visit local malls, collect their rates, fill in Competitor Rates</span></label>
+<label><input type="checkbox"><span>Pick a name, form your LLC, get an EIN</span></label>
+<label><input type="checkbox"><span>Shortlist buildings; check zoning and fire code</span></label>
+<label><input type="checkbox"><span>Ask your state about sales tax for vendor malls</span></label>
+</div>
+<h3>Days 31–90: Lease and fill</h3>
+<div class="check">
+<label><input type="checkbox"><span>Sign a lease (after attorney review) with free build-out time if possible</span></label>
+<label><input type="checkbox"><span>Build booths, install showcases, checkout and cameras</span></label>
+<label><input type="checkbox"><span>Set up software, sales tax permit and insurance</span></label>
+<label><input type="checkbox"><span>Recruit vendors and sign agreements; aim to open well rented</span></label>
+</div>
+<h3>Opening and beyond</h3>
+<div class="check">
+<label><input type="checkbox"><span>Grand opening event with vendors promoting it</span></label>
+<label><input type="checkbox"><span>Pay vendors on time every month</span></label>
+<label><input type="checkbox"><span>Track occupancy, sales per booth and vendor turnover monthly</span></label>
+</div>
+<div class="today"><b>Do this today</b>Put your Day 30, Day 90 and opening-day goals on a calendar.</div>
+</template>
+
+<template id="t-toolkit">
+<div class="kicker">Toolkit</div>
+<h2>Startup Toolkit &amp; Downloads</h2>
+<div class="checkstate"><div class="box-title">Download your workbook</div><p><a href="downloads/peddlers-mall-startup-workbook.xlsx" download><strong>Peddler's Mall Startup Workbook (Excel)</strong></a>: Startup Costs, Building Comparison, Competitor Rates, Booth Roster &amp; Rent, and Vendor Payouts tabs.</p></div>
+<h3>Start your business</h3>
+<div class="res-grid">
+<div class="res-card"><a href="https://www.sba.gov/business-guide" target="_blank" rel="noopener">SBA Business Guide</a><div class="res-desc">Plan, fund and launch</div></div>
+<div class="res-card"><a href="https://www.sba.gov/business-guide/launch-your-business/register-your-business" target="_blank" rel="noopener">Register your business</a><div class="res-desc">LLC and state registration</div></div>
+<div class="res-card"><a href="https://www.irs.gov/businesses/small-businesses-self-employed/get-an-employer-identification-number" target="_blank" rel="noopener">Get an EIN (IRS)</a><div class="res-desc">Free, online</div></div>
+<div class="res-card"><a href="https://www.sba.gov/funding-programs/loans" target="_blank" rel="noopener">SBA loans</a><div class="res-desc">Funding through local banks</div></div>
+<div class="res-card"><a href="https://www.uspto.gov/trademarks/search" target="_blank" rel="noopener">USPTO trademark search</a><div class="res-desc">Check your business name</div></div>
+<div class="res-card"><a href="https://www.cpsc.gov/Recalls" target="_blank" rel="noopener">CPSC recalls</a><div class="res-desc">Products vendors can't sell</div></div>
+</div>
+<h3>Vendor mall software</h3>
+<div class="res-grid">
+<div class="res-card"><a href="https://www.simpleconsign.com" target="_blank" rel="noopener">SimpleConsign</a><div class="res-desc">Vendor mall and consignment POS</div></div>
+<div class="res-card"><a href="https://www.ricoconsign.com" target="_blank" rel="noopener">Ricochet</a><div class="res-desc">Consignment and vendor mall POS</div></div>
+<div class="res-card"><a href="https://puppetvendors.com/solutions/antique-mall-software" target="_blank" rel="noopener">PuppetVendors</a><div class="res-desc">Booth rental on Shopify</div></div>
+</div>
+<h3>Your resell rights</h3>
+<p>This course is yours as a Built By You Academy member. You may resell it, give it away or bundle it with your own products as you choose.</p>
+</template>
+
+<script>
+function $v(id){return parseFloat(document.getElementById(id).value)||0}
+function money(n){var s=n<0?'-':'';return s+'$'+Math.abs(n).toLocaleString(undefined,{maximumFractionDigits:0})}
+function setTxt(id,t){document.getElementById(id).textContent=t}
+function calcMall(){
+var rented=Math.round($v('vm-booths')*$v('vm-occ')/100),rentinc=rented*$v('vm-rent'),comm=$v('vm-sales')*$v('vm-comm')/100;
+var total=rentinc+comm+$v('vm-cases'),exp=$v('vm-lease')+$v('vm-pay')+$v('vm-other');
+setTxt('vm-rentinc',money(rentinc)+' ('+rented+' booths)');setTxt('vm-comminc',money(comm));setTxt('vm-total',money(total));setTxt('vm-exp',money(exp));
+setTxt('vm-be',$v('vm-rent')>0?Math.ceil(exp/$v('vm-rent'))+' booths':'-');setTxt('vm-profit',money(total-exp));
+document.getElementById('vm-result').classList.add('show')}
+</script>
+<script>
+(function(){
+var mods=[
+{id:"overview",t:"t-overview",full:"Course Overview",short:"Overview"},
+{id:"module-1",t:"t-1",full:"1 · How a Vendor Mall Makes Money",short:"1 · Money"},
+{id:"module-2",t:"t-2",full:"2 · Picking Your Building",short:"2 · Building"},
+{id:"module-3",t:"t-3",full:"3 · Licenses, Sales Tax & Insurance",short:"3 · Licenses"},
+{id:"module-4",t:"t-4",full:"4 · Floor Plan & Booth Design",short:"4 · Floor Plan"},
+{id:"module-5",t:"t-5",full:"5 · Setting Rent & Commission",short:"5 · Rates"},
+{id:"module-6",t:"t-6",full:"6 · Software & Checkout",short:"6 · Software"},
+{id:"module-7",t:"t-7",full:"7 · Vendor Agreement & Rules",short:"7 · Agreement"},
+{id:"module-8",t:"t-8",full:"8 · Paying Vendors & Keeping Trust",short:"8 · Payouts"},
+{id:"module-9",t:"t-9",full:"9 · Recruiting Vendors",short:"9 · Vendors"},
+{id:"module-10",t:"t-10",full:"10 · Bringing in Shoppers",short:"10 · Marketing"},
+{id:"module-11",t:"t-11",full:"11 · Daily Operations",short:"11 · Operations"},
+{id:"module-12",t:"t-12",full:"12 · Startup Costs & Profit Math",short:"12 · Money Math"},
+{id:"module-13",t:"t-13",full:"13 · Your Launch Plan",short:"13 · Launch"},
+{id:"toolkit",t:"t-toolkit",full:"Startup Toolkit & Downloads",short:"Toolkit"}
+];
+var KEY="bby-peddlers-mall-done", done={};
+try{done=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){done={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}}
+var rail=document.getElementById("rail"), lesson=document.getElementById("lesson");
+var cur=0;
+mods.forEach(function(m,i){
+var b=document.createElement("button"); b.type="button"; b.id="nav-"+m.id;
+b.innerHTML='<span class="dot" aria-hidden="true"></span><span><span class="full"></span><span class="short"></span></span>';
+b.querySelector(".full").textContent=m.full; b.querySelector(".short").textContent=m.short;
+b.addEventListener("click",function(){go(i,true)}); rail.appendChild(b);
+});
+function paint(){
+var n=0;
+mods.forEach(function(m,i){
+var b=document.getElementById("nav-"+m.id);
+b.classList.toggle("done",!!done[m.id]); b.querySelector(".dot").textContent=done[m.id]?"✓":"";
+b.setAttribute("aria-current",i===cur?"true":"false"); if(done[m.id])n++;
+});
+document.getElementById("barfill").style.width=(n/mods.length*100)+"%";
+document.getElementById("ptext").textContent=n+" of "+mods.length+" complete";
+var d=document.getElementById("done"), on=!!done[mods[cur].id];
+d.setAttribute("aria-pressed",on?"true":"false"); d.textContent=on?"✓ Completed":"Mark complete";
+document.getElementById("prev").hidden=cur===0;
+document.getElementById("next").hidden=cur===mods.length-1;
+}
+function go(i,scroll){
+cur=Math.max(0,Math.min(mods.length-1,i));
+lesson.innerHTML=""; lesson.appendChild(document.getElementById(mods[cur].t).content.cloneNode(true));
+if(location.hash!=="#"+mods[cur].id){try{history.replaceState(null,"","#"+mods[cur].id)}catch(e){location.hash=mods[cur].id}}
+paint(); if(scroll)window.scrollTo({top:0});
+}
+document.getElementById("prev").addEventListener("click",function(){go(cur-1,true)});
+document.getElementById("next").addEventListener("click",function(){go(cur+1,true)});
+document.getElementById("done").addEventListener("click",function(){
+var id=mods[cur].id; if(done[id])delete done[id]; else done[id]=true; save(); paint();
+});
+function fromHash(){var h=location.hash.slice(1),i=mods.findIndex(function(m){return m.id===h}); go(i<0?0:i,false)}
+window.addEventListener("hashchange",fromHash); fromHash();
+})();
+</script>
+</body>
+</html>
