@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tutoring Business Blueprint</title>
+<meta name="description" content="Built By You Academy · Real World Business Blueprints: Tutoring Business.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* Same course-player layout as the other BBY blueprints */
+:root{
+--bg:#f5f6f9; --surface:#ffffff; --ink:#141a2b; --muted:#5a6276; --line:#dde1ea;
+--navy:#16213f; --gold:#b8860b; --gold-soft:#f6ecd2; --ok:#1f7a4d; --ok-soft:#e1f2e8; --bad:#b3261e; --bad-soft:#fbe5e3;
+--display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+--body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}}
+:root[data-theme="dark"]{
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--body)}
+[hidden]{display:none!important}
+a{color:var(--gold);text-underline-offset:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.top{background:var(--navy);color:#fff;padding-block:22px 26px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{max-width:1180px;margin:0 auto;display:grid;gap:6px}
+.eyebrow{font:600 13px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:#e3b54a}
+.top h1{font:italic 700 clamp(34px,6vw,56px)/1 var(--display);margin:0;text-wrap:balance;letter-spacing:.01em}
+.top p{margin:0;color:#c9cfdd;max-width:62ch}
+.progress{display:flex;align-items:center;gap:12px;margin-top:10px;font-size:14px;color:#c9cfdd}
+.bar{flex:0 1 260px;height:8px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:#e3b54a;transition:width .3s}
+.wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:270px minmax(0,1fr);gap:32px;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;display:grid;gap:2px}
+.rail button{all:unset;cursor:pointer;display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;padding:10px 12px;border-radius:8px;color:var(--muted);font-size:15px;line-height:1.35}
+.rail button:hover{background:var(--surface);color:var(--ink)}
+.rail button[aria-current="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:inset 3px 0 0 var(--gold)}
+.dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;margin-top:1px}
+.done .dot{background:var(--ok);border-color:var(--ok);color:#fff}
+main{min-width:0}
+article{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:clamp(20px,4vw,44px)}
+article h2{font:700 clamp(30px,4.4vw,42px)/1.05 var(--display);margin:0 0 6px;text-wrap:balance}
+.kicker{font:600 13px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+article h3{font:700 24px/1.15 var(--display);margin:34px 0 8px;letter-spacing:.01em}
+article h4{font:700 20px/1.2 var(--display);margin:26px 0 6px;letter-spacing:.02em}
+article p,article li{max-width:68ch}
+article ul,article ol{padding-left:1.3em;display:grid;gap:6px}
+.lead{font-size:18px;color:var(--muted)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:8px}
+.cols > div{border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.cols h4{margin:0 0 6px;font:700 18px/1.2 var(--display);letter-spacing:.03em;text-transform:uppercase}
+.cols .pro{border-color:var(--ok);background:var(--ok-soft)} .cols .pro h4{color:var(--ok)}
+.cols .con{border-color:var(--bad);background:var(--bad-soft)} .cols .con h4{color:var(--bad)}
+.tablewrap{overflow-x:auto;margin-top:10px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{font-weight:700;border-top:2px solid var(--ink)}
+.formula{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 16px;font-weight:600}
+.today{margin-top:34px;background:var(--gold-soft);border-radius:10px;padding:16px 20px;display:grid;gap:4px}
+.today b{font:700 15px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.note{font-size:14px;color:var(--muted)}
+.pager{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;margin-top:20px}
+.btn{all:unset;cursor:pointer;padding:11px 18px;border-radius:8px;font-weight:600;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+:root[data-theme="dark"] .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}}
+.btn.complete[aria-pressed="true"]{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+@media (max-width:820px){
+.wrap{grid-template-columns:1fr;gap:16px}
+nav.rail{position:static;display:flex;overflow-x:auto;gap:6px;padding-bottom:4px}
+.rail button{flex:0 0 auto;grid-template-columns:20px auto;white-space:nowrap;background:var(--surface);border:1px solid var(--line)}
+.rail .full{display:none}
+}
+@media (min-width:821px){.rail .short{display:none}}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+.box,.calc,.check{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:16px 0}
+.box-title{display:block;font:700 14px/1.2 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.box.warn{border-left:4px solid var(--bad);background:var(--bad-soft)}
+.box.warn .box-title{color:var(--bad)}
+.checkstate{border:2px solid var(--gold);background:var(--gold-soft);border-radius:10px;padding:14px 18px;margin:16px 0}
+.res-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:12px 0}
+.res-card{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--bg)}
+.res-card a{font-weight:700}
+.res-desc{font-size:14px;color:var(--muted);margin-top:4px}
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:4px}
+.field input{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:15px var(--body)}
+.calc-btn{margin-top:14px;padding:10px 18px;border-radius:8px;border:0;background:var(--gold);color:#141a2b;font-weight:700;cursor:pointer}
+.calc-result{display:none;margin-top:16px} .calc-result.show{display:block}
+.calc-result .row{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--line)}
+.calc-result .row.total{font-weight:700;border-bottom:0}
+.check{display:grid;gap:4px} .check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.check input{width:18px;height:18px;margin-top:4px;accent-color:var(--gold);flex-shrink:0}
+.check input:checked+span{text-decoration:line-through;opacity:.6}
+</style>
+</head>
+<body>
+<header class="top">
+<div class="top-in">
+<div class="eyebrow">Built By You Academy · Real World Business Blueprints</div>
+<h1>Tutoring Business</h1>
+<p>Start a tutoring business: picking subjects and students, setup, keeping students safe, real rate data, platforms vs. your own clients, tools, running great sessions, finding students, hiring tutors and income math.</p>
+<p><a href="downloads/tutoring-startup-workbook.xlsx" download style="color:#e3b54a;font-weight:600">⬇ Download the Startup Workbook (Excel)</a> · <a href="#toolkit" style="color:#e3b54a;font-weight:600">Startup links</a></p>
+<div class="progress"><div class="bar"><i id="barfill"></i></div><span id="ptext">0 of 15 complete</span></div>
+</div>
+</header>
+
+<div class="wrap">
+<nav class="rail" id="rail" aria-label="Course modules"></nav>
+<main>
+<article id="lesson" aria-live="polite"></article>
+<div class="pager">
+<button class="btn" id="prev" type="button" hidden>← Previous</button>
+<button class="btn complete" id="done" type="button" aria-pressed="false">Mark complete</button>
+<button class="btn primary" id="next" type="button">Next module →</button>
+</div>
+</main>
+</div>
+
+<template id="t-overview">
+<div class="kicker">Start here</div>
+<h2>Course Overview</h2>
+<p class="lead">This course shows you how to start a tutoring business: in person or online, solo or with a team of tutors. You'll pick your subjects, set rates from real data, keep students safe, find families and grow.</p>
+<div class="cols">
+<div><h4>Who it's for</h4>Teachers, retired teachers, college students and graduates, and anyone strong in a subject (math, reading, test prep, languages, music, coding) who wants to earn by helping students.</div>
+<div><h4>How it works</h4>11 modules, each ending with a <strong>Do This Today</strong> task. An income calculator is built in. Your workbook and startup links are in the Toolkit.</div>
+</div>
+<h3>The market in numbers</h3>
+<ul>
+<li>A 2026 study of nearly 14,000 tutor listings found a US average of about <strong>$50.60 an hour</strong> (Wiingy)</li>
+<li>Care.com's posted rates average about <strong>$24 an hour</strong> for K–12 tutoring, $60 for college and $100 for test prep (Sept. 2025)</li>
+<li>Tutors employed by companies earned a median of <strong>$19.03 an hour</strong> (BLS, May 2023). Independent tutors who set their own rates often charge more</li>
+</ul>
+<div class="checkstate"><div class="box-title">Your resell rights</div><p>You own this course as a Built By You Academy member. You may resell it, give it away or bundle it with your own products as you choose.</p></div>
+<h3>Honest note</h3>
+<p>Rates depend on subject, results, area and reputation. This course doesn't promise income and isn't legal or tax advice. Facts were checked in November 2026.</p>
+</template>
+
+<template id="t-1">
+<div class="kicker">Module 1</div>
+<h2>Pick Your Subjects &amp; Students</h2>
+<div class="tablewrap"><table>
+<thead><tr><th>Niche</th><th>Why it works</th></tr></thead>
+<tbody>
+<tr><td>Elementary reading &amp; math</td><td>Large demand; parents want early help</td></tr>
+<tr><td>Middle/high school math &amp; science</td><td>Algebra, geometry, chemistry: steady demand all year</td></tr>
+<tr><td>Test prep (SAT, ACT, GED, state tests)</td><td>Pays the most; seasonal around test dates</td></tr>
+<tr><td>Languages &amp; ESL</td><td>Kids and adults; great for online</td></tr>
+<tr><td>Music, coding, art</td><td>Weekly lessons that last for years</td></tr>
+<tr><td>Homeschool support &amp; special needs</td><td>Families need patient, specialized help</td></tr>
+<tr><td>Adult learners</td><td>Career exams, citizenship test practice, computer skills</td></tr>
+</tbody></table></div>
+<div class="cols">
+<div class="pro"><h4>Pros</h4><ul><li>Almost no startup cost</li><li>Work from home online or locally</li><li>Weekly students = recurring income</li></ul></div>
+<div class="con"><h4>Cons</h4><ul><li>Busiest hours are after school and weekends</li><li>Summer can be slow (offer summer camps and catch-up programs)</li><li>Income is capped by your hours until you add tutors</li></ul></div>
+</div>
+<div class="today"><b>Do this today</b>Pick 1–2 subjects and grade levels you're strongest in.</div>
+</template>
+
+<template id="t-2">
+<div class="kicker">Module 2</div>
+<h2>Set Up the Business</h2>
+<ul>
+<li>A teaching license isn't required for private tutoring in most places, but subject skill and results are</li>
+<li>Register your business name or LLC, get an EIN, open a business bank account</li>
+<li>City or county business license if required (home-based rules may apply)</li>
+<li>General liability insurance, especially if you tutor in clients' homes or rent a space</li>
+<li>Optional: tutor certification from a tutoring association, and subject credentials you already hold</li>
+</ul>
+<div class="today"><b>Do this today</b>Pick your business name and check your city's business license rules.</div>
+</template>
+
+<template id="t-3">
+<div class="kicker">Module 3</div>
+<h2>Keeping Students Safe</h2>
+<p class="lead">Parents are trusting you with their children. Safety policies are also your best marketing.</p>
+<div class="check">
+<label><input type="checkbox"><span>Get a background check and offer the results to parents (many schools and tutoring companies require one)</span></label>
+<label><input type="checkbox"><span>Meet in open, visible places: a family's kitchen table, a library, your public office</span></label>
+<label><input type="checkbox"><span>For online sessions with minors, a parent should be home; don't contact students privately on social media</span></label>
+<label><input type="checkbox"><span>Get written parent consent before recording any session</span></label>
+<label><input type="checkbox"><span>Keep student information private and secure</span></label>
+<label><input type="checkbox"><span>If you build an app or website that collects personal information from children under 13, follow the federal <a href="https://www.ftc.gov/legal-library/browse/rules/childrens-online-privacy-protection-rule-coppa" target="_blank" rel="noopener">COPPA rule</a></span></label>
+<label><input type="checkbox"><span>Know your state's mandated reporting rules for suspected abuse</span></label>
+</div>
+<div class="today"><b>Do this today</b>Order a background check and write your one-page safety policy for parents.</div>
+</template>
+
+<template id="t-4">
+<div class="kicker">Module 4</div>
+<h2>Setting Your Rates</h2>
+<div class="tablewrap"><table>
+<thead><tr><th>Subject</th><th>Average hourly rate</th></tr></thead>
+<tbody>
+<tr><td>SAT prep</td><td class="num">about $60–$62</td></tr>
+<tr><td>Piano</td><td class="num">$54–$63</td></tr>
+<tr><td>Math</td><td class="num">about $46</td></tr>
+<tr><td>Spanish</td><td class="num">$36–$45</td></tr>
+<tr><td>Coding</td><td class="num">$39–$43</td></tr>
+<tr><td>All subjects (national average)</td><td class="num">about $50.60</td></tr>
+</tbody></table></div>
+<p class="note">Sources: Wiingy tutoring cost studies (2025 and 2026; Wiingy is a tutoring marketplace). Rates by platform ranged from about $27 on Care.com to $78 on Wyzant. Care.com's posted K–12 rates average about $24. Check tutors in your own area.</p>
+<ul>
+<li>Start near the middle of your local range; raise rates as you get results and reviews</li>
+<li>Sell packages: 4 or 8 sessions paid up front at a small discount</li>
+<li>Charge more for test prep, advanced subjects and in-home travel</li>
+<li>Small groups (2–4 students) earn more per hour while each family pays less</li>
+<li>Set a 24-hour cancellation policy</li>
+</ul>
+<div class="today"><b>Do this today</b>Check 5 tutors in your subject and area, then set your rates in the workbook.</div>
+</template>
+
+<template id="t-5">
+<div class="kicker">Module 5</div>
+<h2>Tutoring Platforms vs. Your Own Clients</h2>
+<div class="tablewrap"><table>
+<thead><tr><th>Platform</th><th>What you keep</th></tr></thead>
+<tbody>
+<tr><td><a href="https://www.wyzant.com" target="_blank" rel="noopener">Wyzant</a></td><td>75% of your rate (25% platform fee); 100% for students you refer</td></tr>
+<tr><td><a href="https://outschool.com" target="_blank" rel="noopener">Outschool</a> (group classes)</td><td>70% of the class price (30% fee); paid through PayPal</td></tr>
+<tr><td>Your own clients</td><td>100%, minus card fees</td></tr>
+</tbody></table></div>
+<p class="note">Sources: Wyzant and Outschool support pages (2026). Fees change; check before signing up.</p>
+<p>Platforms bring students fast while you're new. Your own clients pay more. Many tutors use platforms to start, then grow their own client list. Follow each platform's rules about moving its students off the platform.</p>
+<div class="today"><b>Do this today</b>Create a profile on one platform with a strong photo, clear bio and your subjects.</div>
+</template>
+
+<template id="t-6">
+<div class="kicker">Module 6</div>
+<h2>Tools &amp; Setup</h2>
+<ul>
+<li><strong>Online</strong>: a reliable laptop, webcam, headset and fast internet; Zoom or Google Meet; a digital whiteboard; a writing tablet for math</li>
+<li><strong>In person</strong>: a portable kit with whiteboard, markers, practice books and timer</li>
+<li><strong>Scheduling and payments</strong>: a booking app that sends reminders and takes card payment up front</li>
+<li><strong>Materials</strong>: free practice from <a href="https://www.khanacademy.org" target="_blank" rel="noopener">Khan Academy</a>, official SAT practice on <a href="https://satsuite.collegeboard.org/practice" target="_blank" rel="noopener">College Board</a>, and ACT practice on <a href="https://www.act.org" target="_blank" rel="noopener">ACT.org</a></li>
+</ul>
+<div class="today"><b>Do this today</b>Set up your booking link and a test video session.</div>
+</template>
+
+<template id="t-7">
+<div class="kicker">Module 7</div>
+<h2>Running Great Sessions</h2>
+<ol>
+<li>First session: free or discounted assessment; find exactly where the student is stuck</li>
+<li>Set one clear goal (raise a grade, pass a test, read on grade level)</li>
+<li>Every session: quick review, new skill, practice, check for understanding</li>
+<li>Send parents a short progress note after every session or every week</li>
+<li>Track grades and practice scores so you can show results</li>
+</ol>
+<div class="today"><b>Do this today</b>Write your assessment checklist and a parent update template.</div>
+</template>
+
+<template id="t-8">
+<div class="kicker">Module 8</div>
+<h2>Finding Students</h2>
+<ul>
+<li>Free <a href="https://www.google.com/business/" target="_blank" rel="noopener">Google Business Profile</a> ("math tutor near me")</li>
+<li>Local Facebook parent groups and homeschool co-ops</li>
+<li>School counselors, teachers, libraries, churches and youth sports leagues</li>
+<li>Flyers before report cards and test dates</li>
+<li>Short videos explaining one tricky problem at a time</li>
+<li>Referral reward: a free session for each family that refers a new student</li>
+</ul>
+<div class="today"><b>Do this today</b>Post in 3 local parent groups (following each group's rules).</div>
+</template>
+
+<template id="t-9">
+<div class="kicker">Module 9</div>
+<h2>Growing: Hiring Tutors</h2>
+<ul>
+<li>When your schedule is full, hire tutors in your subjects and keep a share of each session</li>
+<li>Screen carefully: interview, subject test, references and background check</li>
+<li>Employee or contractor? Read the <a href="https://www.irs.gov/businesses/small-businesses-self-employed/independent-contractor-self-employed-or-employee" target="_blank" rel="noopener">IRS guide</a> and ask a tax pro</li>
+<li>Add group classes, summer camps and school partnerships</li>
+<li>Sell your own worksheets or courses online</li>
+</ul>
+<div class="today"><b>Do this today</b>Write what you'd pay a tutor and what you'd charge families for their sessions.</div>
+</template>
+
+<template id="t-10">
+<div class="kicker">Module 10</div>
+<h2>Income Calculator</h2>
+<div class="calc">
+<div class="calc-grid">
+<div class="field"><label for="tt-rate">Your hourly rate ($)</label><input id="tt-rate" type="number" value="45"></div>
+<div class="field"><label for="tt-hours">Tutoring hours per week</label><input id="tt-hours" type="number" value="15"></div>
+<div class="field"><label for="tt-keep">% you keep (100 direct, 75 Wyzant)</label><input id="tt-keep" type="number" value="100"></div>
+<div class="field"><label for="tt-weeks">Weeks per month</label><input id="tt-weeks" type="number" value="4.33"></div>
+<div class="field"><label for="tt-costs">Monthly costs: software, materials, insurance, ads ($)</label><input id="tt-costs" type="number" value="100"></div>
+</div>
+<button class="calc-btn" type="button" onclick="calcTutor()">Calculate</button>
+<div class="calc-result" id="tt-result">
+<div class="row"><span>Monthly gross</span><span id="tt-gross"></span></div>
+<div class="row"><span>After platform fees</span><span id="tt-keepamt"></span></div>
+<div class="row"><span>Monthly costs</span><span id="tt-cost"></span></div>
+<div class="row total"><span>Monthly profit before taxes</span><span id="tt-profit"></span></div>
+</div>
+</div>
+<p class="note">Example numbers only. Count only the hours you can realistically fill.</p>
+<div class="today"><b>Do this today</b>Run the calculator for a part-time and a full-time schedule.</div>
+</template>
+
+<template id="t-11">
+<div class="kicker">Module 11</div>
+<h2>Your Launch Plan</h2>
+<div class="check">
+<label><input type="checkbox"><span>Week 1: subjects, rates, business name, background check</span></label>
+<label><input type="checkbox"><span>Week 2: booking and payment setup, safety policy, parent update template</span></label>
+<label><input type="checkbox"><span>Week 3: platform profile, Google profile, posts in parent groups</span></label>
+<label><input type="checkbox"><span>Week 4: first assessments; ask every happy family for a review and referral</span></label>
+<label><input type="checkbox"><span>Month 2–3: packages, group sessions, and plan your test-prep season</span></label>
+</div>
+<div class="today"><b>Do this today</b>Put your weekly goals on a calendar.</div>
+</template>
+
+<template id="t-toolkit">
+<div class="kicker">Toolkit</div>
+<h2>Startup Toolkit &amp; Downloads</h2>
+<div class="checkstate"><div class="box-title">Download your workbook</div><p><a href="downloads/tutoring-startup-workbook.xlsx" download><strong>Tutoring Startup Workbook (Excel)</strong></a>: Startup Costs, Rates &amp; Packages, Student Roster, Session Log and Monthly Income tabs.</p></div>
+<div class="res-grid">
+<div class="res-card"><a href="https://www.sba.gov/business-guide" target="_blank" rel="noopener">SBA Business Guide</a><div class="res-desc">Plan and launch</div></div>
+<div class="res-card"><a href="https://www.irs.gov/businesses/small-businesses-self-employed/get-an-employer-identification-number" target="_blank" rel="noopener">Get an EIN (IRS)</a><div class="res-desc">Free, online</div></div>
+<div class="res-card"><a href="https://www.wyzant.com" target="_blank" rel="noopener">Wyzant</a><div class="res-desc">1-on-1 tutoring marketplace</div></div>
+<div class="res-card"><a href="https://outschool.com" target="_blank" rel="noopener">Outschool</a><div class="res-desc">Online group classes for kids</div></div>
+<div class="res-card"><a href="https://www.khanacademy.org" target="_blank" rel="noopener">Khan Academy</a><div class="res-desc">Free practice materials</div></div>
+<div class="res-card"><a href="https://satsuite.collegeboard.org/practice" target="_blank" rel="noopener">College Board SAT practice</a><div class="res-desc">Official SAT prep</div></div>
+<div class="res-card"><a href="https://www.act.org" target="_blank" rel="noopener">ACT.org</a><div class="res-desc">ACT test info and prep</div></div>
+<div class="res-card"><a href="https://www.ftc.gov/legal-library/browse/rules/childrens-online-privacy-protection-rule-coppa" target="_blank" rel="noopener">FTC COPPA rule</a><div class="res-desc">Children's online privacy</div></div>
+<div class="res-card"><a href="https://www.bls.gov/oes/2023/May/oes253041.htm" target="_blank" rel="noopener">BLS: Tutors</a><div class="res-desc">Wage data</div></div>
+</div>
+<h3>Your resell rights</h3>
+<p>This course is yours as a Built By You Academy member. You may resell it, give it away or bundle it with your own products as you choose.</p>
+</template>
+
+<script>
+function $v(id){return parseFloat(document.getElementById(id).value)||0}
+function money(n){var s=n<0?'-':'';return s+'$'+Math.abs(n).toLocaleString(undefined,{maximumFractionDigits:0})}
+function setTxt(id,t){document.getElementById(id).textContent=t}
+function calcTutor(){var g=$v('tt-rate')*$v('tt-hours')*$v('tt-weeks'),k=g*$v('tt-keep')/100,c=$v('tt-costs');
+setTxt('tt-gross',money(g));setTxt('tt-keepamt',money(k));setTxt('tt-cost',money(c));setTxt('tt-profit',money(k-c));document.getElementById('tt-result').classList.add('show')}
+</script>
+<script>
+(function(){
+var mods=[
+{id:"overview",t:"t-overview",full:"Course Overview",short:"Overview"},
+{id:"module-1",t:"t-1",full:"1 \u00b7 Pick Your Subjects & Students",short:"1 \u00b7 Niche"},
+{id:"module-2",t:"t-2",full:"2 \u00b7 Set Up the Business",short:"2 \u00b7 Setup"},
+{id:"module-3",t:"t-3",full:"3 \u00b7 Keeping Students Safe",short:"3 \u00b7 Safety"},
+{id:"module-4",t:"t-4",full:"4 \u00b7 Setting Your Rates",short:"4 \u00b7 Rates"},
+{id:"module-5",t:"t-5",full:"5 \u00b7 Tutoring Platforms vs. Your Own Clients",short:"5 \u00b7 Platforms"},
+{id:"module-6",t:"t-6",full:"6 \u00b7 Tools & Setup",short:"6 \u00b7 Tools"},
+{id:"module-7",t:"t-7",full:"7 \u00b7 Running Great Sessions",short:"7 \u00b7 Sessions"},
+{id:"module-8",t:"t-8",full:"8 \u00b7 Finding Students",short:"8 \u00b7 Marketing"},
+{id:"module-9",t:"t-9",full:"9 \u00b7 Growing: Hiring Tutors",short:"9 \u00b7 Growing"},
+{id:"module-10",t:"t-10",full:"10 \u00b7 Income Calculator",short:"10 \u00b7 Income"},
+{id:"module-11",t:"t-11",full:"11 \u00b7 Your Launch Plan",short:"11 \u00b7 Launch"},
+{id:"toolkit",t:"t-toolkit",full:"Startup Toolkit & Downloads",short:"Toolkit"}
+];
+var KEY="bby-tutoring-done", done={};
+try{done=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){done={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}}
+var rail=document.getElementById("rail"), lesson=document.getElementById("lesson");
+var cur=0;
+mods.forEach(function(m,i){
+var b=document.createElement("button"); b.type="button"; b.id="nav-"+m.id;
+b.innerHTML='<span class="dot" aria-hidden="true"></span><span><span class="full"></span><span class="short"></span></span>';
+b.querySelector(".full").textContent=m.full; b.querySelector(".short").textContent=m.short;
+b.addEventListener("click",function(){go(i,true)}); rail.appendChild(b);
+});
+function paint(){
+var n=0;
+mods.forEach(function(m,i){
+var b=document.getElementById("nav-"+m.id);
+b.classList.toggle("done",!!done[m.id]); b.querySelector(".dot").textContent=done[m.id]?"✓":"";
+b.setAttribute("aria-current",i===cur?"true":"false"); if(done[m.id])n++;
+});
+document.getElementById("barfill").style.width=(n/mods.length*100)+"%";
+document.getElementById("ptext").textContent=n+" of "+mods.length+" complete";
+var d=document.getElementById("done"), on=!!done[mods[cur].id];
+d.setAttribute("aria-pressed",on?"true":"false"); d.textContent=on?"✓ Completed":"Mark complete";
+document.getElementById("prev").hidden=cur===0;
+document.getElementById("next").hidden=cur===mods.length-1;
+}
+function go(i,scroll){
+cur=Math.max(0,Math.min(mods.length-1,i));
+lesson.innerHTML=""; lesson.appendChild(document.getElementById(mods[cur].t).content.cloneNode(true));
+if(location.hash!=="#"+mods[cur].id){try{history.replaceState(null,"","#"+mods[cur].id)}catch(e){location.hash=mods[cur].id}}
+paint(); if(scroll)window.scrollTo({top:0});
+}
+document.getElementById("prev").addEventListener("click",function(){go(cur-1,true)});
+document.getElementById("next").addEventListener("click",function(){go(cur+1,true)});
+document.getElementById("done").addEventListener("click",function(){
+var id=mods[cur].id; if(done[id])delete done[id]; else done[id]=true; save(); paint();
+});
+function fromHash(){var h=location.hash.slice(1),i=mods.findIndex(function(m){return m.id===h}); go(i<0?0:i,false)}
+window.addEventListener("hashchange",fromHash); fromHash();
+})();
+</script>
+</body>
+</html>
