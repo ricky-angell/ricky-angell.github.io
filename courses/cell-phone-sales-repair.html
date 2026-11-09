@@ -1,0 +1,284 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Cell Phone Sales, Repair &amp; Wireless Business Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+/* Same course-player layout as the other BBY blueprints */
+:root{
+--bg:#f5f6f9; --surface:#ffffff; --ink:#141a2b; --muted:#5a6276; --line:#dde1ea;
+--navy:#16213f; --gold:#b8860b; --gold-soft:#f6ecd2; --ok:#1f7a4d; --ok-soft:#e1f2e8; --bad:#b3261e; --bad-soft:#fbe5e3;
+--display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+--body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}}
+:root[data-theme="dark"]{
+--bg:#0e1322; --surface:#161d31; --ink:#e8ebf3; --muted:#a2a9bb; --line:#2a3350;
+--navy:#0a0f1d; --gold:#e3b54a; --gold-soft:#2c2614; --ok:#5ccf91; --ok-soft:#14301f; --bad:#f28b82; --bad-soft:#3a1a18; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--body)}
+[hidden]{display:none!important}
+a{color:var(--gold);text-underline-offset:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.top{background:var(--navy);color:#fff;padding-block:22px 26px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{max-width:1180px;margin:0 auto;display:grid;gap:6px}
+.eyebrow{font:600 13px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:#e3b54a}
+.top h1{font:italic 700 clamp(34px,6vw,56px)/1 var(--display);margin:0;text-wrap:balance;letter-spacing:.01em}
+.top p{margin:0;color:#c9cfdd;max-width:62ch}
+.progress{display:flex;align-items:center;gap:12px;margin-top:10px;font-size:14px;color:#c9cfdd}
+.bar{flex:0 1 260px;height:8px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:#e3b54a;transition:width .3s}
+.wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:270px minmax(0,1fr);gap:32px;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;display:grid;gap:2px}
+.rail button{all:unset;cursor:pointer;display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;padding:10px 12px;border-radius:8px;color:var(--muted);font-size:15px;line-height:1.35}
+.rail button:hover{background:var(--surface);color:var(--ink)}
+.rail button[aria-current="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:inset 3px 0 0 var(--gold)}
+.dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;margin-top:1px}
+.done .dot{background:var(--ok);border-color:var(--ok);color:#fff}
+main{min-width:0}
+article{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:clamp(20px,4vw,44px)}
+article h2{font:700 clamp(30px,4.4vw,42px)/1.05 var(--display);margin:0 0 6px;text-wrap:balance}
+.kicker{font:600 13px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+article h3{font:700 24px/1.15 var(--display);margin:34px 0 8px;letter-spacing:.01em}
+article p,article li{max-width:68ch}
+article ul,article ol{padding-left:1.3em;display:grid;gap:6px}
+.lead{font-size:18px;color:var(--muted)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:8px}
+.cols > div{border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.cols h4{margin:0 0 6px;font:700 18px/1.2 var(--display);letter-spacing:.03em;text-transform:uppercase}
+.cols .pro{border-color:var(--ok);background:var(--ok-soft)} .cols .pro h4{color:var(--ok)}
+.cols .con{border-color:var(--bad);background:var(--bad-soft)} .cols .con h4{color:var(--bad)}
+.tablewrap{overflow-x:auto;margin-top:10px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{font-weight:700;border-top:2px solid var(--ink)}
+.formula{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 16px;font-weight:600}
+.today{margin-top:34px;background:var(--gold-soft);border-radius:10px;padding:16px 20px;display:grid;gap:4px}
+.today b{font:700 15px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.note{font-size:14px;color:var(--muted)}
+.pager{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;margin-top:20px}
+.btn{all:unset;cursor:pointer;padding:11px 18px;border-radius:8px;font-weight:600;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+:root[data-theme="dark"] .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{background:var(--gold);color:#141a2b;border-color:var(--gold)}}
+.btn.complete[aria-pressed="true"]{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+@media (max-width:820px){
+.wrap{grid-template-columns:1fr;gap:16px}
+nav.rail{position:static;display:flex;overflow-x:auto;gap:6px;padding-bottom:4px}
+.rail button{flex:0 0 auto;grid-template-columns:20px auto;white-space:nowrap;background:var(--surface);border:1px solid var(--line)}
+.rail .full{display:none}
+}
+@media (min-width:821px){.rail .short{display:none}}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+.checkstate{border:2px solid var(--gold);background:var(--gold-soft);border-radius:10px;padding:14px 18px;margin:28px 0 0}
+.checkstate .box-title{display:block;font:700 15px/1.2 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+</style></head><body>
+
+<header class="top">
+  <div class="top-in">
+    <div class="eyebrow">Built By You Academy · Real World Business Blueprints</div>
+    <h1>Cell Phone Sales, Repair &amp; Wireless Business</h1>
+    <p>Build your phone resale, wholesaling, authorized wireless retail or repair business—one practical lesson at a time.</p>
+    <p><a href="#module-12" style="color:#e3b54a">Workbook &amp; launch checklist</a> · Progress saves in this browser on this device. Use the same browser to resume.</p>
+    <div class="progress"><div class="bar"><i id="barfill"></i></div><span id="ptext">0 of 13 complete</span></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="rail" id="rail" aria-label="Course modules"></nav>
+  <main>
+    <article id="lesson" aria-live="polite"></article>
+    <div class="pager">
+      <button class="btn" id="prev" type="button">← Previous</button>
+      <button class="btn complete" id="done" type="button" aria-pressed="false">Mark complete</button>
+      <button class="btn primary" id="next" type="button">Next module →</button>
+    </div>
+  </main>
+</div>
+
+<template id="t-overview"><div class="kicker">Start here</div><h2>Course Overview</h2><p>CELL PHONE SALES, REPAIR &amp; WIRELESS BUSINESS BLUEPRINT</p>
+<p>Build one focused business first. Add other services when your skills, cash flow and agreements support them.</p>
+<p>WHAT YOU WILL BUILD</p>
+<p>A launch-ready plan for one of four paths: independent phone resale, phone wholesaling, authorized wireless retail, or repair-only service. You may combine paths, but each has different sourcing, skills, capital and customer obligations. This is a business blueprint, not a substitute for hands-on repair training or a promise of carrier approval or earnings.</p>
+<p>HOW TO USE THIS BLUEPRINT</p>
+<p>Complete Sections 1–3, choose your path in Sections 4–7, then complete Sections 8–12. Copy the worksheet fields into your own document. Use current written quotes and official requirements for your location. Examples are hypothetical, not market price estimates.
+</p><p class="note">Complete lessons 1–3, study your chosen business paths in 4–7, then finish 8–12. Mark lessons complete as you work. Progress is stored on this device; clearing browser data removes it.</p></template>
+<template id="t-1"><div class="kicker">Lesson 1 of 12</div><h2>1 · Choose Your Path &amp; Validate Demand</h2><p>
+INDEPENDENT RESALE: buy legitimate devices, test and grade them, then sell individual phones under your own business name. You do not become an authorized carrier or manufacturer merely by selling its products.</p>
+<p>WHOLESALING: source and sell batches to businesses. Your advantages must be reliable grading, inventory records, transparent terms and dependable supply—not simply buying a large lot.</p>
+<p>AUTHORIZED WIRELESS RETAIL: sell approved products or services through a carrier or distributor agreement. Branding, activations, commissions and operating requirements depend on that agreement.</p>
+<p>REPAIR ONLY: diagnose and repair customer-owned devices within your demonstrated competence. You do not need to stock phones for resale to operate a repair service.</p>
+<p>HYBRID: combine selected services after testing each process. A carrier agreement may restrict other activities; confirm permission before combining them.</p>
+<p>STEP BY STEP</p>
+<p>1. Choose one primary customer: local budget-phone buyers, business device purchasers, customers needing repairs, or wireless subscribers.</p>
+<p>2. Review five competitors. Record actual services, condition disclosures, warranties, opening hours and visible prices. Compare the same models and conditions.</p>
+<p>3. Speak with ten potential customers about their last purchase or repair, what went wrong and what they paid. Do not count polite interest as a sale.</p>
+<p>4. Write one starting offer and a reason to choose you. Example: clearly graded used phones with documented functional checks and a written return policy.</p>
+<p>5. Choose a small pilot you can afford to lose. Avoid a lease or bulk inventory commitment until demand, requirements and economics are checked.</p>
+<div class="today"><b>Do This Today</b> Write your primary path, customer, offer, evidence of demand and maximum pilot budget.
+</div><p class="note">Complete the assignment, then use Mark complete below.</p></template>
+<template id="t-2"><div class="kicker">Lesson 2 of 12</div><h2>2 · Startup Budget &amp; Location</h2><p>
+Build separate startup, monthly operating and working-capital budgets. Get quotes instead of treating these categories as fixed national costs.</p>
+<p>STARTUP COSTS: registration and required permits; training and practice devices; diagnostic tools; repair bench and safety equipment where applicable; initial inventory or parts; secure storage; payment and inventory systems; website; insurance deposits; signage; and premises deposits or buildout if needed.</p>
+<p>MONTHLY COSTS: rent, utilities, software, insurance, payroll, accounting, marketing and financing. Include a realistic owner-pay target in planning, without counting it twice as both labor and fixed overhead.</p>
+<p>WORKING CAPITAL: money for returns, replacement parts, delayed commissions, chargebacks, slow stock and ordinary bills before customers pay.</p>
+<p>LOCATION OPTIONS: online resale, a permitted appointment-based premises, a repair counter, mobile service or a storefront. Confirm zoning, lease permission, security, insurance and program requirements for the chosen format. Do not assume a home address is eligible for a carrier or manufacturer program.</p>
+<p>WORKSHEET: item | one-time quote | recurring cost | source/date | required before launch? | cash due date.</p>
+<div class="today"><b>Do This Today</b> Obtain three real quotes for your largest cost categories and calculate how many months of operating expenses your available cash covers.
+</div><p class="note">Complete the assignment, then use Mark complete below.</p></template>
+<template id="t-3"><div class="kicker">Lesson 3 of 12</div><h2>3 · Your State &amp; Local Rules</h2><p>
+Requirements depend on what you do and where you operate. This section provides an official lookup process for every state, not a claim that one license applies nationwide.</p>
+<p>1. Find your state through <a href="https://www.usa.gov/state-governments" target="_blank" rel="noopener">https://www.usa.gov/state-governments</a> and follow its official business-registration resources. Determine the appropriate structure and any trade-name registration.</p>
+<p>2. Ask the state revenue/tax agency about sales-tax registration, resale documentation and the treatment of phones, accessories, repair labor and parts. Online marketplace collection does not automatically resolve every tax obligation.</p>
+<p>3. Ask city/county licensing and zoning offices about retail, home-occupation, mobile service, signage, occupancy and fire requirements for your intended address.</p>
+<p>4. Before buying used phones from the public, ask local licensing authorities or the relevant police business unit whether secondhand-dealer rules apply: seller identification, transaction records, reporting, holding periods and age restrictions. Record the actual answer; do not invent a universal holding period.</p>
+<p>5. Check state consumer-protection rules for estimates, repair authorization, warranties, returns, deposits and unclaimed devices. Do not adopt an automatic sell-it-after-30-days policy without verifying lawful procedure.</p>
+<p>6. Ask the state environmental agency and your recycler about business electronics and battery handling. Obtain shipping requirements before sending devices or batteries.</p>
+<p>7. Discuss appropriate coverage with an insurer, including customer property in your care, inventory theft, liability and data-related risks. General liability alone may not cover everything.</p>
+<p>8. Track renewal dates and recheck requirements before adding another path or location.</p>
+<p>YOUR STATE WORKSHEET: state/city/county | activity | agency | official link | contact/date | requirement or written response | fee | renewal | next action.</p>
+<p>Official starting point: <a href="https://www.sba.gov/counseling/launch-your-business/" target="_blank" rel="noopener">https://www.sba.gov/counseling/launch-your-business/</a></p>
+<div class="today"><b>Do This Today</b> Complete the worksheet for your location before taking customer devices or buying inventory from the public.
+</div><p class="note">Complete the assignment, then use Mark complete below.</p></template>
+<template id="t-4"><div class="kicker">Lesson 4 of 12</div><h2>4 · Independent Phone Resale</h2><p>
+1. Identify suppliers with verifiable business identities, invoices, clear condition definitions and written return/defect terms. Verify contact details independently. Begin with a small test order.</p>
+<p>2. For each device, record seller/source, purchase date and cost, model, storage, serial/IMEI, lock status, condition and test results. Protect seller and customer records.</p>
+<p>3. Check lost/stolen reporting using a service appropriate for commercial use. CTIA explains its GSMA-powered checker at <a href="https://www.ctia.org/about-ctia/programs/" target="_blank" rel="noopener">https://www.ctia.org/about-ctia/programs/</a> . Respect the tool’s current terms and usage limits.</p>
+<p>4. Treat a clean database result as one check, not proof of ownership, paid-off financing, permanent network eligibility or absence of future blacklisting. Obtain ownership representations and written supplier remedies for later status changes.</p>
+<p>5. Separately check carrier compatibility, carrier lock, financing concerns, activation/account locks and enterprise management enrollment. Ask the legitimate owner to remove accounts through official procedures. Do not buy a device you cannot verify or lawfully activate. Do not offer lock-bypass services.</p>
+<p>6. With appropriate permission, test display/touch, cameras, audio, microphones, charging, buttons, wireless functions, biometrics and battery condition using suitable diagnostics. Record which features were actually tested. Investigate defects instead of labeling everything fully tested.</p>
+<p>7. Apply a written grading standard with sample photos. Cosmetic grade, functional defects, battery condition and replacement-part history are separate disclosures. Do not imply manufacturer certification or refurbished status without substantiation.</p>
+<p>8. Remove former owner accounts through the legitimate process, use the manufacturer’s reset procedure and verify the device reaches a usable setup state without old account or management prompts. Never sell a phone containing another person’s data.</p>
+<p>9. Photograph the actual condition, list accurate specifications and compatibility, and provide clear shipping, return and warranty terms consistent with applicable law and marketplace rules.</p>
+<p>10. Match the inventory identifier to the order, package appropriately, retain shipment records and verify returned devices before restocking. Do not publish full device identifiers in public listings.</p>
+<div class="today"><b>Do This Today</b> Complete one purchase-to-listing checklist using a device you legitimately own or a small approved test purchase.
+</div><p class="note">Complete the assignment, then use Mark complete below.</p></template>
+<template id="t-5"><div class="kicker">Lesson 5 of 12</div><h2>5 · Phone Wholesaling</h2><p>
+1. Define your buyer first: repair shops, independent retailers or business purchasers. Obtain real specifications for model mix, storage, condition, lock status and acceptable defect rates.</p>
+<p>2. Request an itemized manifest before agreeing to a lot. Define grading, testing, title representations, account-lock standards, payment, shipping, inspection window, returns and remedies in writing.</p>
+<p>3. Independently verify the supplier and invoice details. Avoid irreversible payments to unverified sellers. A spreadsheet and attractive photos are not proof of available inventory.</p>
+<p>4. Inspect the lot using an agreed method, and verify individual devices before resale. A sample cannot establish that every unit is clean or functional.</p>
+<p>5. Calculate effective cost per sellable unit. Example: a hypothetical lot costs $3,000 plus $150 freight; 18 of 20 units are sellable. Effective cost is $3,150 ÷ 18 = $175 per sellable unit before testing, repairs, fees, overhead or taxes. Do not assume recovery from the other two units until it is supported.</p>
+<p>6. Match serial/IMEI records to inbound and outbound invoices. Separate pending inspection, sellable, repairable and rejected stock.</p>
+<p>7. For buyers, document the manifest, actual grades, exclusions, payment terms, inspection deadlines and claims procedure. Do not finance unfamiliar buyers beyond a limit you can afford.</p>
+<p>8. Track stock age and cash conversion. A projected margin on unsold phones does not pay current bills.</p>
+<div class="today"><b>Do This Today</b> Build a mock lot calculation with a defect scenario and a written supplier-question checklist.
+</div><p class="note">Complete the assignment, then use Mark complete below.</p></template>
+<template id="t-6"><div class="kicker">Lesson 6 of 12</div><h2>6 · Authorized Wireless Retail</h2><p>
+1. Decide whether you want an authorized retail store, independent prepaid distribution arrangement or business referral/reseller partnership. These are different models, not interchangeable permissions.</p>
+<p>2. Start at official carrier pages and verify any distributor relationship directly. Boost advertises retailer opportunities: <a href="https://www.boostmobile.com/retailer-opportunities" target="_blank" rel="noopener">https://www.boostmobile.com/retailer-opportunities</a> .</p>
+<p>3. Availability changes. T-Mobile’s authorized-retailer information currently states it is not accepting requests: <a href="https://investor.t-mobile.com/resources/investor-contacts" target="_blank" rel="noopener">https://investor.t-mobile.com/resources/investor-contacts</a> . Its separate business partner program is described at <a href="https://www.t-mobile.com/business/partner-recruitment" target="_blank" rel="noopener">https://www.t-mobile.com/business/partner-recruitment</a> . A business partnership is not permission to open a branded consumer store. Recheck before planning around a program.</p>
+<p>4. Request the current application criteria, required capital, approved territory/location, store standards, inventory obligations, training, systems and launch timetable.</p>
+<p>5. Obtain the compensation schedule. Identify payment timing, qualifying activations, possible reversals or chargebacks, performance conditions, promotional obligations and termination provisions. Do not budget advertised commissions as guaranteed retained income.</p>
+<p>6. Have the proposed agreement and financial commitments reviewed before signing or leasing a site. Confirm exclusivity and whether repairs, used-phone sales or competing products are permitted.</p>
+<p>7. Use brand names, signs and logos only within written authorization. Do not advertise as a carrier-authorized business while an application is pending.</p>
+<p>8. Train staff on the carrier’s account-verification, activation and privacy procedures. Never request credentials through an unsecured personal channel or bypass identity checks.</p>
+<p>9. Reconcile activations, paid commissions and reversals against the agreement. Maintain reserves for delayed or reversed amounts.</p>
+<div class="today"><b>Do This Today</b> Complete a program comparison: official source/date | model | eligibility | capital/location | fees | payment timing | reversals | restrictions | unanswered questions.
+</div><p class="note">Complete the assignment, then use Mark complete below.</p></template>
+<template id="t-7"><div class="kicker">Lesson 7 of 12</div><h2>7 · Repair-Only Service</h2><p>
+1. Choose a narrow initial service menu based on demonstrated skill. Obtain model-specific training, proper tools and practice on devices you own before accepting customer work. This text does not qualify a beginner to perform repairs.</p>
+<p>2. Research legitimate parts and training routes. Apple’s Independent Repair Provider program is one example for qualifying businesses: <a href="https://support.apple.com/irp-program" target="_blank" rel="noopener">https://support.apple.com/irp-program</a> . Acceptance, premises and technician requirements apply; do not claim Apple authorization merely because you use genuine parts.</p>
+<p>3. Create a controlled workspace with suitable ESD precautions, secure customer-device storage, labeled parts and model-specific safety procedures. Use trained procedures for lithium batteries; do not puncture, crush, heat or charge a suspect damaged battery.</p>
+<p>4. Use an intake form recording device model/identifier, accessories received, visible condition, customer-reported problem, pre-existing faults, photos with consent and agreed diagnostic scope.</p>
+<p>5. Explain estimated price, diagnostic charge if any, parts type, expected turnaround, possible complications and what happens if additional damage is found. Get authorization before starting or increasing the scope.</p>
+<p>6. Encourage the customer to back up data. Minimize access to personal content; use repair/maintenance modes where supported. Do not collect passwords unless genuinely necessary and covered by an appropriate secure process. Do not browse messages, photos or accounts unrelated to the authorized work.</p>
+<p>7. Perform only authorized work using model-specific instructions. Record the part used and tests performed. If the task exceeds your competence, stop and refer it rather than improvising.</p>
+<p>8. Run post-repair tests, record results, and explain any limitations such as uncertain water resistance. Do not promise restored manufacturer sealing without a validated basis.</p>
+<p>9. At collection, verify the customer, demonstrate function, issue an itemized receipt and provide written workmanship/parts warranty terms. Explain exclusions and remedies fairly and consistently with applicable law.</p>
+<p>10. Keep separate records of repairs returning for rework. Review supplier quality and technician process before expanding the menu.</p>
+<p>Warranty context: <a href="https://consumer.ftc.gov/consumer-alerts/2022/07/ftc-says-companies-warranty-restrictions-were-illegal" target="_blank" rel="noopener">https://consumer.ftc.gov/consumer-alerts/2022/07/ftc-says-companies-warranty-restrictions-were-illegal</a> . Independent repair does not automatically erase all warranty rights; damage caused by a repair is a separate question. Do not promise that every manufacturer claim will be honored.</p>
+<div class="today"><b>Do This Today</b> Draft a service menu and intake checklist, then identify the training needed before offering each service.
+</div><p class="note">Complete the assignment, then use Mark complete below.</p></template>
+<template id="t-8"><div class="kicker">Lesson 8 of 12</div><h2>8 · Pricing &amp; Break-Even</h2><p>
+For a sale: net sales revenue, excluding tax collected for remittance, minus device acquisition, inbound freight, testing/repair, outbound shipping, fees and an expected returns/warranty allowance = contribution before fixed overhead, owner profit and income taxes. If a price is tax-inclusive, separate the tax first using the applicable rules.</p>
+<p>HYPOTHETICAL PHONE EXAMPLE: sale $250; acquisition $150; inbound freight $5; preparation $12; outbound shipping $10; selling/payment fees $25; returns allowance $8. Contribution = $40, not $100. With $800 monthly fixed expenses, 20 such sales cover those expenses before additional owner-pay or tax needs. Model a lower resale price and more returns as well.</p>
+<p>HYPOTHETICAL REPAIR EXAMPLE: customer charge $99 before applicable tax; part $28; consumables $3; payment fee $3; direct labor allowance $25; rework allowance $5. Contribution = $35. At $700 monthly fixed overhead, 20 comparable repairs cover that overhead after the included labor allowance, before income tax. Actual fees, labor and demand must be quoted locally.</p>
+<p>For a mix of services, use the expected weighted contribution per completed sale/job. Do not add incompatible margins or count the same labor cost twice. For carrier retail, use retained commission after expected reversals and associated costs, not the advertised headline payment.</p>
+<p>WORKSHEET: offer | selling price | acquisition/parts | direct labor | freight | fees | expected claims allowance | contribution | monthly fixed costs | units/jobs to break even.</p>
+<div class="today"><b>Do This Today</b> Price one offer, calculate break-even and test a slow-sales scenario. Decline purchases or jobs whose realistic economics do not work.
+</div><p class="note">Complete the assignment, then use Mark complete below.</p></template>
+<template id="t-9"><div class="kicker">Lesson 9 of 12</div><h2>9 · Records, Safety &amp; Operations</h2><p>
+Keep customer devices separate from resale stock. Use job or order numbers, restricted staff access, retention/deletion procedures and secure backups for business records. Retain only information needed for lawful operations.</p>
+<p>Use a documented opening/closing inventory count, cash reconciliation, intake process, repair authorization, outgoing quality check and returns procedure. Track device identifiers privately to prevent mix-ups.</p>
+<p>For batteries and electronics, confirm a business-appropriate recycler and its acceptance rules. Do not place lithium batteries in ordinary trash or municipal recycling. Source: <a href="https://www.epa.gov/recycle/used-lithium-ion-batteries" target="_blank" rel="noopener">https://www.epa.gov/recycle/used-lithium-ion-batteries</a> .</p>
+<p>Battery shipping is a separate compliance task. Before mailing devices or batteries, check current carrier acceptance and PHMSA requirements for the exact item and condition. Damaged, defective or recalled batteries require special handling; do not place a swollen battery into an ordinary customer-return parcel. Guidance: <a href="https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/2024-12/Lithium-Battery-Guide-2024.pdf" target="_blank" rel="noopener">https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/2024-12/Lithium-Battery-Guide-2024.pdf</a> . Obtain qualified assistance rather than treating this paragraph as shipping training.</p>
+<p>DAILY SCORECARD: inquiries | quotes | completed sales/jobs | contribution | returns/rework | stock age | cash available | overdue customer follow-ups. Review weekly and adjust one process at a time.</p>
+<div class="today"><b>Do This Today</b> Write your device custody, privacy, returns and battery escalation procedures.
+</div><p class="note">Complete the assignment, then use Mark complete below.</p></template>
+<template id="t-10"><div class="kicker">Lesson 10 of 12</div><h2>10 · Find Your First Customers</h2><p>
+1. State your actual service area, hours, contact method and starting offer clearly.</p>
+<p>2. Build accurate listings using real photos or properly licensed assets. Do not imply carrier or manufacturer endorsement.</p>
+<p>3. For repairs, show permitted before/after examples without personal data. State whether a posted price includes parts, labor and applicable tax or is only an estimate.</p>
+<p>4. For resale, explain grading and the checks performed. For wholesale, provide verified inventory information to appropriate business buyers.</p>
+<p>5. Seek relevant local referral relationships, such as businesses with legitimate device needs. Agree on any referral terms transparently. Do not buy fake reviews or post customer information without permission.</p>
+<p>6. Record lead source, inquiries, completed jobs/sales, acquisition cost and contribution. A campaign is useful only if resulting contribution supports its cost.</p>
+<p>OUTREACH DRAFT: We help [CUSTOMER] with [SPECIFIC OFFER] in [AREA]. Our process includes [VERIFIABLE CHECKS]. Here are our written prices/estimate process and terms. Would you like details for a current need?</p>
+<div class="today"><b>Do This Today</b> Create one accurate offer page and identify ten suitable prospects or referral partners. Contact people respectfully and follow applicable marketing rules.
+</div><p class="note">Complete the assignment, then use Mark complete below.</p></template>
+<template id="t-11"><div class="kicker">Lesson 11 of 12</div><h2>11 · Your First 30 Days</h2><p>
+DAYS 1–7: choose one path; interview customers; compare competitors; complete state/local research; obtain insurance and cost quotes; set your pilot budget. Output: one-page business plan and requirements tracker.</p>
+<p>DAYS 8–14: verify suppliers or program eligibility; complete required training; build cost models and written policies. Carrier applicants should work through eligibility and agreement review rather than assuming a store can open in 30 days. Output: verified sourcing/application plan and go/no-go budget.</p>
+<p>DAYS 15–21: test the workflow with legitimately owned practice inventory or an appropriately trained, authorized pilot. Check device custody, records, diagnostics, grading, customer terms and claims handling. Output: documented pilot and corrections.</p>
+<p>DAYS 22–30: launch only if requirements and readiness checks are complete. Start with a controlled workload, track contribution and complaints, and review results before expanding. Output: first operating scorecard or a documented hold decision with remaining actions.</p>
+<div class="today"><b>Do This Today</b> Put dates and owners beside each task. A delayed launch is preferable to skipping unresolved requirements or training.
+</div><p class="note">Complete the assignment, then use Mark complete below.</p></template>
+<template id="t-12"><div class="kicker">Lesson 12 of 12</div><h2>12 · Workbook &amp; Launch Checklist</h2><p>
+A. BUSINESS PLAN: path | customer | problem | offer | selling channel | evidence of demand | competitive advantage | pilot budget | stop/expand criteria.</p>
+<p>B. YOUR STATE: state/locality | activity | agency and official link | written answer/date | fees/renewal | requirement complete? | next action.</p>
+<p>C. SUPPLIER/PROGRAM REVIEW: verified business | references | sample order | device/lot manifest | lock/title standards | grade definitions | defect remedies | payment/shipping terms | approval status.</p>
+<p>D. DEVICE INVENTORY: private device identifier | model/storage | source/cost | status checks/date | test results | grade/defects | preparation cost | listing/order | return/rework | disposition.</p>
+<p>E. REPAIR INTAKE: job number | customer/contact held securely | device and condition | issue | authorized scope | estimate/diagnostic charge | parts disclosure | consent | turnaround | added-work approval | tests | handover | warranty terms.</p>
+<p>F. ECONOMICS: use Section 8; retain quotes and assumptions. Track actual results against the forecast weekly.</p>
+<p>G. LAUNCH GATE: lawful setup checked; location allowed; insurance appropriate; supplier or carrier verified; needed training complete; device-status and data procedures tested; written customer terms ready; battery plan ready; pricing viable; customer channel ready; cash reserve available.</p>
+<p>FINAL ASSIGNMENT</p>
+<p>Submit your business plan, requirements tracker, pilot budget, one complete sample device or repair record, written customer policies and 30-day plan. Remove personal customer data from anything shared with the academy. For carrier retail, submit a researched application plan, not a claim of approval you do not have.</p>
+<p>SOURCES AND UPDATES</p>
+<p>Official links are included in the relevant sections. Sources checked November 9, 2026. Prices, program availability, agreements and legal requirements change; verify the current source before spending, applying or launching. This blueprint offers a national research workflow, not a completed legal determination for every state. No supplier, carrier, manufacturer or government endorsement is implied.</p><p class="note">Complete the assignment, then use Mark complete below.</p></template><script>
+(function(){
+var mods=[{"id":"overview","t":"t-overview","full":"Course Overview","short":"Overview"},{"id":"module-1","t":"t-1","full":"1 · Choose Your Path & Validate Demand","short":"1 · Choose Your Path & Validate Demand"},{"id":"module-2","t":"t-2","full":"2 · Startup Budget & Location","short":"2 · Startup Budget & Location"},{"id":"module-3","t":"t-3","full":"3 · Your State & Local Rules","short":"3 · Your State & Local Rules"},{"id":"module-4","t":"t-4","full":"4 · Independent Phone Resale","short":"4 · Independent Phone Resale"},{"id":"module-5","t":"t-5","full":"5 · Phone Wholesaling","short":"5 · Phone Wholesaling"},{"id":"module-6","t":"t-6","full":"6 · Authorized Wireless Retail","short":"6 · Authorized Wireless Retail"},{"id":"module-7","t":"t-7","full":"7 · Repair-Only Service","short":"7 · Repair-Only Service"},{"id":"module-8","t":"t-8","full":"8 · Pricing & Break-Even","short":"8 · Pricing & Break-Even"},{"id":"module-9","t":"t-9","full":"9 · Records, Safety & Operations","short":"9 · Records, Safety & Operations"},{"id":"module-10","t":"t-10","full":"10 · Find Your First Customers","short":"10 · Find Your First Customers"},{"id":"module-11","t":"t-11","full":"11 · Your First 30 Days","short":"11 · Your First 30 Days"},{"id":"module-12","t":"t-12","full":"12 · Workbook & Launch Checklist","short":"12 · Workbook & Launch Checklist"}];
+var KEY="bby-cell-phone-business-done", done={};
+try{done=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){done={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}}
+var rail=document.getElementById("rail"), lesson=document.getElementById("lesson");
+var cur=0;
+mods.forEach(function(m,i){
+var b=document.createElement("button"); b.type="button"; b.id="nav-"+m.id;
+b.innerHTML='<span class="dot" aria-hidden="true"></span><span><span class="full"></span><span class="short"></span></span>';
+b.querySelector(".full").textContent=m.full; b.querySelector(".short").textContent=m.short;
+b.addEventListener("click",function(){go(i,true)}); rail.appendChild(b);
+});
+function paint(){
+var n=0;
+mods.forEach(function(m,i){
+var b=document.getElementById("nav-"+m.id);
+b.classList.toggle("done",!!done[m.id]); b.querySelector(".dot").textContent=done[m.id]?"✓":"";
+b.setAttribute("aria-current",i===cur?"true":"false"); if(done[m.id])n++;
+});
+document.getElementById("barfill").style.width=(n/mods.length*100)+"%";
+document.getElementById("ptext").textContent=n+" of "+mods.length+" complete";
+var d=document.getElementById("done"), on=!!done[mods[cur].id];
+d.setAttribute("aria-pressed",on?"true":"false"); d.textContent=on?"✓ Completed":"Mark complete";
+document.getElementById("prev").hidden=cur===0;
+document.getElementById("next").hidden=cur===mods.length-1;
+}
+function go(i,scroll){
+cur=Math.max(0,Math.min(mods.length-1,i));
+lesson.innerHTML=""; lesson.appendChild(document.getElementById(mods[cur].t).content.cloneNode(true));
+if(location.hash!=="#"+mods[cur].id){try{history.replaceState(null,"","#"+mods[cur].id)}catch(e){location.hash=mods[cur].id}}
+try{localStorage.setItem(KEY+"-last",mods[cur].id)}catch(e){} paint(); if(scroll)window.scrollTo({top:0});
+}
+document.getElementById("prev").addEventListener("click",function(){go(cur-1,true)});
+document.getElementById("next").addEventListener("click",function(){go(cur+1,true)});
+document.getElementById("done").addEventListener("click",function(){
+var id=mods[cur].id; if(done[id])delete done[id]; else done[id]=true; save(); paint();
+});
+function fromHash(){var h=location.hash.slice(1); if(!h){try{h=localStorage.getItem(KEY+"-last")||"overview"}catch(e){h="overview"}} var i=mods.findIndex(function(m){return m.id===h}); go(i<0?0:i,false)}
+window.addEventListener("hashchange",fromHash); fromHash();
+})();
+</script>
+</body></html>
